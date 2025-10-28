@@ -4,9 +4,12 @@ This file tracks all development sessions for continuity between Claude sessions
 
 ## Active Development
 
-**Current Phase**: Phase 5 - Browser Automation Complete, Voice Recognition Blocked
-**Last Session**: 2025-10-28 16:52 EDT (Full Pipeline Implementation)
-**Next Priority**: Fix voice recognition (replace Web Speech API with offline STT like Vosk)
+**Current Phase**: Phase 5 - Architecture Validated, Real Requirements Discovered
+**Last Session**: 2025-10-28 17:10 EDT (Full Pipeline + Requirements Discovery)
+**Next Priority**:
+1. **Document user workflows** (Intercom interactions, common commands)
+2. **Implement smart element finding** (fuzzy text matching OR AI vision)
+3. **Fix voice recognition** (replace Web Speech API with Vosk)
 
 **Status Summary**:
 - ✅ Desktop app with mic access working
@@ -14,6 +17,7 @@ This file tracks all development sessions for continuity between Claude sessions
 - ✅ Native messaging bridge functioning
 - ✅ **Full command pipeline tested and working** (button click confirmed)
 - ❌ Voice recognition blocked by network errors (Web Speech API issue)
+- ⚠️ **Element finder too simple** - needs semantic understanding for real use case
 
 ---
 
@@ -63,17 +67,29 @@ Built complete hybrid voice-controlled browser automation system from scratch. E
 - Command routing: ✅ (all 3 consoles show clean message flow)
 - DOM manipulation: ✅ (clicked search button on Engadget.com)
 
-**Next Steps** (Priority Order):
-1. **Replace Web Speech API** with offline STT (Vosk recommended):
-   - `npm install vosk` in /app
-   - Download English model (~50MB)
-   - Update renderer.js to use Vosk instead of Web Speech API
-2. **Test voice → click pipeline** end-to-end
-3. **Implement natural language element matching** (Fuse.js for "click on Mary Sue")
-4. **Add text-to-speech feedback** (chrome.tts API)
-5. **Build macro system** for common responses
+**Real Use Case Discovered**:
+User needs: "Go to Intercom tab, click on customer's name, read me the message"
 
-**See Full Details**: `/handoff/10-28-2025_16-52-40_EDT.md`
+This requires:
+- Tab management (chrome.tabs API)
+- **Smart element finding** (not just querySelector - needs fuzzy matching OR AI vision)
+- Content extraction + TTS
+- Command chaining (3+ actions in sequence)
+
+**Next Steps** (REVISED Priority Order):
+1. **Document user workflows** (5-10 common commands, tools used)
+2. **Implement smart element finder**:
+   - Option A: Fuse.js fuzzy text matching (30-40 mins)
+   - Option B: GPT-4V/Claude Vision AI (1-2 hours)
+   - Recommendation: Start with A, add B if needed
+3. **Replace Web Speech API** with Vosk (20-30 mins)
+4. **Add tab management** (20 mins)
+5. **Add content extraction + TTS** (20 mins)
+6. **Implement command chaining** (30 mins)
+
+**See Full Details**:
+- `/handoff/10-28-2025_16-52-40_EDT.md` (Architecture implementation)
+- `/handoff/10-28-2025_17-10-00_EDT.md` (Requirements discovery & analysis)
 
 ---
 
