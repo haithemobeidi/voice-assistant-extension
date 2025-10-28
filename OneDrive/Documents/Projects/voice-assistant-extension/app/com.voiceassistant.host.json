@@ -1,0 +1,9 @@
+{
+  "name": "com.voiceassistant.host",
+  "description": "Voice Assistant Native Messaging Host",
+  "path": "C:\\Users\\haith\\OneDrive\\Documents\\Projects\\voice-assistant-extension\\app\\native-host.bat",
+  "type": "stdio",
+  "allowed_origins": [
+    "chrome-extension://lbcnhpobdoecbgaackpmkkhbidjefmpp/"
+  ]
+}

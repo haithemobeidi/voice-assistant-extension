@@ -1,0 +1,16 @@
+{
+  "name": "voice-assistant-app",
+  "version": "0.1.0",
+  "description": "Desktop app for voice-controlled browser automation",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev"
+  },
+  "keywords": ["voice", "browser", "automation", "accessibility"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^28.0.0"
+  }
+}

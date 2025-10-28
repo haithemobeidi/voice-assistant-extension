@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Voice Assistant</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      padding: 20px;
+      margin: 0;
+      background: #1e1e1e;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 30px;
+    }
+
+    #status {
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: #888;
+    }
+
+    #status.listening {
+      color: #4CAF50;
+    }
+
+    #status.error {
+      color: #f44336;
+    }
+
+    button {
+      background: #2196F3;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background: #1976D2;
+    }
+
+    button:disabled {
+      background: #666;
+      cursor: not-allowed;
+    }
+
+    #indicator {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: #333 !important;
+      margin-bottom: 30px;
+      transition: none !important;
+    }
+
+    #indicator.active {
+      transform: scale(1.1);
+      box-shadow: 0 0 20px #4CAF50;
+    }
+  </style>
+</head>
+<body>
+  <h1>Voice Assistant - Mic Test</h1>
+
+  <div id="indicator"></div>
+
+  <div id="volumeLevel" style="font-size: 32px; font-weight: bold; margin-bottom: 20px; color: #4CAF50;">0</div>
+
+  <div id="status">Click button to test microphone</div>
+
+  <button id="startBtn">Start Listening</button>
+  <button id="stopBtn" disabled style="margin-left: 10px;">Stop Listening</button>
+
+  <div style="margin-top: 30px; padding-top: 30px; border-top: 1px solid #444;">
+    <h2 style="font-size: 16px; margin-bottom: 15px;">Manual Test (while we fix voice):</h2>
+    <button id="testClickBtn" style="background: #4CAF50;">Send Click Command to Chrome</button>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

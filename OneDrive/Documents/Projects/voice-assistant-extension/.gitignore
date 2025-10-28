@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+package-lock.json
+
+# Runtime logs
+logs/
+*.log
+
+# Build outputs
+dist/
+build/
+*.zip
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Electron specific
+out/
+
+# Windows
+$RECYCLE.BIN/
+
+# Environment
+.env
+.env.local
+
+# Temporary files
+*.tmp
+pending-command.json
