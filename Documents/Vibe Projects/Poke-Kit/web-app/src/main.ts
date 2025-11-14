@@ -1,12 +1,8 @@
 import './style.css'
-
-// Router state
-let currentPage = 'home'
+import { initCalculator } from './calculator'
 
 // Navigation handler
 function navigateTo(pageId: string) {
-  currentPage = pageId
-
   // Hide all pages
   document.querySelectorAll('.page').forEach(page => {
     page.classList.remove('active')
@@ -223,3 +219,6 @@ style.textContent = `
   }
 `
 document.head.appendChild(style)
+
+// Initialize calculator after DOM is ready
+initCalculator()

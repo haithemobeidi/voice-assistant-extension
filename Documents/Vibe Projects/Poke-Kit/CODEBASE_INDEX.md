@@ -1,7 +1,7 @@
 # Pokémon Tool Kit - Codebase Index
 
-**Last Updated:** 2025-11-13
-**Project Status:** Active Development - Phase 1 (Web App Foundation)
+**Last Updated:** 2025-11-14
+**Project Status:** Active Development - Phase 2 (Type Calculator) - Nearly Complete
 
 ---
 
@@ -42,12 +42,16 @@ Poke-Kit/
 ### Source Code (`/web-app/src/`)
 
 #### Main Application
-- **`main.ts`** - App entry point, navigation logic, app shell HTML
+- **`main.ts`** - App entry point, navigation logic, app shell HTML, calculator initialization
 - **`style.css`** - Global Tailwind imports and custom component classes
+- **`calculator.ts`** - Type Calculator UI logic, event handlers, results display
 
 #### Data Layer (`/web-app/src/data/`)
-- **`typeChart.ts`** - Type effectiveness data (copied from types.js, needs TS conversion)
-- **`typeCombos.ts`** - Type combination rankings (copied from combos.js, needs TS conversion)
+- **`typeChart.ts`** - Type effectiveness data (fully converted to TypeScript with interfaces)
+- **`typeCombos.ts`** - Type combination rankings (fully converted to TypeScript with interfaces)
+
+#### Type Definitions (`/web-app/src/types/`)
+- **`pokemon.ts`** - TypeScript interfaces for Pokémon type system (PokemonType, TypeMultiplier, DefensiveProfile, etc.)
 
 #### Components (`/web-app/src/components/`)
 *Pending - Will contain reusable UI components*
@@ -57,9 +61,6 @@ Poke-Kit/
 
 #### Utils (`/web-app/src/utils/`)
 *Pending - Will contain helper functions*
-
-#### Types (`/web-app/src/types/`)
-*Pending - Will contain TypeScript interfaces*
 
 ### Build Output
 - **`dist/`** - Production build output (gitignored)
@@ -99,10 +100,16 @@ Poke-Kit/
 7. Session protocols and handoff infrastructure established
 8. User confirmed web app works correctly
 
-### 🔄 Phase 2 Ready to Start
-- Convert type data files to TypeScript
-- Build Type Calculator feature
-- Implement type combo recommendations
+### ✅ Phase 2 Type Calculator (2025-11-14) - Nearly Complete
+1. Created comprehensive TypeScript type system (`types/pokemon.ts`)
+2. Converted `typeChart.ts` to TypeScript with full type safety
+3. Converted `typeCombos.ts` to TypeScript with Wolfe Glick rankings
+4. Built Type Calculator UI with dropdown selectors
+5. Implemented defensive matchup calculation logic
+6. Created beautiful results display with type pills, tier rankings, and stats
+7. User tested - works correctly, UX improvement suggested (dropdowns → buttons)
+
+**Next Step:** Convert dropdown selectors to button-based UI for better UX
 
 ### ⏳ Future Phases
 - Phase 3: Trading Hub
@@ -174,11 +181,9 @@ npm run type-check  # TypeScript compilation check
 - None currently
 
 ### Next Priority Tasks
-1. Convert `typeChart.ts` and `typeCombos.ts` to proper TypeScript
-2. Create TypeScript interfaces for type data
-3. Build Type Calculator UI with dropdowns
-4. Implement defensive matchup calculation logic
-5. Display results with type pills and multiplier cards
+1. **UX Enhancement:** Convert Type Calculator dropdowns to button-based selector UI
+2. **Phase 3:** Begin Trading Hub feature
+3. **Phase 4:** Team Builder and PWA features
 
 ### Technical Debt
 - None yet - project just started

@@ -1,17 +1,39 @@
-// types.js
-// Core type data + matchup math, modeled similarly to pkmn.help style logic.
+// typeChart.ts
+// Core type data + matchup math for Pokémon type effectiveness calculations
+// Data matches the standard modern type chart (Gen 9, no generational quirks)
 
-// Canonical type list (Gen 9)
-const TYPE_NAMES = [
+import type {
+  PokemonType,
+  TypeMultiplier,
+  TypeEffectivenessChart,
+  DefensiveMatchup,
+  DefensiveProfile,
+  OffensiveProfile
+} from '../types/pokemon';
+
+/**
+ * Canonical list of all 18 Pokémon types (Gen 9)
+ * Order matches standard Pokédex type ordering
+ */
+export const TYPE_NAMES: readonly PokemonType[] = [
   "Normal", "Fire", "Water", "Electric", "Grass", "Ice",
   "Fighting", "Poison", "Ground", "Flying", "Psychic",
   "Bug", "Rock", "Ghost", "Dragon", "Dark", "Steel", "Fairy"
-];
+] as const;
 
-// Type effectiveness chart: attacker -> defender -> multiplier.
-// Only entries that differ from 1 are stored; everything else defaults to 1.
-// Data matches the standard modern type chart (no weird generational quirks).
-const TYPE_CHART = {
+/**
+ * Type effectiveness chart: attacker → defender → multiplier
+ * Only stores non-neutral (≠ 1) matchups for efficiency
+ * All omitted matchups default to 1 (neutral damage)
+ *
+ * Key:
+ * - 0: Immune (no effect)
+ * - 0.5: Resisted (not very effective)
+ * - 2: Super effective
+ *
+ * Note: Dual-type defenders multiply matchups (e.g., 0.5 × 0.5 = 0.25, 2 × 2 = 4)
+ */
+export const TYPE_CHART: TypeEffectivenessChart = {
   Normal:  { Rock: 0.5, Ghost: 0, Steel: 0.5 },
   Fire:    { Grass: 2, Ice: 2, Bug: 2, Steel: 2, Fire: 0.5, Water: 0.5, Rock: 0.5, Dragon: 0.5 },
   Water:   { Fire: 2, Ground: 2, Rock: 2, Water: 0.5, Grass: 0.5, Dragon: 0.5 },
@@ -32,57 +54,124 @@ const TYPE_CHART = {
   Fairy:   { Fighting: 2, Dragon: 2, Dark: 2, Fire: 0.5, Poison: 0.5, Steel: 0.5 }
 };
 
-// Get effectiveness of an attacking type into a single defending type.
-function getSingleTypeMultiplier(attacker, defender) {
+/**
+ * Get type effectiveness multiplier when an attacking type hits a single defending type
+ *
+ * @param attacker - The attacking type
+ * @param defender - The defending type
+ * @returns Damage multiplier (0, 0.5, 1, or 2)
+ *
+ * @example
+ * getSingleTypeMultiplier("Fire", "Grass") // → 2 (super effective)
+ * getSingleTypeMultiplier("Water", "Fire") // → 2 (super effective)
+ * getSingleTypeMultiplier("Normal", "Ghost") // → 0 (immune)
+ * getSingleTypeMultiplier("Fire", "Water") // → 0.5 (resisted)
+ */
+export function getSingleTypeMultiplier(
+  attacker: PokemonType,
+  defender: PokemonType
+): TypeMultiplier {
   const row = TYPE_CHART[attacker];
-  if (!row) return 1;
-  return row[defender] ?? 1;
+  if (!row) return 1; // No special matchups = neutral
+  return (row[defender] ?? 1) as TypeMultiplier; // Default to neutral if not in chart
 }
 
-// Get effectiveness into a dual-type defender.
-function getDualTypeMultiplier(attacker, def1, def2) {
+/**
+ * Get type effectiveness multiplier when an attacking type hits a dual-type defender
+ * Multiplies the matchups against both defending types
+ *
+ * @param attacker - The attacking type
+ * @param def1 - Primary defending type
+ * @param def2 - Secondary defending type (optional)
+ * @returns Combined damage multiplier (0, 0.25, 0.5, 1, 2, or 4)
+ *
+ * @example
+ * getDualTypeMultiplier("Ground", "Fire", "Steel") // → 4 (2 × 2 = 4x weakness)
+ * getDualTypeMultiplier("Fire", "Grass", "Steel") // → 1 (2 × 0.5 = neutral)
+ * getDualTypeMultiplier("Fighting", "Normal", "Ghost") // → 0 (2 × 0 = immune)
+ */
+export function getDualTypeMultiplier(
+  attacker: PokemonType,
+  def1: PokemonType,
+  def2?: PokemonType | null
+): TypeMultiplier {
   const m1 = getSingleTypeMultiplier(attacker, def1);
   const m2 = def2 ? getSingleTypeMultiplier(attacker, def2) : 1;
-  return m1 * m2;
+  return (m1 * m2) as TypeMultiplier;
 }
 
-// Compute defensive profile of a dual-type: for each attacking type,
-// what multiplier do you take? Returns an array of { attacker, mult }.
-function getDefensiveProfile(type1, type2 = null) {
+/**
+ * Compute complete defensive profile for a type combination
+ * Shows how the type(s) fare defensively against all 18 attacking types
+ *
+ * @param type1 - Primary type
+ * @param type2 - Secondary type (optional)
+ * @returns Array of defensive matchups for each attacking type
+ *
+ * @example
+ * getDefensiveProfile("Steel", "Fairy")
+ * // Returns matchups showing immunities to Dragon/Poison, many resistances
+ */
+export function getDefensiveProfile(
+  type1: PokemonType,
+  type2?: PokemonType | null
+): DefensiveMatchup[] {
   return TYPE_NAMES.map(attacker => ({
     attacker,
     mult: getDualTypeMultiplier(attacker, type1, type2)
   }));
 }
 
-// Simple defensive score:
-//  - 4x weakness: -2
-//  - 2x weakness: -1
-//  - 0.5x resist: +1
-//  - 0.25x (from 0.5 * 0.5): +2
-//  - immunity (0x): +2
-function scoreDefense(profile) {
+/**
+ * Calculate defensive score for a type combination
+ * Scoring system:
+ * - 4x weakness: -2 points
+ * - 2x weakness: -1 point
+ * - 0.5x resistance: +1 point
+ * - 0.25x double resistance: +2 points
+ * - Immunity (0x): +2 points
+ *
+ * Higher scores = better defensive typing
+ *
+ * @param profile - Array of defensive matchups from getDefensiveProfile()
+ * @returns Defensive score and breakdown of weaknesses/resistances/immunities
+ *
+ * @example
+ * const profile = getDefensiveProfile("Steel", "Fairy");
+ * const score = scoreDefense(profile);
+ * // score = { score: 18, weak: 2, resist: 9, immune: 2 }
+ * // Steel/Fairy has incredible defensive typing (S-tier)
+ */
+export function scoreDefense(profile: DefensiveMatchup[]): {
+  score: number;
+  weak: number;
+  resist: number;
+  immune: number;
+} {
   let score = 0;
   let weak = 0, resist = 0, immune = 0;
 
   for (const { mult } of profile) {
     if (mult === 0) {
+      // Immunity
       score += 2;
       immune++;
     } else if (mult > 1) {
+      // Weakness
       if (mult >= 4) {
-        score -= 2;
+        score -= 2; // 4x weakness
         weak++;
       } else if (mult >= 2) {
-        score -= 1;
+        score -= 1; // 2x weakness
         weak++;
       }
     } else if (mult < 1) {
+      // Resistance
       if (mult <= 0.25) {
-        score += 2;
+        score += 2; // 0.25x double resistance
         resist++;
       } else if (mult <= 0.5) {
-        score += 1;
+        score += 1; // 0.5x resistance
         resist++;
       }
     }
@@ -91,22 +180,40 @@ function scoreDefense(profile) {
   return { score, weak, resist, immune };
 }
 
-// Offensive coverage score:
-// For a dual-type attacker, for each single-type defender, use the BETTER
-// of the two STAB types. Then:
-//   - sum(bestMultiplier) over all defenders
-// This rewards hitting more types super-effectively and not being walled.
-function scoreOffense(type1, type2 = null) {
+/**
+ * Calculate offensive coverage score for a type combination
+ * For dual-type attackers, uses the BETTER of the two STAB types against each defender
+ *
+ * Scoring:
+ * - Sum of best multipliers against all 18 types
+ * - Higher score = better offensive coverage
+ * - Perfect neutral coverage = 18 points
+ * - More super-effective hits = higher score
+ *
+ * @param type1 - Primary attacking type
+ * @param type2 - Secondary attacking type (optional)
+ * @returns Offensive score and breakdown of coverage statistics
+ *
+ * @example
+ * scoreOffense("Ground", "Ice")
+ * // Returns high score - Ground hits Electric/Fire/Poison/Rock/Steel,
+ * // Ice hits Grass/Ground/Flying/Dragon, excellent coverage together
+ */
+export function scoreOffense(
+  type1: PokemonType,
+  type2?: PokemonType | null
+): OffensiveProfile {
   let total = 0;
   let counts = { super: 0, neutral: 0, resisted: 0, immune: 0 };
 
   for (const def of TYPE_NAMES) {
     const m1 = getSingleTypeMultiplier(type1, def);
     const m2 = type2 ? getSingleTypeMultiplier(type2, def) : 1;
-    const best = Math.max(m1, m2);
+    const best = Math.max(m1, m2); // Use better STAB coverage
 
     total += best;
 
+    // Count coverage categories
     if (best === 0) counts.immune++;
     else if (best > 1) counts.super++;
     else if (best < 1) counts.resisted++;
@@ -114,4 +221,30 @@ function scoreOffense(type1, type2 = null) {
   }
 
   return { score: total, ...counts };
+}
+
+/**
+ * Get complete defensive analysis for a type combination
+ * Combines matchup data with defensive scoring
+ *
+ * @param type1 - Primary type
+ * @param type2 - Secondary type (optional)
+ * @returns Full defensive profile with matchups and score breakdown
+ */
+export function getFullDefensiveProfile(
+  type1: PokemonType,
+  type2?: PokemonType | null
+): DefensiveProfile {
+  const matchups = getDefensiveProfile(type1, type2);
+  const scoreData = scoreDefense(matchups);
+
+  return {
+    matchups,
+    score: {
+      total: scoreData.score,
+      weak: scoreData.weak,
+      resist: scoreData.resist,
+      immune: scoreData.immune
+    }
+  };
 }
