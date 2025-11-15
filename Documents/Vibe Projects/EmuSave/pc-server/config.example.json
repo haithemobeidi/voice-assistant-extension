@@ -1,0 +1,7 @@
+{
+  "saveFolder": "/path/to/your/emulator/saves",
+  "backupFolder": "./backups",
+  "maxBackups": 5,
+  "port": 5050,
+  "host": "0.0.0.0"
+}

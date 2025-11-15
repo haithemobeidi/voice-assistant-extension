@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EmuSave Android App Mockup</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .phone-mockup {
+      background: #1a1a1a;
+      border-radius: 40px;
+      padding: 14px;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+      max-width: 380px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .phone-notch {
+      position: absolute;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 140px;
+      height: 28px;
+      background: #1a1a1a;
+      border-radius: 0 0 20px 20px;
+      z-index: 10;
+    }
+
+    .phone-screen {
+      background: #0f0f0f;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    }
+
+    .status-bar {
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), transparent);
+      height: 44px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .app-header {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      padding: 20px 24px;
+      color: white;
+    }
+
+    .app-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .app-subtitle {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .app-content {
+      background: #0f0f0f;
+      min-height: 600px;
+      padding: 24px;
+    }
+
+    .input-group {
+      margin-bottom: 24px;
+    }
+
+    .input-label {
+      color: #9ca3af;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      gap: 8px;
+    }
+
+    .input-field {
+      flex: 1;
+      background: #1a1a2e;
+      border: 1px solid #2a2a3e;
+      border-radius: 12px;
+      padding: 14px 16px;
+      color: #e5e7eb;
+      font-size: 15px;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .input-field:focus {
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .input-field.success {
+      border-color: #10b981;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 12px;
+      padding: 14px 20px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-transform: none;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-secondary {
+      background: #1a1a2e;
+      color: #e5e7eb;
+      border: 1px solid #2a2a3e;
+    }
+
+    .btn-icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    .folder-display {
+      background: #1a1a2e;
+      border: 1px solid #2a2a3e;
+      border-radius: 12px;
+      padding: 14px 16px;
+      color: #9ca3af;
+      font-size: 13px;
+      font-family: 'Courier New', monospace;
+      margin-bottom: 24px;
+      word-break: break-all;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+    }
+
+    .folder-display.set {
+      color: #10b981;
+      border-color: #10b98133;
+    }
+
+    .sync-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .sync-btn {
+      padding: 20px;
+      font-size: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sync-btn.download {
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+    }
+
+    .sync-btn.upload {
+      background: linear-gradient(135deg, #10b981, #059669);
+    }
+
+    .status-card {
+      background: #1a1a2e;
+      border: 1px solid #2a2a3e;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    .status-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 10px #10b981;
+      animation: pulse 2s infinite;
+    }
+
+    .status-dot.offline {
+      background: #ef4444;
+      box-shadow: 0 0 10px #ef4444;
+      animation: none;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .status-title {
+      color: #e5e7eb;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .status-text {
+      color: #9ca3af;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .backup-section {
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid #2a2a3e;
+    }
+
+    .section-title {
+      color: #e5e7eb;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .backup-list {
+      background: #1a1a2e;
+      border: 1px solid #2a2a3e;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .backup-item {
+      padding: 12px 16px;
+      border-bottom: 1px solid #2a2a3e;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .backup-item:last-child {
+      border-bottom: none;
+    }
+
+    .backup-info {
+      flex: 1;
+    }
+
+    .backup-name {
+      color: #e5e7eb;
+      font-size: 13px;
+      font-family: 'Courier New', monospace;
+      margin-bottom: 2px;
+    }
+
+    .backup-time {
+      color: #6b7280;
+      font-size: 11px;
+    }
+
+    .backup-restore {
+      background: #667eea;
+      border: none;
+      border-radius: 8px;
+      padding: 6px 12px;
+      color: white;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .info-panel {
+      background: white;
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .info-panel h1 {
+      font-size: 32px;
+      color: #1a1a1a;
+      margin-bottom: 8px;
+    }
+
+    .info-panel h2 {
+      font-size: 20px;
+      color: #667eea;
+      margin-top: 28px;
+      margin-bottom: 12px;
+    }
+
+    .info-panel p {
+      color: #4b5563;
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+
+    .info-panel ul {
+      color: #4b5563;
+      line-height: 1.8;
+      margin-left: 20px;
+      margin-bottom: 16px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .feature-card {
+      background: #f9fafb;
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .feature-icon {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .feature-title {
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+
+    .feature-desc {
+      font-size: 13px;
+      color: #6b7280;
+    }
+
+    .flow-steps {
+      margin-top: 20px;
+    }
+
+    .flow-step {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+      align-items: start;
+    }
+
+    .step-number {
+      background: #667eea;
+      color: white;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .step-content {
+      flex: 1;
+      padding-top: 4px;
+    }
+
+    .step-title {
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 2px;
+      font-size: 14px;
+    }
+
+    .step-desc {
+      color: #6b7280;
+      font-size: 13px;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1a1a1a;
+      color: white;
+      padding: 16px 24px;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 1000;
+      max-width: 90%;
+    }
+
+    .toast.show {
+      opacity: 1;
+    }
+
+    .toast.success {
+      background: #10b981;
+    }
+
+    .toast.error {
+      background: #ef4444;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Phone Mockup -->
+    <div class="phone-mockup">
+      <div class="phone-notch"></div>
+      <div class="phone-screen">
+        <!-- Status Bar -->
+        <div class="status-bar">
+          <span>9:41</span>
+          <span>📶 5G • 🔋 85%</span>
+        </div>
+
+        <!-- App Header -->
+        <div class="app-header">
+          <div class="app-title">EmuSave</div>
+          <div class="app-subtitle">Emulator Save Sync</div>
+        </div>
+
+        <!-- App Content -->
+        <div class="app-content">
+          <!-- PC Server Input -->
+          <div class="input-group">
+            <div class="input-label">PC Server Address</div>
+            <div class="input-wrapper">
+              <input
+                type="text"
+                class="input-field"
+                id="serverIp"
+                placeholder="192.168.1.10:5050"
+                value="192.168.1.10:5050"
+              >
+            </div>
+          </div>
+
+          <!-- Save Folder Display -->
+          <div class="input-group">
+            <div class="input-label">Save Folder</div>
+            <div class="folder-display set" id="folderDisplay">
+              /storage/emulated/0/Citra/sdmc
+            </div>
+            <button class="btn btn-secondary" onclick="chooseFolder()">
+              <span>📁</span>
+              Change Folder
+            </button>
+          </div>
+
+          <!-- Connection Status -->
+          <div class="status-card">
+            <div class="status-header">
+              <div class="status-dot" id="statusDot"></div>
+              <div class="status-title" id="statusTitle">Connected to PC</div>
+            </div>
+            <div class="status-text" id="statusText">
+              Ready to sync • Last sync: 2 minutes ago
+            </div>
+          </div>
+
+          <!-- Sync Buttons -->
+          <div class="sync-buttons">
+            <button class="btn sync-btn download" onclick="downloadFromPC()">
+              <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
+              </svg>
+              Download from PC
+            </button>
+            <button class="btn sync-btn upload" onclick="uploadToPC()">
+              <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+              </svg>
+              Upload to PC
+            </button>
+          </div>
+
+          <!-- Backup Section -->
+          <div class="backup-section">
+            <div class="section-title">Recent Backups</div>
+            <div class="backup-list">
+              <div class="backup-item">
+                <div class="backup-info">
+                  <div class="backup-name">backup_2025-11-14_18-30.zip</div>
+                  <div class="backup-time">2 minutes ago • 12.3 MB</div>
+                </div>
+                <button class="backup-restore" onclick="restoreBackup(0)">Restore</button>
+              </div>
+              <div class="backup-item">
+                <div class="backup-info">
+                  <div class="backup-name">backup_2025-11-14_15-22.zip</div>
+                  <div class="backup-time">3 hours ago • 12.1 MB</div>
+                </div>
+                <button class="backup-restore" onclick="restoreBackup(1)">Restore</button>
+              </div>
+              <div class="backup-item">
+                <div class="backup-info">
+                  <div class="backup-name">backup_2025-11-13_21-45.zip</div>
+                  <div class="backup-time">Yesterday • 11.8 MB</div>
+                </div>
+                <button class="backup-restore" onclick="restoreBackup(2)">Restore</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Info Panel -->
+    <div class="info-panel">
+      <h1>📱 EmuSave Android App</h1>
+      <p><strong>Phase 1 MVP</strong> - Simple, functional, reliable</p>
+
+      <h2>How It Works</h2>
+      <div class="flow-steps">
+        <div class="flow-step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <div class="step-title">Enter PC Address</div>
+            <div class="step-desc">Type your PC's IP address (shown in PC app)</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <div class="step-title">Choose Save Folder</div>
+            <div class="step-desc">Pick where your emulator stores saves</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <div class="step-title">Sync with One Tap</div>
+            <div class="step-desc">Download from PC or upload to PC</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <div class="step-title">Play!</div>
+            <div class="step-desc">Continue your game exactly where you left off</div>
+          </div>
+        </div>
+      </div>
+
+      <h2>Key Features</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🔄</div>
+          <div class="feature-title">Bidirectional Sync</div>
+          <div class="feature-desc">Download from PC or upload to PC</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💾</div>
+          <div class="feature-title">Auto Backups</div>
+          <div class="feature-desc">Backup created before every sync</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <div class="feature-title">Fast Transfer</div>
+          <div class="feature-desc">Sync completes in seconds on LAN</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎮</div>
+          <div class="feature-title">Any Emulator</div>
+          <div class="feature-desc">Works with Citra, RetroArch, PPSSPP, etc.</div>
+        </div>
+      </div>
+
+      <h2>What Happens During Sync?</h2>
+      <p><strong>Download from PC:</strong></p>
+      <ul>
+        <li>Backup created on Android</li>
+        <li>PC zips its save folder</li>
+        <li>Zip downloaded to Android</li>
+        <li>Extracted to your save folder</li>
+        <li>✅ You now have PC's latest saves!</li>
+      </ul>
+
+      <p><strong>Upload to PC:</strong></p>
+      <ul>
+        <li>Backup created on PC</li>
+        <li>Android zips its save folder</li>
+        <li>Zip uploaded to PC</li>
+        <li>Extracted on PC</li>
+        <li>✅ PC now has your latest saves!</li>
+      </ul>
+
+      <h2>Safety First</h2>
+      <p>
+        <strong>Automatic backups</strong> are created before every sync operation.
+        If anything goes wrong, you can restore from a backup with one tap.
+        The app keeps your last 5 backups automatically.
+      </p>
+
+      <p style="margin-top: 20px; padding: 16px; background: #fef3c7; border-left: 4px solid #f59e0b; border-radius: 8px; color: #92400e;">
+        <strong>⚠️ Phase 1 MVP</strong><br>
+        This is the simplified first version. Auto-sync, QR pairing, and
+        remote access will come in Phase 2!
+      </p>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    function showToast(message, type = 'success') {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.className = `toast ${type}`;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    function chooseFolder() {
+      showToast('Folder picker would open here', 'success');
+      setTimeout(() => {
+        document.getElementById('folderDisplay').textContent = '/storage/emulated/0/RetroArch/saves';
+      }, 1000);
+    }
+
+    function downloadFromPC() {
+      const statusDot = document.getElementById('statusDot');
+      const statusTitle = document.getElementById('statusTitle');
+      const statusText = document.getElementById('statusText');
+
+      statusTitle.textContent = 'Downloading...';
+      statusText.textContent = 'Creating backup, downloading from PC...';
+      showToast('⬇️ Downloading saves from PC...', 'success');
+
+      setTimeout(() => {
+        statusTitle.textContent = 'Connected to PC';
+        statusText.textContent = 'Ready to sync • Last sync: Just now';
+        showToast('✅ Download complete! Saves updated.', 'success');
+      }, 2500);
+    }
+
+    function uploadToPC() {
+      const statusDot = document.getElementById('statusDot');
+      const statusTitle = document.getElementById('statusTitle');
+      const statusText = document.getElementById('statusText');
+
+      statusTitle.textContent = 'Uploading...';
+      statusText.textContent = 'Creating backup, uploading to PC...';
+      showToast('⬆️ Uploading saves to PC...', 'success');
+
+      setTimeout(() => {
+        statusTitle.textContent = 'Connected to PC';
+        statusText.textContent = 'Ready to sync • Last sync: Just now';
+        showToast('✅ Upload complete! PC saves updated.', 'success');
+      }, 2500);
+    }
+
+    function restoreBackup(index) {
+      const backupNames = [
+        'backup_2025-11-14_18-30.zip',
+        'backup_2025-11-14_15-22.zip',
+        'backup_2025-11-13_21-45.zip'
+      ];
+      showToast(`🔄 Restoring from ${backupNames[index]}...`, 'success');
+      setTimeout(() => {
+        showToast('✅ Backup restored successfully!', 'success');
+      }, 2000);
+    }
+  </script>
+</body>
+</html>
