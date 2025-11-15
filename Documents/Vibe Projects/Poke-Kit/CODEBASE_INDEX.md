@@ -1,7 +1,7 @@
 # Pokémon Tool Kit - Codebase Index
 
-**Last Updated:** 2025-11-14
-**Project Status:** Active Development - Phase 2 (Type Calculator) - COMPLETED
+**Last Updated:** 2025-11-15
+**Project Status:** Active Development - Phase 3 (Team Builder & Pokédex) - Pokédex COMPLETED
 
 ---
 
@@ -42,16 +42,18 @@ Poke-Kit/
 ### Source Code (`/web-app/src/`)
 
 #### Main Application
-- **`main.ts`** - App entry point, navigation logic, app shell HTML, calculator initialization
+- **`main.ts`** - App entry point, navigation logic, app shell HTML, calculator and Pokédex initialization
 - **`style.css`** - Global Tailwind imports and custom component classes
 - **`calculator.ts`** - Type Calculator UI logic, event handlers, results display
+- **`pokedex.ts`** - Pokédex browser with search, filter, sort, and expandable variant cards
 
 #### Data Layer (`/web-app/src/data/`)
 - **`typeChart.ts`** - Type effectiveness data (fully converted to TypeScript with interfaces)
 - **`typeCombos.ts`** - Type combination rankings (fully converted to TypeScript with interfaces)
+- **`pokemon.json`** - Complete Pokémon dataset (1000+ Pokémon from pkmn.help with stats, types, names)
 
 #### Type Definitions (`/web-app/src/types/`)
-- **`pokemon.ts`** - TypeScript interfaces for Pokémon type system (PokemonType, TypeMultiplier, DefensiveProfile, etc.)
+- **`pokemon.ts`** - TypeScript interfaces for Pokémon type system (PokemonType, TypeMultiplier, DefensiveProfile, PokemonCreature, PokemonGroup, PokedexState) and utility functions (getGeneration, getFormInfo, getTotalStats, etc.)
 
 #### Components (`/web-app/src/components/`)
 *Pending - Will contain reusable UI components*
@@ -116,11 +118,30 @@ Poke-Kit/
 - Watermark-style type icon overlay (25% opacity, positioned at right: -5%)
 - Official Gen 8-9 type icons from partywhale/pokemon-type-icons (MIT license)
 
+### ✅ Phase 3 Pokédex Browser (2025-11-15) - COMPLETED
+1. Created Pokédex browser with search, type filter, and sort functionality
+2. Implemented grouping algorithm to separate base Pokémon from variants
+3. Built expandable variant card UI (Mega Evolutions, Regional Forms)
+4. Added generation badges (Gen 1-9) based on National Pokédex ranges
+5. Added form information badges with debut game details
+6. Integrated with pokemon.json dataset (1000+ Pokémon)
+7. Resolved browser caching issues for proper updates
+8. User tested - works correctly with expandable variants
+
+**Features Implemented:**
+- Search by name or Pokédex number
+- Filter by type (all 18 types)
+- Sort by: Pokédex #, Name, HP, Attack, Defense, Speed, Total Stats
+- Expandable cards showing Mega/Regional/Gigantamax forms
+- Generation badges (Gen 1-9)
+- Form badges with debut game info
+- Display limit (50 Pokémon with "Load More" button)
+
 ### ⏳ Future Phases
-- Phase 3: Trading Hub
-- Phase 4: Team Builder & PWA
-- Phase 5: Android App Setup
-- Phase 6: Android Features
+- Phase 3 (Continued): Team Builder & PWA
+- Phase 4: Android App Setup
+- Phase 5: Android Features
+- Phase 6: Trading Resources (informational directory)
 
 ---
 
@@ -186,9 +207,9 @@ npm run type-check  # TypeScript compilation check
 - None currently
 
 ### Next Priority Tasks
-1. **Phase 3:** Begin Trading Hub feature (GTS-style trade listings)
-2. **Phase 4:** Team Builder and PWA features
-3. **Enhancements:** Add URL sharing for type combinations, offline PWA support
+1. **Phase 3 (Continued):** Team Builder implementation (select 6 Pokémon, type coverage analysis)
+2. **Phase 3 (Continued):** PWA features (manifest, service worker, offline support)
+3. **Enhancements:** Pokémon detail modal, Load More pagination, team save/load functionality
 
 ### Technical Debt
 - None yet - project just started

@@ -1,5 +1,6 @@
 import './style.css'
 import { initCalculator } from './calculator'
+import { initPokedex } from './pokedex'
 
 // Navigation handler
 function navigateTo(pageId: string) {
@@ -55,13 +56,13 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
         <i class="ph-fill ph-calculator text-lg"></i>
         <span class="ml-2">Calculator</span>
       </button>
+      <button class="top-nav-button" data-page="pokedex">
+        <i class="ph-fill ph-list-dashes text-lg"></i>
+        <span class="ml-2">Pokédex</span>
+      </button>
       <button class="top-nav-button" data-page="teams">
         <i class="ph-fill ph-users-three text-lg"></i>
         <span class="ml-2">Team Builder</span>
-      </button>
-      <button class="top-nav-button" data-page="trading">
-        <i class="ph-fill ph-arrows-clockwise text-lg"></i>
-        <span class="ml-2">Trading</span>
       </button>
     </nav>
   </header>
@@ -83,17 +84,17 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
             <i class="ph-fill ph-calculator text-5xl text-poke-blue mb-2"></i>
             <span class="font-medium">Type Calculator</span>
           </button>
+          <button class="quick-action-btn" data-page="pokedex">
+            <i class="ph-fill ph-list-dashes text-5xl text-poke-blue mb-2"></i>
+            <span class="font-medium">Pokédex</span>
+          </button>
           <button class="quick-action-btn" data-page="teams">
             <i class="ph-fill ph-users-three text-5xl text-poke-blue mb-2"></i>
             <span class="font-medium">Team Builder</span>
           </button>
-          <button class="quick-action-btn" data-page="trading">
-            <i class="ph-fill ph-arrows-clockwise text-5xl text-poke-blue mb-2"></i>
-            <span class="font-medium">GTS Trading</span>
-          </button>
           <button class="quick-action-btn opacity-50 cursor-not-allowed">
-            <i class="ph-fill ph-map-trifold text-5xl text-gray-400 mb-2"></i>
-            <span class="font-medium text-gray-400">Pokédex (Soon)</span>
+            <i class="ph-fill ph-link text-5xl text-gray-400 mb-2"></i>
+            <span class="font-medium text-gray-400">Trading (Soon)</span>
           </button>
         </div>
       </div>
@@ -160,6 +161,69 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
       <div id="results-container"></div>
     </div>
 
+    <!-- Pokédex Page -->
+    <div id="page-pokedex" class="page">
+      <div class="mb-6">
+        <h2 class="text-3xl font-bold text-poke-dark mb-2">Pokédex</h2>
+        <p class="text-gray-600">Browse all Pokémon with stats, types, and detailed information.</p>
+      </div>
+
+      <!-- Search and Filters -->
+      <div class="card mb-6">
+        <div class="flex flex-col md:flex-row gap-4">
+          <!-- Search Input -->
+          <div class="flex-1">
+            <label class="text-sm font-medium text-gray-700 mb-2 block">Search Pokémon</label>
+            <input
+              type="text"
+              id="pokedex-search"
+              placeholder="Search by name or number..."
+              class="w-full px-4 py-2 border-2 border-poke-gray rounded-lg focus:border-poke-blue focus:outline-none"
+            />
+          </div>
+
+          <!-- Type Filter -->
+          <div class="w-full md:w-48">
+            <label class="text-sm font-medium text-gray-700 mb-2 block">Filter by Type</label>
+            <select id="pokedex-type-filter" class="w-full px-4 py-2 border-2 border-poke-gray rounded-lg focus:border-poke-blue focus:outline-none">
+              <option value="">All Types</option>
+            </select>
+          </div>
+
+          <!-- Sort -->
+          <div class="w-full md:w-48">
+            <label class="text-sm font-medium text-gray-700 mb-2 block">Sort By</label>
+            <select id="pokedex-sort" class="w-full px-4 py-2 border-2 border-poke-gray rounded-lg focus:border-poke-blue focus:outline-none">
+              <option value="number">Pokédex #</option>
+              <option value="name">Name (A-Z)</option>
+              <option value="hp">HP (High-Low)</option>
+              <option value="attack">Attack (High-Low)</option>
+              <option value="defense">Defense (High-Low)</option>
+              <option value="speed">Speed (High-Low)</option>
+              <option value="total">Total Stats (High-Low)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pokémon Grid -->
+      <div id="pokemon-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <!-- Pokémon cards will be inserted here by JavaScript -->
+      </div>
+
+      <!-- Loading State -->
+      <div id="pokedex-loading" class="card text-center py-12">
+        <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-poke-blue mb-4"></div>
+        <p class="text-gray-600">Loading Pokédex...</p>
+      </div>
+
+      <!-- Empty State -->
+      <div id="pokedex-empty" class="card text-center py-12" style="display: none;">
+        <i class="ph-fill ph-magnifying-glass text-6xl text-gray-300 mb-4"></i>
+        <p class="text-gray-600">No Pokémon found matching your search.</p>
+      </div>
+    </div>
+
     <!-- Team Builder Page -->
     <div id="page-teams" class="page">
       <div class="mb-6">
@@ -169,18 +233,6 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 
       <div class="card">
         <p class="text-center text-gray-500">Team builder coming soon...</p>
-      </div>
-    </div>
-
-    <!-- Trading Page -->
-    <div id="page-trading" class="page">
-      <div class="mb-6">
-        <h2 class="text-3xl font-bold text-poke-dark mb-2">Global Trade Station</h2>
-        <p class="text-gray-600">Browse and post trade offers with the Pokémon community.</p>
-      </div>
-
-      <div class="card">
-        <p class="text-center text-gray-500">Trading hub coming soon...</p>
       </div>
     </div>
   </main>
@@ -195,13 +247,13 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
       <i class="ph-fill ph-calculator text-2xl mb-1"></i>
       <span>Calculator</span>
     </button>
+    <button class="nav-button" data-page="pokedex">
+      <i class="ph-fill ph-list-dashes text-2xl mb-1"></i>
+      <span>Pokédex</span>
+    </button>
     <button class="nav-button" data-page="teams">
       <i class="ph-fill ph-users-three text-2xl mb-1"></i>
       <span>Teams</span>
-    </button>
-    <button class="nav-button" data-page="trading">
-      <i class="ph-fill ph-arrows-clockwise text-2xl mb-1"></i>
-      <span>Trading</span>
     </button>
   </nav>
 `
@@ -223,5 +275,6 @@ style.textContent = `
 `
 document.head.appendChild(style)
 
-// Initialize calculator after DOM is ready
+// Initialize calculator and pokédex after DOM is ready
 initCalculator()
+initPokedex()

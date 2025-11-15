@@ -267,3 +267,10 @@
   width: 32px;
   height: 32px;
 }
+
+/* Pixelated image rendering for Pokémon sprites */
+.pixelated {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
