@@ -57,12 +57,18 @@ export function initCalculator(): void {
 
 /**
  * Populate a type grid with clickable type buttons
+ * Text is wrapped in a span for proper z-index layering with icon pseudo-elements
  */
 function populateTypeGrid(gridElement: HTMLElement, gridType: 'type1' | 'type2'): void {
   TYPE_NAMES.forEach(typeName => {
     const button = document.createElement('button');
     button.className = `type-button type-pill type-${typeName.toLowerCase()}`;
-    button.textContent = typeName;
+
+    // Wrap text in span for z-index layering with icons
+    const span = document.createElement('span');
+    span.textContent = typeName;
+    button.appendChild(span);
+
     button.dataset.type = typeName;
     button.dataset.grid = gridType;
 

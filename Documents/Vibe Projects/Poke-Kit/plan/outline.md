@@ -16,6 +16,11 @@
 3. Implement Firebase Firestore integration
 4. Build trade creation and browsing functionality
 
+**Future Enhancement - Type Calculator**:
+- Add Pokémon list display showing all Pokémon with selected type combination
+- Will integrate with Pokédex feature (later phase)
+- Display on type matchup results page
+
 **Blockers**: None
 
 ## Recent Changes

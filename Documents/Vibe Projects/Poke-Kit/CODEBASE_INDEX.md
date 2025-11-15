@@ -108,9 +108,13 @@ Poke-Kit/
 5. Implemented defensive matchup calculation logic
 6. Created beautiful results display with type pills, tier rankings, and stats
 7. Added Tailwind safelist for dynamic type color classes
-8. User tested - works correctly with full color-coded button UI
+8. Added official Pokémon type icon SVGs (18 files) with watermark overlay effect
+9. User tested - works correctly with full color-coded button UI and icon enhancement
 
-**UX Enhancement Completed:** Button-based selector with hover effects and selected states
+**UX Enhancements Completed:**
+- Button-based selector with hover effects and selected states
+- Watermark-style type icon overlay (25% opacity, positioned at right: -5%)
+- Official Gen 8-9 type icons from partywhale/pokemon-type-icons (MIT license)
 
 ### ⏳ Future Phases
 - Phase 3: Trading Hub

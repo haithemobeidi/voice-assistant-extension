@@ -131,7 +131,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
         <p class="text-gray-600">Calculate defensive type matchups and find the best type combinations.</p>
       </div>
 
-      <div class="card">
+<div class="card">
         <h3 class="text-lg font-semibold mb-4">Select Types</h3>
         <p class="text-sm text-gray-600 mb-4">Click type badges to select your Pokémon's defensive typing.</p>
 
