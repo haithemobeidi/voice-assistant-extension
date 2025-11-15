@@ -3,18 +3,20 @@
 ## Phase Status
 - [x] Phase 1: Web App Foundation - **COMPLETED** (2025-11-13)
 - [x] Phase 2: Type Calculator - **COMPLETED** (2025-11-14)
-- [ ] Phase 3: Trading Hub - Not Started
-- [ ] Phase 4: Team Builder & PWA - Not Started
-- [ ] Phase 5: Android App Setup - Not Started
-- [ ] Phase 6: Android Features - Not Started
+- [ ] Phase 3: Team Builder & PWA - Not Started
+- [ ] Phase 4: Android App Setup - Not Started
+- [ ] Phase 5: Android Features - Not Started
+- [ ] Phase 6: Trading Resources - Not Started
 
 ## Current Focus
-**Active Phase**: Phase 3 - Trading Hub (Ready to Start)
+**Active Phase**: Phase 3 - Team Builder & PWA (Ready to Start)
 **Next Steps**:
-1. Plan Trading Hub feature architecture
-2. Design GTS-style trade listing interface
-3. Implement Firebase Firestore integration
-4. Build trade creation and browsing functionality
+1. Design Team Builder UI for campaign and competitive recommendations
+2. Implement team recommendation logic
+3. Add PWA manifest and service worker for offline support
+4. Configure app icons and splash screens
+
+**Note**: Trading Resources (originally Phase 3) moved to Phase 6 as it's the simplest feature. Prioritizing Team Builder and PWA features first for more value to users.
 
 **Future Enhancement - Type Calculator**:
 - Add Pokémon list display showing all Pokémon with selected type combination

@@ -2,17 +2,17 @@
 
 ## Project Overview
 
-**Brief Description**: A comprehensive Pokémon companion app providing type calculators, trading hub, team building, and news. Available as both a Progressive Web App (PWA) and native Android application.
+**Brief Description**: A comprehensive Pokémon companion app providing type calculators, trading resources directory, team building, and news. Available as both a Progressive Web App (PWA) and native Android application.
 
 **Technology Stack**:
 - **Web App**: Vite + TypeScript + Tailwind CSS + PWA
 - **Android App**: Kotlin + Jetpack Compose + Material 3 + MVVM Architecture
-- **Shared**: PokéAPI for Pokémon data, Firebase Firestore for trading features
+- **Data Source**: PokéAPI for Pokémon data
 
 **Key Goals**:
 - Create beautiful, mobile-first Pokémon tools
 - Provide offline-capable type calculator
-- Enable community trading features
+- Direct users to safe, established trading communities
 - Support both web and native Android platforms
 
 ## Project Specifications
@@ -22,13 +22,12 @@
 - **Platform**: Web (PWA), Android 8.0+ (API 26+)
 - **Key Components**:
   - **Type Calculator**: Defensive type matchup calculator
-  - **Trading Hub**: GTS-style trade listings with ratings
+  - **Trading Resources**: Directory of safe, established trading communities
   - **Team Builder**: Campaign/Competitive team recommendations
   - **Home Dashboard**: Quick actions and Pokémon news
 
 ### External Dependencies
 - **PokéAPI** (api.pokeapi.co): Pokémon data, types, sprites
-- **Firebase Firestore**: Trading listings and user profiles
 - **Phosphor Icons**: Icon library
 - **Inter Font**: Typography
 
@@ -65,10 +64,10 @@ Poke-Kit/
 
 1. **Phase 1: Web App Foundation** - Project setup, design system, navigation structure
 2. **Phase 2: Type Calculator** - Core type matchup logic and UI
-3. **Phase 3: Trading Hub** - Trade listings, profile pages, create offer forms
-4. **Phase 4: Team Builder & PWA** - Team recommendations, PWA manifest, service worker
-5. **Phase 5: Android App Setup** - Kotlin project, Jetpack Compose, theme system
-6. **Phase 6: Android Features** - Port web features to native Android
+3. **Phase 3: Team Builder & PWA** - Team recommendations, PWA manifest, service worker
+4. **Phase 4: Android App Setup** - Kotlin project, Jetpack Compose, theme system
+5. **Phase 5: Android Features** - Port web features to native Android
+6. **Phase 6: Trading Resources** - Informational page with curated trading community links
 
 ## Commands Reference
 
@@ -87,9 +86,14 @@ Poke-Kit/
 
 ## Current Status
 
-**Current Phase**: Phase 1 - Web App Foundation
-**Last Updated**: 2025-11-13
+**Current Phase**: Phase 3 - Team Builder & PWA (Ready to Start)
+**Last Updated**: 2025-11-14
 **Known Issues**: None
+
+**Important Changes**:
+- Original "Trading Hub" redesigned to "Trading Resources" (informational directory only) to avoid legal liability issues (COPPA compliance, moderation requirements, duty of care)
+- Trading Resources moved to Phase 6 (last) as it's the simplest feature
+- Prioritizing Team Builder and PWA features for more user value
 
 ## Design System: Material 3 + Pokémon Twist
 
@@ -147,13 +151,15 @@ All 18 Pokémon type colors defined in design-system.md
 - **Caching**: Required - use Room (Android) or IndexedDB (web)
 - **Rate Limiting**: Implement exponential backoff
 
-### Firebase (Trading Hub)
-- **Firestore Collections**:
-  - `trades`: Trade listings
-  - `users`: Trainer profiles
-  - `ratings`: Trade ratings
-- **Authentication**: Firebase Auth (Google, Email)
-- **Security Rules**: Users can only edit own trades/ratings
+### Trading Communities (External Links)
+- **No backend integration** - Trading Resources page provides external links only
+- **Communities to link**:
+  - r/pokemontrades (Reddit)
+  - r/CasualPokemonTrades (Reddit)
+  - Serebii.net Forums
+  - Smogon Trading Forums
+  - Official Pokémon Discord servers
+- **Link Security**: All external links use `target="_blank" rel="noopener noreferrer"`
 
 ## Notes
 
