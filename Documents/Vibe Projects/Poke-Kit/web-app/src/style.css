@@ -1,9 +1,9 @@
+/* Import Inter font - must come before Tailwind directives */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* Import Inter font */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 @layer base {
   body {
@@ -115,6 +115,24 @@
     text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
   }
 
+  /* Type Button (for type selector grid) */
+  .type-button {
+    @apply px-4 py-2 rounded-2xl text-sm font-semibold text-white uppercase border-2 border-black border-opacity-20 cursor-pointer transition-all;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .type-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+
+  .type-button.selected {
+    @apply border-white border-opacity-100;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5), 0 4px 12px rgba(0,0,0,0.3);
+    transform: scale(1.05);
+  }
+
   /* Tier Pills */
   .tier-pill {
     @apply px-3 py-1 rounded-full text-xs font-semibold uppercase border;
@@ -126,6 +144,62 @@
   .tier-C { @apply bg-purple-100 text-purple-700 border-purple-300; }
   .tier-D { @apply bg-orange-100 text-orange-700 border-orange-300; }
   .tier-F { @apply bg-red-100 text-red-700 border-red-300; }
+
+  /* Type Colors - Background colors for all 18 Pokémon types */
+  .type-normal {
+    background-color: #A8A878 !important;
+  }
+  .type-fire {
+    background-color: #F08030 !important;
+  }
+  .type-water {
+    background-color: #6890F0 !important;
+  }
+  .type-grass {
+    background-color: #78C850 !important;
+  }
+  .type-electric {
+    background-color: #F8D030 !important;
+  }
+  .type-ice {
+    background-color: #98D8D8 !important;
+  }
+  .type-fighting {
+    background-color: #C03028 !important;
+  }
+  .type-poison {
+    background-color: #A040A0 !important;
+  }
+  .type-ground {
+    background-color: #E0C068 !important;
+  }
+  .type-flying {
+    background-color: #A890F0 !important;
+  }
+  .type-psychic {
+    background-color: #F85888 !important;
+  }
+  .type-bug {
+    background-color: #A8B820 !important;
+  }
+  .type-rock {
+    background-color: #B8A038 !important;
+  }
+  .type-ghost {
+    background-color: #705898 !important;
+  }
+  .type-dragon {
+    background-color: #7038F8 !important;
+  }
+  .type-dark {
+    background-color: #705848 !important;
+  }
+  .type-steel {
+    background-color: #B8B8D0 !important;
+  }
+  .type-fairy {
+    background-color: #EE99AC !important;
+  }
 }
 
 @keyframes fadeIn {

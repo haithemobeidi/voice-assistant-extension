@@ -1,58 +1,121 @@
 // calculator.ts
-// Type Calculator UI logic and event handlers
+// Type Calculator UI logic and event handlers with button-based type selectors
 
 import { TYPE_NAMES, getFullDefensiveProfile } from './data/typeChart';
 import { findTypeCombo, getTierDescription } from './data/typeCombos';
 import type { PokemonType, DefensiveProfile } from './types/pokemon';
 
+// State for selected types
+let selectedType1: PokemonType | null = null;
+let selectedType2: PokemonType | null = null;
+
 /**
  * Initialize the Type Calculator page
- * Populates dropdowns and attaches event handlers
+ * Creates button grids for type selection and attaches event handlers
  */
 export function initCalculator(): void {
-  const type1Select = document.getElementById('type1') as HTMLSelectElement | null;
-  const type2Select = document.getElementById('type2') as HTMLSelectElement | null;
+  const type1Grid = document.getElementById('type1-grid');
+  const type2Grid = document.getElementById('type2-grid');
+  const clearType1Btn = document.getElementById('clear-type1');
+  const clearType2Btn = document.getElementById('clear-type2');
   const calculateBtn = document.getElementById('calculate-btn') as HTMLButtonElement | null;
 
-  if (!type1Select || !type2Select || !calculateBtn) {
+  if (!type1Grid || !type2Grid || !clearType1Btn || !clearType2Btn || !calculateBtn) {
     console.error('Calculator elements not found in DOM');
     return;
   }
 
-  // Populate type dropdowns
-  TYPE_NAMES.forEach(typeName => {
-    const option1 = document.createElement('option');
-    option1.value = typeName;
-    option1.textContent = typeName;
-    type1Select.appendChild(option1);
+  // Populate type button grids
+  populateTypeGrid(type1Grid, 'type1');
+  populateTypeGrid(type2Grid, 'type2');
 
-    const option2 = document.createElement('option');
-    option2.value = typeName;
-    option2.textContent = typeName;
-    type2Select.appendChild(option2);
+  // Clear button handlers
+  clearType1Btn.addEventListener('click', () => {
+    selectedType1 = null;
+    updateButtonStates('type1');
+    clearType1Btn.style.display = 'none';
+  });
+
+  clearType2Btn.addEventListener('click', () => {
+    selectedType2 = null;
+    updateButtonStates('type2');
+    clearType2Btn.style.display = 'none';
   });
 
   // Calculate button handler
   calculateBtn.addEventListener('click', () => {
-    const type1 = type1Select.value as PokemonType | '';
-    const type2 = type2Select.value as PokemonType | '';
-
-    if (!type1) {
-      alert('Please select at least Type 1');
+    if (!selectedType1) {
+      alert('Please select Type 1 (required)');
       return;
     }
 
     // Calculate defensive profile
-    const profile = getFullDefensiveProfile(type1, type2 || null);
-    displayResults(type1, type2 || null, profile);
+    const profile = getFullDefensiveProfile(selectedType1, selectedType2);
+    displayResults(selectedType1, selectedType2, profile);
   });
+}
 
-  // Allow Enter key to trigger calculation
-  type1Select.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') calculateBtn.click();
+/**
+ * Populate a type grid with clickable type buttons
+ */
+function populateTypeGrid(gridElement: HTMLElement, gridType: 'type1' | 'type2'): void {
+  TYPE_NAMES.forEach(typeName => {
+    const button = document.createElement('button');
+    button.className = `type-button type-pill type-${typeName.toLowerCase()}`;
+    button.textContent = typeName;
+    button.dataset.type = typeName;
+    button.dataset.grid = gridType;
+
+    button.addEventListener('click', () => handleTypeSelection(typeName, gridType));
+
+    gridElement.appendChild(button);
   });
-  type2Select.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') calculateBtn.click();
+}
+
+/**
+ * Handle type button click
+ */
+function handleTypeSelection(typeName: PokemonType, gridType: 'type1' | 'type2'): void {
+  if (gridType === 'type1') {
+    // If clicking the same type, deselect it
+    if (selectedType1 === typeName) {
+      selectedType1 = null;
+      document.getElementById('clear-type1')!.style.display = 'none';
+    } else {
+      selectedType1 = typeName;
+      document.getElementById('clear-type1')!.style.display = 'block';
+    }
+    updateButtonStates('type1');
+  } else {
+    // If clicking the same type, deselect it
+    if (selectedType2 === typeName) {
+      selectedType2 = null;
+      document.getElementById('clear-type2')!.style.display = 'none';
+    } else {
+      selectedType2 = typeName;
+      document.getElementById('clear-type2')!.style.display = 'block';
+    }
+    updateButtonStates('type2');
+  }
+}
+
+/**
+ * Update button selected states for a specific grid
+ */
+function updateButtonStates(gridType: 'type1' | 'type2'): void {
+  const gridElement = document.getElementById(`${gridType}-grid`);
+  if (!gridElement) return;
+
+  const selectedType = gridType === 'type1' ? selectedType1 : selectedType2;
+  const buttons = gridElement.querySelectorAll('.type-button');
+
+  buttons.forEach(button => {
+    const buttonType = button.getAttribute('data-type');
+    if (buttonType === selectedType) {
+      button.classList.add('selected');
+    } else {
+      button.classList.remove('selected');
+    }
   });
 }
 

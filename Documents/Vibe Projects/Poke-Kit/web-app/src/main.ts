@@ -133,24 +133,27 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 
       <div class="card">
         <h3 class="text-lg font-semibold mb-4">Select Types</h3>
-        <p class="text-sm text-gray-600 mb-4">Select your Pokémon's type(s) to see defensive weaknesses, resistances, and immunities.</p>
+        <p class="text-sm text-gray-600 mb-4">Click type badges to select your Pokémon's defensive typing.</p>
 
-        <div class="grid md:grid-cols-2 gap-4 mb-4">
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Type 1</label>
-            <select id="type1" class="select-input">
-              <option value="">Select Type 1</option>
-            </select>
+        <!-- Type 1 Selector -->
+        <div class="mb-6">
+          <div class="flex items-center justify-between mb-3">
+            <label class="text-sm font-medium text-gray-700">Type 1 (Required)</label>
+            <button id="clear-type1" class="text-sm text-poke-blue hover:underline" style="display: none;">Clear</button>
           </div>
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Type 2 (Optional)</label>
-            <select id="type2" class="select-input">
-              <option value="">None</option>
-            </select>
-          </div>
+          <div id="type1-grid" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2"></div>
         </div>
 
-        <button id="calculate-btn" class="btn btn-primary w-full">Calculate</button>
+        <!-- Type 2 Selector -->
+        <div class="mb-6">
+          <div class="flex items-center justify-between mb-3">
+            <label class="text-sm font-medium text-gray-700">Type 2 (Optional)</label>
+            <button id="clear-type2" class="text-sm text-poke-blue hover:underline" style="display: none;">Clear</button>
+          </div>
+          <div id="type2-grid" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2"></div>
+        </div>
+
+        <button id="calculate-btn" class="btn btn-primary w-full">Calculate Matchups</button>
       </div>
 
       <!-- Results Container -->

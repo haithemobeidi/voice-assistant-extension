@@ -4,6 +4,14 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  safelist: [
+    // Type color classes - prevent purging since they're dynamically generated
+    'type-normal', 'type-fire', 'type-water', 'type-grass',
+    'type-electric', 'type-ice', 'type-fighting', 'type-poison',
+    'type-ground', 'type-flying', 'type-psychic', 'type-bug',
+    'type-rock', 'type-ghost', 'type-dragon', 'type-dark',
+    'type-steel', 'type-fairy'
+  ],
   theme: {
     extend: {
       colors: {
