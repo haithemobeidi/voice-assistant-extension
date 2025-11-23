@@ -23,6 +23,14 @@
 - Will integrate with Pokédex feature (later phase)
 - Display on type matchup results page
 
+**Planned Feature - Nickname Generator**:
+- Multiple choice wizard UI for generating Pokémon nicknames
+- Questions: Style (Cool/Cute/Funny/Mythical), Type-based (Yes/No), Length (Short/Medium/Long)
+- Integrates with internal Pokédex for type data
+- Features: Copy to clipboard, favorites, regenerate
+- Mockup: `docs/mockup-nickname-generator.html`
+- Implementation approach: Local name database with type-themed word lists, no external API needed
+
 **Blockers**: None
 
 ## Recent Changes
