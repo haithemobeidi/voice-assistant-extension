@@ -7,6 +7,7 @@ import type { PokemonType } from '../types/pokemon';
 
 /**
  * Generate a TypeBadge component (pill-shaped type indicator)
+ * Uses centered official Pokémon type SVG icons as watermark (150% height, opacity-20)
  * Used in Pokédex cards, calculator results, nickname generator
  *
  * @param typeName - The Pokémon type name
@@ -17,24 +18,23 @@ export function TypeBadge(typeName: string, size: 'sm' | 'md' | 'lg' = 'md'): st
   const config = getTypeConfig(typeName);
 
   const sizeClasses = {
-    sm: 'px-2 py-1 text-xs gap-1',
-    md: 'px-3 py-1.5 text-sm gap-1.5',
-    lg: 'px-4 py-2 text-base gap-2',
-  };
-
-  const iconSizes = {
-    sm: 12,
-    md: 14,
-    lg: 16,
+    sm: 'px-4 py-2 text-xs',
+    md: 'px-5 py-2.5 text-sm',
+    lg: 'px-5 py-2.5 text-base',
   };
 
   return `
     <span
-      class="inline-flex items-center font-bold text-white rounded-full shadow-sm uppercase tracking-wider ${sizeClasses[size]}"
-      style="background-color: ${config.color}; text-shadow: 0 1px 2px rgba(0,0,0,0.3);"
+      class="type-badge relative inline-flex items-center justify-center font-bold text-white rounded-full shadow-sm uppercase tracking-wider overflow-hidden ${sizeClasses[size]}"
+      style="background-color: ${config.color};"
     >
-      <i data-lucide="${config.icon}" class="w-[${iconSizes[size]}px] h-[${iconSizes[size]}px]"></i>
-      ${config.label}
+      <img
+        src="${config.icon}"
+        alt=""
+        class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-20 pointer-events-none"
+        style="height: 150%;"
+      />
+      <span class="relative z-10">${config.label}</span>
     </span>
   `;
 }

@@ -4,6 +4,8 @@ This file catalogs all development session handoffs for continuity across Claude
 
 ## Session Handoffs
 
+**Handoff 11-25-2025_18-45-00_EST** - Type Calculator UI refinement: Fixed dropdown visibility (overflow-visible), replaced Lucide icons with official Pokémon type SVGs, implemented consistent watermark-style icons (selected buttons: 350% centered, dropdown options: 120% right-aligned, matchup badges: 150% centered), removed dropdown chevron. Build: ✅ working, user confirmed: yes
+
 **Handoff 11-25-2025_17-54-57_EST** - Major UI redesign ("Premium Gamer Aesthetic"): Switched to Lucide Icons, added dark mode, redesigned all pages with floating cards, HD artwork, type-colored backgrounds, new NavBar with theme toggle. Created `gamer-aesthetic-redesign` branch. Build: ✅ working, user confirmed: yes (few kinks to fix)
 
 **Handoff 11-25-2025_17-00-00_EST** - Nickname Generator: Improved AI prompts for "long" names to add variety (no more all-CamelCase compound words). User confirmed better results. Build: ✅ working. Next: Continue prompt tuning, Team Builder (Phase 3)

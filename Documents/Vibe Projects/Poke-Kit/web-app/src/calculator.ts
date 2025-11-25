@@ -1,6 +1,6 @@
 // calculator.ts
-// Type Calculator UI logic with redesigned dropdown selectors
-// Features: Type dropdowns with icon-left style, scoreboard results, matchup breakdown
+// Type Calculator UI logic with button-based type selectors
+// Features: Type buttons with watermark SVG icons, scoreboard results, matchup breakdown
 
 import { getFullDefensiveProfile } from './data/typeChart';
 import { findTypeCombo, getTierDescription } from './data/typeCombos';
@@ -44,13 +44,13 @@ export function initCalculator(): void {
     displayResults(selectedType1, selectedType2, profile);
   });
 
-  // Initialize Lucide icons for dropdowns
+  // Initialize Lucide icons
   lucide.createIcons();
 }
 
 /**
  * Render a type dropdown component
- * Uses icon-left style for the trigger button
+ * Uses watermark-style SVG icons - HUGE centered icon for selected, smaller for dropdown options
  */
 function renderTypeDropdown(
   container: HTMLElement,
@@ -60,6 +60,7 @@ function renderTypeDropdown(
 ): void {
   const config = selectedType ? getTypeConfig(selectedType) : null;
 
+  // Build trigger button style
   const buttonStyle = config
     ? `background-color: ${config.color};`
     : '';
@@ -68,26 +69,28 @@ function renderTypeDropdown(
     ? 'border-transparent text-white shadow-lg shadow-black/10'
     : 'bg-gray-50 dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:hover:border-gray-500';
 
-  const iconContent = config
-    ? `<i data-lucide="${config.icon}" class="w-5 h-5"></i>`
-    : '<div class="w-5 h-5 rounded-full border-2 border-dashed border-gray-400 dark:border-gray-500"></div>';
-
   const labelText = config ? config.label : 'Select Type';
 
-  // Generate dropdown options grid
+  // HUGE centered watermark icon for selected state
+  const selectedIcon = config
+    ? `<img src="${config.icon}" alt="" class="absolute top-1/2 left-1/2 -translate-y-1/2 opacity-20 pointer-events-none" style="height: 350%;">`
+    : '';
+
+  // Generate dropdown options - type buttons with watermark icons (120% height, right: -7%)
   const typeOptions = Object.entries(TYPE_CONFIG).map(([_key, typeConfig]) => `
     <button
-      class="type-option flex items-center gap-2 px-3 py-2 rounded-lg transition-colors hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 w-full text-left"
+      class="type-option relative flex items-center justify-center px-4 py-3 rounded-xl font-bold text-sm text-white uppercase overflow-hidden transition-all hover:scale-105 hover:shadow-lg"
+      style="background-color: ${typeConfig.color}; text-shadow: 0 1px 2px rgba(0,0,0,0.3);"
       data-type="${typeConfig.label}"
       data-dropdown="${dropdownId}"
     >
-      <div
-        class="w-6 h-6 rounded-full flex items-center justify-center text-white shrink-0"
-        style="background-color: ${typeConfig.color};"
-      >
-        <i data-lucide="${typeConfig.icon}" class="w-3 h-3"></i>
-      </div>
-      <span class="font-bold text-sm">${typeConfig.label}</span>
+      <img
+        src="${typeConfig.icon}"
+        alt=""
+        class="absolute top-1/2 -translate-y-1/2 opacity-25 pointer-events-none"
+        style="height: 120%; right: -7%;"
+      />
+      <span class="relative z-10">${typeConfig.label}</span>
     </button>
   `).join('');
 
@@ -97,33 +100,30 @@ function renderTypeDropdown(
         ${label}
       </label>
       <button
-        class="type-dropdown-trigger w-full flex items-center justify-between px-4 py-4 rounded-xl transition-all duration-200 ${buttonClasses}"
+        class="type-dropdown-trigger relative w-full flex items-center justify-center px-4 py-4 rounded-xl transition-all duration-200 overflow-hidden ${buttonClasses}"
         style="${buttonStyle}"
         data-dropdown-trigger="${dropdownId}"
         aria-expanded="false"
       >
-        <div class="flex items-center gap-3">
-          ${iconContent}
-          <span class="font-bold text-lg">${labelText}</span>
-        </div>
-        <i data-lucide="chevron-down" class="w-5 h-5 transition-transform duration-200"></i>
+        ${selectedIcon}
+        <span class="font-bold text-lg relative z-10">${labelText}</span>
       </button>
 
       <div
-        class="type-dropdown-menu hidden absolute z-50 mt-2 w-full rounded-2xl shadow-xl border bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-2 max-h-80 overflow-y-auto"
+        class="type-dropdown-menu hidden absolute left-0 right-0 z-[100] mt-2 rounded-2xl shadow-2xl border bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-3 max-h-[400px] overflow-y-auto"
+        style="top: 100%;"
         data-dropdown-menu="${dropdownId}"
       >
         <!-- None option -->
         <button
-          class="type-option flex items-center gap-2 px-3 py-2 rounded-lg transition-colors hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 dark:text-gray-400 w-full text-left mb-2"
+          class="type-option w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl transition-colors hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 dark:text-gray-400 font-bold mb-3 border-2 border-dashed border-gray-300 dark:border-gray-600"
           data-type=""
           data-dropdown="${dropdownId}"
         >
-          <div class="w-6 h-6 rounded-full border border-gray-400 dark:border-gray-500 shrink-0"></div>
-          <span class="font-medium">None</span>
+          None
         </button>
 
-        <div class="grid grid-cols-2 sm:grid-cols-3 gap-1">
+        <div class="grid grid-cols-3 gap-2">
           ${typeOptions}
         </div>
       </div>
@@ -195,23 +195,29 @@ function renderTypeDropdown(
 
 /**
  * Generate TypeBadge HTML for results display
+ * Uses centered watermark-style SVG icons (150% height, opacity-20)
  */
 function TypeBadge(typeName: string, size: 'sm' | 'md' | 'lg' = 'md'): string {
   const config = getTypeConfig(typeName);
 
   const sizeClasses = {
-    sm: 'px-2 py-1 text-xs gap-1',
-    md: 'px-3 py-1.5 text-sm gap-1.5',
-    lg: 'px-4 py-2 text-base gap-2',
+    sm: 'px-4 py-2 text-xs',
+    md: 'px-5 py-2.5 text-sm',
+    lg: 'px-5 py-2.5 text-base',
   };
 
   return `
     <span
-      class="inline-flex items-center font-bold text-white rounded-full shadow-sm uppercase tracking-wider ${sizeClasses[size]}"
-      style="background-color: ${config.color}; text-shadow: 0 1px 2px rgba(0,0,0,0.3);"
+      class="type-badge relative inline-flex items-center justify-center font-bold text-white rounded-full shadow-sm uppercase tracking-wider overflow-hidden ${sizeClasses[size]}"
+      style="background-color: ${config.color};"
     >
-      <i data-lucide="${config.icon}" class="w-3 h-3"></i>
-      ${config.label}
+      <img
+        src="${config.icon}"
+        alt=""
+        class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-20 pointer-events-none"
+        style="height: 150%;"
+      />
+      <span class="relative z-10">${config.label}</span>
     </span>
   `;
 }

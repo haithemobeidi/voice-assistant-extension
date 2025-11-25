@@ -203,8 +203,8 @@ function renderCalculatorPage(): string {
       </div>
 
       <!-- Type Selection Card -->
-      <div class="card mb-10 relative overflow-hidden">
-        <div class="gradient-bar"></div>
+      <div class="card mb-10 relative overflow-visible">
+        <div class="gradient-bar rounded-t-3xl"></div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
           <!-- Type 1 Dropdown -->
