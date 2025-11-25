@@ -61,16 +61,12 @@ const LOAD_INCREMENT = 50
  * Initialize Pokédex - load data and set up event listeners
  */
 export function initPokedex() {
-  console.log('Initializing Pokédex...')
-
   // Load ALL Pokémon data (including variants)
   state.allPokemon = pokemonData as PokemonCreature[]
 
   // Group Pokémon by Pokédex number (base + variants)
   state.pokemonGroups = groupPokemonBySpecies(state.allPokemon)
   state.filteredGroups = [...state.pokemonGroups]
-
-  console.log(`Loaded ${state.pokemonGroups.length} Pokémon species (${state.allPokemon.length} total including variants)`)
 
   // Populate type filter dropdown
   populateTypeFilter()

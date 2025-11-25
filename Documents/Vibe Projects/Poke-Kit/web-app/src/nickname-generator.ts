@@ -63,11 +63,6 @@ function createDefaultState(): NicknameState {
 export function cleanupNicknameGenerator() {
   // Reset to completely fresh default state
   state = createDefaultState()
-  // Also reset the generated names and error that aren't in createDefaultState
-  state.generatedNames = []
-  state.error = null
-  state.selectedPokemon = null
-  state.isLoading = false
 
   // Clear the DOM content
   const container = document.getElementById('nickname-generator-content')
@@ -113,31 +108,16 @@ const LISTENER_ATTR = 'data-nickname-listeners-attached'
  * Ensures completely fresh state every time
  */
 export function initNicknameGenerator() {
-  console.log('[NicknameGenerator] initNicknameGenerator called')
-  console.log('[NicknameGenerator] State BEFORE reset:', JSON.stringify(state, null, 2))
-
   // Create completely fresh state (except favorites from localStorage)
   state = createDefaultState()
-  // Explicitly clear any transient state - NOTHING selected
-  state.generatedNames = []
-  state.error = null
-  state.selectedPokemon = null
-  state.style = null
-  state.useTypes = null
-  state.length = null
-  state.isLoading = false
-
-  console.log('[NicknameGenerator] State AFTER reset:', JSON.stringify(state, null, 2))
 
   // Clear the container to remove any old DOM with stale state
   const container = document.getElementById('nickname-generator-content')
   if (container) {
-    console.log('[NicknameGenerator] Clearing container innerHTML')
     container.innerHTML = ''
   }
 
   // Render fresh UI with fresh state
-  console.log('[NicknameGenerator] Calling renderGenerator()')
   renderGenerator()
 
   // Only set up global document listeners once (survives HMR via DOM attribute)
@@ -455,7 +435,6 @@ async function callGeminiAPI(
     throw new Error('All models are currently unavailable. Please try again later.')
   }
 
-  console.log(`Trying model: ${model} (attempt ${retryCount + 1})`)
 
   try {
     const response = await fetch(
@@ -514,7 +493,6 @@ async function callGeminiAPI(
 
       // Other errors - try next model
       if (modelIndex < GEMINI_MODELS.length - 1) {
-        console.log(`Model ${model} failed: ${errorMessage}, trying next...`)
         return callGeminiAPI(apiKey, prompt, modelIndex + 1, retryCount)
       }
 
@@ -523,8 +501,6 @@ async function callGeminiAPI(
 
     const data = await response.json()
     const text = data.candidates?.[0]?.content?.parts?.[0]?.text || ''
-
-    console.log('Gemini response:', text) // Debug logging
 
     // Try multiple parsing strategies
 
@@ -536,8 +512,8 @@ async function callGeminiAPI(
         if (Array.isArray(names) && names.length > 0) {
           return names.filter((n: unknown): n is string => typeof n === 'string')
         }
-      } catch (e) {
-        console.log('JSON parse failed, trying other strategies...')
+      } catch {
+        // JSON parse failed, try other strategies
       }
     }
 
@@ -572,7 +548,6 @@ async function callGeminiAPI(
     const lines = text.split('\n').map((l: string) => l.trim()).filter((l: string) => l.length > 0 && l.length <= 15 && /^[A-Za-z]+$/.test(l))
     if (lines.length > 0) return lines.slice(0, 5)
 
-    console.error('Could not parse response:', text)
     throw new Error('Could not parse nickname response. Please try again.')
   } catch (error) {
     // Network errors - retry with backoff
