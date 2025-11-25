@@ -28,13 +28,13 @@ function getSpriteUrl(pokemon: PokemonCreature): string {
 import pokemonData from './data/pokemon.json'
 
 // Types for nickname generation
-export type NicknameStyle = 'cool' | 'cute' | 'funny' | 'mythical'
-export type NameLength = 'short' | 'medium' | 'long'
+export type NicknameStyle = 'cool' | 'cute' | 'funny' | 'mythical' | null
+export type NameLength = 'short' | 'medium' | 'long' | null
 
 interface NicknameState {
   selectedPokemon: PokemonCreature | null
   style: NicknameStyle
-  useTypes: boolean
+  useTypes: boolean | null
   length: NameLength
   generatedNames: string[]
   favorites: string[]
@@ -42,17 +42,42 @@ interface NicknameState {
   error: string | null
 }
 
-// Global state
-let state: NicknameState = {
-  selectedPokemon: null,
-  style: 'cool',
-  useTypes: true,
-  length: 'medium',
-  generatedNames: [],
-  favorites: JSON.parse(localStorage.getItem('nickname-favorites') || '[]'),
-  isLoading: false,
-  error: null
+// Default state factory - returns fresh state with NOTHING selected
+function createDefaultState(): NicknameState {
+  return {
+    selectedPokemon: null,
+    style: null,           // Nothing selected
+    useTypes: null,        // Nothing selected
+    length: null,          // Nothing selected
+    generatedNames: [],
+    favorites: JSON.parse(localStorage.getItem('nickname-favorites') || '[]'),
+    isLoading: false,
+    error: null
+  }
 }
+
+/**
+ * Cleanup function - called when navigating away from nickname page
+ * Completely resets all state and clears the DOM
+ */
+export function cleanupNicknameGenerator() {
+  // Reset to completely fresh default state
+  state = createDefaultState()
+  // Also reset the generated names and error that aren't in createDefaultState
+  state.generatedNames = []
+  state.error = null
+  state.selectedPokemon = null
+  state.isLoading = false
+
+  // Clear the DOM content
+  const container = document.getElementById('nickname-generator-content')
+  if (container) {
+    container.innerHTML = ''
+  }
+}
+
+// Global state - always starts fresh
+let state: NicknameState = createDefaultState()
 
 // Pokemon data for search
 const allPokemon = pokemonData as PokemonCreature[]
@@ -79,33 +104,96 @@ const TYPE_COLORS: Record<PokemonType, string> = {
   Fairy: '#EE99AC'
 }
 
+// Track global listener setup using a DOM attribute to survive HMR
+const LISTENER_ATTR = 'data-nickname-listeners-attached'
+
 /**
  * Initialize the nickname generator
+ * Called each time user navigates to the Nicknames page
+ * Ensures completely fresh state every time
  */
 export function initNicknameGenerator() {
-  console.log('Initializing Nickname Generator...')
-  setupEventListeners()
+  console.log('[NicknameGenerator] initNicknameGenerator called')
+  console.log('[NicknameGenerator] State BEFORE reset:', JSON.stringify(state, null, 2))
+
+  // Create completely fresh state (except favorites from localStorage)
+  state = createDefaultState()
+  // Explicitly clear any transient state - NOTHING selected
+  state.generatedNames = []
+  state.error = null
+  state.selectedPokemon = null
+  state.style = null
+  state.useTypes = null
+  state.length = null
+  state.isLoading = false
+
+  console.log('[NicknameGenerator] State AFTER reset:', JSON.stringify(state, null, 2))
+
+  // Clear the container to remove any old DOM with stale state
+  const container = document.getElementById('nickname-generator-content')
+  if (container) {
+    console.log('[NicknameGenerator] Clearing container innerHTML')
+    container.innerHTML = ''
+  }
+
+  // Render fresh UI with fresh state
+  console.log('[NicknameGenerator] Calling renderGenerator()')
   renderGenerator()
+
+  // Only set up global document listeners once (survives HMR via DOM attribute)
+  if (!document.body.hasAttribute(LISTENER_ATTR)) {
+    setupGlobalListeners()
+    document.body.setAttribute(LISTENER_ATTR, 'true')
+  }
 }
 
 /**
- * Set up event listeners for the generator
+ * Set up global document-level listeners (only called once)
  */
-function setupEventListeners() {
-  // Pokemon search
-  const searchInput = document.getElementById('pokemon-search') as HTMLInputElement
-  if (searchInput) {
-    searchInput.addEventListener('input', handlePokemonSearch)
-    searchInput.addEventListener('focus', () => showSearchResults())
-  }
-
-  // Close search results when clicking outside
+function setupGlobalListeners() {
+  // Close search results when clicking outside (document-level, only once)
   document.addEventListener('click', (e) => {
     const searchContainer = document.getElementById('search-container')
     if (searchContainer && !searchContainer.contains(e.target as Node)) {
       hideSearchResults()
     }
   })
+}
+
+/**
+ * Set up element-specific event listeners (called after each render)
+ */
+function setupElementListeners() {
+  // Pokemon search input
+  const searchInput = document.getElementById('pokemon-search') as HTMLInputElement
+  if (searchInput) {
+    searchInput.addEventListener('input', handlePokemonSearch)
+    searchInput.addEventListener('focus', () => showSearchResults())
+  }
+
+  // Style button handlers
+  document.querySelectorAll('[data-style]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      setStyle(btn.getAttribute('data-style') as NicknameStyle)
+    })
+  })
+
+  // Type reference button handlers
+  document.querySelectorAll('[data-use-types]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      setUseTypes(btn.getAttribute('data-use-types') === 'true')
+    })
+  })
+
+  // Length button handlers
+  document.querySelectorAll('[data-length]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      setLength(btn.getAttribute('data-length') as NameLength)
+    })
+  })
+
+  // Generate button handler
+  document.getElementById('generate-btn')?.addEventListener('click', generateNicknames)
 }
 
 /**
@@ -308,8 +396,9 @@ function setUseTypes(useTypes: boolean) {
  */
 function updateTypeButtons() {
   document.querySelectorAll('[data-use-types]').forEach(btn => {
-    const useTypes = btn.getAttribute('data-use-types') === 'true'
-    if (useTypes === state.useTypes) {
+    const btnValue = btn.getAttribute('data-use-types') === 'true'
+    // Compare strictly - null means nothing selected
+    if (state.useTypes !== null && btnValue === state.useTypes) {
       btn.classList.add('border-poke-blue', 'bg-blue-50')
       btn.classList.remove('border-gray-200')
     } else {
@@ -455,32 +544,32 @@ async function callGeminiAPI(
     // Strategy 2: Parse numbered list (1. Name, 2. Name, etc.)
     const numberedMatches = text.match(/\d+\.\s*["']?(\w+)["']?/g)
     if (numberedMatches && numberedMatches.length > 0) {
-      const names = numberedMatches.map(m => {
+      const names = numberedMatches.map((m: string) => {
         const match = m.match(/\d+\.\s*["']?(\w+)["']?/)
         return match ? match[1] : ''
-      }).filter(n => n.length > 0)
+      }).filter((n: string) => n.length > 0)
       if (names.length > 0) return names
     }
 
     // Strategy 3: Parse bullet list (- Name or * Name)
     const bulletMatches = text.match(/[-*]\s*["']?(\w+)["']?/g)
     if (bulletMatches && bulletMatches.length > 0) {
-      const names = bulletMatches.map(m => {
+      const names = bulletMatches.map((m: string) => {
         const match = m.match(/[-*]\s*["']?(\w+)["']?/)
         return match ? match[1] : ''
-      }).filter(n => n.length > 0)
+      }).filter((n: string) => n.length > 0)
       if (names.length > 0) return names
     }
 
     // Strategy 4: Parse quoted strings
     const quotedMatches = text.match(/["']([^"']+)["']/g)
     if (quotedMatches && quotedMatches.length > 0) {
-      const names = quotedMatches.map(m => m.replace(/["']/g, '')).filter(n => n.length > 0 && n.length <= 12)
+      const names = quotedMatches.map((m: string) => m.replace(/["']/g, '')).filter((n: string) => n.length > 0 && n.length <= 12)
       if (names.length > 0) return names
     }
 
     // Strategy 5: Split by newlines and filter for nickname-like strings
-    const lines = text.split('\n').map(l => l.trim()).filter(l => l.length > 0 && l.length <= 15 && /^[A-Za-z]+$/.test(l))
+    const lines = text.split('\n').map((l: string) => l.trim()).filter((l: string) => l.length > 0 && l.length <= 15 && /^[A-Za-z]+$/.test(l))
     if (lines.length > 0) return lines.slice(0, 5)
 
     console.error('Could not parse response:', text)
@@ -506,6 +595,24 @@ async function generateNicknames() {
     return
   }
 
+  if (!state.style) {
+    state.error = 'Please select a nickname style'
+    renderResults()
+    return
+  }
+
+  if (!state.length) {
+    state.error = 'Please select a name length'
+    renderResults()
+    return
+  }
+
+  if (state.useTypes === null) {
+    state.error = 'Please select whether to reference types'
+    renderResults()
+    return
+  }
+
   // Get API key from localStorage or prompt user
   let apiKey = localStorage.getItem('gemini-api-key')
   if (!apiKey) {
@@ -526,14 +633,14 @@ async function generateNicknames() {
   const name = getFullDisplayName(pokemon)
   const types = pokemon.types.map(t => toTitleCaseType(t)).join('/')
 
-  // Build the prompt
-  const lengthGuide = {
+  // Build the prompt - style and length are guaranteed non-null due to validation above
+  const lengthGuide: Record<string, string> = {
     short: '3-5 characters',
     medium: '6-8 characters',
     long: '9-12 characters'
   }
 
-  const styleGuide = {
+  const styleGuide: Record<string, string> = {
     cool: 'badass, intimidating, powerful',
     cute: 'adorable, sweet, endearing',
     funny: 'punny, humorous, silly wordplay',
@@ -547,8 +654,8 @@ async function generateNicknames() {
   const aiPrompt = `Generate 5 creative nicknames for a Pokémon named ${name} (${types} type).
 
 Requirements:
-- Style: ${styleGuide[state.style]}
-- Length: ${lengthGuide[state.length]} each
+- Style: ${styleGuide[state.style!]}
+- Length: ${lengthGuide[state.length!]} each
 - ${typeContext}
 - Must be game-appropriate (no profanity)
 - Each nickname should be unique and creative
@@ -777,20 +884,20 @@ function renderGenerator() {
     <section class="card mb-4">
       <h2 class="font-semibold text-gray-800 mb-3">2. What style of nickname?</h2>
       <div class="grid grid-cols-2 gap-2">
-        <button data-style="cool" class="style-btn p-3 border-2 border-poke-blue bg-blue-50 rounded-lg text-left transition hover:shadow-md">
-          <span class="font-medium text-poke-blue">Cool</span>
+        <button data-style="cool" class="style-btn p-3 border-2 ${state.style === 'cool' ? 'border-poke-blue bg-blue-50' : 'border-gray-200'} rounded-lg text-left transition hover:shadow-md">
+          <span class="font-medium ${state.style === 'cool' ? 'text-poke-blue' : ''}">Cool</span>
           <p class="text-xs text-gray-500 mt-1">Badass, intimidating</p>
         </button>
-        <button data-style="cute" class="style-btn p-3 border-2 border-gray-200 rounded-lg text-left transition hover:border-gray-300 hover:shadow-md">
-          <span class="font-medium">Cute</span>
+        <button data-style="cute" class="style-btn p-3 border-2 ${state.style === 'cute' ? 'border-poke-blue bg-blue-50' : 'border-gray-200'} rounded-lg text-left transition hover:shadow-md">
+          <span class="font-medium ${state.style === 'cute' ? 'text-poke-blue' : ''}">Cute</span>
           <p class="text-xs text-gray-500 mt-1">Adorable, sweet</p>
         </button>
-        <button data-style="funny" class="style-btn p-3 border-2 border-gray-200 rounded-lg text-left transition hover:border-gray-300 hover:shadow-md">
-          <span class="font-medium">Funny</span>
+        <button data-style="funny" class="style-btn p-3 border-2 ${state.style === 'funny' ? 'border-poke-blue bg-blue-50' : 'border-gray-200'} rounded-lg text-left transition hover:shadow-md">
+          <span class="font-medium ${state.style === 'funny' ? 'text-poke-blue' : ''}">Funny</span>
           <p class="text-xs text-gray-500 mt-1">Puns, jokes</p>
         </button>
-        <button data-style="mythical" class="style-btn p-3 border-2 border-gray-200 rounded-lg text-left transition hover:border-gray-300 hover:shadow-md">
-          <span class="font-medium">Mythical</span>
+        <button data-style="mythical" class="style-btn p-3 border-2 ${state.style === 'mythical' ? 'border-poke-blue bg-blue-50' : 'border-gray-200'} rounded-lg text-left transition hover:shadow-md">
+          <span class="font-medium ${state.style === 'mythical' ? 'text-poke-blue' : ''}">Mythical</span>
           <p class="text-xs text-gray-500 mt-1">Legendary, epic</p>
         </button>
       </div>
@@ -800,16 +907,19 @@ function renderGenerator() {
     <section class="card mb-4">
       <h2 class="font-semibold text-gray-800 mb-3">3. Reference Pokémon's type?</h2>
       <div class="space-y-2">
-        <button data-use-types="true" class="type-btn w-full p-3 border-2 border-poke-blue bg-blue-50 rounded-lg text-left flex items-center justify-between transition hover:shadow-md">
+        <button data-use-types="true" class="type-btn w-full p-3 border-2 ${state.useTypes === true ? 'border-poke-blue bg-blue-50' : 'border-gray-200'} rounded-lg text-left flex items-center justify-between transition hover:shadow-md">
           <div>
-            <span class="font-medium text-poke-blue">Yes, use types</span>
+            <span class="font-medium ${state.useTypes === true ? 'text-poke-blue' : ''}">Yes, use types</span>
             <p class="text-xs text-gray-500 mt-1">Type-themed names</p>
           </div>
-          <i class="ph-fill ph-check-circle text-poke-blue text-xl"></i>
+          ${state.useTypes === true ? '<i class="ph-fill ph-check-circle text-poke-blue text-xl"></i>' : ''}
         </button>
-        <button data-use-types="false" class="type-btn w-full p-3 border-2 border-gray-200 rounded-lg text-left transition hover:border-gray-300 hover:shadow-md">
-          <span class="font-medium">No, keep it general</span>
-          <p class="text-xs text-gray-500 mt-1">Type-neutral names</p>
+        <button data-use-types="false" class="type-btn w-full p-3 border-2 ${state.useTypes === false ? 'border-poke-blue bg-blue-50' : 'border-gray-200'} rounded-lg text-left flex items-center justify-between transition hover:shadow-md">
+          <div>
+            <span class="font-medium ${state.useTypes === false ? 'text-poke-blue' : ''}">No, keep it general</span>
+            <p class="text-xs text-gray-500 mt-1">Type-neutral names</p>
+          </div>
+          ${state.useTypes === false ? '<i class="ph-fill ph-check-circle text-poke-blue text-xl"></i>' : ''}
         </button>
       </div>
     </section>
@@ -818,16 +928,16 @@ function renderGenerator() {
     <section class="card mb-4">
       <h2 class="font-semibold text-gray-800 mb-3">4. Preferred length?</h2>
       <div class="flex gap-2">
-        <button data-length="short" class="length-btn flex-1 p-3 border-2 border-gray-200 rounded-lg transition hover:border-gray-300 hover:shadow-md">
-          <span class="font-medium">Short</span>
+        <button data-length="short" class="length-btn flex-1 p-3 border-2 ${state.length === 'short' ? 'border-poke-blue bg-blue-50' : 'border-gray-200'} rounded-lg transition hover:shadow-md">
+          <span class="font-medium ${state.length === 'short' ? 'text-poke-blue' : ''}">Short</span>
           <p class="text-xs text-gray-500">3-5 chars</p>
         </button>
-        <button data-length="medium" class="length-btn flex-1 p-3 border-2 border-poke-blue bg-blue-50 rounded-lg transition hover:shadow-md">
-          <span class="font-medium text-poke-blue">Medium</span>
+        <button data-length="medium" class="length-btn flex-1 p-3 border-2 ${state.length === 'medium' ? 'border-poke-blue bg-blue-50' : 'border-gray-200'} rounded-lg transition hover:shadow-md">
+          <span class="font-medium ${state.length === 'medium' ? 'text-poke-blue' : ''}">Medium</span>
           <p class="text-xs text-gray-500">6-8 chars</p>
         </button>
-        <button data-length="long" class="length-btn flex-1 p-3 border-2 border-gray-200 rounded-lg transition hover:border-gray-300 hover:shadow-md">
-          <span class="font-medium">Long</span>
+        <button data-length="long" class="length-btn flex-1 p-3 border-2 ${state.length === 'long' ? 'border-poke-blue bg-blue-50' : 'border-gray-200'} rounded-lg transition hover:shadow-md">
+          <span class="font-medium ${state.length === 'long' ? 'text-poke-blue' : ''}">Long</span>
           <p class="text-xs text-gray-500">9-12 chars</p>
         </button>
       </div>
@@ -853,33 +963,9 @@ function renderGenerator() {
     <div id="favorites-section"></div>
   `
 
-  // Re-setup event listeners after rendering
-  setupEventListeners()
+  // Set up event listeners for the newly rendered elements
+  setupElementListeners()
 
-  // Style button handlers
-  document.querySelectorAll('[data-style]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      setStyle(btn.getAttribute('data-style') as NicknameStyle)
-    })
-  })
-
-  // Type reference button handlers
-  document.querySelectorAll('[data-use-types]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      setUseTypes(btn.getAttribute('data-use-types') === 'true')
-    })
-  })
-
-  // Length button handlers
-  document.querySelectorAll('[data-length]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      setLength(btn.getAttribute('data-length') as NameLength)
-    })
-  })
-
-  // Generate button handler
-  document.getElementById('generate-btn')?.addEventListener('click', generateNicknames)
-
-  // Render favorites if any
+  // Render favorites if any exist
   renderFavorites()
 }

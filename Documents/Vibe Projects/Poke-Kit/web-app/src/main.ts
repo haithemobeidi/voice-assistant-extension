@@ -1,10 +1,27 @@
 import './style.css'
 import { initCalculator } from './calculator'
 import { initPokedex } from './pokedex'
-import { initNicknameGenerator } from './nickname-generator'
+import { initNicknameGenerator, cleanupNicknameGenerator } from './nickname-generator'
+
+// Valid page IDs
+const VALID_PAGES = ['home', 'calculator', 'pokedex', 'teams', 'nickname']
+
+// Track current page for cleanup
+let currentPage = 'home'
+
+// Get page from URL hash (e.g., #calculator -> calculator)
+function getPageFromHash(): string {
+  const hash = window.location.hash.slice(1) // Remove the #
+  return VALID_PAGES.includes(hash) ? hash : 'home'
+}
 
 // Navigation handler
-function navigateTo(pageId: string) {
+function navigateTo(pageId: string, updateHash = true) {
+  // Cleanup the page we're leaving
+  if (currentPage === 'nickname') {
+    cleanupNicknameGenerator()
+  }
+
   // Hide all pages
   document.querySelectorAll('.page').forEach(page => {
     page.classList.remove('active')
@@ -24,6 +41,19 @@ function navigateTo(pageId: string) {
   document.querySelectorAll(`[data-page="${pageId}"]`).forEach(button => {
     button.classList.add('active')
   })
+
+  // Re-initialize page-specific modules when navigating to them
+  if (pageId === 'nickname') {
+    initNicknameGenerator()
+  }
+
+  // Update current page tracker
+  currentPage = pageId
+
+  // Update URL hash (without triggering hashchange if we're already handling it)
+  if (updateHash && window.location.hash !== `#${pageId}`) {
+    window.location.hash = pageId
+  }
 }
 
 // Pokéball SVG
@@ -292,7 +322,19 @@ style.textContent = `
 `
 document.head.appendChild(style)
 
-// Initialize calculator, pokédex, and nickname generator after DOM is ready
+// Initialize calculator and pokédex after DOM is ready
+// Note: Nickname generator is lazy-initialized only when user navigates to that page
 initCalculator()
 initPokedex()
-initNicknameGenerator()
+
+// Handle browser back/forward navigation
+window.addEventListener('hashchange', () => {
+  const page = getPageFromHash()
+  navigateTo(page, false) // Don't update hash since it already changed
+})
+
+// Navigate to initial page based on URL hash (for refresh persistence)
+const initialPage = getPageFromHash()
+if (initialPage !== 'home') {
+  navigateTo(initialPage, false)
+}
