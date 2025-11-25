@@ -4,7 +4,7 @@ This file catalogs all development session handoffs for continuity across Claude
 
 ## Session Handoffs
 
-**Handoff 11-25-2025_13-43-34_EST** - Nickname Generator API fixes: Fixed Gemini "model overloaded" errors with fallback chain (gemini-2.0-flash → gemini-2.5-flash-lite → gemini-2.5-flash), added exponential backoff retry, robust response parsing (5 strategies), better 503 error handling, user confirmed working, build status: ✅ working, next: multi-style selection mockups (6 styles, pick 2)
+**Handoff 11-25-2025_13-43-34_EST** - Nickname Generator fixes: (1) API resilience - model fallback chain, exponential backoff retry, robust parsing; (2) Pokemon search dropdown - form names (Mega Charizard X vs Charizard), correct sprites using unique ID, better search. User confirmed both working. Build: ✅ working. Next: Fix Vite HMR issue, then multi-style selection mockups
 
 **Handoff 11-23-2025_01-25-20_EST** - Nickname Generator planning: Created HTML mockup with wizard UI (style/type/length questions), documented feature plan in outline.md, build status: ✅ working, user confirmed: yes
 

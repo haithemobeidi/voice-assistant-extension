@@ -2,7 +2,29 @@
 // AI-powered nickname generator using Google Gemini API
 
 import type { PokemonCreature, PokemonType } from './types/pokemon'
-import { getDisplayName, toTitleCaseType } from './types/pokemon'
+import { toTitleCaseType } from './types/pokemon'
+
+/**
+ * Get the full display name for a Pokémon including form name
+ * e.g., "Mega Charizard X" instead of just "Charizard"
+ */
+function getFullDisplayName(pokemon: PokemonCreature): string {
+  // If formNames.en exists, use it (for Mega, Regional, etc.)
+  if (pokemon.formNames && pokemon.formNames.en) {
+    return pokemon.formNames.en
+  }
+  // Otherwise use species name
+  return pokemon.speciesNames.en || pokemon.name
+}
+
+/**
+ * Get the correct sprite URL using the unique ID
+ * This correctly displays Mega, Regional, and other variant forms
+ */
+function getSpriteUrl(pokemon: PokemonCreature): string {
+  return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`
+}
+
 import pokemonData from './data/pokemon.json'
 
 // Types for nickname generation
@@ -98,8 +120,19 @@ function handlePokemonSearch(e: Event) {
 
   const matches = allPokemon
     .filter(p => {
-      const name = getDisplayName(p).toLowerCase()
-      return name.includes(query) || p.number.toString().includes(query)
+      // Search by full display name (includes form name for variants)
+      const fullName = getFullDisplayName(p).toLowerCase()
+      // Also search by species name (base name)
+      const speciesName = (p.speciesNames.en || '').toLowerCase()
+      // And by internal name (e.g., "charizard-mega-x")
+      const internalName = p.name.toLowerCase()
+      // And by Pokédex number
+      const numStr = p.number.toString()
+
+      return fullName.includes(query) ||
+             speciesName.includes(query) ||
+             internalName.includes(query) ||
+             numStr.includes(query)
     })
     .slice(0, 10) // Limit to 10 results
 
@@ -119,13 +152,13 @@ function renderSearchResults(pokemon: PokemonCreature[]) {
     `
   } else {
     resultsContainer.innerHTML = pokemon.map(p => {
-      const name = getDisplayName(p)
+      const name = getFullDisplayName(p)
       const types = p.types.map(t => toTitleCaseType(t))
-      const spriteUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${p.number}.png`
+      const spriteUrl = getSpriteUrl(p)
 
       return `
         <button class="w-full flex items-center gap-3 p-2 hover:bg-gray-100 rounded-lg transition"
-                data-pokemon-number="${p.number}">
+                data-pokemon-id="${p.id}">
           <img src="${spriteUrl}" alt="${name}" class="w-10 h-10">
           <div class="text-left">
             <p class="font-medium">${name}</p>
@@ -144,11 +177,11 @@ function renderSearchResults(pokemon: PokemonCreature[]) {
 
   resultsContainer.classList.remove('hidden')
 
-  // Attach click handlers
-  resultsContainer.querySelectorAll('[data-pokemon-number]').forEach(btn => {
+  // Attach click handlers - now using unique ID instead of number
+  resultsContainer.querySelectorAll('[data-pokemon-id]').forEach(btn => {
     btn.addEventListener('click', () => {
-      const number = parseInt(btn.getAttribute('data-pokemon-number') || '0')
-      selectPokemon(number)
+      const id = btn.getAttribute('data-pokemon-id') || ''
+      selectPokemonById(id)
     })
   })
 }
@@ -174,10 +207,10 @@ function hideSearchResults() {
 }
 
 /**
- * Select a Pokemon for nickname generation
+ * Select a Pokemon for nickname generation by unique ID
  */
-function selectPokemon(number: number) {
-  const pokemon = allPokemon.find(p => p.number === number)
+function selectPokemonById(id: string) {
+  const pokemon = allPokemon.find(p => p.id === id)
   if (pokemon) {
     state.selectedPokemon = pokemon
     hideSearchResults()
@@ -207,9 +240,9 @@ function renderSelectedPokemon() {
   }
 
   const p = state.selectedPokemon
-  const name = getDisplayName(p)
+  const name = getFullDisplayName(p)
   const types = p.types.map(t => toTitleCaseType(t))
-  const spriteUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${p.number}.png`
+  const spriteUrl = getSpriteUrl(p)
 
   container.innerHTML = `
     <div class="flex items-center gap-4">
@@ -490,7 +523,7 @@ async function generateNicknames() {
   renderResults()
 
   const pokemon = state.selectedPokemon
-  const name = getDisplayName(pokemon)
+  const name = getFullDisplayName(pokemon)
   const types = pokemon.types.map(t => toTitleCaseType(t)).join('/')
 
   // Build the prompt
