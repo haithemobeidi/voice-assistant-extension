@@ -588,9 +588,9 @@ async function generateNicknames() {
 
   // Build the prompt - style and length are guaranteed non-null due to validation above
   const lengthGuide: Record<string, string> = {
-    short: '3-5 characters',
-    medium: '6-8 characters',
-    long: '9-12 characters'
+    short: '3-5 characters (single short words)',
+    medium: '6-8 characters (single words or simple combos)',
+    long: '9-12 characters - USE VARIED FORMATS: single longer words, mythological names, creative spellings, or nature-inspired names. AVOID compound CamelCase words like "FlameKnight" or "BlossomBoy"'
   }
 
   const styleGuide: Record<string, string> = {
@@ -604,15 +604,20 @@ async function generateNicknames() {
     ? `The names should reference or be inspired by the Pokémon's ${types} typing.`
     : `The names should be type-neutral and not reference specific elements.`
 
+  // Build format guidance for long names
+  const formatGuidance = state.length === 'long'
+    ? `\n- IMPORTANT: Vary the name formats! Include: single elegant words (Prometheus, Seraphina), creative spellings (Zephyros, Drakonis), nature words (Avalanche, Obsidian), or mythological references. Do NOT make all names TwoWordCompound style.`
+    : ''
+
   const aiPrompt = `Generate 5 creative nicknames for a Pokémon named ${name} (${types} type).
 
 Requirements:
 - Style: ${styleGuide[state.style!]}
-- Length: ${lengthGuide[state.length!]} each
+- Length: ${lengthGuide[state.length!]}
 - ${typeContext}
 - Must be game-appropriate (no profanity)
 - Each nickname should be unique and creative
-- Consider the Pokémon's appearance and characteristics
+- Consider the Pokémon's appearance and characteristics${formatGuidance}
 
 Return ONLY a JSON array of 5 nickname strings, no explanation. Example: ["Nick1", "Nick2", "Nick3", "Nick4", "Nick5"]`
 
