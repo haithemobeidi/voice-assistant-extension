@@ -242,38 +242,3 @@ export function findTypeCombo(
   );
 }
 
-/**
- * Get all type combos for a specific tier
- * @param tier - Tier rank (S, A, B, C, D, F)
- * @returns Array of type combos in that tier
- *
- * @example
- * getCombosByTier("S") // → All 8 S-tier combinations
- */
-export function getCombosByTier(tier: TierRank): readonly TypeCombo[] {
-  return TYPE_COMBOS.filter(combo => combo.tier === tier);
-}
-
-/**
- * Get top N type combos by rank
- * @param n - Number of top combos to return
- * @returns Array of the best N type combinations
- *
- * @example
- * getTopCombos(10) // → Top 10 combinations (ranks 1-10)
- */
-export function getTopCombos(n: number): readonly TypeCombo[] {
-  return TYPE_COMBOS.slice(0, n);
-}
-
-/**
- * Get bottom N type combos by rank
- * @param n - Number of bottom combos to return
- * @returns Array of the worst N type combinations
- *
- * @example
- * getBottomCombos(10) // → Bottom 10 combinations (ranks 144-153)
- */
-export function getBottomCombos(n: number): readonly TypeCombo[] {
-  return TYPE_COMBOS.slice(-n);
-}
