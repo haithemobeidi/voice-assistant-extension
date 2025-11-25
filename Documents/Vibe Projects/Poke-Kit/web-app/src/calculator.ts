@@ -1,9 +1,16 @@
 // calculator.ts
-// Type Calculator UI logic and event handlers with button-based type selectors
+// Type Calculator UI logic with redesigned dropdown selectors
+// Features: Type dropdowns with icon-left style, scoreboard results, matchup breakdown
 
-import { TYPE_NAMES, getFullDefensiveProfile } from './data/typeChart';
+import { getFullDefensiveProfile } from './data/typeChart';
 import { findTypeCombo, getTierDescription } from './data/typeCombos';
+import { getTypeConfig, TYPE_CONFIG } from './shared/typeConfig';
 import type { PokemonType, DefensiveProfile } from './types/pokemon';
+
+// Declare lucide global (loaded via CDN)
+declare const lucide: {
+  createIcons: () => void;
+};
 
 // State for selected types
 let selectedType1: PokemonType | null = null;
@@ -11,36 +18,20 @@ let selectedType2: PokemonType | null = null;
 
 /**
  * Initialize the Type Calculator page
- * Creates button grids for type selection and attaches event handlers
+ * Creates dropdown selectors and attaches event handlers
  */
 export function initCalculator(): void {
-  const type1Grid = document.getElementById('type1-grid');
-  const type2Grid = document.getElementById('type2-grid');
-  const clearType1Btn = document.getElementById('clear-type1');
-  const clearType2Btn = document.getElementById('clear-type2');
+  const type1Container = document.getElementById('type1-dropdown-container');
+  const type2Container = document.getElementById('type2-dropdown-container');
   const calculateBtn = document.getElementById('calculate-btn') as HTMLButtonElement | null;
 
-  if (!type1Grid || !type2Grid || !clearType1Btn || !clearType2Btn || !calculateBtn) {
-    console.error('Calculator elements not found in DOM');
+  if (!type1Container || !type2Container || !calculateBtn) {
     return;
   }
 
-  // Populate type button grids
-  populateTypeGrid(type1Grid, 'type1');
-  populateTypeGrid(type2Grid, 'type2');
-
-  // Clear button handlers
-  clearType1Btn.addEventListener('click', () => {
-    selectedType1 = null;
-    updateButtonStates('type1');
-    clearType1Btn.style.display = 'none';
-  });
-
-  clearType2Btn.addEventListener('click', () => {
-    selectedType2 = null;
-    updateButtonStates('type2');
-    clearType2Btn.style.display = 'none';
-  });
+  // Render initial dropdowns
+  renderTypeDropdown(type1Container, 'type1', 'Type 1 (Primary)', selectedType1);
+  renderTypeDropdown(type2Container, 'type2', 'Type 2 (Secondary)', selectedType2);
 
   // Calculate button handler
   calculateBtn.addEventListener('click', () => {
@@ -49,85 +40,185 @@ export function initCalculator(): void {
       return;
     }
 
-    // Calculate defensive profile
     const profile = getFullDefensiveProfile(selectedType1, selectedType2);
     displayResults(selectedType1, selectedType2, profile);
   });
+
+  // Initialize Lucide icons for dropdowns
+  lucide.createIcons();
 }
 
 /**
- * Populate a type grid with clickable type buttons
- * Text is wrapped in a span for proper z-index layering with icon pseudo-elements
+ * Render a type dropdown component
+ * Uses icon-left style for the trigger button
  */
-function populateTypeGrid(gridElement: HTMLElement, gridType: 'type1' | 'type2'): void {
-  TYPE_NAMES.forEach(typeName => {
-    const button = document.createElement('button');
-    button.className = `type-button type-pill type-${typeName.toLowerCase()}`;
+function renderTypeDropdown(
+  container: HTMLElement,
+  dropdownId: string,
+  label: string,
+  selectedType: PokemonType | null
+): void {
+  const config = selectedType ? getTypeConfig(selectedType) : null;
 
-    // Wrap text in span for z-index layering with icons
-    const span = document.createElement('span');
-    span.textContent = typeName;
-    button.appendChild(span);
+  const buttonStyle = config
+    ? `background-color: ${config.color};`
+    : '';
 
-    button.dataset.type = typeName;
-    button.dataset.grid = gridType;
+  const buttonClasses = config
+    ? 'border-transparent text-white shadow-lg shadow-black/10'
+    : 'bg-gray-50 dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:hover:border-gray-500';
 
-    button.addEventListener('click', () => handleTypeSelection(typeName, gridType));
+  const iconContent = config
+    ? `<i data-lucide="${config.icon}" class="w-5 h-5"></i>`
+    : '<div class="w-5 h-5 rounded-full border-2 border-dashed border-gray-400 dark:border-gray-500"></div>';
 
-    gridElement.appendChild(button);
-  });
-}
+  const labelText = config ? config.label : 'Select Type';
 
-/**
- * Handle type button click
- */
-function handleTypeSelection(typeName: PokemonType, gridType: 'type1' | 'type2'): void {
-  if (gridType === 'type1') {
-    // If clicking the same type, deselect it
-    if (selectedType1 === typeName) {
-      selectedType1 = null;
-      document.getElementById('clear-type1')!.style.display = 'none';
-    } else {
-      selectedType1 = typeName;
-      document.getElementById('clear-type1')!.style.display = 'block';
-    }
-    updateButtonStates('type1');
-  } else {
-    // If clicking the same type, deselect it
-    if (selectedType2 === typeName) {
-      selectedType2 = null;
-      document.getElementById('clear-type2')!.style.display = 'none';
-    } else {
-      selectedType2 = typeName;
-      document.getElementById('clear-type2')!.style.display = 'block';
-    }
-    updateButtonStates('type2');
+  // Generate dropdown options grid
+  const typeOptions = Object.entries(TYPE_CONFIG).map(([_key, typeConfig]) => `
+    <button
+      class="type-option flex items-center gap-2 px-3 py-2 rounded-lg transition-colors hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 w-full text-left"
+      data-type="${typeConfig.label}"
+      data-dropdown="${dropdownId}"
+    >
+      <div
+        class="w-6 h-6 rounded-full flex items-center justify-center text-white shrink-0"
+        style="background-color: ${typeConfig.color};"
+      >
+        <i data-lucide="${typeConfig.icon}" class="w-3 h-3"></i>
+      </div>
+      <span class="font-bold text-sm">${typeConfig.label}</span>
+    </button>
+  `).join('');
+
+  container.innerHTML = `
+    <div class="relative w-full" data-dropdown-container="${dropdownId}">
+      <label class="block text-sm font-bold mb-2 uppercase tracking-wide text-gray-500 dark:text-gray-400">
+        ${label}
+      </label>
+      <button
+        class="type-dropdown-trigger w-full flex items-center justify-between px-4 py-4 rounded-xl transition-all duration-200 ${buttonClasses}"
+        style="${buttonStyle}"
+        data-dropdown-trigger="${dropdownId}"
+        aria-expanded="false"
+      >
+        <div class="flex items-center gap-3">
+          ${iconContent}
+          <span class="font-bold text-lg">${labelText}</span>
+        </div>
+        <i data-lucide="chevron-down" class="w-5 h-5 transition-transform duration-200"></i>
+      </button>
+
+      <div
+        class="type-dropdown-menu hidden absolute z-50 mt-2 w-full rounded-2xl shadow-xl border bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-2 max-h-80 overflow-y-auto"
+        data-dropdown-menu="${dropdownId}"
+      >
+        <!-- None option -->
+        <button
+          class="type-option flex items-center gap-2 px-3 py-2 rounded-lg transition-colors hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 dark:text-gray-400 w-full text-left mb-2"
+          data-type=""
+          data-dropdown="${dropdownId}"
+        >
+          <div class="w-6 h-6 rounded-full border border-gray-400 dark:border-gray-500 shrink-0"></div>
+          <span class="font-medium">None</span>
+        </button>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-1">
+          ${typeOptions}
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Attach event listeners
+  const trigger = container.querySelector(`[data-dropdown-trigger="${dropdownId}"]`);
+  const menu = container.querySelector(`[data-dropdown-menu="${dropdownId}"]`);
+
+  if (trigger && menu) {
+    // Toggle dropdown on trigger click
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = !menu.classList.contains('hidden');
+
+      // Close all other dropdowns first
+      document.querySelectorAll('.type-dropdown-menu').forEach(m => {
+        m.classList.add('hidden');
+      });
+      document.querySelectorAll('.type-dropdown-trigger').forEach(t => {
+        t.setAttribute('aria-expanded', 'false');
+      });
+
+      if (!isOpen) {
+        menu.classList.remove('hidden');
+        trigger.setAttribute('aria-expanded', 'true');
+      }
+    });
+
+    // Handle type option selection
+    container.querySelectorAll('.type-option').forEach(option => {
+      option.addEventListener('click', () => {
+        const typeName = option.getAttribute('data-type');
+        const dropdownIdAttr = option.getAttribute('data-dropdown');
+
+        if (dropdownIdAttr === 'type1') {
+          selectedType1 = typeName ? (typeName as PokemonType) : null;
+          renderTypeDropdown(
+            document.getElementById('type1-dropdown-container')!,
+            'type1',
+            'Type 1 (Primary)',
+            selectedType1
+          );
+        } else {
+          selectedType2 = typeName ? (typeName as PokemonType) : null;
+          renderTypeDropdown(
+            document.getElementById('type2-dropdown-container')!,
+            'type2',
+            'Type 2 (Secondary)',
+            selectedType2
+          );
+        }
+
+        lucide.createIcons();
+      });
+    });
   }
-}
 
-/**
- * Update button selected states for a specific grid
- */
-function updateButtonStates(gridType: 'type1' | 'type2'): void {
-  const gridElement = document.getElementById(`${gridType}-grid`);
-  if (!gridElement) return;
-
-  const selectedType = gridType === 'type1' ? selectedType1 : selectedType2;
-  const buttons = gridElement.querySelectorAll('.type-button');
-
-  buttons.forEach(button => {
-    const buttonType = button.getAttribute('data-type');
-    if (buttonType === selectedType) {
-      button.classList.add('selected');
-    } else {
-      button.classList.remove('selected');
+  // Close dropdown when clicking outside
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (!target.closest(`[data-dropdown-container="${dropdownId}"]`)) {
+      menu?.classList.add('hidden');
+      trigger?.setAttribute('aria-expanded', 'false');
     }
   });
 }
 
 /**
- * Display calculation results in the results container
- * Shows weaknesses, resistances, immunities, and tier ranking
+ * Generate TypeBadge HTML for results display
+ */
+function TypeBadge(typeName: string, size: 'sm' | 'md' | 'lg' = 'md'): string {
+  const config = getTypeConfig(typeName);
+
+  const sizeClasses = {
+    sm: 'px-2 py-1 text-xs gap-1',
+    md: 'px-3 py-1.5 text-sm gap-1.5',
+    lg: 'px-4 py-2 text-base gap-2',
+  };
+
+  return `
+    <span
+      class="inline-flex items-center font-bold text-white rounded-full shadow-sm uppercase tracking-wider ${sizeClasses[size]}"
+      style="background-color: ${config.color}; text-shadow: 0 1px 2px rgba(0,0,0,0.3);"
+    >
+      <i data-lucide="${config.icon}" class="w-3 h-3"></i>
+      ${config.label}
+    </span>
+  `;
+}
+
+/**
+ * Display calculation results with scoreboard and matchup breakdown
+ * Matches the redesigned UI with colored scoreboard cards
  */
 function displayResults(
   type1: PokemonType,
@@ -140,123 +231,121 @@ function displayResults(
   // Get type combo ranking (if dual-type)
   const comboRanking = type2 ? findTypeCombo(type1, type2) : null;
 
-  // Categorize matchups
-  const weaknesses = profile.matchups.filter(m => m.mult > 1);
-  const resistances = profile.matchups.filter(m => m.mult > 0 && m.mult < 1);
-  const immunities = profile.matchups.filter(m => m.mult === 0);
-  const neutral = profile.matchups.filter(m => m.mult === 1);
+  // Categorize matchups by effectiveness
+  const quad = profile.matchups.filter(m => m.mult === 4);     // 4x weakness
+  const double = profile.matchups.filter(m => m.mult === 2);    // 2x weakness
+  const half = profile.matchups.filter(m => m.mult === 0.5);    // 0.5x resistance
+  const quarter = profile.matchups.filter(m => m.mult === 0.25);// 0.25x resistance
+  const immune = profile.matchups.filter(m => m.mult === 0);    // Immunity
 
-  // Build results HTML
+  const totalWeaknesses = quad.length + double.length;
+  const totalResistances = half.length + quarter.length;
+  const totalImmunities = immune.length;
+
   resultsContainer.innerHTML = `
-    <!-- Selected Types Card -->
-    <div class="card mt-6">
-      <h3 class="text-lg font-semibold mb-3">Selected Types</h3>
-      <div class="flex items-center gap-3 flex-wrap">
-        <span class="type-pill type-${type1.toLowerCase()}">${type1}</span>
-        ${type2 ? `<span class="type-pill type-${type2.toLowerCase()}">${type2}</span>` : ''}
-        ${comboRanking ? `
-          <span class="tier-pill tier-${comboRanking.tier.toLowerCase()} ml-4">
-            Tier ${comboRanking.tier} - Rank #${comboRanking.rank}
-          </span>
+    <!-- Scoreboard -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <!-- Weaknesses -->
+      <div class="scoreboard-card bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-900/50">
+        <div class="icon-wrapper bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400">
+          <i data-lucide="trending-up" class="w-8 h-8"></i>
+        </div>
+        <span class="value text-gray-900 dark:text-white">${totalWeaknesses}x</span>
+        <span class="label text-red-500">Weaknesses</span>
+      </div>
+
+      <!-- Resistances -->
+      <div class="scoreboard-card bg-green-50 dark:bg-green-900/20 border border-green-100 dark:border-green-900/50">
+        <div class="icon-wrapper bg-green-100 dark:bg-green-900/40 text-green-600 dark:text-green-400">
+          <i data-lucide="shield" class="w-8 h-8"></i>
+        </div>
+        <span class="value text-gray-900 dark:text-white">${totalResistances}x</span>
+        <span class="label text-green-500">Resistances</span>
+      </div>
+
+      <!-- Immunities -->
+      <div class="scoreboard-card bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+        <div class="icon-wrapper bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+          <i data-lucide="ghost" class="w-8 h-8"></i>
+        </div>
+        <span class="value text-gray-900 dark:text-white">${totalImmunities}x</span>
+        <span class="label text-gray-500 dark:text-gray-400">Immunities</span>
+      </div>
+    </div>
+
+    <!-- Matchup Breakdown Card -->
+    <div class="card">
+      <h3 class="text-xl font-bold mb-6 text-gray-900 dark:text-white">Matchup Breakdown</h3>
+
+      <div class="space-y-6">
+        ${quad.length > 0 ? `
+          <div class="space-y-3">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-2 h-2 rounded-full bg-red-500"></div>
+              <span class="text-sm font-bold uppercase text-gray-500 dark:text-gray-400">Major Weaknesses (4x)</span>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              ${quad.map(m => TypeBadge(m.attacker, 'lg')).join('')}
+            </div>
+          </div>
+          <div class="w-full h-px bg-gray-100 dark:bg-gray-700"></div>
+        ` : ''}
+
+        ${double.length > 0 ? `
+          <div class="space-y-3">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-2 h-2 rounded-full bg-orange-400"></div>
+              <span class="text-sm font-bold uppercase text-gray-500 dark:text-gray-400">Weaknesses (2x)</span>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              ${double.map(m => TypeBadge(m.attacker, 'lg')).join('')}
+            </div>
+          </div>
+          <div class="w-full h-px bg-gray-100 dark:bg-gray-700"></div>
+        ` : ''}
+
+        ${half.length > 0 || quarter.length > 0 ? `
+          <div class="space-y-3">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-2 h-2 rounded-full bg-green-500"></div>
+              <span class="text-sm font-bold uppercase text-gray-500 dark:text-gray-400">Resistances (0.5x${quarter.length > 0 ? ' / 0.25x' : ''})</span>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              ${[...half, ...quarter].map(m => TypeBadge(m.attacker, 'lg')).join('')}
+            </div>
+          </div>
+        ` : ''}
+
+        ${immune.length > 0 ? `
+          <div class="w-full h-px bg-gray-100 dark:bg-gray-700"></div>
+          <div class="space-y-3">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-2 h-2 rounded-full bg-purple-500"></div>
+              <span class="text-sm font-bold uppercase text-gray-500 dark:text-gray-400">Immunities (0x)</span>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              ${immune.map(m => TypeBadge(m.attacker, 'lg')).join('')}
+            </div>
+          </div>
         ` : ''}
       </div>
+
       ${comboRanking ? `
-        <p class="text-sm text-gray-600 mt-3">
-          <strong>Tier Meaning:</strong> ${getTierDescription(comboRanking.tier)}
-        </p>
+        <div class="mt-8 pt-6 border-t border-gray-100 dark:border-gray-700">
+          <div class="flex items-center gap-3 mb-2">
+            <span class="text-sm font-bold uppercase text-gray-500 dark:text-gray-400">Type Ranking:</span>
+            <span class="px-3 py-1 rounded-full text-sm font-bold bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400">
+              Tier ${comboRanking.tier} • Rank #${comboRanking.rank}
+            </span>
+          </div>
+          <p class="text-sm text-gray-500 dark:text-gray-400">${getTierDescription(comboRanking.tier)}</p>
+        </div>
       ` : ''}
     </div>
-
-    <!-- Defensive Score Card -->
-    <div class="card mt-4">
-      <h3 class="text-lg font-semibold mb-3">Defensive Summary</h3>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div class="text-center p-4 bg-red-50 rounded-lg border border-red-200">
-          <div class="text-3xl font-bold text-red-600">${profile.score.weak}</div>
-          <div class="text-sm text-gray-600">Weaknesses</div>
-        </div>
-        <div class="text-center p-4 bg-blue-50 rounded-lg border border-blue-200">
-          <div class="text-3xl font-bold text-blue-600">${profile.score.resist}</div>
-          <div class="text-sm text-gray-600">Resistances</div>
-        </div>
-        <div class="text-center p-4 bg-purple-50 rounded-lg border border-purple-200">
-          <div class="text-3xl font-bold text-purple-600">${profile.score.immune}</div>
-          <div class="text-sm text-gray-600">Immunities</div>
-        </div>
-        <div class="text-center p-4 bg-green-50 rounded-lg border border-green-200">
-          <div class="text-3xl font-bold ${profile.score.total >= 0 ? 'text-green-600' : 'text-red-600'}">${profile.score.total >= 0 ? '+' : ''}${profile.score.total}</div>
-          <div class="text-sm text-gray-600">Total Score</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Detailed Matchups -->
-    ${weaknesses.length > 0 ? `
-      <div class="card mt-4">
-        <h3 class="text-lg font-semibold mb-3 text-red-600">
-          <i class="ph-fill ph-warning-circle mr-2"></i>Weaknesses (Takes More Damage)
-        </h3>
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-          ${weaknesses.map(m => `
-            <div class="flex items-center justify-between p-3 bg-red-50 rounded-lg border border-red-200">
-              <span class="type-pill type-${m.attacker.toLowerCase()}">${m.attacker}</span>
-              <span class="font-bold text-red-600">${m.mult}x</span>
-            </div>
-          `).join('')}
-        </div>
-      </div>
-    ` : ''}
-
-    ${resistances.length > 0 ? `
-      <div class="card mt-4">
-        <h3 class="text-lg font-semibold mb-3 text-blue-600">
-          <i class="ph-fill ph-shield-check mr-2"></i>Resistances (Takes Less Damage)
-        </h3>
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-          ${resistances.map(m => `
-            <div class="flex items-center justify-between p-3 bg-blue-50 rounded-lg border border-blue-200">
-              <span class="type-pill type-${m.attacker.toLowerCase()}">${m.attacker}</span>
-              <span class="font-bold text-blue-600">${m.mult}x</span>
-            </div>
-          `).join('')}
-        </div>
-      </div>
-    ` : ''}
-
-    ${immunities.length > 0 ? `
-      <div class="card mt-4">
-        <h3 class="text-lg font-semibold mb-3 text-purple-600">
-          <i class="ph-fill ph-shield-star mr-2"></i>Immunities (No Effect)
-        </h3>
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-          ${immunities.map(m => `
-            <div class="flex items-center justify-between p-3 bg-purple-50 rounded-lg border border-purple-200">
-              <span class="type-pill type-${m.attacker.toLowerCase()}">${m.attacker}</span>
-              <span class="font-bold text-purple-600">0x</span>
-            </div>
-          `).join('')}
-        </div>
-      </div>
-    ` : ''}
-
-    ${neutral.length > 0 ? `
-      <div class="card mt-4">
-        <details>
-          <summary class="text-md font-semibold cursor-pointer text-gray-700">
-            <i class="ph-fill ph-equals mr-2"></i>Neutral Damage (${neutral.length} types)
-          </summary>
-          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mt-3">
-            ${neutral.map(m => `
-              <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200">
-                <span class="type-pill type-${m.attacker.toLowerCase()}">${m.attacker}</span>
-                <span class="font-bold text-gray-600">1x</span>
-              </div>
-            `).join('')}
-          </div>
-        </details>
-      </div>
-    ` : ''}
   `;
+
+  // Re-render Lucide icons in results
+  lucide.createIcons();
 
   // Scroll to results
   resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });

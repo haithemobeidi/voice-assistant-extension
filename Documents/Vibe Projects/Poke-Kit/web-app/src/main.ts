@@ -1,340 +1,423 @@
-import './style.css'
-import { initCalculator } from './calculator'
-import { initPokedex } from './pokedex'
-import { initNicknameGenerator, cleanupNicknameGenerator } from './nickname-generator'
+// main.ts
+// Main entry point for the Pokémon Tool Kit app
+// Handles navigation, page rendering, and initialization
 
-// Valid page IDs
-const VALID_PAGES = ['home', 'calculator', 'pokedex', 'teams', 'nickname']
+import './style.css';
+import { initCalculator } from './calculator';
+import { initPokedex } from './pokedex';
+import { initNicknameGenerator, cleanupNicknameGenerator } from './nickname-generator';
+import { initTheme, toggleTheme } from './shared/theme';
+import { NavBar, QuickActionCard } from './shared/components';
 
-// Track current page for cleanup
-let currentPage = 'home'
+// Declare lucide global (loaded via CDN)
+declare const lucide: {
+  createIcons: () => void;
+};
 
-// Get page from URL hash (e.g., #calculator -> calculator)
-function getPageFromHash(): string {
-  const hash = window.location.hash.slice(1) // Remove the #
-  return VALID_PAGES.includes(hash) ? hash : 'home'
+// Valid page IDs for routing
+const VALID_PAGES = ['home', 'calculator', 'pokedex', 'teams', 'nickname'] as const;
+type PageId = typeof VALID_PAGES[number];
+
+// Track current page for cleanup and nav state
+let currentPage: PageId = 'home';
+
+/**
+ * Get page ID from URL hash
+ * Returns 'home' if hash is empty or invalid
+ */
+function getPageFromHash(): PageId {
+  const hash = window.location.hash.slice(1) as PageId;
+  return VALID_PAGES.includes(hash) ? hash : 'home';
 }
 
-// Navigation handler
-function navigateTo(pageId: string, updateHash = true) {
-  // Cleanup the page we're leaving
+/**
+ * Navigate to a specific page
+ * Handles cleanup, page switching, and URL hash updates
+ */
+function navigateTo(pageId: PageId, updateHash = true): void {
+  // Cleanup current page if needed
   if (currentPage === 'nickname') {
-    cleanupNicknameGenerator()
+    cleanupNicknameGenerator();
   }
 
   // Hide all pages
   document.querySelectorAll('.page').forEach(page => {
-    page.classList.remove('active')
-  })
+    page.classList.remove('active');
+  });
 
   // Show target page
-  const targetPage = document.getElementById(`page-${pageId}`)
+  const targetPage = document.getElementById(`page-${pageId}`);
   if (targetPage) {
-    targetPage.classList.add('active')
+    targetPage.classList.add('active');
   }
 
-  // Update nav buttons
-  document.querySelectorAll('.nav-button, .top-nav-button').forEach(button => {
-    button.classList.remove('active')
-  })
+  // Update navigation active states
+  updateNavActiveStates(pageId);
 
-  document.querySelectorAll(`[data-page="${pageId}"]`).forEach(button => {
-    button.classList.add('active')
-  })
-
-  // Re-initialize page-specific modules when navigating to them
+  // Initialize page-specific modules
   if (pageId === 'nickname') {
-    initNicknameGenerator()
+    initNicknameGenerator();
   }
 
   // Update current page tracker
-  currentPage = pageId
+  currentPage = pageId;
 
-  // Update URL hash (without triggering hashchange if we're already handling it)
+  // Update URL hash
   if (updateHash && window.location.hash !== `#${pageId}`) {
-    window.location.hash = pageId
+    window.location.hash = pageId;
+  }
+
+  // Close mobile menu if open
+  closeMobileMenu();
+
+  // Re-create Lucide icons for the new page content
+  lucide.createIcons();
+}
+
+/**
+ * Update navigation link active states
+ */
+function updateNavActiveStates(activePageId: PageId): void {
+  document.querySelectorAll('[data-nav]').forEach(link => {
+    const linkPageId = link.getAttribute('data-nav');
+    const isActive = linkPageId === activePageId;
+
+    // Desktop nav links
+    if (link.matches('.hidden.md\\:flex a, .md\\:flex a')) {
+      link.classList.remove('bg-gray-900', 'text-white', 'dark:bg-white', 'dark:text-gray-900');
+      link.classList.remove('text-gray-500', 'hover:bg-gray-100', 'hover:text-gray-900');
+
+      if (isActive) {
+        link.classList.add('bg-gray-900', 'text-white', 'dark:bg-white', 'dark:text-gray-900');
+      } else {
+        link.classList.add('text-gray-500', 'hover:bg-gray-100', 'hover:text-gray-900',
+          'dark:text-gray-400', 'dark:hover:bg-gray-800', 'dark:hover:text-white');
+      }
+    }
+
+    // Mobile nav links
+    if (link.hasAttribute('data-mobile-nav')) {
+      link.classList.remove('bg-gray-100', 'text-gray-900', 'dark:bg-gray-800', 'dark:text-white');
+      if (isActive) {
+        link.classList.add('bg-gray-100', 'text-gray-900', 'dark:bg-gray-800', 'dark:text-white');
+      }
+    }
+  });
+}
+
+/**
+ * Toggle mobile menu visibility
+ */
+function toggleMobileMenu(): void {
+  const menu = document.getElementById('mobile-menu');
+  const openIcon = document.getElementById('menu-icon-open');
+  const closeIcon = document.getElementById('menu-icon-close');
+
+  if (menu && openIcon && closeIcon) {
+    const isOpen = !menu.classList.contains('hidden');
+    menu.classList.toggle('hidden', isOpen);
+    menu.classList.toggle('open', !isOpen);
+    openIcon.classList.toggle('hidden', !isOpen);
+    closeIcon.classList.toggle('hidden', isOpen);
   }
 }
 
-// Pokéball SVG
-const pokeballSVG = `
-<svg class="pokeball-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="50" cy="50" r="48" fill="white" stroke="#333" stroke-width="2"/>
-  <path d="M50 2C23.49 2 2 23.49 2 50H98C98 23.49 76.51 2 50 2Z" fill="#EF5350"/>
-  <circle cx="50" cy="50" r="18" stroke="#333" stroke-width="4" fill="none"/>
-  <circle cx="50" cy="50" r="10" fill="white" stroke="#333" stroke-width="2"/>
-  <line x1="2" y1="50" x2="32" y2="50" stroke="#333" stroke-width="4"/>
-  <line x1="68" y1="50" x2="98" y2="50" stroke="#333" stroke-width="4"/>
-</svg>
-`
+/**
+ * Close mobile menu
+ */
+function closeMobileMenu(): void {
+  const menu = document.getElementById('mobile-menu');
+  const openIcon = document.getElementById('menu-icon-open');
+  const closeIcon = document.getElementById('menu-icon-close');
 
-// Main app HTML
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <!-- App Header -->
-  <header class="app-header">
-    <div class="flex items-center gap-3">
-      ${pokeballSVG}
-      <h1 class="text-xl md:text-2xl font-bold">Pokémon Tool Kit</h1>
-    </div>
+  if (menu) {
+    menu.classList.add('hidden');
+    menu.classList.remove('open');
+  }
+  if (openIcon) openIcon.classList.remove('hidden');
+  if (closeIcon) closeIcon.classList.add('hidden');
+}
 
-    <!-- Desktop Navigation -->
-    <nav class="top-nav">
-      <button class="top-nav-button active" data-page="home">
-        <i class="ph-fill ph-house text-lg"></i>
-        <span class="ml-2">Home</span>
-      </button>
-      <button class="top-nav-button" data-page="calculator">
-        <i class="ph-fill ph-calculator text-lg"></i>
-        <span class="ml-2">Calculator</span>
-      </button>
-      <button class="top-nav-button" data-page="pokedex">
-        <i class="ph-fill ph-list-dashes text-lg"></i>
-        <span class="ml-2">Pokédex</span>
-      </button>
-      <button class="top-nav-button" data-page="teams">
-        <i class="ph-fill ph-users-three text-lg"></i>
-        <span class="ml-2">Team Builder</span>
-      </button>
-      <button class="top-nav-button" data-page="nickname">
-        <i class="ph-fill ph-sparkle text-lg"></i>
-        <span class="ml-2">Nicknames</span>
-      </button>
-    </nav>
-  </header>
+/**
+ * Generate the Home page content
+ */
+function renderHomePage(): string {
+  const quickActions = [
+    QuickActionCard('calculator', 'Calculator', 'Analyze matchups', 'calculator', 'bg-blue-600', 'shadow-blue-500/20'),
+    QuickActionCard('pokedex', 'Pokédex', 'Stats & Moves', 'book-open', 'bg-green-600', 'shadow-green-500/20'),
+    QuickActionCard('nickname', 'Nicknames', 'Get creative', 'sparkles', 'bg-purple-600', 'shadow-purple-500/20'),
+    QuickActionCard('teams', 'Team Builder', 'Coming soon', 'users', 'bg-yellow-500', 'shadow-yellow-500/20'),
+  ].join('');
 
-  <!-- Main Content -->
-  <main class="main-content">
-    <!-- Home Page -->
-    <div id="page-home" class="page active">
-      <div class="mb-8">
-        <h2 class="text-3xl md:text-4xl font-bold text-poke-dark mb-2">Welcome, Trainer!</h2>
-        <p class="text-gray-600">Your essential Pokémon companion for types and teams.</p>
-      </div>
-
-      <!-- Quick Actions -->
-      <div class="card">
-        <h3 class="text-xl font-semibold mb-4 text-poke-blue">Quick Actions</h3>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <button class="quick-action-btn" data-page="calculator">
-            <i class="ph-fill ph-calculator text-5xl text-poke-blue mb-2"></i>
-            <span class="font-medium">Type Calculator</span>
-          </button>
-          <button class="quick-action-btn" data-page="pokedex">
-            <i class="ph-fill ph-list-dashes text-5xl text-poke-blue mb-2"></i>
-            <span class="font-medium">Pokédex</span>
-          </button>
-          <button class="quick-action-btn" data-page="teams">
-            <i class="ph-fill ph-users-three text-5xl text-poke-blue mb-2"></i>
-            <span class="font-medium">Team Builder</span>
-          </button>
-          <button class="quick-action-btn" data-page="nickname">
-            <i class="ph-fill ph-sparkle text-5xl text-poke-blue mb-2"></i>
-            <span class="font-medium">Nicknames</span>
-          </button>
+  return `
+    <div class="space-y-8">
+      <!-- Hero Section -->
+      <div class="relative overflow-hidden bg-gradient-to-br from-red-600 to-red-700 rounded-3xl p-8 sm:p-12 shadow-2xl shadow-red-500/20 text-white">
+        <div class="relative z-10 max-w-lg">
+          <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight mb-4">
+            Welcome, <span class="text-red-200">Trainer!</span>
+          </h1>
+          <p class="text-red-100 text-lg mb-8 leading-relaxed font-medium opacity-90">
+            Your ultimate companion for competitive battling, team building, and mastering the type chart.
+          </p>
+          <a href="#pokedex"
+             class="inline-flex items-center gap-2 px-8 py-3 bg-white dark:bg-gray-900 text-red-600 dark:text-white rounded-xl font-bold text-lg transition-transform active:scale-95 shadow-lg hover:bg-red-50 dark:hover:bg-black"
+             data-nav="pokedex">
+            Explore Dex <i data-lucide="arrow-right" class="w-5 h-5"></i>
+          </a>
         </div>
+
+        <!-- Decorative background elements -->
+        <div class="absolute right-[-50px] top-[-50px] opacity-10 rotate-12">
+          <i data-lucide="circle" class="w-[400px] h-[400px]"></i>
+        </div>
+        <img
+          src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png"
+          class="absolute -right-4 -bottom-4 w-60 h-60 sm:w-80 sm:h-80 object-contain filter drop-shadow-2xl opacity-90"
+          alt="Charizard"
+        />
       </div>
 
-      <!-- Recent News -->
-      <div class="card">
-        <h3 class="text-xl font-semibold mb-4 text-poke-blue">Recent News</h3>
-        <div class="space-y-4">
-          <div class="flex items-center gap-4 p-3 bg-poke-light-gray rounded-lg">
-            <div class="w-16 h-16 bg-poke-red rounded-lg flex items-center justify-center text-white font-bold text-sm">
-              S/V
-            </div>
-            <div>
-              <h4 class="font-semibold mb-1">New Tera Raid Battle Event!</h4>
-              <p class="text-sm text-gray-600">A new 7-Star raid is now live in Pokémon Scarlet & Violet.</p>
-            </div>
-          </div>
-          <div class="flex items-center gap-4 p-3 bg-poke-light-gray rounded-lg">
-            <div class="w-16 h-16 bg-poke-blue rounded-lg flex items-center justify-center text-white font-bold text-sm">
-              Sw/Sh
-            </div>
-            <div>
-              <h4 class="font-semibold mb-1">Sword & Shield Servers</h4>
-              <p class="text-sm text-gray-600">Online services remain active. Trading is a go!</p>
-            </div>
-          </div>
+      <!-- Quick Actions Grid -->
+      <div>
+        <h2 class="text-2xl font-bold mb-6 flex items-center gap-2 text-gray-900 dark:text-white">
+          <i data-lucide="activity" class="text-red-500"></i> Quick Actions
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          ${quickActions}
         </div>
       </div>
     </div>
+  `;
+}
 
-    <!-- Calculator Page -->
-    <div id="page-calculator" class="page">
-      <div class="mb-6">
-        <h2 class="text-3xl font-bold text-poke-dark mb-2">Type Calculator</h2>
-        <p class="text-gray-600">Calculate defensive type matchups and find the best type combinations.</p>
+/**
+ * Generate the Calculator page content
+ */
+function renderCalculatorPage(): string {
+  return `
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-10">
+        <h1 class="text-4xl font-extrabold mb-4 text-gray-900 dark:text-white">Type Calculator</h1>
+        <p class="text-lg text-gray-500 dark:text-gray-400">Select up to two types to see defensive matchups.</p>
       </div>
 
-<div class="card">
-        <h3 class="text-lg font-semibold mb-4">Select Types</h3>
-        <p class="text-sm text-gray-600 mb-4">Click type badges to select your Pokémon's defensive typing.</p>
+      <!-- Type Selection Card -->
+      <div class="card mb-10 relative overflow-hidden">
+        <div class="gradient-bar"></div>
 
-        <!-- Type 1 Selector -->
-        <div class="mb-6">
-          <div class="flex items-center justify-between mb-3">
-            <label class="text-sm font-medium text-gray-700">Type 1 (Required)</label>
-            <button id="clear-type1" class="text-sm text-poke-blue hover:underline" style="display: none;">Clear</button>
-          </div>
-          <div id="type1-grid" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2"></div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
+          <!-- Type 1 Dropdown -->
+          <div id="type1-dropdown-container"></div>
+
+          <!-- Type 2 Dropdown -->
+          <div id="type2-dropdown-container"></div>
         </div>
 
-        <!-- Type 2 Selector -->
-        <div class="mb-6">
-          <div class="flex items-center justify-between mb-3">
-            <label class="text-sm font-medium text-gray-700">Type 2 (Optional)</label>
-            <button id="clear-type2" class="text-sm text-poke-blue hover:underline" style="display: none;">Clear</button>
-          </div>
-          <div id="type2-grid" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2"></div>
-        </div>
-
-        <button id="calculate-btn" class="btn btn-primary w-full">Calculate Matchups</button>
+        <button id="calculate-btn" class="btn-primary w-full mt-8">
+          <i data-lucide="calculator" class="w-5 h-5"></i>
+          Calculate Matchups
+        </button>
       </div>
 
       <!-- Results Container -->
       <div id="results-container"></div>
     </div>
+  `;
+}
 
-    <!-- Pokédex Page -->
-    <div id="page-pokedex" class="page">
-      <div class="mb-6">
-        <h2 class="text-3xl font-bold text-poke-dark mb-2">Pokédex</h2>
-        <p class="text-gray-600">Browse all Pokémon with stats, types, and detailed information.</p>
-      </div>
+/**
+ * Generate the Pokédex page content
+ */
+function renderPokedexPage(): string {
+  return `
+    <div>
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-10 gap-4">
+        <div>
+          <h1 class="text-4xl font-extrabold mb-2 text-gray-900 dark:text-white">Pokédex</h1>
+          <p class="text-gray-500 dark:text-gray-400">Browse stats, types, and abilities.</p>
+        </div>
 
-      <!-- Search and Filters -->
-      <div class="card mb-6">
-        <div class="flex flex-col md:flex-row gap-4">
-          <!-- Search Input -->
-          <div class="flex-1">
-            <label class="text-sm font-medium text-gray-700 mb-2 block">Search Pokémon</label>
-            <input
-              type="text"
-              id="pokedex-search"
-              placeholder="Search by name or number..."
-              class="w-full px-4 py-2 border-2 border-poke-gray rounded-lg focus:border-poke-blue focus:outline-none"
-            />
-          </div>
-
-          <!-- Type Filter -->
-          <div class="w-full md:w-48">
-            <label class="text-sm font-medium text-gray-700 mb-2 block">Filter by Type</label>
-            <select id="pokedex-type-filter" class="w-full px-4 py-2 border-2 border-poke-gray rounded-lg focus:border-poke-blue focus:outline-none">
-              <option value="">All Types</option>
-            </select>
-          </div>
-
-          <!-- Sort -->
-          <div class="w-full md:w-48">
-            <label class="text-sm font-medium text-gray-700 mb-2 block">Sort By</label>
-            <select id="pokedex-sort" class="w-full px-4 py-2 border-2 border-poke-gray rounded-lg focus:border-poke-blue focus:outline-none">
-              <option value="number">Pokédex #</option>
-              <option value="name">Name (A-Z)</option>
-              <option value="hp">HP (High-Low)</option>
-              <option value="attack">Attack (High-Low)</option>
-              <option value="defense">Defense (High-Low)</option>
-              <option value="speed">Speed (High-Low)</option>
-              <option value="total">Total Stats (High-Low)</option>
-            </select>
-          </div>
+        <div class="relative w-full sm:w-72">
+          <input
+            type="text"
+            id="pokedex-search"
+            placeholder="Search Pokémon..."
+            class="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 focus:border-red-500 focus:ring-2 focus:ring-red-200 dark:focus:ring-red-900 outline-none transition-all shadow-sm font-medium text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500"
+          />
+          <i data-lucide="search" class="absolute left-3 top-3.5 text-gray-400 w-5 h-5"></i>
         </div>
       </div>
 
+      <!-- Filter Row -->
+      <div class="flex flex-wrap gap-4 mb-6">
+        <select
+          id="pokedex-type-filter"
+          class="px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:border-red-500 focus:ring-2 focus:ring-red-200 outline-none"
+        >
+          <option value="">All Types</option>
+        </select>
+
+        <select
+          id="pokedex-sort"
+          class="px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:border-red-500 focus:ring-2 focus:ring-red-200 outline-none"
+        >
+          <option value="number">Pokédex #</option>
+          <option value="name">Name (A-Z)</option>
+          <option value="hp">HP (High-Low)</option>
+          <option value="attack">Attack (High-Low)</option>
+          <option value="defense">Defense (High-Low)</option>
+          <option value="speed">Speed (High-Low)</option>
+          <option value="total">Total Stats (High-Low)</option>
+        </select>
+      </div>
+
       <!-- Pokémon Grid -->
-      <div id="pokemon-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        <!-- Pokémon cards will be inserted here by JavaScript -->
+      <div id="pokemon-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <!-- Pokémon cards will be inserted here by pokedex.ts -->
       </div>
 
       <!-- Loading State -->
       <div id="pokedex-loading" class="card text-center py-12">
-        <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-poke-blue mb-4"></div>
-        <p class="text-gray-600">Loading Pokédex...</p>
+        <div class="spinner mb-4"></div>
+        <p class="text-gray-500 dark:text-gray-400">Loading Pokédex...</p>
       </div>
 
       <!-- Empty State -->
-      <div id="pokedex-empty" class="card text-center py-12" style="display: none;">
-        <i class="ph-fill ph-magnifying-glass text-6xl text-gray-300 mb-4"></i>
-        <p class="text-gray-600">No Pokémon found matching your search.</p>
+      <div id="pokedex-empty" class="card text-center py-12 hidden">
+        <i data-lucide="search-x" class="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4"></i>
+        <p class="text-gray-500 dark:text-gray-400">No Pokémon found matching your search.</p>
       </div>
     </div>
+  `;
+}
 
-    <!-- Team Builder Page -->
-    <div id="page-teams" class="page">
-      <div class="mb-6">
-        <h2 class="text-3xl font-bold text-poke-dark mb-2">Team Builder</h2>
-        <p class="text-gray-600">Get team recommendations for campaign, competitive, or raid battles.</p>
+/**
+ * Generate the Team Builder page content (placeholder)
+ */
+function renderTeamsPage(): string {
+  return `
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-10">
+        <h1 class="text-4xl font-extrabold mb-4 text-gray-900 dark:text-white">Team Builder</h1>
+        <p class="text-lg text-gray-500 dark:text-gray-400">Get team recommendations for campaign, competitive, or raid battles.</p>
       </div>
 
-      <div class="card">
-        <p class="text-center text-gray-500">Team builder coming soon...</p>
+      <div class="card text-center py-16">
+        <i data-lucide="users" class="w-20 h-20 text-gray-300 dark:text-gray-600 mx-auto mb-6"></i>
+        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Coming Soon</h3>
+        <p class="text-gray-500 dark:text-gray-400 max-w-md mx-auto">
+          The Team Builder feature is under development. Check back soon for team composition recommendations!
+        </p>
       </div>
     </div>
+  `;
+}
 
-    <!-- Nickname Generator Page -->
-    <div id="page-nickname" class="page">
-      <div class="mb-6">
-        <h2 class="text-3xl font-bold text-poke-dark mb-2">Nickname Generator</h2>
-        <p class="text-gray-600">Generate creative AI-powered nicknames for your Pokémon.</p>
+/**
+ * Generate the Nickname Generator page content
+ */
+function renderNicknamePage(): string {
+  return `
+    <div class="max-w-2xl mx-auto">
+      <div class="text-center mb-8">
+        <h1 class="text-3xl font-extrabold mb-2 text-gray-900 dark:text-white">Nickname Generator</h1>
+        <p class="text-gray-500 dark:text-gray-400">Craft the perfect name for your partner.</p>
       </div>
 
       <div id="nickname-generator-content">
         <!-- Content will be injected by nickname-generator.ts -->
       </div>
     </div>
-  </main>
-
-  <!-- Bottom Navigation (Mobile) -->
-  <nav class="bottom-nav">
-    <button class="nav-button active" data-page="home">
-      <i class="ph-fill ph-house text-2xl mb-1"></i>
-      <span>Home</span>
-    </button>
-    <button class="nav-button" data-page="calculator">
-      <i class="ph-fill ph-calculator text-2xl mb-1"></i>
-      <span>Calc</span>
-    </button>
-    <button class="nav-button" data-page="pokedex">
-      <i class="ph-fill ph-list-dashes text-2xl mb-1"></i>
-      <span>Pokédex</span>
-    </button>
-    <button class="nav-button" data-page="nickname">
-      <i class="ph-fill ph-sparkle text-2xl mb-1"></i>
-      <span>Names</span>
-    </button>
-  </nav>
-`
-
-// Attach navigation listeners
-document.querySelectorAll('[data-page]').forEach(button => {
-  button.addEventListener('click', () => {
-    const pageId = button.getAttribute('data-page')
-    if (pageId) navigateTo(pageId)
-  })
-})
-
-// Add quick action button styles
-const style = document.createElement('style')
-style.textContent = `
-  .quick-action-btn {
-    @apply flex flex-col items-center justify-center p-6 bg-poke-light-gray rounded-xl hover:bg-poke-gray transition cursor-pointer text-center;
-  }
-`
-document.head.appendChild(style)
-
-// Initialize calculator and pokédex after DOM is ready
-// Note: Nickname generator is lazy-initialized only when user navigates to that page
-initCalculator()
-initPokedex()
-
-// Handle browser back/forward navigation
-window.addEventListener('hashchange', () => {
-  const page = getPageFromHash()
-  navigateTo(page, false) // Don't update hash since it already changed
-})
-
-// Navigate to initial page based on URL hash (for refresh persistence)
-const initialPage = getPageFromHash()
-if (initialPage !== 'home') {
-  navigateTo(initialPage, false)
+  `;
 }
+
+/**
+ * Initialize the entire app
+ */
+function initApp(): void {
+  // Initialize theme first (before rendering)
+  initTheme();
+
+  const app = document.querySelector<HTMLDivElement>('#app')!;
+
+  // Render app shell
+  app.innerHTML = `
+    ${NavBar(currentPage)}
+
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+      <!-- Home Page -->
+      <div id="page-home" class="page active">
+        ${renderHomePage()}
+      </div>
+
+      <!-- Calculator Page -->
+      <div id="page-calculator" class="page">
+        ${renderCalculatorPage()}
+      </div>
+
+      <!-- Pokédex Page -->
+      <div id="page-pokedex" class="page">
+        ${renderPokedexPage()}
+      </div>
+
+      <!-- Team Builder Page -->
+      <div id="page-teams" class="page">
+        ${renderTeamsPage()}
+      </div>
+
+      <!-- Nickname Generator Page -->
+      <div id="page-nickname" class="page">
+        ${renderNicknamePage()}
+      </div>
+    </main>
+  `;
+
+  // Initialize Lucide icons
+  lucide.createIcons();
+
+  // Attach event listeners
+
+  // Navigation links (both desktop and mobile)
+  document.querySelectorAll('[data-nav]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const pageId = link.getAttribute('data-nav') as PageId;
+      if (pageId) navigateTo(pageId);
+    });
+  });
+
+  // Theme toggle
+  const themeToggle = document.getElementById('theme-toggle');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      toggleTheme();
+      lucide.createIcons(); // Re-render icons for theme change
+    });
+  }
+
+  // Mobile menu toggle
+  const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+  if (mobileMenuToggle) {
+    mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+  }
+
+  // Hash change handler for browser back/forward
+  window.addEventListener('hashchange', () => {
+    const page = getPageFromHash();
+    navigateTo(page, false);
+  });
+
+  // Initialize page modules
+  initCalculator();
+  initPokedex();
+
+  // Navigate to initial page from URL hash
+  const initialPage = getPageFromHash();
+  if (initialPage !== 'home') {
+    navigateTo(initialPage, false);
+  }
+}
+
+// Start the app
+initApp();

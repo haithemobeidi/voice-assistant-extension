@@ -1,276 +1,226 @@
-/* Import Inter font - must come before Tailwind directives */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+/* Pokémon Tool Kit - Redesigned Styles (Gamer Aesthetic)
+ * Using Tailwind CSS with dark mode support
+ * Design based on reference mockups from Gemini
+ */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  /* Smooth transitions for theme switching */
   body {
-    @apply font-sans bg-poke-light-gray text-poke-dark;
-    margin: 0;
-    padding: 0;
+    @apply font-sans antialiased;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   * {
     box-sizing: border-box;
   }
+
+  /* Custom selection colors */
+  ::selection {
+    @apply bg-red-500 text-white;
+  }
 }
 
 @layer components {
-  /* App Header - Full Width */
-  .app-header {
-    @apply bg-poke-red text-white px-6 py-4 flex items-center justify-between border-b-4 border-poke-dark shadow-md;
-  }
-
-  /* Main Content Wrapper */
-  .main-content {
-    @apply max-w-7xl mx-auto px-6 py-8;
-  }
-
-  /* Page */
+  /* Page container - hidden by default, shown when active */
   .page {
     @apply hidden;
-    animation: fadeIn 0.3s ease-in-out;
+    animation: fadeSlideIn 0.5s ease-out;
   }
 
   .page.active {
     @apply block;
   }
 
-  /* Top Nav (Desktop) */
-  .top-nav {
-    @apply hidden md:flex gap-4;
+  /* Type badge/pill styling - overrides for dynamic colors */
+  .type-badge {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   }
 
-  .top-nav-button {
-    @apply px-4 py-2 rounded-lg font-semibold transition-all cursor-pointer;
+  /* Type dropdown styling */
+  .type-dropdown-trigger {
+    @apply cursor-pointer;
   }
 
-  .top-nav-button.active {
-    @apply bg-white bg-opacity-20;
+  .type-dropdown-trigger[aria-expanded="true"] .lucide-chevron-down {
+    transform: rotate(180deg);
   }
 
-  .top-nav-button:hover:not(.active) {
-    @apply bg-white bg-opacity-10;
+  .type-dropdown-menu {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
   }
 
-  /* Bottom Nav (Mobile) */
-  .bottom-nav {
-    @apply md:hidden fixed bottom-0 left-0 right-0 bg-white flex justify-around py-3 px-2 border-t-2 border-poke-gray shadow-lg z-50;
+  .type-dropdown-menu::-webkit-scrollbar {
+    width: 6px;
   }
 
-  .nav-button {
-    @apply flex flex-col items-center justify-center text-xs text-gray-600 cursor-pointer px-4 py-2 rounded-3xl transition-all relative;
+  .type-dropdown-menu::-webkit-scrollbar-track {
+    background: transparent;
   }
 
-  .nav-button.active {
-    @apply text-poke-red;
+  .type-dropdown-menu::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 dark:bg-gray-600 rounded-full;
   }
 
-  .nav-button.active::before {
-    content: '';
-    @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[65%] bg-poke-red opacity-10 rounded-3xl -z-10;
+  /* Scoreboard cards for calculator results */
+  .scoreboard-card {
+    @apply rounded-2xl p-6 flex flex-col items-center justify-center text-center;
   }
 
-  /* Card Component */
+  .scoreboard-card .icon-wrapper {
+    @apply w-16 h-16 rounded-full flex items-center justify-center mb-3;
+  }
+
+  .scoreboard-card .value {
+    @apply text-4xl font-black;
+  }
+
+  .scoreboard-card .label {
+    @apply font-bold uppercase tracking-wider text-sm mt-1;
+  }
+
+  /* Card component - white with subtle shadow */
   .card {
-    @apply bg-white rounded-card p-5 shadow-sm border border-poke-gray mb-6;
+    @apply bg-white dark:bg-gray-800 rounded-3xl p-6 sm:p-8 shadow-xl border border-gray-100 dark:border-gray-700 transition-colors;
   }
 
-  /* Button Component */
-  .btn {
-    @apply inline-block px-6 py-3 rounded-button font-semibold text-center transition-all cursor-pointer;
-  }
-
+  /* Button styles */
   .btn-primary {
-    @apply bg-poke-blue text-white;
-    box-shadow: 0 4px 10px rgba(42, 117, 187, 0.3);
+    @apply px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-bold text-lg shadow-lg shadow-blue-500/30 hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2;
   }
 
-  .btn-primary:hover {
-    @apply bg-[#2566A1];
+  .btn-primary:active {
+    @apply scale-95;
   }
 
-  /* Input Components */
-  .select-input, .text-input {
-    @apply w-full px-4 py-3 border-2 border-poke-gray rounded-button bg-white font-medium transition-colors;
+  .btn-secondary {
+    @apply px-6 py-3 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-xl font-bold border-2 border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 transition-all;
   }
 
-  .text-input:focus, .select-input:focus {
-    @apply outline-none border-poke-blue;
+  /* Selection tile (used in nickname generator for style/length options) */
+  .selection-tile {
+    @apply flex flex-col items-center justify-center p-4 rounded-xl border-2 transition-all duration-200 cursor-pointer;
+    @apply border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800;
+    @apply hover:border-gray-300 dark:hover:border-gray-600;
+    @apply text-gray-600 dark:text-gray-400;
   }
 
-  .select-input {
-    @apply appearance-none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23707070' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 1rem center;
-    background-size: 1em;
+  .selection-tile.active {
+    @apply border-blue-500 bg-blue-50 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
   }
 
-  /* Type Pill */
-  .type-pill {
-    @apply inline-block px-3 py-1 rounded-2xl text-xs font-semibold text-white uppercase border border-black border-opacity-20 m-1;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  .selection-tile .icon {
+    @apply text-2xl mb-2;
   }
 
-  /* Type Button (for type selector grid) */
-  /* Base button styles - common across all variations */
-  .type-button {
-    @apply px-4 py-2 rounded-2xl text-sm font-semibold text-white uppercase border-2 border-black border-opacity-20 cursor-pointer transition-all relative overflow-hidden;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    min-height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .selection-tile .label {
+    @apply font-bold text-sm;
   }
 
-  .type-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  .selection-tile .desc {
+    @apply text-[10px] opacity-70 uppercase tracking-wide;
   }
 
-  .type-button.selected {
-    @apply border-white border-opacity-100;
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5), 0 4px 12px rgba(0,0,0,0.3);
-    transform: scale(1.05);
+  /* Result item (nickname generator results) */
+  .result-item {
+    @apply rounded-xl p-4 border shadow-sm hover:shadow-md flex justify-between items-center transition-all cursor-pointer;
+    @apply bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700;
+    @apply hover:border-blue-300 dark:hover:border-blue-500;
   }
 
-  /* Type icon watermark - subtle background icon */
-  .type-button::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    right: -5%;
-    width: 70px;
-    height: 70px;
-    transform: translateY(-50%);
-    opacity: 0.25;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    pointer-events: none;
-    z-index: 0;
+  .result-item .name {
+    @apply font-bold text-lg text-gray-900 dark:text-white;
   }
 
-  .type-button span {
-    position: relative;
-    z-index: 1;
+  .result-item .copy-btn {
+    @apply p-2 rounded-lg transition-colors;
+    @apply text-gray-400 hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/30;
   }
 
-  /* Type icon backgrounds */
-  .type-normal::before { background-image: url('/type-icons/normal.svg'); }
-  .type-fire::before { background-image: url('/type-icons/fire.svg'); }
-  .type-water::before { background-image: url('/type-icons/water.svg'); }
-  .type-grass::before { background-image: url('/type-icons/grass.svg'); }
-  .type-electric::before { background-image: url('/type-icons/electric.svg'); }
-  .type-ice::before { background-image: url('/type-icons/ice.svg'); }
-  .type-fighting::before { background-image: url('/type-icons/fighting.svg'); }
-  .type-poison::before { background-image: url('/type-icons/poison.svg'); }
-  .type-ground::before { background-image: url('/type-icons/ground.svg'); }
-  .type-flying::before { background-image: url('/type-icons/flying.svg'); }
-  .type-psychic::before { background-image: url('/type-icons/psychic.svg'); }
-  .type-bug::before { background-image: url('/type-icons/bug.svg'); }
-  .type-rock::before { background-image: url('/type-icons/rock.svg'); }
-  .type-ghost::before { background-image: url('/type-icons/ghost.svg'); }
-  .type-dragon::before { background-image: url('/type-icons/dragon.svg'); }
-  .type-dark::before { background-image: url('/type-icons/dark.svg'); }
-  .type-steel::before { background-image: url('/type-icons/steel.svg'); }
-  .type-fairy::before { background-image: url('/type-icons/fairy.svg'); }
+  /* Loading spinner */
+  .spinner {
+    @apply inline-block animate-spin rounded-full h-8 w-8 border-4 border-gray-200 dark:border-gray-700 border-t-blue-600 dark:border-t-blue-400;
+  }
 
-  .tier-S { @apply bg-yellow-100 text-yellow-700 border-yellow-300; }
-  .tier-A { @apply bg-green-100 text-green-700 border-green-300; }
-  .tier-B { @apply bg-blue-100 text-blue-700 border-blue-300; }
-  .tier-C { @apply bg-purple-100 text-purple-700 border-purple-300; }
-  .tier-D { @apply bg-orange-100 text-orange-700 border-orange-300; }
-  .tier-F { @apply bg-red-100 text-red-700 border-red-300; }
+  /* Empty state styling */
+  .empty-state {
+    @apply text-center py-12;
+  }
 
-  /* Type Colors - Background colors for all 18 Pokémon types */
-  .type-normal {
-    background-color: #A8A878 !important;
+  .empty-state .icon {
+    @apply text-6xl text-gray-300 dark:text-gray-600 mb-4;
   }
-  .type-fire {
-    background-color: #F08030 !important;
+
+  .empty-state .message {
+    @apply text-gray-500 dark:text-gray-400;
   }
-  .type-water {
-    background-color: #6890F0 !important;
+
+  /* Gradient bar decoration (used on calculator card) */
+  .gradient-bar {
+    @apply absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-red-500 via-blue-500 to-green-500;
   }
-  .type-grass {
-    background-color: #78C850 !important;
-  }
-  .type-electric {
-    background-color: #F8D030 !important;
-  }
-  .type-ice {
-    background-color: #98D8D8 !important;
-  }
-  .type-fighting {
-    background-color: #C03028 !important;
-  }
-  .type-poison {
-    background-color: #A040A0 !important;
-  }
-  .type-ground {
-    background-color: #E0C068 !important;
-  }
-  .type-flying {
-    background-color: #A890F0 !important;
-  }
-  .type-psychic {
-    background-color: #F85888 !important;
-  }
-  .type-bug {
-    background-color: #A8B820 !important;
-  }
-  .type-rock {
-    background-color: #B8A038 !important;
-  }
-  .type-ghost {
-    background-color: #705898 !important;
-  }
-  .type-dragon {
-    background-color: #7038F8 !important;
-  }
-  .type-dark {
-    background-color: #705848 !important;
-  }
-  .type-steel {
-    background-color: #B8B8D0 !important;
-  }
-  .type-fairy {
-    background-color: #EE99AC !important;
+
+  /* Mobile menu animation */
+  #mobile-menu.open {
+    @apply block;
+    animation: fadeIn 0.2s ease-out;
   }
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
+@layer utilities {
+  /* Animation for page transitions */
+  @keyframes fadeSlideIn {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Utility for hiding overflow text */
+  .truncate-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 }
 
-/* Mobile adjustments */
-@media (max-width: 768px) {
-  .main-content {
-    @apply pb-24; /* Space for bottom nav */
-  }
-}
-
-/* Pokéball SVG Icon Styling */
-.pokeball-icon {
-  width: 32px;
-  height: 32px;
-}
-
-/* Pixelated image rendering for Pokémon sprites */
-.pixelated {
-  image-rendering: pixelated;
-  image-rendering: -moz-crisp-edges;
-  image-rendering: crisp-edges;
-}
+/* Legacy type color classes - kept for backward compatibility
+ * These use the old color scheme, prefer TYPE_CONFIG colors for new code
+ */
+.type-normal { background-color: #A8A77A !important; }
+.type-fire { background-color: #EE8130 !important; }
+.type-water { background-color: #6390F0 !important; }
+.type-electric { background-color: #F7D02C !important; }
+.type-grass { background-color: #7AC74C !important; }
+.type-ice { background-color: #96D9D6 !important; }
+.type-fighting { background-color: #C22E28 !important; }
+.type-poison { background-color: #A33EA1 !important; }
+.type-ground { background-color: #E2BF65 !important; }
+.type-flying { background-color: #A98FF3 !important; }
+.type-psychic { background-color: #F95587 !important; }
+.type-bug { background-color: #A6B91A !important; }
+.type-rock { background-color: #B6A136 !important; }
+.type-ghost { background-color: #735797 !important; }
+.type-dragon { background-color: #6F35FC !important; }
+.type-dark { background-color: #705746 !important; }
+.type-steel { background-color: #B7B7CE !important; }
+.type-fairy { background-color: #D685AD !important; }
