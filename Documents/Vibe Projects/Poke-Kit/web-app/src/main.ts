@@ -1,6 +1,7 @@
 import './style.css'
 import { initCalculator } from './calculator'
 import { initPokedex } from './pokedex'
+import { initNicknameGenerator } from './nickname-generator'
 
 // Navigation handler
 function navigateTo(pageId: string) {
@@ -64,6 +65,10 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
         <i class="ph-fill ph-users-three text-lg"></i>
         <span class="ml-2">Team Builder</span>
       </button>
+      <button class="top-nav-button" data-page="nickname">
+        <i class="ph-fill ph-sparkle text-lg"></i>
+        <span class="ml-2">Nicknames</span>
+      </button>
     </nav>
   </header>
 
@@ -73,7 +78,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     <div id="page-home" class="page active">
       <div class="mb-8">
         <h2 class="text-3xl md:text-4xl font-bold text-poke-dark mb-2">Welcome, Trainer!</h2>
-        <p class="text-gray-600">Your essential Pokémon companion for types, teams, and trades.</p>
+        <p class="text-gray-600">Your essential Pokémon companion for types and teams.</p>
       </div>
 
       <!-- Quick Actions -->
@@ -92,9 +97,9 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
             <i class="ph-fill ph-users-three text-5xl text-poke-blue mb-2"></i>
             <span class="font-medium">Team Builder</span>
           </button>
-          <button class="quick-action-btn opacity-50 cursor-not-allowed">
-            <i class="ph-fill ph-link text-5xl text-gray-400 mb-2"></i>
-            <span class="font-medium text-gray-400">Trading (Soon)</span>
+          <button class="quick-action-btn" data-page="nickname">
+            <i class="ph-fill ph-sparkle text-5xl text-poke-blue mb-2"></i>
+            <span class="font-medium">Nicknames</span>
           </button>
         </div>
       </div>
@@ -235,6 +240,18 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
         <p class="text-center text-gray-500">Team builder coming soon...</p>
       </div>
     </div>
+
+    <!-- Nickname Generator Page -->
+    <div id="page-nickname" class="page">
+      <div class="mb-6">
+        <h2 class="text-3xl font-bold text-poke-dark mb-2">Nickname Generator</h2>
+        <p class="text-gray-600">Generate creative AI-powered nicknames for your Pokémon.</p>
+      </div>
+
+      <div id="nickname-generator-content">
+        <!-- Content will be injected by nickname-generator.ts -->
+      </div>
+    </div>
   </main>
 
   <!-- Bottom Navigation (Mobile) -->
@@ -245,15 +262,15 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     </button>
     <button class="nav-button" data-page="calculator">
       <i class="ph-fill ph-calculator text-2xl mb-1"></i>
-      <span>Calculator</span>
+      <span>Calc</span>
     </button>
     <button class="nav-button" data-page="pokedex">
       <i class="ph-fill ph-list-dashes text-2xl mb-1"></i>
       <span>Pokédex</span>
     </button>
-    <button class="nav-button" data-page="teams">
-      <i class="ph-fill ph-users-three text-2xl mb-1"></i>
-      <span>Teams</span>
+    <button class="nav-button" data-page="nickname">
+      <i class="ph-fill ph-sparkle text-2xl mb-1"></i>
+      <span>Names</span>
     </button>
   </nav>
 `
@@ -275,6 +292,7 @@ style.textContent = `
 `
 document.head.appendChild(style)
 
-// Initialize calculator and pokédex after DOM is ready
+// Initialize calculator, pokédex, and nickname generator after DOM is ready
 initCalculator()
 initPokedex()
+initNicknameGenerator()

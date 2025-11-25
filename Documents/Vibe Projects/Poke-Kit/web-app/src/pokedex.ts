@@ -53,6 +53,10 @@ let state: PokedexState = {
   expandedPokemon: new Set()
 }
 
+// Display limit tracking
+let currentDisplayLimit = 50
+const LOAD_INCREMENT = 50
+
 /**
  * Initialize Pokédex - load data and set up event listeners
  */
@@ -169,6 +173,8 @@ function setupEventListeners() {
  * Apply search, filter, and sort to Pokémon groups
  */
 function applyFiltersAndSort() {
+  // Reset display limit when filters change
+  currentDisplayLimit = 50
   let filtered = [...state.pokemonGroups]
 
   // Apply search filter (name or number)
@@ -265,9 +271,8 @@ function renderPokemonGrid() {
   empty.style.display = 'none'
   grid.style.display = 'grid'
 
-  // Render cards (limit to first 50 for performance)
-  const displayLimit = 50
-  const groupsToDisplay = state.filteredGroups.slice(0, displayLimit)
+  // Render cards up to current display limit
+  const groupsToDisplay = state.filteredGroups.slice(0, currentDisplayLimit)
 
   grid.innerHTML = groupsToDisplay.map(group => createPokemonGroupCard(group)).join('')
 
@@ -275,15 +280,37 @@ function renderPokemonGrid() {
   attachExpandListeners()
 
   // Show "Load More" button if there are more Pokémon
-  if (state.filteredGroups.length > displayLimit) {
+  if (state.filteredGroups.length > currentDisplayLimit) {
+    const remaining = state.filteredGroups.length - currentDisplayLimit
     const loadMoreBtn = document.createElement('div')
     loadMoreBtn.className = 'col-span-full text-center mt-4'
     loadMoreBtn.innerHTML = `
-      <button class="btn btn-primary px-8" onclick="alert('Load more functionality coming soon!')">
-        Load More (${state.filteredGroups.length - displayLimit} remaining)
+      <button id="load-more-btn" class="btn btn-primary px-8">
+        Load More (${remaining} remaining)
       </button>
     `
     grid.appendChild(loadMoreBtn)
+
+    // Attach click listener for Load More button
+    document.getElementById('load-more-btn')?.addEventListener('click', loadMorePokemon)
+  }
+}
+
+/**
+ * Load more Pokémon into the grid
+ */
+function loadMorePokemon() {
+  currentDisplayLimit += LOAD_INCREMENT
+  renderPokemonGrid()
+
+  // Scroll to show newly loaded content (optional smooth scroll)
+  const grid = document.getElementById('pokemon-grid')
+  if (grid) {
+    const cards = grid.querySelectorAll('.card')
+    if (cards.length > LOAD_INCREMENT) {
+      const targetCard = cards[cards.length - LOAD_INCREMENT]
+      targetCard?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
   }
 }
 

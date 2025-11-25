@@ -23,17 +23,20 @@
 - Will integrate with Pokédex feature (later phase)
 - Display on type matchup results page
 
-**Planned Feature - Nickname Generator**:
-- Multiple choice wizard UI for generating Pokémon nicknames
-- Questions: Style (Cool/Cute/Funny/Mythical), Type-based (Yes/No), Length (Short/Medium/Long)
-- Integrates with internal Pokédex for type data
-- Features: Copy to clipboard, favorites, regenerate
-- Mockup: `docs/mockup-nickname-generator.html`
-- Implementation approach: Local name database with type-themed word lists, no external API needed
+**Nickname Generator - IN PROGRESS**:
+- ✅ Wizard UI implemented with Pokemon search, style selection, type toggle, length selection
+- ✅ Gemini API integration with model fallback (gemini-2.0-flash → gemini-2.5-flash-lite → gemini-2.5-flash)
+- ✅ Retry logic with exponential backoff for API resilience
+- ✅ Copy to clipboard and favorites functionality
+- ✅ Robust response parsing (handles JSON, numbered lists, bullets, quotes)
+- 🔄 NEXT: Multi-style selection (pick 2 of 6 styles) - mockups pending user approval
+- Planned styles: Cool, Cute, Funny, Mythical, Fierce, Elegant (6 total, select up to 2)
 
 **Blockers**: None
 
 ## Recent Changes
+- 2025-11-25: **Nickname Generator** - Fixed Gemini API "overloaded" errors with model fallback chain and retry logic, robust response parsing added
+- 2025-11-23: **Nickname Generator** - Implemented AI-powered nickname generation with Gemini API, wizard UI, favorites system
 - 2025-11-14: **Phase 2 COMPLETED** - Button-based type selector UI implemented, all 18 type colors working, full calculator functionality verified
 - 2025-11-14: UX enhancement: Converted dropdown selectors to button-based UI with color-coded type badges
 - 2025-11-14: TypeScript type system created, typeChart.ts and typeCombos.ts converted to proper TypeScript
