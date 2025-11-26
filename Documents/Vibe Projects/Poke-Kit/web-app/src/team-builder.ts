@@ -4,7 +4,7 @@
 import gamesData from './data/team-builder/games.json';
 import bossesData from './data/team-builder/bosses.json';
 import progressionData from './data/team-builder/progression.json';
-import pokemonData from './data/pokemon.json';
+import { loadPokemonData } from './shared/pokemonLoader';
 // Type colors defined locally to avoid import issues
 import { getDisplayName } from './types/pokemon';
 import type { PokemonCreature } from './types/pokemon';
@@ -54,7 +54,9 @@ interface ProgressionEntry {
 const games = gamesData as Record<string, Game>;
 const bosses = bossesData as Record<string, Boss>;
 const progression = (progressionData as { kanto: Record<string, ProgressionEntry> }).kanto;
-const allPokemon = pokemonData as PokemonCreature[];
+
+// Pokemon data loaded asynchronously
+let allPokemon: PokemonCreature[] = [];
 
 // State
 let selectedGame: string | null = null;
@@ -518,8 +520,36 @@ declare const lucide: { createIcons: () => void };
 /**
  * Initialize the Team Builder
  */
-export function initTeamBuilder(): void {
-  render();
+export async function initTeamBuilder(): Promise<void> {
+  const container = document.getElementById('team-builder-content');
+
+  // Show loading state
+  if (container) {
+    container.innerHTML = `
+      <div class="flex items-center justify-center py-12">
+        <div class="spinner mr-3"></div>
+        <span class="text-gray-500">Loading Pokémon data...</span>
+      </div>
+    `;
+  }
+
+  try {
+    // Load Pokemon data asynchronously
+    allPokemon = await loadPokemonData();
+    render();
+  } catch (error) {
+    console.error('Failed to load Pokemon data:', error);
+    if (container) {
+      container.innerHTML = `
+        <div class="text-center py-12">
+          <p class="text-red-500 font-bold">Failed to load Pokémon data</p>
+          <button onclick="location.reload()" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg">
+            Retry
+          </button>
+        </div>
+      `;
+    }
+  }
 }
 
 /**

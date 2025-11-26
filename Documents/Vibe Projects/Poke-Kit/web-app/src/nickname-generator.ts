@@ -6,7 +6,7 @@ import type { PokemonCreature } from './types/pokemon';
 import { toTitleCaseType } from './types/pokemon';
 import { TypeBadgeTiny } from './shared/components';
 import { NICKNAME_CONFIG, STORAGE_KEYS } from './shared/config';
-import pokemonData from './data/pokemon.json';
+import { loadPokemonData } from './shared/pokemonLoader';
 
 // Declare lucide global (loaded via CDN)
 declare const lucide: {
@@ -75,23 +75,48 @@ export function cleanupNicknameGenerator(): void {
 
 // Global state
 let state: NicknameState = createDefaultState();
-const allPokemon = pokemonData as PokemonCreature[];
+let allPokemon: PokemonCreature[] = [];
 const LISTENER_ATTR = 'data-nickname-listeners-attached';
 
 /**
  * Initialize the nickname generator
  */
-export function initNicknameGenerator(): void {
+export async function initNicknameGenerator(): Promise<void> {
   state = createDefaultState();
   const container = document.getElementById('nickname-generator-content');
-  if (container) {
-    container.innerHTML = '';
-  }
-  renderGenerator();
 
-  if (!document.body.hasAttribute(LISTENER_ATTR)) {
-    setupGlobalListeners();
-    document.body.setAttribute(LISTENER_ATTR, 'true');
+  // Show loading state
+  if (container) {
+    container.innerHTML = `
+      <div class="flex items-center justify-center py-12">
+        <div class="spinner mr-3"></div>
+        <span class="text-gray-500">Loading Pokémon data...</span>
+      </div>
+    `;
+  }
+
+  try {
+    // Load Pokemon data asynchronously
+    allPokemon = await loadPokemonData();
+
+    renderGenerator();
+
+    if (!document.body.hasAttribute(LISTENER_ATTR)) {
+      setupGlobalListeners();
+      document.body.setAttribute(LISTENER_ATTR, 'true');
+    }
+  } catch (error) {
+    console.error('Failed to load Pokemon data:', error);
+    if (container) {
+      container.innerHTML = `
+        <div class="text-center py-12">
+          <p class="text-red-500 font-bold">Failed to load Pokémon data</p>
+          <button onclick="location.reload()" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg">
+            Retry
+          </button>
+        </div>
+      `;
+    }
   }
 }
 

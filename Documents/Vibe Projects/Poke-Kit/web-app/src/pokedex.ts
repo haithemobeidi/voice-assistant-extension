@@ -20,7 +20,7 @@ import {
 import { getTypeConfig } from './shared/typeConfig';
 import { TypeBadgeSimple, TypeBadgeTiny } from './shared/components';
 import { POKEDEX_CONFIG } from './shared/config';
-import pokemonData from './data/pokemon.json';
+import { loadPokemonData } from './shared/pokemonLoader';
 
 // Declare lucide global (loaded via CDN)
 declare const lucide: {
@@ -47,25 +47,45 @@ let infiniteScrollObserver: IntersectionObserver | null = null;
 /**
  * Initialize Pokédex - load data and set up event listeners
  */
-export function initPokedex(): void {
-  // Load ALL Pokémon data (including variants)
-  state.allPokemon = pokemonData as PokemonCreature[];
+export async function initPokedex(): Promise<void> {
+  // Show loading state
+  const loading = document.getElementById('pokedex-loading');
+  if (loading) loading.style.display = 'block';
 
-  // Group Pokémon by Pokédex number (base + variants)
-  state.pokemonGroups = groupPokemonBySpecies(state.allPokemon);
-  state.filteredGroups = [...state.pokemonGroups];
+  try {
+    // Load Pokemon data asynchronously (lazy loaded)
+    const pokemonData = await loadPokemonData();
+    state.allPokemon = pokemonData;
 
-  // Populate type filter dropdown
-  populateTypeFilter();
+    // Group Pokémon by Pokédex number (base + variants)
+    state.pokemonGroups = groupPokemonBySpecies(state.allPokemon);
+    state.filteredGroups = [...state.pokemonGroups];
 
-  // Set up event listeners
-  setupEventListeners();
+    // Populate type filter dropdown
+    populateTypeFilter();
 
-  // Set up infinite scroll observer
-  setupInfiniteScroll();
+    // Set up event listeners
+    setupEventListeners();
 
-  // Initial render
-  renderPokemonGrid();
+    // Set up infinite scroll observer
+    setupInfiniteScroll();
+
+    // Initial render
+    renderPokemonGrid();
+  } catch (error) {
+    console.error('Failed to load Pokemon data:', error);
+    const grid = document.getElementById('pokemon-grid');
+    if (grid) {
+      grid.innerHTML = `
+        <div class="col-span-full text-center py-12">
+          <p class="text-red-500 font-bold">Failed to load Pokémon data</p>
+          <button onclick="location.reload()" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg">
+            Retry
+          </button>
+        </div>
+      `;
+    }
+  }
 }
 
 /**
