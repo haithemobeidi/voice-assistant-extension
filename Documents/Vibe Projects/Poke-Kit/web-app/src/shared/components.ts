@@ -89,6 +89,7 @@ export function NavBar(currentPage: string): string {
     { id: 'calculator', label: 'Calculator', icon: 'calculator' },
     { id: 'pokedex', label: 'Pokédex', icon: 'book-open' },
     { id: 'nickname', label: 'Nicknames', icon: 'sparkles' },
+    { id: 'teams', label: 'Teams', icon: 'users' },
   ];
 
   const navLinks = navItems.map(item => {

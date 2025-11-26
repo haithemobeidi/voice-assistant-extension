@@ -132,7 +132,7 @@ function renderGameSelector(): string {
           : 'border-gray-200 dark:border-gray-700 hover:border-red-300 dark:hover:border-red-700'
       }"
     >
-      <span class="text-2xl mb-2">${getGameEmoji(game.id)}</span>
+      <img src="${getGameMascot(game.id)}" alt="${game.shortName}" class="w-12 h-12 mb-1 object-contain drop-shadow-md" />
       <span class="font-bold text-gray-900 dark:text-white text-sm">${game.shortName}</span>
       <span class="text-xs text-gray-500 dark:text-gray-400">Gen ${game.generation}</span>
     </button>
@@ -152,17 +152,29 @@ function renderGameSelector(): string {
 }
 
 /**
- * Get emoji for game version
+ * Get mascot artwork for game version
+ * Uses classic box art style where available, falls back to official artwork
  */
-function getGameEmoji(gameId: string): string {
-  const emojis: Record<string, string> = {
-    red: '🔴',
-    blue: '🔵',
-    yellow: '⚡',
-    firered: '🔥',
-    leafgreen: '🍃'
+function getGameMascot(gameId: string): string {
+  // Local retro box art (classic Ken Sugimori style)
+  const localArt: Record<string, string> = {
+    red: '/game-icons/charizard-red.png',
   };
-  return emojis[gameId] || '🎮';
+
+  if (localArt[gameId]) {
+    return localArt[gameId];
+  }
+
+  // Fallback to PokeAPI official artwork
+  const baseUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork';
+  const mascots: Record<string, number> = {
+    blue: 9,       // Blastoise
+    yellow: 25,    // Pikachu
+    firered: 6,    // Charizard
+    leafgreen: 3   // Venusaur
+  };
+  const pokemonId = mascots[gameId] || 25;
+  return `${baseUrl}/${pokemonId}.png`;
 }
 
 /**
@@ -180,7 +192,7 @@ function getTrainerSpriteUrl(bossId: string, gameId: string): string {
   const trainerMap: Record<string, { classic: string; frlg: string }> = {
     'brock': { classic: 'brock-gen1', frlg: 'brock-gen3' },
     'misty': { classic: 'misty-gen1', frlg: 'misty-gen3' },
-    'surge': { classic: 'surge-gen1', frlg: 'surge-gen3' },
+    'surge': { classic: 'ltsurge-gen1', frlg: 'ltsurge-gen3' },
     'erika': { classic: 'erika-gen1', frlg: 'erika-gen3' },
     'koga': { classic: 'koga-gen1', frlg: 'koga-gen3' },
     'sabrina': { classic: 'sabrina-gen1', frlg: 'sabrina-gen3' },
@@ -223,7 +235,6 @@ function renderBossSelector(): string {
     const boss = bosses[bossId];
     if (!boss) return '';
 
-    const typeColor = boss.specialty[0] ? getTypeColor(boss.specialty[0]) : 'bg-gray-500';
     const isSelected = selectedBoss === bossId;
     const spriteUrl = getTrainerSpriteUrl(bossId, gameId);
 
@@ -236,14 +247,13 @@ function renderBossSelector(): string {
             : 'border-gray-200 dark:border-gray-700 hover:border-red-300 dark:hover:border-red-700'
         }"
       >
-        <div class="w-12 h-12 rounded-lg ${typeColor} flex items-center justify-center overflow-hidden">
-          <img
-            src="${spriteUrl}"
-            alt="${boss.name}"
-            class="w-10 h-10 object-contain pixelated"
-            onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\\'text-white font-bold\\'>${boss.order}</span>'"
-          />
-        </div>
+        <img
+          src="${spriteUrl}"
+          alt="${boss.name}"
+          class="w-16 h-16 object-contain pixelated"
+          onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')"
+        />
+        <span class="hidden w-10 h-10 rounded-lg bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-600 dark:text-gray-300 font-bold">${boss.order}</span>
         <div class="flex-1 min-w-0">
           <div class="font-bold text-gray-900 dark:text-white truncate">${boss.name}</div>
           <div class="text-xs text-gray-500 dark:text-gray-400">${boss.title}</div>
@@ -265,8 +275,11 @@ function renderBossSelector(): string {
         <i data-lucide="swords" class="w-5 h-5 text-red-500"></i>
         Select Battle
       </h2>
-      <div class="grid gap-2 max-h-[400px] overflow-y-auto pr-2">
-        ${bossButtons}
+      <div class="relative">
+        <div class="grid gap-2 max-h-[750px] overflow-y-auto scrollbar-hide px-2 py-1" id="boss-list">
+          ${bossButtons}
+        </div>
+        <div class="pointer-events-none absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-gray-200/95 via-gray-200/50 to-transparent dark:from-gray-900/90 dark:via-gray-900/40 dark:to-transparent rounded-b-xl"></div>
       </div>
     </div>
   `;
@@ -452,9 +465,9 @@ function render(): void {
   if (!container) return;
 
   container.innerHTML = `
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
       <!-- Left Column: Selection -->
-      <div>
+      <div class="lg:sticky lg:top-20">
         ${renderGameSelector()}
         ${renderBossSelector()}
       </div>
@@ -496,6 +509,7 @@ function attachEventListeners(): void {
       render();
     });
   });
+
 }
 
 // Declare lucide global
