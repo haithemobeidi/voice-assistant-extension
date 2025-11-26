@@ -208,11 +208,23 @@ export function getTotalStats(pokemon: PokemonCreature): number {
  * Falls back to speciesNames.en, then internal name
  */
 export function getDisplayName(pokemon: PokemonCreature): string {
-  // Prefer form name for variants (e.g., "Mega Charizard X", "Alolan Raichu")
+  const speciesName = pokemon.speciesNames.en || pokemon.name;
+
   if (pokemon.formNames?.en) {
-    return pokemon.formNames.en;
+    const formName = pokemon.formNames.en;
+
+    // Regional forms say "Alolan Form", "Galarian Form", etc.
+    // Convert to "Alolan Rattata", "Galarian Meowth", etc.
+    if (formName.endsWith(' Form')) {
+      const prefix = formName.replace(' Form', '');
+      return `${prefix} ${speciesName}`;
+    }
+
+    // Mega, Gmax, and other full names (e.g., "Mega Charizard X")
+    return formName;
   }
-  return pokemon.speciesNames.en || pokemon.name;
+
+  return speciesName;
 }
 
 /**
