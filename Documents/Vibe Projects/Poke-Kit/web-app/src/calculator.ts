@@ -5,6 +5,7 @@
 import { getFullDefensiveProfile } from './data/typeChart';
 import { findTypeCombo, getTierDescription } from './data/typeCombos';
 import { getTypeConfig, TYPE_CONFIG } from './shared/typeConfig';
+import { TypeBadge } from './shared/components';
 import type { PokemonType, DefensiveProfile } from './types/pokemon';
 
 // Declare lucide global (loaded via CDN)
@@ -191,35 +192,6 @@ function renderTypeDropdown(
       trigger?.setAttribute('aria-expanded', 'false');
     }
   });
-}
-
-/**
- * Generate TypeBadge HTML for results display
- * Uses centered watermark-style SVG icons (150% height, opacity-20)
- */
-function TypeBadge(typeName: string, size: 'sm' | 'md' | 'lg' = 'md'): string {
-  const config = getTypeConfig(typeName);
-
-  const sizeClasses = {
-    sm: 'px-4 py-2 text-xs',
-    md: 'px-5 py-2.5 text-sm',
-    lg: 'px-5 py-2.5 text-base',
-  };
-
-  return `
-    <span
-      class="type-badge relative inline-flex items-center justify-center font-bold text-white rounded-full shadow-sm uppercase tracking-wider overflow-hidden ${sizeClasses[size]}"
-      style="background-color: ${config.color};"
-    >
-      <img
-        src="${config.icon}"
-        alt=""
-        class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-20 pointer-events-none"
-        style="height: 150%;"
-      />
-      <span class="relative z-10">${config.label}</span>
-    </span>
-  `;
 }
 
 /**

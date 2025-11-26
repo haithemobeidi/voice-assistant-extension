@@ -40,6 +40,44 @@ export function TypeBadge(typeName: string, size: 'sm' | 'md' | 'lg' = 'md'): st
 }
 
 /**
+ * Generate a simple TypeBadge without watermark icon (for compact displays)
+ * Used in Pokédex card fronts and other space-constrained areas
+ *
+ * @param typeName - The Pokémon type name
+ * @returns HTML string for the simple type badge
+ */
+export function TypeBadgeSimple(typeName: string): string {
+  const config = getTypeConfig(typeName);
+  return `
+    <span
+      class="px-2 py-1 rounded-full text-xs font-bold text-white uppercase"
+      style="background-color: ${config.color};"
+    >
+      ${config.label}
+    </span>
+  `;
+}
+
+/**
+ * Generate a tiny TypeBadge for very compact displays
+ * Used in Pokédex card backs and form cycling
+ *
+ * @param typeName - The Pokémon type name
+ * @returns HTML string for the tiny type badge
+ */
+export function TypeBadgeTiny(typeName: string): string {
+  const config = getTypeConfig(typeName);
+  return `
+    <span
+      class="px-1.5 py-0.5 rounded text-[10px] font-bold text-white uppercase"
+      style="background-color: ${config.color};"
+    >
+      ${config.label}
+    </span>
+  `;
+}
+
+/**
  * Generate the navigation bar HTML
  * Includes logo, desktop nav links, and theme toggle
  *

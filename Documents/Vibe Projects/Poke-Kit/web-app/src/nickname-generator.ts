@@ -4,7 +4,7 @@
 
 import type { PokemonCreature } from './types/pokemon';
 import { toTitleCaseType } from './types/pokemon';
-import { getTypeConfig } from './shared/typeConfig';
+import { TypeBadgeTiny } from './shared/components';
 import pokemonData from './data/pokemon.json';
 
 // Declare lucide global (loaded via CDN)
@@ -194,10 +194,7 @@ function renderSearchResults(pokemon: PokemonCreature[]): void {
           <div class="text-left">
             <p class="font-bold text-gray-900 dark:text-white">${name}</p>
             <div class="flex gap-1">
-              ${types.map(t => {
-                const config = getTypeConfig(t);
-                return `<span class="text-xs px-2 py-0.5 rounded-full text-white" style="background-color: ${config.color}">${t}</span>`;
-              }).join('')}
+              ${types.map(t => TypeBadgeTiny(t)).join('')}
             </div>
           </div>
         </button>
@@ -272,10 +269,7 @@ function renderSelectedPokemon(): void {
       <div>
         <h3 class="font-bold text-lg text-gray-900 dark:text-white">${name}</h3>
         <div class="flex gap-1 mt-1">
-          ${types.map(t => {
-            const tc = getTypeConfig(t);
-            return `<span class="px-2 py-0.5 rounded text-[10px] font-bold text-white uppercase" style="background-color: ${tc.color}">${t}</span>`;
-          }).join('')}
+          ${types.map(t => TypeBadgeTiny(t)).join('')}
         </div>
       </div>
       <button id="change-pokemon" class="ml-auto text-sm text-gray-400 font-bold hover:text-gray-600 dark:hover:text-gray-200 transition">

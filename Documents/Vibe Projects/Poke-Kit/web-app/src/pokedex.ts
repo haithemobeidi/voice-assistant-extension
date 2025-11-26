@@ -18,6 +18,7 @@ import {
   getFormInfo
 } from './types/pokemon';
 import { getTypeConfig } from './shared/typeConfig';
+import { TypeBadgeSimple, TypeBadgeTiny } from './shared/components';
 import pokemonData from './data/pokemon.json';
 
 // Declare lucide global (loaded via CDN)
@@ -33,8 +34,7 @@ let state: PokedexState = {
   searchQuery: '',
   typeFilter: null,
   sortBy: 'number',
-  sortOrder: 'asc',
-  expandedPokemon: new Set() // No longer used but kept for type compatibility
+  sortOrder: 'asc'
 };
 
 // Display limit tracking for infinite scroll
@@ -371,7 +371,7 @@ function cycleForm(pokemonNumber: number): void {
 
   if (sprite) sprite.src = spriteUrl;
   if (name) name.textContent = newName;
-  if (types) types.innerHTML = newForm.types.map(t => TypeBadge(t)).join('');
+  if (types) types.innerHTML = newForm.types.map(t => TypeBadgeSimple(t)).join('');
   if (bst) {
     bst.textContent = newTotal.toString();
     bst.style.color = config.color;
@@ -386,7 +386,7 @@ function cycleForm(pokemonNumber: number): void {
 
   if (spriteBack) spriteBack.src = spriteUrl;
   if (nameBack) nameBack.textContent = newName;
-  if (typesBack) typesBack.innerHTML = newForm.types.map(t => TypeBadgeSmall(t)).join('');
+  if (typesBack) typesBack.innerHTML = newForm.types.map(t => TypeBadgeTiny(t)).join('');
   if (bstBack) {
     bstBack.textContent = newTotal.toString();
     bstBack.style.color = config.color;
@@ -408,20 +408,6 @@ function cycleForm(pokemonNumber: number): void {
   if (backBgSplash) backBgSplash.style.backgroundColor = config.color;
 }
 
-/**
- * Generate TypeBadge HTML for Pokédex cards
- */
-function TypeBadge(typeName: string): string {
-  const config = getTypeConfig(typeName);
-  return `
-    <span
-      class="px-2 py-1 rounded-full text-xs font-bold text-white uppercase"
-      style="background-color: ${config.color};"
-    >
-      ${config.label}
-    </span>
-  `;
-}
 
 /**
  * Create a single Pokémon floating card with flip animation
@@ -439,9 +425,9 @@ function createPokemonCard(group: PokemonGroup): string {
   // Use HD official artwork
   const spriteUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`;
 
-  // Create type badges
-  const typeBadges = pokemon.types.map(t => TypeBadge(t)).join('');
-  const typeBadgesSmall = pokemon.types.map(t => TypeBadgeSmall(t)).join('');
+  // Create type badges using shared components
+  const typeBadges = pokemon.types.map(t => TypeBadgeSimple(t)).join('');
+  const typeBadgesSmall = pokemon.types.map(t => TypeBadgeTiny(t)).join('');
 
   // Check if this Pokémon has variants
   const hasVariants = group.variants.length > 0;
@@ -551,21 +537,6 @@ function createPokemonCard(group: PokemonGroup): string {
   `;
 
   return cardHtml;
-}
-
-/**
- * Generate smaller type badge for card back
- */
-function TypeBadgeSmall(typeName: string): string {
-  const config = getTypeConfig(typeName);
-  return `
-    <span
-      class="px-1.5 py-0.5 rounded text-[10px] font-bold text-white uppercase"
-      style="background-color: ${config.color};"
-    >
-      ${config.label}
-    </span>
-  `;
 }
 
 /**
