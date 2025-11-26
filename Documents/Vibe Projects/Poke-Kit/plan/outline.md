@@ -9,12 +9,14 @@
 - [ ] Phase 6: Trading Resources - Not Started
 
 ## Current Focus
-**Active Phase**: Phase 3 - Team Builder & PWA (Ready to Start)
+**Active Phase**: Phase 3 - Team Builder & PWA (In Progress)
 **Next Steps**:
-1. Design Team Builder UI for campaign and competitive recommendations
-2. Implement team recommendation logic
-3. Add PWA manifest and service worker for offline support
-4. Configure app icons and splash screens
+1. Design Team Builder data schema (games, gyms, progression)
+2. Compile Gen 1 gym leader data manually from Bulbapedia
+3. Integrate PokéAPI for route encounter data
+4. Build recommendation engine (type matching, scoring)
+5. Implement Team Builder UI
+6. Add PWA manifest and service worker for offline support
 
 **Note**: Trading Resources (originally Phase 3) moved to Phase 6 as it's the simplest feature. Prioritizing Team Builder and PWA features first for more value to users.
 
@@ -36,6 +38,8 @@
 **Blockers**: None
 
 ## Recent Changes
+- 2025-11-26: **Team Builder Research** - Completed data source research, created implementation plan in docs/team-builder-research.md, identified PokéAPI for encounters + manual Bulbapedia compilation for gym data
+- 2025-11-26: **Regional Form Names Fix** - Fixed "Alolan Form" → "Alolan Rattata" display pattern for all regional variants
 - 2025-11-26: **Pokédex Form Names** - Updated getDisplayName() to show full form names (Mega Charizard X, Alolan Raichu, Galarian Meowth, etc.)
 - 2025-11-26: **Refactoring Complete** - Removed all dead code (PokedexCard, TypeDropdown, TYPE_KEYS, unused params), added form cycle button to Pokédex card back for better UX
 - 2025-11-26: **Refactoring** - Created config.ts with centralized constants (STORAGE_KEYS, POKEDEX_CONFIG, NICKNAME_CONFIG), updated theme.ts, pokedex.ts, nickname-generator.ts to use shared config
