@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Type Badge Style Options</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: #1a1a2e;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+
+    /* Type Colors */
+    .type-fire { background-color: #EE8130; }
+    .type-water { background-color: #6390F0; }
+    .type-grass { background-color: #7AC74C; }
+    .type-electric { background-color: #F7D02C; }
+    .type-fairy { background-color: #D685AD; }
+    .type-dragon { background-color: #6F35FC; }
+    .type-ground { background-color: #E2BF65; }
+    .type-poison { background-color: #A33EA1; }
+    .type-rock { background-color: #B6A136; }
+    .type-fighting { background-color: #C22E28; }
+    .type-ice { background-color: #96D9D6; }
+    .type-dark { background-color: #705746; }
+    .type-bug { background-color: #A6B91A; }
+
+    .section-title {
+      color: #888;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+    }
+
+    .option-card {
+      background: #252540;
+      border-radius: 24px;
+      padding: 32px;
+      margin-bottom: 32px;
+    }
+
+    .option-title {
+      color: white;
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .option-desc {
+      color: #888;
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+  </style>
+</head>
+<body class="p-8">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-3xl font-black text-white mb-2">Type Badge Style Options</h1>
+    <p class="text-gray-400 mb-8">Compare these 3 approaches for consistent type badge styling</p>
+
+    <!-- OPTION 1: Centered Large Icon -->
+    <div class="option-card">
+      <h2 class="option-title">Option 1: Centered Large Icon (Cropped)</h2>
+      <p class="option-desc">Icon fills the badge vertically, centered, with top/bottom cropped. More visible but subtle.</p>
+
+      <div class="section-title">Selected Type Button</div>
+      <div class="flex gap-4 mb-8">
+        <button class="type-fairy relative flex items-center justify-between px-5 py-4 rounded-xl font-bold text-white text-lg overflow-hidden min-w-[200px]">
+          <span class="relative z-10">Fairy</span>
+          <img src="../../web-app/public/type-icons/fairy.svg" alt="" class="absolute right-2 top-1/2 -translate-y-1/2 h-[150%] opacity-25">
+        </button>
+        <button class="type-fire relative flex items-center justify-between px-5 py-4 rounded-xl font-bold text-white text-lg overflow-hidden min-w-[200px]">
+          <span class="relative z-10">Fire</span>
+          <img src="../../web-app/public/type-icons/fire.svg" alt="" class="absolute right-2 top-1/2 -translate-y-1/2 h-[150%] opacity-25">
+        </button>
+      </div>
+
+      <div class="section-title">Dropdown Options</div>
+      <div class="grid grid-cols-3 gap-2 mb-8 max-w-md">
+        <button class="type-fire relative flex items-center justify-center px-4 py-3 rounded-xl font-bold text-sm text-white uppercase overflow-hidden">
+          <img src="../../web-app/public/type-icons/fire.svg" alt="" class="absolute right-0 top-1/2 -translate-y-1/2 h-[150%] opacity-25">
+          <span class="relative z-10">Fire</span>
+        </button>
+        <button class="type-water relative flex items-center justify-center px-4 py-3 rounded-xl font-bold text-sm text-white uppercase overflow-hidden">
+          <img src="../../web-app/public/type-icons/water.svg" alt="" class="absolute right-0 top-1/2 -translate-y-1/2 h-[150%] opacity-25">
+          <span class="relative z-10">Water</span>
+        </button>
+        <button class="type-grass relative flex items-center justify-center px-4 py-3 rounded-xl font-bold text-sm text-white uppercase overflow-hidden">
+          <img src="../../web-app/public/type-icons/grass.svg" alt="" class="absolute right-0 top-1/2 -translate-y-1/2 h-[150%] opacity-25">
+          <span class="relative z-10">Grass</span>
+        </button>
+        <button class="type-fairy relative flex items-center justify-center px-4 py-3 rounded-xl font-bold text-sm text-white uppercase overflow-hidden">
+          <img src="../../web-app/public/type-icons/fairy.svg" alt="" class="absolute right-0 top-1/2 -translate-y-1/2 h-[150%] opacity-25">
+          <span class="relative z-10">Fairy</span>
+        </button>
+        <button class="type-dragon relative flex items-center justify-center px-4 py-3 rounded-xl font-bold text-sm text-white uppercase overflow-hidden">
+          <img src="../../web-app/public/type-icons/dragon.svg" alt="" class="absolute right-0 top-1/2 -translate-y-1/2 h-[150%] opacity-25">
+          <span class="relative z-10">Dragon</span>
+        </button>
+        <button class="type-electric relative flex items-center justify-center px-4 py-3 rounded-xl font-bold text-sm text-white uppercase overflow-hidden">
+          <img src="../../web-app/public/type-icons/electric.svg" alt="" class="absolute right-0 top-1/2 -translate-y-1/2 h-[150%] opacity-25">
+          <span class="relative z-10">Electric</span>
+        </button>
+      </div>
+
+      <div class="section-title">Matchup Breakdown Badges</div>
+      <div class="flex flex-wrap gap-2">
+        <span class="type-water relative inline-flex items-center px-4 py-2 rounded-full font-bold text-sm text-white uppercase overflow-hidden">
+          <img src="../../web-app/public/type-icons/water.svg" alt="" class="absolute right-1 top-1/2 -translate-y-1/2 h-[140%] opacity-30">
+          <span class="relative z-10">Water</span>
+        </span>
+        <span class="type-poison relative inline-flex items-center px-4 py-2 rounded-full font-bold text-sm text-white uppercase overflow-hidden">
+          <img src="../../web-app/public/type-icons/poison.svg" alt="" class="absolute right-1 top-1/2 -translate-y-1/2 h-[140%] opacity-30">
+          <span class="relative z-10">Poison</span>
+        </span>
+        <span class="type-ground relative inline-flex items-center px-4 py-2 rounded-full font-bold text-sm text-white uppercase overflow-hidden">
+          <img src="../../web-app/public/type-icons/ground.svg" alt="" class="absolute right-1 top-1/2 -translate-y-1/2 h-[140%] opacity-30">
+          <span class="relative z-10">Ground</span>
+        </span>
+        <span class="type-rock relative inline-flex items-center px-4 py-2 rounded-full font-bold text-sm text-white uppercase overflow-hidden">
+          <img src="../../web-app/public/type-icons/rock.svg" alt="" class="absolute right-1 top-1/2 -translate-y-1/2 h-[140%] opacity-30">
+          <span class="relative z-10">Rock</span>
+        </span>
+        <span class="type-fighting relative inline-flex items-center px-4 py-2 rounded-full font-bold text-sm text-white uppercase overflow-hidden">
+          <img src="../../web-app/public/type-icons/fighting.svg" alt="" class="absolute right-1 top-1/2 -translate-y-1/2 h-[140%] opacity-30">
+          <span class="relative z-10">Fighting</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- OPTION 2: Contained Icon (Fully Visible) -->
+    <div class="option-card">
+      <h2 class="option-title">Option 2: Contained Icon (Fully Visible)</h2>
+      <p class="option-desc">Icon sized to fit fully within the badge, positioned on the right. Consistent but smaller icon.</p>
+
+      <div class="section-title">Selected Type Button</div>
+      <div class="flex gap-4 mb-8">
+        <button class="type-fairy relative flex items-center justify-between px-5 py-4 rounded-xl font-bold text-white text-lg overflow-hidden min-w-[200px]">
+          <span class="relative z-10">Fairy</span>
+          <img src="../../web-app/public/type-icons/fairy.svg" alt="" class="absolute right-3 top-1/2 -translate-y-1/2 h-[70%] opacity-30">
+        </button>
+        <button class="type-fire relative flex items-center justify-between px-5 py-4 rounded-xl font-bold text-white text-lg overflow-hidden min-w-[200px]">
+          <span class="relative z-10">Fire</span>
+          <img src="../../web-app/public/type-icons/fire.svg" alt="" class="absolute right-3 top-1/2 -translate-y-1/2 h-[70%] opacity-30">
+        </button>
+      </div>
+
+      <div class="section-title">Dropdown Options</div>
+      <div class="grid grid-cols-3 gap-2 mb-8 max-w-md">
+        <button class="type-fire relative flex items-center justify-center px-4 py-3 rounded-xl font-bold text-sm text-white uppercase overflow-hidden">
+          <img src="../../web-app/public/type-icons/fire.svg" alt="" class="absolute right-1 top-1/2 -translate-y-1/2 h-[70%] opacity-30">
+          <span class="relative z-10 mr-4">Fire</span>
+        </button>
+        <button class="type-water relative flex items-center justify-center px-4 py-3 rounded-xl font-bold text-sm text-white uppercase overflow-hidden">
+          <img src="../../web-app/public/type-icons/water.svg" alt="" class="absolute right-1 top-1/2 -translate-y-1/2 h-[70%] opacity-30">
+          <span class="relative z-10 mr-4">Water</span>
+        </button>
+        <button class="type-grass relative flex items-center justify-center px-4 py-3 rounded-xl font-bold text-sm text-white uppercase overflow-hidden">
+          <img src="../../web-app/public/type-icons/grass.svg" alt="" class="absolute right-1 top-1/2 -translate-y-1/2 h-[70%] opacity-30">
+          <span class="relative z-10 mr-4">Grass</span>
+        </button>
+        <button class="type-fairy relative flex items-center justify-center px-4 py-3 rounded-xl font-bold text-sm text-white uppercase overflow-hidden">
+          <img src="../../web-app/public/type-icons/fairy.svg" alt="" class="absolute right-1 top-1/2 -translate-y-1/2 h-[70%] opacity-30">
+          <span class="relative z-10 mr-4">Fairy</span>
+        </button>
+        <button class="type-dragon relative flex items-center justify-center px-4 py-3 rounded-xl font-bold text-sm text-white uppercase overflow-hidden">
+          <img src="../../web-app/public/type-icons/dragon.svg" alt="" class="absolute right-1 top-1/2 -translate-y-1/2 h-[70%] opacity-30">
+          <span class="relative z-10 mr-4">Dragon</span>
+        </button>
+        <button class="type-electric relative flex items-center justify-center px-4 py-3 rounded-xl font-bold text-sm text-white uppercase overflow-hidden">
+          <img src="../../web-app/public/type-icons/electric.svg" alt="" class="absolute right-1 top-1/2 -translate-y-1/2 h-[70%] opacity-30">
+          <span class="relative z-10 mr-4">Electric</span>
+        </button>
+      </div>
+
+      <div class="section-title">Matchup Breakdown Badges</div>
+      <div class="flex flex-wrap gap-2">
+        <span class="type-water relative inline-flex items-center px-4 py-2 rounded-full font-bold text-sm text-white uppercase overflow-hidden">
+          <img src="../../web-app/public/type-icons/water.svg" alt="" class="absolute right-2 top-1/2 -translate-y-1/2 h-[65%] opacity-35">
+          <span class="relative z-10 mr-3">Water</span>
+        </span>
+        <span class="type-poison relative inline-flex items-center px-4 py-2 rounded-full font-bold text-sm text-white uppercase overflow-hidden">
+          <img src="../../web-app/public/type-icons/poison.svg" alt="" class="absolute right-2 top-1/2 -translate-y-1/2 h-[65%] opacity-35">
+          <span class="relative z-10 mr-3">Poison</span>
+        </span>
+        <span class="type-ground relative inline-flex items-center px-4 py-2 rounded-full font-bold text-sm text-white uppercase overflow-hidden">
+          <img src="../../web-app/public/type-icons/ground.svg" alt="" class="absolute right-2 top-1/2 -translate-y-1/2 h-[65%] opacity-35">
+          <span class="relative z-10 mr-3">Ground</span>
+        </span>
+        <span class="type-rock relative inline-flex items-center px-4 py-2 rounded-full font-bold text-sm text-white uppercase overflow-hidden">
+          <img src="../../web-app/public/type-icons/rock.svg" alt="" class="absolute right-2 top-1/2 -translate-y-1/2 h-[65%] opacity-35">
+          <span class="relative z-10 mr-3">Rock</span>
+        </span>
+        <span class="type-fighting relative inline-flex items-center px-4 py-2 rounded-full font-bold text-sm text-white uppercase overflow-hidden">
+          <img src="../../web-app/public/type-icons/fighting.svg" alt="" class="absolute right-2 top-1/2 -translate-y-1/2 h-[65%] opacity-35">
+          <span class="relative z-10 mr-3">Fighting</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- OPTION 3: Icon on Left (Inline) -->
+    <div class="option-card">
+      <h2 class="option-title">Option 3: Icon on Left (Inline Style)</h2>
+      <p class="option-desc">Small icon on the left side, inline with text. Clean and readable, no overlap.</p>
+
+      <div class="section-title">Selected Type Button</div>
+      <div class="flex gap-4 mb-8">
+        <button class="type-fairy flex items-center gap-3 px-5 py-4 rounded-xl font-bold text-white text-lg min-w-[200px]">
+          <img src="../../web-app/public/type-icons/fairy.svg" alt="" class="w-6 h-6 opacity-70">
+          <span>Fairy</span>
+        </button>
+        <button class="type-fire flex items-center gap-3 px-5 py-4 rounded-xl font-bold text-white text-lg min-w-[200px]">
+          <img src="../../web-app/public/type-icons/fire.svg" alt="" class="w-6 h-6 opacity-70">
+          <span>Fire</span>
+        </button>
+      </div>
+
+      <div class="section-title">Dropdown Options</div>
+      <div class="grid grid-cols-3 gap-2 mb-8 max-w-md">
+        <button class="type-fire flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-bold text-sm text-white uppercase">
+          <img src="../../web-app/public/type-icons/fire.svg" alt="" class="w-5 h-5 opacity-70">
+          <span>Fire</span>
+        </button>
+        <button class="type-water flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-bold text-sm text-white uppercase">
+          <img src="../../web-app/public/type-icons/water.svg" alt="" class="w-5 h-5 opacity-70">
+          <span>Water</span>
+        </button>
+        <button class="type-grass flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-bold text-sm text-white uppercase">
+          <img src="../../web-app/public/type-icons/grass.svg" alt="" class="w-5 h-5 opacity-70">
+          <span>Grass</span>
+        </button>
+        <button class="type-fairy flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-bold text-sm text-white uppercase">
+          <img src="../../web-app/public/type-icons/fairy.svg" alt="" class="w-5 h-5 opacity-70">
+          <span>Fairy</span>
+        </button>
+        <button class="type-dragon flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-bold text-sm text-white uppercase">
+          <img src="../../web-app/public/type-icons/dragon.svg" alt="" class="w-5 h-5 opacity-70">
+          <span>Dragon</span>
+        </button>
+        <button class="type-electric flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-bold text-sm text-white uppercase">
+          <img src="../../web-app/public/type-icons/electric.svg" alt="" class="w-5 h-5 opacity-70">
+          <span>Electric</span>
+        </button>
+      </div>
+
+      <div class="section-title">Matchup Breakdown Badges</div>
+      <div class="flex flex-wrap gap-2">
+        <span class="type-water inline-flex items-center gap-1.5 px-3 py-2 rounded-full font-bold text-sm text-white uppercase">
+          <img src="../../web-app/public/type-icons/water.svg" alt="" class="w-4 h-4 opacity-70">
+          <span>Water</span>
+        </span>
+        <span class="type-poison inline-flex items-center gap-1.5 px-3 py-2 rounded-full font-bold text-sm text-white uppercase">
+          <img src="../../web-app/public/type-icons/poison.svg" alt="" class="w-4 h-4 opacity-70">
+          <span>Poison</span>
+        </span>
+        <span class="type-ground inline-flex items-center gap-1.5 px-3 py-2 rounded-full font-bold text-sm text-white uppercase">
+          <img src="../../web-app/public/type-icons/ground.svg" alt="" class="w-4 h-4 opacity-70">
+          <span>Ground</span>
+        </span>
+        <span class="type-rock inline-flex items-center gap-1.5 px-3 py-2 rounded-full font-bold text-sm text-white uppercase">
+          <img src="../../web-app/public/type-icons/rock.svg" alt="" class="w-4 h-4 opacity-70">
+          <span>Rock</span>
+        </span>
+        <span class="type-fighting inline-flex items-center gap-1.5 px-3 py-2 rounded-full font-bold text-sm text-white uppercase">
+          <img src="../../web-app/public/type-icons/fighting.svg" alt="" class="w-4 h-4 opacity-70">
+          <span>Fighting</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- Summary -->
+    <div class="bg-gray-800/50 rounded-2xl p-6 text-gray-300">
+      <h3 class="text-white font-bold mb-3">Summary</h3>
+      <ul class="space-y-2 text-sm">
+        <li><strong class="text-white">Option 1:</strong> Large cropped icon - More visual impact, icon fills space but top/bottom cut off</li>
+        <li><strong class="text-white">Option 2:</strong> Contained icon - Fully visible icon, consistent across all sizes, text shifted left</li>
+        <li><strong class="text-white">Option 3:</strong> Inline icon - Clean/readable, no overlap, icon on left side</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

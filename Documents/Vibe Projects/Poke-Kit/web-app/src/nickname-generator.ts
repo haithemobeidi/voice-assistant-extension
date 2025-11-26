@@ -714,22 +714,22 @@ function renderGenerator(): void {
         </label>
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <button data-style="cool" class="selection-tile">
-            <span class="icon">🕶️</span>
+            <span class="icon"><i data-lucide="zap" class="w-6 h-6"></i></span>
             <span class="label">Cool</span>
             <span class="desc">Edgy</span>
           </button>
           <button data-style="cute" class="selection-tile">
-            <span class="icon">🎀</span>
+            <span class="icon"><i data-lucide="heart" class="w-6 h-6"></i></span>
             <span class="label">Cute</span>
             <span class="desc">Sweet</span>
           </button>
           <button data-style="funny" class="selection-tile">
-            <span class="icon">😂</span>
+            <span class="icon"><i data-lucide="laugh" class="w-6 h-6"></i></span>
             <span class="label">Funny</span>
             <span class="desc">Puns</span>
           </button>
           <button data-style="mythical" class="selection-tile">
-            <span class="icon">✨</span>
+            <span class="icon"><i data-lucide="crown" class="w-6 h-6"></i></span>
             <span class="label">Mythic</span>
             <span class="desc">Epic</span>
           </button>
@@ -743,12 +743,12 @@ function renderGenerator(): void {
         </label>
         <div class="grid grid-cols-2 gap-3">
           <button data-use-types="true" class="selection-tile">
-            <span class="icon">🔥</span>
+            <span class="icon"><i data-lucide="flame" class="w-6 h-6"></i></span>
             <span class="label">Yes</span>
             <span class="desc">Type-themed</span>
           </button>
           <button data-use-types="false" class="selection-tile">
-            <span class="icon">⭐</span>
+            <span class="icon"><i data-lucide="sparkles" class="w-6 h-6"></i></span>
             <span class="label">No</span>
             <span class="desc">General</span>
           </button>
@@ -762,14 +762,17 @@ function renderGenerator(): void {
         </label>
         <div class="grid grid-cols-3 gap-3">
           <button data-length="short" class="selection-tile">
+            <span class="icon"><i data-lucide="minus" class="w-5 h-5"></i></span>
             <span class="label">Short</span>
             <span class="desc">3-5 chars</span>
           </button>
           <button data-length="medium" class="selection-tile">
+            <span class="icon"><i data-lucide="equal" class="w-5 h-5"></i></span>
             <span class="label">Medium</span>
             <span class="desc">6-8 chars</span>
           </button>
           <button data-length="long" class="selection-tile">
+            <span class="icon"><i data-lucide="text" class="w-5 h-5"></i></span>
             <span class="label">Long</span>
             <span class="desc">9-12 chars</span>
           </button>

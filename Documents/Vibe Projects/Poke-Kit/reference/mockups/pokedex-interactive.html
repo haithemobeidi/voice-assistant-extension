@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pokédex Interactive Mockup - Card Flip & Form Switcher</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body { font-family: 'Inter', -apple-system, system-ui, sans-serif; }
+    .dark { background-color: #111827; color: white; }
+
+    /* Card flip animation */
+    .card-container {
+      perspective: 1000px;
+    }
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+    .card-container.flipped .card-inner {
+      transform: rotateY(180deg);
+    }
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .card-back {
+      transform: rotateY(180deg);
+    }
+
+    /* Form transition */
+    .form-transition {
+      transition: all 0.3s ease-out;
+    }
+    .form-fade-out {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+
+    /* Stat bar animation */
+    .stat-bar-fill {
+      transition: width 0.5s ease-out 0.3s;
+    }
+  </style>
+</head>
+<body class="dark min-h-screen p-8">
+  <div class="max-w-6xl mx-auto">
+    <h1 class="text-3xl font-black mb-2 text-white">Interactive Pokédex Mockup</h1>
+    <p class="text-gray-400 mb-8">Click cards to flip for stats. Click form badge to cycle through forms.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+
+      <!-- ==================== CARD 1: Charizard (with forms) ==================== -->
+      <div class="card-container h-[420px] cursor-pointer" onclick="flipCard(this)" id="charizard-card">
+        <div class="card-inner">
+          <!-- FRONT -->
+          <div class="card-front">
+            <div class="group relative bg-gray-800 rounded-3xl p-4 shadow-lg border border-gray-700 mt-8 h-full hover:border-purple-500 transition-colors">
+              <div class="absolute inset-0 rounded-3xl opacity-10 transition-opacity" id="charizard-bg" style="background-color: #F08030;"></div>
+
+              <!-- Form badge (clickable) -->
+              <button
+                class="absolute top-3 right-3 z-20 px-2 py-1 rounded-lg text-xs font-bold bg-purple-600 text-white hover:bg-purple-500 transition-colors flex items-center gap-1"
+                onclick="event.stopPropagation(); cycleForm('charizard')"
+                id="charizard-form-btn"
+              >
+                <i data-lucide="repeat" class="w-3 h-3"></i>
+                <span id="charizard-form-label">3 forms</span>
+              </button>
+
+              <!-- Floating sprite -->
+              <div class="absolute -top-12 left-1/2 -translate-x-1/2 w-28 h-28 z-10 form-transition" id="charizard-sprite">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png" class="w-full h-full object-contain drop-shadow-lg" id="charizard-img" />
+              </div>
+
+              <div class="pt-20 text-center">
+                <span class="text-gray-500 text-xs font-bold">#0006</span>
+                <h3 class="text-xl font-black text-white form-transition" id="charizard-name">Charizard</h3>
+                <div class="flex justify-center gap-1 my-3 form-transition" id="charizard-types">
+                  <span class="px-2 py-0.5 rounded-full text-xs font-bold text-white" style="background: #F08030;">FIRE</span>
+                  <span class="px-2 py-0.5 rounded-full text-xs font-bold text-white" style="background: #A890F0;">FLYING</span>
+                </div>
+                <div class="bg-gray-900 rounded-lg p-3 flex justify-between text-sm border border-gray-700">
+                  <span class="text-gray-500 font-bold">BST</span>
+                  <span class="font-black text-lg form-transition" id="charizard-bst" style="color: #F08030;">534</span>
+                </div>
+                <p class="text-gray-500 text-xs mt-3 flex items-center justify-center gap-1">
+                  <i data-lucide="rotate-3d" class="w-3 h-3"></i>
+                  Click to flip for stats
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- BACK (Stats) -->
+          <div class="card-back">
+            <div class="relative bg-gray-800 rounded-3xl p-4 shadow-lg border border-purple-500 mt-8 h-full">
+              <div class="absolute inset-0 rounded-3xl opacity-10" style="background-color: #F08030;"></div>
+
+              <!-- Mini sprite + name -->
+              <div class="flex items-center gap-3 mb-4">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png" class="w-16 h-16 object-contain" id="charizard-back-img" />
+                <div>
+                  <h3 class="text-lg font-black text-white" id="charizard-back-name">Charizard</h3>
+                  <div class="flex gap-1" id="charizard-back-types">
+                    <span class="px-2 py-0.5 rounded-full text-xs font-bold text-white" style="background: #F08030;">FIRE</span>
+                    <span class="px-2 py-0.5 rounded-full text-xs font-bold text-white" style="background: #A890F0;">FLYING</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Stats with Bars -->
+              <div class="bg-gray-900 rounded-xl p-4 space-y-2.5 border border-gray-700">
+                <div class="flex items-center gap-2 text-sm">
+                  <span class="w-10 text-gray-400 font-bold">HP</span>
+                  <div class="flex-1 h-3 bg-gray-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-red-500 stat-bar-fill" style="width: 52%;"></div>
+                  </div>
+                  <span class="w-8 text-right text-red-400 font-black" id="charizard-hp">78</span>
+                </div>
+                <div class="flex items-center gap-2 text-sm">
+                  <span class="w-10 text-gray-400 font-bold">ATK</span>
+                  <div class="flex-1 h-3 bg-gray-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-orange-500 stat-bar-fill" style="width: 56%;"></div>
+                  </div>
+                  <span class="w-8 text-right text-orange-400 font-black" id="charizard-atk">84</span>
+                </div>
+                <div class="flex items-center gap-2 text-sm">
+                  <span class="w-10 text-gray-400 font-bold">DEF</span>
+                  <div class="flex-1 h-3 bg-gray-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-yellow-500 stat-bar-fill" style="width: 52%;"></div>
+                  </div>
+                  <span class="w-8 text-right text-yellow-400 font-black" id="charizard-def">78</span>
+                </div>
+                <div class="flex items-center gap-2 text-sm">
+                  <span class="w-10 text-gray-400 font-bold">SPA</span>
+                  <div class="flex-1 h-3 bg-gray-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-blue-500 stat-bar-fill" style="width: 73%;"></div>
+                  </div>
+                  <span class="w-8 text-right text-blue-400 font-black" id="charizard-spa">109</span>
+                </div>
+                <div class="flex items-center gap-2 text-sm">
+                  <span class="w-10 text-gray-400 font-bold">SPD</span>
+                  <div class="flex-1 h-3 bg-gray-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-green-500 stat-bar-fill" style="width: 57%;"></div>
+                  </div>
+                  <span class="w-8 text-right text-green-400 font-black" id="charizard-spd">85</span>
+                </div>
+                <div class="flex items-center gap-2 text-sm">
+                  <span class="w-10 text-gray-400 font-bold">SPE</span>
+                  <div class="flex-1 h-3 bg-gray-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-pink-500 stat-bar-fill" style="width: 67%;"></div>
+                  </div>
+                  <span class="w-8 text-right text-pink-400 font-black" id="charizard-spe">100</span>
+                </div>
+                <div class="border-t border-gray-700 mt-3 pt-3 flex justify-between">
+                  <span class="text-gray-400 font-bold">TOTAL</span>
+                  <span class="font-black text-xl" style="color: #F08030;" id="charizard-total">534</span>
+                </div>
+              </div>
+
+              <p class="text-gray-500 text-xs mt-3 flex items-center justify-center gap-1">
+                <i data-lucide="rotate-3d" class="w-3 h-3"></i>
+                Click to flip back
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== CARD 2: Mewtwo (with forms) ==================== -->
+      <div class="card-container h-[420px] cursor-pointer" onclick="flipCard(this)" id="mewtwo-card">
+        <div class="card-inner">
+          <!-- FRONT -->
+          <div class="card-front">
+            <div class="group relative bg-gray-800 rounded-3xl p-4 shadow-lg border border-gray-700 mt-8 h-full hover:border-purple-500 transition-colors">
+              <div class="absolute inset-0 rounded-3xl opacity-10 transition-opacity" id="mewtwo-bg" style="background-color: #F85888;"></div>
+
+              <!-- Form badge -->
+              <button
+                class="absolute top-3 right-3 z-20 px-2 py-1 rounded-lg text-xs font-bold bg-purple-600 text-white hover:bg-purple-500 transition-colors flex items-center gap-1"
+                onclick="event.stopPropagation(); cycleForm('mewtwo')"
+                id="mewtwo-form-btn"
+              >
+                <i data-lucide="repeat" class="w-3 h-3"></i>
+                <span id="mewtwo-form-label">3 forms</span>
+              </button>
+
+              <!-- Floating sprite -->
+              <div class="absolute -top-12 left-1/2 -translate-x-1/2 w-28 h-28 z-10 form-transition" id="mewtwo-sprite">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/150.png" class="w-full h-full object-contain drop-shadow-lg" id="mewtwo-img" />
+              </div>
+
+              <div class="pt-20 text-center">
+                <span class="text-gray-500 text-xs font-bold">#0150</span>
+                <h3 class="text-xl font-black text-white form-transition" id="mewtwo-name">Mewtwo</h3>
+                <div class="flex justify-center gap-1 my-3 form-transition" id="mewtwo-types">
+                  <span class="px-2 py-0.5 rounded-full text-xs font-bold text-white" style="background: #F85888;">PSYCHIC</span>
+                </div>
+                <div class="bg-gray-900 rounded-lg p-3 flex justify-between text-sm border border-gray-700">
+                  <span class="text-gray-500 font-bold">BST</span>
+                  <span class="font-black text-lg form-transition" id="mewtwo-bst" style="color: #F85888;">680</span>
+                </div>
+                <p class="text-gray-500 text-xs mt-3 flex items-center justify-center gap-1">
+                  <i data-lucide="rotate-3d" class="w-3 h-3"></i>
+                  Click to flip for stats
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- BACK (Stats) -->
+          <div class="card-back">
+            <div class="relative bg-gray-800 rounded-3xl p-4 shadow-lg border border-purple-500 mt-8 h-full">
+              <div class="absolute inset-0 rounded-3xl opacity-10" style="background-color: #F85888;"></div>
+
+              <div class="flex items-center gap-3 mb-4">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/150.png" class="w-16 h-16 object-contain" id="mewtwo-back-img" />
+                <div>
+                  <h3 class="text-lg font-black text-white" id="mewtwo-back-name">Mewtwo</h3>
+                  <div class="flex gap-1" id="mewtwo-back-types">
+                    <span class="px-2 py-0.5 rounded-full text-xs font-bold text-white" style="background: #F85888;">PSYCHIC</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-gray-900 rounded-xl p-4 space-y-2.5 border border-gray-700">
+                <div class="flex items-center gap-2 text-sm">
+                  <span class="w-10 text-gray-400 font-bold">HP</span>
+                  <div class="flex-1 h-3 bg-gray-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-red-500 stat-bar-fill" style="width: 69%;"></div>
+                  </div>
+                  <span class="w-8 text-right text-red-400 font-black">106</span>
+                </div>
+                <div class="flex items-center gap-2 text-sm">
+                  <span class="w-10 text-gray-400 font-bold">ATK</span>
+                  <div class="flex-1 h-3 bg-gray-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-orange-500 stat-bar-fill" style="width: 73%;"></div>
+                  </div>
+                  <span class="w-8 text-right text-orange-400 font-black">110</span>
+                </div>
+                <div class="flex items-center gap-2 text-sm">
+                  <span class="w-10 text-gray-400 font-bold">DEF</span>
+                  <div class="flex-1 h-3 bg-gray-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-yellow-500 stat-bar-fill" style="width: 60%;"></div>
+                  </div>
+                  <span class="w-8 text-right text-yellow-400 font-black">90</span>
+                </div>
+                <div class="flex items-center gap-2 text-sm">
+                  <span class="w-10 text-gray-400 font-bold">SPA</span>
+                  <div class="flex-1 h-3 bg-gray-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-blue-500 stat-bar-fill" style="width: 100%;"></div>
+                  </div>
+                  <span class="w-8 text-right text-blue-400 font-black">154</span>
+                </div>
+                <div class="flex items-center gap-2 text-sm">
+                  <span class="w-10 text-gray-400 font-bold">SPD</span>
+                  <div class="flex-1 h-3 bg-gray-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-green-500 stat-bar-fill" style="width: 60%;"></div>
+                  </div>
+                  <span class="w-8 text-right text-green-400 font-black">90</span>
+                </div>
+                <div class="flex items-center gap-2 text-sm">
+                  <span class="w-10 text-gray-400 font-bold">SPE</span>
+                  <div class="flex-1 h-3 bg-gray-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-pink-500 stat-bar-fill" style="width: 87%;"></div>
+                  </div>
+                  <span class="w-8 text-right text-pink-400 font-black">130</span>
+                </div>
+                <div class="border-t border-gray-700 mt-3 pt-3 flex justify-between">
+                  <span class="text-gray-400 font-bold">TOTAL</span>
+                  <span class="font-black text-xl" style="color: #F85888;">680</span>
+                </div>
+              </div>
+
+              <p class="text-gray-500 text-xs mt-3 flex items-center justify-center gap-1">
+                <i data-lucide="rotate-3d" class="w-3 h-3"></i>
+                Click to flip back
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== CARD 3: Gengar (no forms) ==================== -->
+      <div class="card-container h-[420px] cursor-pointer" onclick="flipCard(this)">
+        <div class="card-inner">
+          <!-- FRONT -->
+          <div class="card-front">
+            <div class="group relative bg-gray-800 rounded-3xl p-4 shadow-lg border border-gray-700 mt-8 h-full hover:border-purple-500 transition-colors">
+              <div class="absolute inset-0 rounded-3xl opacity-10" style="background-color: #705898;"></div>
+
+              <!-- No form badge for single-form Pokemon -->
+
+              <div class="absolute -top-12 left-1/2 -translate-x-1/2 w-28 h-28 z-10">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/94.png" class="w-full h-full object-contain drop-shadow-lg" />
+              </div>
+
+              <div class="pt-20 text-center">
+                <span class="text-gray-500 text-xs font-bold">#0094</span>
+                <h3 class="text-xl font-black text-white">Gengar</h3>
+                <div class="flex justify-center gap-1 my-3">
+                  <span class="px-2 py-0.5 rounded-full text-xs font-bold text-white" style="background: #705898;">GHOST</span>
+                  <span class="px-2 py-0.5 rounded-full text-xs font-bold text-white" style="background: #A040A0;">POISON</span>
+                </div>
+                <div class="bg-gray-900 rounded-lg p-3 flex justify-between text-sm border border-gray-700">
+                  <span class="text-gray-500 font-bold">BST</span>
+                  <span class="font-black text-lg" style="color: #705898;">500</span>
+                </div>
+                <p class="text-gray-500 text-xs mt-3 flex items-center justify-center gap-1">
+                  <i data-lucide="rotate-3d" class="w-3 h-3"></i>
+                  Click to flip for stats
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- BACK (Stats) -->
+          <div class="card-back">
+            <div class="relative bg-gray-800 rounded-3xl p-4 shadow-lg border border-purple-500 mt-8 h-full">
+              <div class="absolute inset-0 rounded-3xl opacity-10" style="background-color: #705898;"></div>
+
+              <div class="flex items-center gap-3 mb-4">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/94.png" class="w-16 h-16 object-contain" />
+                <div>
+                  <h3 class="text-lg font-black text-white">Gengar</h3>
+                  <div class="flex gap-1">
+                    <span class="px-2 py-0.5 rounded-full text-xs font-bold text-white" style="background: #705898;">GHOST</span>
+                    <span class="px-2 py-0.5 rounded-full text-xs font-bold text-white" style="background: #A040A0;">POISON</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-gray-900 rounded-xl p-4 space-y-2.5 border border-gray-700">
+                <div class="flex items-center gap-2 text-sm">
+                  <span class="w-10 text-gray-400 font-bold">HP</span>
+                  <div class="flex-1 h-3 bg-gray-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-red-500 stat-bar-fill" style="width: 40%;"></div>
+                  </div>
+                  <span class="w-8 text-right text-red-400 font-black">60</span>
+                </div>
+                <div class="flex items-center gap-2 text-sm">
+                  <span class="w-10 text-gray-400 font-bold">ATK</span>
+                  <div class="flex-1 h-3 bg-gray-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-orange-500 stat-bar-fill" style="width: 43%;"></div>
+                  </div>
+                  <span class="w-8 text-right text-orange-400 font-black">65</span>
+                </div>
+                <div class="flex items-center gap-2 text-sm">
+                  <span class="w-10 text-gray-400 font-bold">DEF</span>
+                  <div class="flex-1 h-3 bg-gray-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-yellow-500 stat-bar-fill" style="width: 40%;"></div>
+                  </div>
+                  <span class="w-8 text-right text-yellow-400 font-black">60</span>
+                </div>
+                <div class="flex items-center gap-2 text-sm">
+                  <span class="w-10 text-gray-400 font-bold">SPA</span>
+                  <div class="flex-1 h-3 bg-gray-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-blue-500 stat-bar-fill" style="width: 87%;"></div>
+                  </div>
+                  <span class="w-8 text-right text-blue-400 font-black">130</span>
+                </div>
+                <div class="flex items-center gap-2 text-sm">
+                  <span class="w-10 text-gray-400 font-bold">SPD</span>
+                  <div class="flex-1 h-3 bg-gray-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-green-500 stat-bar-fill" style="width: 50%;"></div>
+                  </div>
+                  <span class="w-8 text-right text-green-400 font-black">75</span>
+                </div>
+                <div class="flex items-center gap-2 text-sm">
+                  <span class="w-10 text-gray-400 font-bold">SPE</span>
+                  <div class="flex-1 h-3 bg-gray-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-pink-500 stat-bar-fill" style="width: 73%;"></div>
+                  </div>
+                  <span class="w-8 text-right text-pink-400 font-black">110</span>
+                </div>
+                <div class="border-t border-gray-700 mt-3 pt-3 flex justify-between">
+                  <span class="text-gray-400 font-bold">TOTAL</span>
+                  <span class="font-black text-xl" style="color: #705898;">500</span>
+                </div>
+              </div>
+
+              <p class="text-gray-500 text-xs mt-3 flex items-center justify-center gap-1">
+                <i data-lucide="rotate-3d" class="w-3 h-3"></i>
+                Click to flip back
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Instructions -->
+    <div class="mt-12 bg-gray-800 rounded-2xl p-6 border border-gray-700">
+      <h2 class="text-xl font-bold text-white mb-4">How It Works</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div>
+          <h3 class="font-bold text-purple-400 mb-2 flex items-center gap-2">
+            <i data-lucide="rotate-3d" class="w-5 h-5"></i>
+            Card Flip for Stats
+          </h3>
+          <p class="text-gray-400 text-sm">
+            Click anywhere on the card to flip it and reveal detailed stats with animated bars.
+            Click again to flip back. The stat bars animate in when the card flips.
+          </p>
+        </div>
+        <div>
+          <h3 class="font-bold text-purple-400 mb-2 flex items-center gap-2">
+            <i data-lucide="repeat" class="w-5 h-5"></i>
+            Form Switcher
+          </h3>
+          <p class="text-gray-400 text-sm">
+            Click the purple "3 forms" badge to cycle through different forms (Base, Mega X, Mega Y, etc.).
+            The sprite, name, types, and stats all update to match the selected form.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    // Flip card function
+    function flipCard(container) {
+      container.classList.toggle('flipped');
+    }
+
+    // Form data for Charizard
+    const charizardForms = [
+      {
+        name: 'Charizard',
+        sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png',
+        types: ['FIRE', 'FLYING'],
+        typeColors: ['#F08030', '#A890F0'],
+        bst: 534,
+        color: '#F08030',
+        stats: { hp: 78, atk: 84, def: 78, spa: 109, spd: 85, spe: 100 }
+      },
+      {
+        name: 'Mega Charizard X',
+        sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10034.png',
+        types: ['FIRE', 'DRAGON'],
+        typeColors: ['#F08030', '#7038F8'],
+        bst: 634,
+        color: '#7038F8',
+        stats: { hp: 78, atk: 130, def: 111, spa: 130, spd: 85, spe: 100 }
+      },
+      {
+        name: 'Mega Charizard Y',
+        sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10035.png',
+        types: ['FIRE', 'FLYING'],
+        typeColors: ['#F08030', '#A890F0'],
+        bst: 634,
+        color: '#F08030',
+        stats: { hp: 78, atk: 104, def: 78, spa: 159, spd: 115, spe: 100 }
+      }
+    ];
+
+    // Form data for Mewtwo
+    const mewtwoForms = [
+      {
+        name: 'Mewtwo',
+        sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/150.png',
+        types: ['PSYCHIC'],
+        typeColors: ['#F85888'],
+        bst: 680,
+        color: '#F85888',
+        stats: { hp: 106, atk: 110, def: 90, spa: 154, spd: 90, spe: 130 }
+      },
+      {
+        name: 'Mega Mewtwo X',
+        sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10190.png',
+        types: ['PSYCHIC', 'FIGHTING'],
+        typeColors: ['#F85888', '#C03028'],
+        bst: 780,
+        color: '#C03028',
+        stats: { hp: 106, atk: 190, def: 100, spa: 154, spd: 100, spe: 130 }
+      },
+      {
+        name: 'Mega Mewtwo Y',
+        sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10191.png',
+        types: ['PSYCHIC'],
+        typeColors: ['#F85888'],
+        bst: 780,
+        color: '#F85888',
+        stats: { hp: 106, atk: 150, def: 70, spa: 194, spd: 120, spe: 140 }
+      }
+    ];
+
+    // Current form index for each Pokemon
+    const formIndex = {
+      charizard: 0,
+      mewtwo: 0
+    };
+
+    // Cycle through forms
+    function cycleForm(pokemon) {
+      const forms = pokemon === 'charizard' ? charizardForms : mewtwoForms;
+      formIndex[pokemon] = (formIndex[pokemon] + 1) % forms.length;
+      const form = forms[formIndex[pokemon]];
+
+      // Animate out
+      const sprite = document.getElementById(`${pokemon}-sprite`);
+      const name = document.getElementById(`${pokemon}-name`);
+      const types = document.getElementById(`${pokemon}-types`);
+      const bst = document.getElementById(`${pokemon}-bst`);
+
+      sprite.classList.add('form-fade-out');
+      name.classList.add('form-fade-out');
+      types.classList.add('form-fade-out');
+
+      setTimeout(() => {
+        // Update content
+        document.getElementById(`${pokemon}-img`).src = form.sprite;
+        document.getElementById(`${pokemon}-back-img`).src = form.sprite;
+        name.textContent = form.name;
+        document.getElementById(`${pokemon}-back-name`).textContent = form.name;
+
+        // Update types
+        const typesHtml = form.types.map((t, i) =>
+          `<span class="px-2 py-0.5 rounded-full text-xs font-bold text-white" style="background: ${form.typeColors[i]};">${t}</span>`
+        ).join('');
+        types.innerHTML = typesHtml;
+        document.getElementById(`${pokemon}-back-types`).innerHTML = typesHtml;
+
+        // Update BST
+        bst.textContent = form.bst;
+        bst.style.color = form.color;
+
+        // Update background
+        document.getElementById(`${pokemon}-bg`).style.backgroundColor = form.color;
+
+        // Update form label
+        const remaining = forms.length - 1;
+        const currentName = formIndex[pokemon] === 0 ? 'Base' : form.name.replace('Mega ', 'M-').replace(pokemon.charAt(0).toUpperCase() + pokemon.slice(1) + ' ', '');
+        document.getElementById(`${pokemon}-form-label`).textContent = currentName;
+
+        // Animate in
+        sprite.classList.remove('form-fade-out');
+        name.classList.remove('form-fade-out');
+        types.classList.remove('form-fade-out');
+      }, 150);
+    }
+  </script>
+</body>
+</html>

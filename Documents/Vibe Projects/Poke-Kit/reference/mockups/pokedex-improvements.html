@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pokédex Improvements Mockup</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body { font-family: 'Inter', -apple-system, system-ui, sans-serif; }
+    .dark { background-color: #111827; color: white; }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #1f2937; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #6b7280; }
+
+    /* Stat bar animation */
+    .stat-bar-fill {
+      transition: width 0.5s ease-out;
+    }
+  </style>
+</head>
+<body class="dark min-h-screen p-8">
+  <div class="max-w-7xl mx-auto">
+    <h1 class="text-3xl font-black mb-2 text-white">Pokédex Improvements Mockup</h1>
+    <p class="text-gray-400 mb-8">Three key improvements: Infinite scroll, better variant display, full stat breakdown</p>
+
+    <!-- Mockup Navigation -->
+    <div class="flex gap-4 mb-8 flex-wrap">
+      <button onclick="showSection('scroll')" class="px-4 py-2 rounded-lg bg-blue-600 text-white font-bold" id="btn-scroll">
+        1. Infinite Scroll
+      </button>
+      <button onclick="showSection('variants')" class="px-4 py-2 rounded-lg bg-gray-700 text-gray-300 font-bold" id="btn-variants">
+        2. Variant Display Options
+      </button>
+      <button onclick="showSection('stats')" class="px-4 py-2 rounded-lg bg-gray-700 text-gray-300 font-bold" id="btn-stats">
+        3. Full Stats View
+      </button>
+    </div>
+
+    <!-- ==================== SECTION 1: INFINITE SCROLL ==================== -->
+    <section id="section-scroll" class="mb-16">
+      <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700 mb-6">
+        <h2 class="text-2xl font-bold mb-4 text-white flex items-center gap-2">
+          <i data-lucide="arrow-down" class="w-6 h-6 text-blue-400"></i>
+          Infinite Scroll (Auto-load on scroll)
+        </h2>
+        <p class="text-gray-400 mb-4">
+          <strong>Problem:</strong> Currently requires clicking "Load More" button repeatedly.<br>
+          <strong>Solution:</strong> Auto-load more Pokémon when user scrolls near bottom of the list.
+        </p>
+
+        <div class="bg-green-900/30 border border-green-700 rounded-lg p-4 mb-4">
+          <h3 class="font-bold text-green-400 mb-2">Implementation:</h3>
+          <ul class="text-green-300 text-sm space-y-1">
+            <li>• Use Intersection Observer API to detect when user reaches bottom</li>
+            <li>• Load 20 more cards automatically</li>
+            <li>• Show loading spinner while fetching</li>
+            <li>• Keep "Load More" as fallback option</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Demo Grid -->
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6" style="max-height: 500px; overflow-y: auto; padding: 2rem 0.5rem;">
+        <!-- Card 1 -->
+        <div class="group relative bg-gray-800 rounded-3xl p-4 shadow-lg border border-gray-700 mt-8">
+          <div class="absolute inset-0 rounded-3xl opacity-10" style="background-color: #78C850;"></div>
+          <div class="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 z-10">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png" class="w-full h-full object-contain" />
+          </div>
+          <div class="pt-16 text-center">
+            <span class="text-gray-500 text-xs font-bold">#0001</span>
+            <h3 class="text-lg font-black text-white">Bulbasaur</h3>
+            <div class="flex justify-center gap-1 my-2">
+              <span class="px-2 py-0.5 rounded-full text-xs font-bold text-white" style="background: #78C850;">GRASS</span>
+              <span class="px-2 py-0.5 rounded-full text-xs font-bold text-white" style="background: #A040A0;">POISON</span>
+            </div>
+            <div class="bg-gray-900 rounded-lg p-2 flex justify-between text-sm">
+              <span class="text-gray-500">BST</span>
+              <span class="font-bold" style="color: #78C850;">318</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="group relative bg-gray-800 rounded-3xl p-4 shadow-lg border border-gray-700 mt-8">
+          <div class="absolute inset-0 rounded-3xl opacity-10" style="background-color: #78C850;"></div>
+          <div class="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 z-10">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png" class="w-full h-full object-contain" />
+          </div>
+          <div class="pt-16 text-center">
+            <span class="text-gray-500 text-xs font-bold">#0002</span>
+            <h3 class="text-lg font-black text-white">Ivysaur</h3>
+            <div class="flex justify-center gap-1 my-2">
+              <span class="px-2 py-0.5 rounded-full text-xs font-bold text-white" style="background: #78C850;">GRASS</span>
+              <span class="px-2 py-0.5 rounded-full text-xs font-bold text-white" style="background: #A040A0;">POISON</span>
+            </div>
+            <div class="bg-gray-900 rounded-lg p-2 flex justify-between text-sm">
+              <span class="text-gray-500">BST</span>
+              <span class="font-bold" style="color: #78C850;">405</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="group relative bg-gray-800 rounded-3xl p-4 shadow-lg border border-gray-700 mt-8">
+          <div class="absolute inset-0 rounded-3xl opacity-10" style="background-color: #78C850;"></div>
+          <div class="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 z-10">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/3.png" class="w-full h-full object-contain" />
+          </div>
+          <div class="pt-16 text-center">
+            <span class="text-gray-500 text-xs font-bold">#0003</span>
+            <h3 class="text-lg font-black text-white">Venusaur</h3>
+            <div class="flex justify-center gap-1 my-2">
+              <span class="px-2 py-0.5 rounded-full text-xs font-bold text-white" style="background: #78C850;">GRASS</span>
+              <span class="px-2 py-0.5 rounded-full text-xs font-bold text-white" style="background: #A040A0;">POISON</span>
+            </div>
+            <div class="bg-gray-900 rounded-lg p-2 flex justify-between text-sm">
+              <span class="text-gray-500">BST</span>
+              <span class="font-bold" style="color: #78C850;">525</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- More cards... -->
+        <div class="group relative bg-gray-800 rounded-3xl p-4 shadow-lg border border-gray-700 mt-8">
+          <div class="absolute inset-0 rounded-3xl opacity-10" style="background-color: #F08030;"></div>
+          <div class="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 z-10">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png" class="w-full h-full object-contain" />
+          </div>
+          <div class="pt-16 text-center">
+            <span class="text-gray-500 text-xs font-bold">#0004</span>
+            <h3 class="text-lg font-black text-white">Charmander</h3>
+            <div class="flex justify-center gap-1 my-2">
+              <span class="px-2 py-0.5 rounded-full text-xs font-bold text-white" style="background: #F08030;">FIRE</span>
+            </div>
+            <div class="bg-gray-900 rounded-lg p-2 flex justify-between text-sm">
+              <span class="text-gray-500">BST</span>
+              <span class="font-bold" style="color: #F08030;">309</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="group relative bg-gray-800 rounded-3xl p-4 shadow-lg border border-gray-700 mt-8">
+          <div class="absolute inset-0 rounded-3xl opacity-10" style="background-color: #F08030;"></div>
+          <div class="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 z-10">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/5.png" class="w-full h-full object-contain" />
+          </div>
+          <div class="pt-16 text-center">
+            <span class="text-gray-500 text-xs font-bold">#0005</span>
+            <h3 class="text-lg font-black text-white">Charmeleon</h3>
+            <div class="flex justify-center gap-1 my-2">
+              <span class="px-2 py-0.5 rounded-full text-xs font-bold text-white" style="background: #F08030;">FIRE</span>
+            </div>
+            <div class="bg-gray-900 rounded-lg p-2 flex justify-between text-sm">
+              <span class="text-gray-500">BST</span>
+              <span class="font-bold" style="color: #F08030;">405</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div class="col-span-full flex justify-center py-8">
+          <div class="flex items-center gap-3 text-gray-400">
+            <div class="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+            <span class="font-medium">Loading more Pokémon...</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-center text-gray-500 mt-4 text-sm">
+        ^ Scroll down in the grid above to see loading indicator ^
+      </p>
+    </section>
+
+    <!-- ==================== SECTION 2: VARIANT DISPLAY OPTIONS ==================== -->
+    <section id="section-variants" class="mb-16 hidden">
+      <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700 mb-6">
+        <h2 class="text-2xl font-bold mb-4 text-white flex items-center gap-2">
+          <i data-lucide="layers" class="w-6 h-6 text-purple-400"></i>
+          Better Variant Display
+        </h2>
+        <p class="text-gray-400 mb-4">
+          <strong>Problem:</strong> Current expand/collapse is clunky, variants break grid layout.<br>
+          <strong>Solution:</strong> Show variants inline or in a modal/drawer.
+        </p>
+      </div>
+
+      <h3 class="text-xl font-bold mb-4 text-white">Option A: Inline Mini-Cards (Horizontal Scroll)</h3>
+      <p class="text-gray-400 mb-4">Variants appear as smaller cards below the main card, scrollable horizontally.</p>
+
+      <div class="bg-gray-900 rounded-2xl p-6 mb-8">
+        <!-- Main Charizard Card -->
+        <div class="max-w-xs mx-auto mb-6">
+          <div class="group relative bg-gray-800 rounded-3xl p-4 shadow-lg border border-gray-700 mt-8">
+            <div class="absolute inset-0 rounded-3xl opacity-10" style="background-color: #F08030;"></div>
+            <div class="absolute top-3 right-3 z-20">
+              <span class="px-2 py-1 rounded-lg text-xs font-bold bg-purple-600 text-white">
+                2 forms
+              </span>
+            </div>
+            <div class="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 z-10">
+              <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png" class="w-full h-full object-contain" />
+            </div>
+            <div class="pt-16 text-center">
+              <span class="text-gray-500 text-xs font-bold">#0006</span>
+              <h3 class="text-lg font-black text-white">Charizard</h3>
+              <div class="flex justify-center gap-1 my-2">
+                <span class="px-2 py-0.5 rounded-full text-xs font-bold text-white" style="background: #F08030;">FIRE</span>
+                <span class="px-2 py-0.5 rounded-full text-xs font-bold text-white" style="background: #A890F0;">FLYING</span>
+              </div>
+              <div class="bg-gray-900 rounded-lg p-2 flex justify-between text-sm">
+                <span class="text-gray-500">BST</span>
+                <span class="font-bold" style="color: #F08030;">534</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Inline Variants (Horizontal Scroll) -->
+        <div class="flex gap-3 overflow-x-auto pb-4 px-4" style="scrollbar-width: thin;">
+          <!-- Mega X -->
+          <div class="flex-shrink-0 w-32 bg-gray-800 rounded-xl p-3 border border-purple-500/50">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10034.png" class="w-16 h-16 mx-auto object-contain" />
+            <div class="text-center mt-2">
+              <span class="text-xs font-bold text-purple-400">Mega X</span>
+              <div class="flex justify-center gap-1 mt-1">
+                <span class="w-2 h-2 rounded-full" style="background: #F08030;"></span>
+                <span class="w-2 h-2 rounded-full" style="background: #7038F8;"></span>
+              </div>
+              <span class="text-xs text-gray-400">BST 634</span>
+            </div>
+          </div>
+
+          <!-- Mega Y -->
+          <div class="flex-shrink-0 w-32 bg-gray-800 rounded-xl p-3 border border-purple-500/50">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10035.png" class="w-16 h-16 mx-auto object-contain" />
+            <div class="text-center mt-2">
+              <span class="text-xs font-bold text-purple-400">Mega Y</span>
+              <div class="flex justify-center gap-1 mt-1">
+                <span class="w-2 h-2 rounded-full" style="background: #F08030;"></span>
+                <span class="w-2 h-2 rounded-full" style="background: #A890F0;"></span>
+              </div>
+              <span class="text-xs text-gray-400">BST 634</span>
+            </div>
+          </div>
+
+          <!-- G-Max (example) -->
+          <div class="flex-shrink-0 w-32 bg-gray-800 rounded-xl p-3 border border-pink-500/50">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png" class="w-16 h-16 mx-auto object-contain" />
+            <div class="text-center mt-2">
+              <span class="text-xs font-bold text-pink-400">Gigantamax</span>
+              <div class="flex justify-center gap-1 mt-1">
+                <span class="w-2 h-2 rounded-full" style="background: #F08030;"></span>
+                <span class="w-2 h-2 rounded-full" style="background: #A890F0;"></span>
+              </div>
+              <span class="text-xs text-gray-400">BST 534</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="text-xl font-bold mb-4 text-white">Option B: Click to Open Drawer/Modal</h3>
+      <p class="text-gray-400 mb-4">Clicking a card opens a side drawer or modal with all details + variants.</p>
+
+      <div class="flex gap-6">
+        <!-- Card -->
+        <div class="w-64">
+          <div class="group relative bg-gray-800 rounded-3xl p-4 shadow-lg border border-gray-700 mt-8 cursor-pointer hover:border-blue-500 transition-colors">
+            <div class="absolute inset-0 rounded-3xl opacity-10" style="background-color: #6890F0;"></div>
+            <div class="absolute top-3 right-3 z-20">
+              <span class="px-2 py-1 rounded-lg text-xs font-bold bg-blue-600 text-white flex items-center gap-1">
+                <i data-lucide="external-link" class="w-3 h-3"></i>
+                Click for details
+              </span>
+            </div>
+            <div class="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 z-10">
+              <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/150.png" class="w-full h-full object-contain" />
+            </div>
+            <div class="pt-16 text-center">
+              <span class="text-gray-500 text-xs font-bold">#0150</span>
+              <h3 class="text-lg font-black text-white">Mewtwo</h3>
+              <div class="flex justify-center gap-1 my-2">
+                <span class="px-2 py-0.5 rounded-full text-xs font-bold text-white" style="background: #F85888;">PSYCHIC</span>
+              </div>
+              <div class="bg-gray-900 rounded-lg p-2 flex justify-between text-sm">
+                <span class="text-gray-500">BST</span>
+                <span class="font-bold" style="color: #F85888;">680</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Drawer Preview -->
+        <div class="flex-1 bg-gray-800 rounded-2xl border border-gray-700 overflow-hidden">
+          <div class="bg-gradient-to-r from-purple-600 to-pink-600 p-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="text-white/70 text-sm">#0150</span>
+                <h2 class="text-2xl font-black text-white">Mewtwo</h2>
+              </div>
+              <button class="p-2 rounded-lg bg-white/20 hover:bg-white/30">
+                <i data-lucide="x" class="w-5 h-5 text-white"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="p-4">
+            <div class="flex gap-4 mb-4">
+              <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/150.png" class="w-32 h-32 object-contain" />
+              <div class="flex-1">
+                <div class="flex gap-2 mb-3">
+                  <span class="px-3 py-1 rounded-full text-sm font-bold text-white" style="background: #F85888;">PSYCHIC</span>
+                </div>
+                <p class="text-gray-400 text-sm">Genetic Pokémon • 6'07" • 269.0 lbs</p>
+              </div>
+            </div>
+
+            <!-- Forms tabs -->
+            <div class="flex gap-2 mb-4 overflow-x-auto">
+              <button class="px-3 py-2 rounded-lg bg-purple-600 text-white font-bold text-sm whitespace-nowrap">Base Form</button>
+              <button class="px-3 py-2 rounded-lg bg-gray-700 text-gray-300 font-bold text-sm whitespace-nowrap">Mega X</button>
+              <button class="px-3 py-2 rounded-lg bg-gray-700 text-gray-300 font-bold text-sm whitespace-nowrap">Mega Y</button>
+            </div>
+
+            <div class="text-sm text-gray-400">
+              Stats, abilities, and more details shown here...
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-yellow-900/30 border border-yellow-700 rounded-lg p-4 mt-6">
+        <h3 class="font-bold text-yellow-400 mb-2">Recommendation:</h3>
+        <p class="text-yellow-300 text-sm">
+          <strong>Option B (Drawer/Modal)</strong> is cleaner and scales better. The drawer can show full stats,
+          all variants, abilities, and more without breaking the grid layout. Option A works for simple previews.
+        </p>
+      </div>
+    </section>
+
+    <!-- ==================== SECTION 3: FULL STATS VIEW ==================== -->
+    <section id="section-stats" class="mb-16 hidden">
+      <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700 mb-6">
+        <h2 class="text-2xl font-bold mb-4 text-white flex items-center gap-2">
+          <i data-lucide="bar-chart-2" class="w-6 h-6 text-green-400"></i>
+          Full Stats Breakdown
+        </h2>
+        <p class="text-gray-400 mb-4">
+          <strong>Problem:</strong> Currently only shows BST (Base Stat Total), no individual stats.<br>
+          <strong>Solution:</strong> Add stat bars or show detailed stats on hover/click.
+        </p>
+      </div>
+
+      <h3 class="text-xl font-bold mb-4 text-white">Option A: Expanded Card with Stat Bars</h3>
+      <p class="text-gray-400 mb-4">Show individual stats with visual bars on hover or always visible.</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+        <!-- Compact Card (current) -->
+        <div>
+          <p class="text-gray-500 text-sm mb-2 text-center">Current (Compact)</p>
+          <div class="group relative bg-gray-800 rounded-3xl p-4 shadow-lg border border-gray-700 mt-8">
+            <div class="absolute inset-0 rounded-3xl opacity-10" style="background-color: #7038F8;"></div>
+            <div class="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 z-10">
+              <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/94.png" class="w-full h-full object-contain" />
+            </div>
+            <div class="pt-16 text-center">
+              <span class="text-gray-500 text-xs font-bold">#0094</span>
+              <h3 class="text-lg font-black text-white">Gengar</h3>
+              <div class="flex justify-center gap-1 my-2">
+                <span class="px-2 py-0.5 rounded-full text-xs font-bold text-white" style="background: #705898;">GHOST</span>
+                <span class="px-2 py-0.5 rounded-full text-xs font-bold text-white" style="background: #A040A0;">POISON</span>
+              </div>
+              <div class="bg-gray-900 rounded-lg p-2 flex justify-between text-sm">
+                <span class="text-gray-500">BST</span>
+                <span class="font-bold" style="color: #705898;">500</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Option A1: Stats Always Visible -->
+        <div>
+          <p class="text-gray-500 text-sm mb-2 text-center">Option A1: Stats Always Visible</p>
+          <div class="group relative bg-gray-800 rounded-3xl p-4 shadow-lg border border-gray-700 mt-8">
+            <div class="absolute inset-0 rounded-3xl opacity-10" style="background-color: #7038F8;"></div>
+            <div class="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 z-10">
+              <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/94.png" class="w-full h-full object-contain" />
+            </div>
+            <div class="pt-16 text-center">
+              <span class="text-gray-500 text-xs font-bold">#0094</span>
+              <h3 class="text-lg font-black text-white">Gengar</h3>
+              <div class="flex justify-center gap-1 my-2">
+                <span class="px-2 py-0.5 rounded-full text-xs font-bold text-white" style="background: #705898;">GHOST</span>
+                <span class="px-2 py-0.5 rounded-full text-xs font-bold text-white" style="background: #A040A0;">POISON</span>
+              </div>
+
+              <!-- Stats Grid -->
+              <div class="bg-gray-900 rounded-xl p-3 mt-2 text-left">
+                <div class="grid grid-cols-2 gap-x-4 gap-y-1 text-xs">
+                  <div class="flex justify-between">
+                    <span class="text-gray-500">HP</span>
+                    <span class="text-red-400 font-bold">60</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-gray-500">ATK</span>
+                    <span class="text-orange-400 font-bold">65</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-gray-500">DEF</span>
+                    <span class="text-yellow-400 font-bold">60</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-gray-500">SP.A</span>
+                    <span class="text-blue-400 font-bold">130</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-gray-500">SP.D</span>
+                    <span class="text-green-400 font-bold">75</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-gray-500">SPD</span>
+                    <span class="text-pink-400 font-bold">110</span>
+                  </div>
+                </div>
+                <div class="border-t border-gray-700 mt-2 pt-2 flex justify-between">
+                  <span class="text-gray-400 font-bold text-xs">TOTAL</span>
+                  <span class="font-black text-sm" style="color: #705898;">500</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Option A2: Stats with Bars -->
+        <div>
+          <p class="text-gray-500 text-sm mb-2 text-center">Option A2: Visual Stat Bars</p>
+          <div class="group relative bg-gray-800 rounded-3xl p-4 shadow-lg border border-gray-700 mt-8">
+            <div class="absolute inset-0 rounded-3xl opacity-10" style="background-color: #7038F8;"></div>
+            <div class="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 z-10">
+              <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/94.png" class="w-full h-full object-contain" />
+            </div>
+            <div class="pt-16 text-center">
+              <span class="text-gray-500 text-xs font-bold">#0094</span>
+              <h3 class="text-lg font-black text-white">Gengar</h3>
+              <div class="flex justify-center gap-1 my-2">
+                <span class="px-2 py-0.5 rounded-full text-xs font-bold text-white" style="background: #705898;">GHOST</span>
+                <span class="px-2 py-0.5 rounded-full text-xs font-bold text-white" style="background: #A040A0;">POISON</span>
+              </div>
+
+              <!-- Stats with Bars -->
+              <div class="bg-gray-900 rounded-xl p-3 mt-2 text-left space-y-1.5">
+                <!-- HP -->
+                <div class="flex items-center gap-2 text-xs">
+                  <span class="w-7 text-gray-500">HP</span>
+                  <div class="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-red-500 stat-bar-fill" style="width: 40%;"></div>
+                  </div>
+                  <span class="w-6 text-right text-red-400 font-bold">60</span>
+                </div>
+                <!-- ATK -->
+                <div class="flex items-center gap-2 text-xs">
+                  <span class="w-7 text-gray-500">ATK</span>
+                  <div class="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-orange-500 stat-bar-fill" style="width: 43%;"></div>
+                  </div>
+                  <span class="w-6 text-right text-orange-400 font-bold">65</span>
+                </div>
+                <!-- DEF -->
+                <div class="flex items-center gap-2 text-xs">
+                  <span class="w-7 text-gray-500">DEF</span>
+                  <div class="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-yellow-500 stat-bar-fill" style="width: 40%;"></div>
+                  </div>
+                  <span class="w-6 text-right text-yellow-400 font-bold">60</span>
+                </div>
+                <!-- SP.A -->
+                <div class="flex items-center gap-2 text-xs">
+                  <span class="w-7 text-gray-500">SPA</span>
+                  <div class="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-blue-500 stat-bar-fill" style="width: 87%;"></div>
+                  </div>
+                  <span class="w-6 text-right text-blue-400 font-bold">130</span>
+                </div>
+                <!-- SP.D -->
+                <div class="flex items-center gap-2 text-xs">
+                  <span class="w-7 text-gray-500">SPD</span>
+                  <div class="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-green-500 stat-bar-fill" style="width: 50%;"></div>
+                  </div>
+                  <span class="w-6 text-right text-green-400 font-bold">75</span>
+                </div>
+                <!-- SPE -->
+                <div class="flex items-center gap-2 text-xs">
+                  <span class="w-7 text-gray-500">SPE</span>
+                  <div class="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-pink-500 stat-bar-fill" style="width: 73%;"></div>
+                  </div>
+                  <span class="w-6 text-right text-pink-400 font-bold">110</span>
+                </div>
+
+                <div class="border-t border-gray-700 mt-2 pt-2 flex justify-between">
+                  <span class="text-gray-400 font-bold text-xs">TOTAL</span>
+                  <span class="font-black text-sm" style="color: #705898;">500</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="text-xl font-bold mb-4 text-white">Option B: Hover to Reveal Stats</h3>
+      <p class="text-gray-400 mb-4">Keep cards compact, show stats on hover (desktop) or tap (mobile).</p>
+
+      <div class="flex justify-center mb-8">
+        <div class="relative group">
+          <p class="text-gray-500 text-sm mb-2 text-center">Hover me!</p>
+          <div class="relative bg-gray-800 rounded-3xl p-4 shadow-lg border border-gray-700 mt-8 w-56 transition-all duration-300 group-hover:scale-105">
+            <div class="absolute inset-0 rounded-3xl opacity-10" style="background-color: #E0C068;"></div>
+            <div class="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 z-10">
+              <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/149.png" class="w-full h-full object-contain" />
+            </div>
+            <div class="pt-16 text-center">
+              <span class="text-gray-500 text-xs font-bold">#0149</span>
+              <h3 class="text-lg font-black text-white">Dragonite</h3>
+              <div class="flex justify-center gap-1 my-2">
+                <span class="px-2 py-0.5 rounded-full text-xs font-bold text-white" style="background: #7038F8;">DRAGON</span>
+                <span class="px-2 py-0.5 rounded-full text-xs font-bold text-white" style="background: #A890F0;">FLYING</span>
+              </div>
+
+              <!-- Default: BST only -->
+              <div class="bg-gray-900 rounded-lg p-2 flex justify-between text-sm group-hover:hidden">
+                <span class="text-gray-500">BST</span>
+                <span class="font-bold" style="color: #7038F8;">600</span>
+              </div>
+
+              <!-- Hover: Full stats -->
+              <div class="bg-gray-900 rounded-xl p-3 text-left hidden group-hover:block">
+                <div class="grid grid-cols-2 gap-x-4 gap-y-1 text-xs">
+                  <div class="flex justify-between"><span class="text-gray-500">HP</span><span class="text-red-400 font-bold">91</span></div>
+                  <div class="flex justify-between"><span class="text-gray-500">ATK</span><span class="text-orange-400 font-bold">134</span></div>
+                  <div class="flex justify-between"><span class="text-gray-500">DEF</span><span class="text-yellow-400 font-bold">95</span></div>
+                  <div class="flex justify-between"><span class="text-gray-500">SPA</span><span class="text-blue-400 font-bold">100</span></div>
+                  <div class="flex justify-between"><span class="text-gray-500">SPD</span><span class="text-green-400 font-bold">100</span></div>
+                  <div class="flex justify-between"><span class="text-gray-500">SPE</span><span class="text-pink-400 font-bold">80</span></div>
+                </div>
+                <div class="border-t border-gray-700 mt-2 pt-2 flex justify-between">
+                  <span class="text-gray-400 font-bold text-xs">TOTAL</span>
+                  <span class="font-black text-sm" style="color: #7038F8;">600</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-green-900/30 border border-green-700 rounded-lg p-4">
+        <h3 class="font-bold text-green-400 mb-2">Recommendation:</h3>
+        <p class="text-green-300 text-sm">
+          <strong>Option A2 (Stat Bars)</strong> provides the best visual information density. The bars immediately
+          show which stats are high/low. Works great for competitive players. Can be combined with hover-to-reveal
+          for a cleaner default view.
+        </p>
+      </div>
+    </section>
+
+    <!-- ==================== COMBINED MOCKUP ==================== -->
+    <section class="mt-16 pt-8 border-t border-gray-700">
+      <h2 class="text-2xl font-bold mb-4 text-white">Combined: Final Design Recommendation</h2>
+      <p class="text-gray-400 mb-6">All three improvements working together.</p>
+
+      <div class="bg-gray-900 rounded-2xl p-6 border border-gray-700">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Card with all features -->
+          <div class="group relative bg-gray-800 rounded-3xl p-4 shadow-lg border border-gray-700 mt-8 cursor-pointer hover:border-purple-500 transition-all">
+            <div class="absolute inset-0 rounded-3xl opacity-10 group-hover:opacity-20 transition-opacity" style="background-color: #F08030;"></div>
+
+            <!-- Variant badge -->
+            <div class="absolute top-3 right-3 z-20">
+              <span class="px-2 py-1 rounded-lg text-xs font-bold bg-purple-600 text-white">2 forms</span>
+            </div>
+
+            <div class="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 z-10 transition-transform group-hover:scale-110">
+              <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png" class="w-full h-full object-contain" />
+            </div>
+
+            <div class="pt-16 text-center">
+              <span class="text-gray-500 text-xs font-bold">#0006</span>
+              <h3 class="text-lg font-black text-white">Charizard</h3>
+              <div class="flex justify-center gap-1 my-2">
+                <span class="px-2 py-0.5 rounded-full text-xs font-bold text-white" style="background: #F08030;">FIRE</span>
+                <span class="px-2 py-0.5 rounded-full text-xs font-bold text-white" style="background: #A890F0;">FLYING</span>
+              </div>
+
+              <!-- Stat Bars -->
+              <div class="bg-gray-900 rounded-xl p-3 mt-2 text-left space-y-1.5">
+                <div class="flex items-center gap-2 text-xs">
+                  <span class="w-7 text-gray-500">HP</span>
+                  <div class="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden"><div class="h-full bg-red-500" style="width: 52%;"></div></div>
+                  <span class="w-6 text-right text-red-400 font-bold">78</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs">
+                  <span class="w-7 text-gray-500">ATK</span>
+                  <div class="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden"><div class="h-full bg-orange-500" style="width: 56%;"></div></div>
+                  <span class="w-6 text-right text-orange-400 font-bold">84</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs">
+                  <span class="w-7 text-gray-500">DEF</span>
+                  <div class="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden"><div class="h-full bg-yellow-500" style="width: 52%;"></div></div>
+                  <span class="w-6 text-right text-yellow-400 font-bold">78</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs">
+                  <span class="w-7 text-gray-500">SPA</span>
+                  <div class="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden"><div class="h-full bg-blue-500" style="width: 73%;"></div></div>
+                  <span class="w-6 text-right text-blue-400 font-bold">109</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs">
+                  <span class="w-7 text-gray-500">SPD</span>
+                  <div class="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden"><div class="h-full bg-green-500" style="width: 57%;"></div></div>
+                  <span class="w-6 text-right text-green-400 font-bold">85</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs">
+                  <span class="w-7 text-gray-500">SPE</span>
+                  <div class="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden"><div class="h-full bg-pink-500" style="width: 67%;"></div></div>
+                  <span class="w-6 text-right text-pink-400 font-bold">100</span>
+                </div>
+                <div class="border-t border-gray-700 mt-2 pt-2 flex justify-between">
+                  <span class="text-gray-400 font-bold text-xs">TOTAL</span>
+                  <span class="font-black text-sm" style="color: #F08030;">534</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Second card -->
+          <div class="group relative bg-gray-800 rounded-3xl p-4 shadow-lg border border-gray-700 mt-8 cursor-pointer hover:border-purple-500 transition-all">
+            <div class="absolute inset-0 rounded-3xl opacity-10 group-hover:opacity-20 transition-opacity" style="background-color: #6890F0;"></div>
+
+            <div class="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 z-10 transition-transform group-hover:scale-110">
+              <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/9.png" class="w-full h-full object-contain" />
+            </div>
+
+            <div class="pt-16 text-center">
+              <span class="text-gray-500 text-xs font-bold">#0009</span>
+              <h3 class="text-lg font-black text-white">Blastoise</h3>
+              <div class="flex justify-center gap-1 my-2">
+                <span class="px-2 py-0.5 rounded-full text-xs font-bold text-white" style="background: #6890F0;">WATER</span>
+              </div>
+
+              <!-- Stat Bars -->
+              <div class="bg-gray-900 rounded-xl p-3 mt-2 text-left space-y-1.5">
+                <div class="flex items-center gap-2 text-xs">
+                  <span class="w-7 text-gray-500">HP</span>
+                  <div class="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden"><div class="h-full bg-red-500" style="width: 53%;"></div></div>
+                  <span class="w-6 text-right text-red-400 font-bold">79</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs">
+                  <span class="w-7 text-gray-500">ATK</span>
+                  <div class="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden"><div class="h-full bg-orange-500" style="width: 55%;"></div></div>
+                  <span class="w-6 text-right text-orange-400 font-bold">83</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs">
+                  <span class="w-7 text-gray-500">DEF</span>
+                  <div class="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden"><div class="h-full bg-yellow-500" style="width: 67%;"></div></div>
+                  <span class="w-6 text-right text-yellow-400 font-bold">100</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs">
+                  <span class="w-7 text-gray-500">SPA</span>
+                  <div class="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden"><div class="h-full bg-blue-500" style="width: 57%;"></div></div>
+                  <span class="w-6 text-right text-blue-400 font-bold">85</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs">
+                  <span class="w-7 text-gray-500">SPD</span>
+                  <div class="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden"><div class="h-full bg-green-500" style="width: 70%;"></div></div>
+                  <span class="w-6 text-right text-green-400 font-bold">105</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs">
+                  <span class="w-7 text-gray-500">SPE</span>
+                  <div class="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden"><div class="h-full bg-pink-500" style="width: 52%;"></div></div>
+                  <span class="w-6 text-right text-pink-400 font-bold">78</span>
+                </div>
+                <div class="border-t border-gray-700 mt-2 pt-2 flex justify-between">
+                  <span class="text-gray-400 font-bold text-xs">TOTAL</span>
+                  <span class="font-black text-sm" style="color: #6890F0;">530</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Third card -->
+          <div class="group relative bg-gray-800 rounded-3xl p-4 shadow-lg border border-gray-700 mt-8 cursor-pointer hover:border-purple-500 transition-all">
+            <div class="absolute inset-0 rounded-3xl opacity-10 group-hover:opacity-20 transition-opacity" style="background-color: #78C850;"></div>
+
+            <!-- Variant badge -->
+            <div class="absolute top-3 right-3 z-20">
+              <span class="px-2 py-1 rounded-lg text-xs font-bold bg-purple-600 text-white">1 form</span>
+            </div>
+
+            <div class="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 z-10 transition-transform group-hover:scale-110">
+              <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/3.png" class="w-full h-full object-contain" />
+            </div>
+
+            <div class="pt-16 text-center">
+              <span class="text-gray-500 text-xs font-bold">#0003</span>
+              <h3 class="text-lg font-black text-white">Venusaur</h3>
+              <div class="flex justify-center gap-1 my-2">
+                <span class="px-2 py-0.5 rounded-full text-xs font-bold text-white" style="background: #78C850;">GRASS</span>
+                <span class="px-2 py-0.5 rounded-full text-xs font-bold text-white" style="background: #A040A0;">POISON</span>
+              </div>
+
+              <!-- Stat Bars -->
+              <div class="bg-gray-900 rounded-xl p-3 mt-2 text-left space-y-1.5">
+                <div class="flex items-center gap-2 text-xs">
+                  <span class="w-7 text-gray-500">HP</span>
+                  <div class="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden"><div class="h-full bg-red-500" style="width: 53%;"></div></div>
+                  <span class="w-6 text-right text-red-400 font-bold">80</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs">
+                  <span class="w-7 text-gray-500">ATK</span>
+                  <div class="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden"><div class="h-full bg-orange-500" style="width: 55%;"></div></div>
+                  <span class="w-6 text-right text-orange-400 font-bold">82</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs">
+                  <span class="w-7 text-gray-500">DEF</span>
+                  <div class="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden"><div class="h-full bg-yellow-500" style="width: 55%;"></div></div>
+                  <span class="w-6 text-right text-yellow-400 font-bold">83</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs">
+                  <span class="w-7 text-gray-500">SPA</span>
+                  <div class="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden"><div class="h-full bg-blue-500" style="width: 67%;"></div></div>
+                  <span class="w-6 text-right text-blue-400 font-bold">100</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs">
+                  <span class="w-7 text-gray-500">SPD</span>
+                  <div class="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden"><div class="h-full bg-green-500" style="width: 67%;"></div></div>
+                  <span class="w-6 text-right text-green-400 font-bold">100</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs">
+                  <span class="w-7 text-gray-500">SPE</span>
+                  <div class="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden"><div class="h-full bg-pink-500" style="width: 53%;"></div></div>
+                  <span class="w-6 text-right text-pink-400 font-bold">80</span>
+                </div>
+                <div class="border-t border-gray-700 mt-2 pt-2 flex justify-between">
+                  <span class="text-gray-400 font-bold text-xs">TOTAL</span>
+                  <span class="font-black text-sm" style="color: #78C850;">525</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Loading indicator for infinite scroll -->
+        <div class="flex justify-center py-8 mt-4">
+          <div class="flex items-center gap-3 text-gray-400">
+            <div class="w-6 h-6 border-2 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
+            <span class="font-medium">Loading more Pokémon...</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    function showSection(section) {
+      // Hide all sections
+      document.getElementById('section-scroll').classList.add('hidden');
+      document.getElementById('section-variants').classList.add('hidden');
+      document.getElementById('section-stats').classList.add('hidden');
+
+      // Reset all buttons
+      document.getElementById('btn-scroll').className = 'px-4 py-2 rounded-lg bg-gray-700 text-gray-300 font-bold';
+      document.getElementById('btn-variants').className = 'px-4 py-2 rounded-lg bg-gray-700 text-gray-300 font-bold';
+      document.getElementById('btn-stats').className = 'px-4 py-2 rounded-lg bg-gray-700 text-gray-300 font-bold';
+
+      // Show selected section
+      document.getElementById('section-' + section).classList.remove('hidden');
+      document.getElementById('btn-' + section).className = 'px-4 py-2 rounded-lg bg-blue-600 text-white font-bold';
+    }
+  </script>
+</body>
+</html>
