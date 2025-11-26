@@ -2,16 +2,16 @@
 // Dark mode management for the app
 // Persists theme preference to localStorage and respects system preference
 
-type Theme = 'light' | 'dark';
+import { STORAGE_KEYS } from './config';
 
-const THEME_KEY = 'poketoolkit-theme';
+type Theme = 'light' | 'dark';
 
 /**
  * Get the current theme from localStorage or system preference
  */
 export function getInitialTheme(): Theme {
   // Check localStorage first
-  const stored = localStorage.getItem(THEME_KEY);
+  const stored = localStorage.getItem(STORAGE_KEYS.THEME);
   if (stored === 'dark' || stored === 'light') {
     return stored;
   }
@@ -39,7 +39,7 @@ export function applyTheme(theme: Theme): void {
  * Save theme preference to localStorage
  */
 export function saveTheme(theme: Theme): void {
-  localStorage.setItem(THEME_KEY, theme);
+  localStorage.setItem(STORAGE_KEYS.THEME, theme);
 }
 
 /**

@@ -5,6 +5,7 @@
 import type { PokemonCreature } from './types/pokemon';
 import { toTitleCaseType } from './types/pokemon';
 import { TypeBadgeTiny } from './shared/components';
+import { NICKNAME_CONFIG, STORAGE_KEYS } from './shared/config';
 import pokemonData from './data/pokemon.json';
 
 // Declare lucide global (loaded via CDN)
@@ -33,8 +34,6 @@ function getSpriteUrl(pokemon: PokemonCreature): string {
 export type NicknameStyle = 'cool' | 'cute' | 'funny' | 'mythical' | 'fierce' | 'elegant';
 export type NameLength = 'short' | 'medium' | 'long' | null;
 
-// Maximum number of styles that can be selected
-const MAX_STYLES = 2;
 
 interface NicknameState {
   selectedPokemon: PokemonCreature | null;
@@ -57,7 +56,7 @@ function createDefaultState(): NicknameState {
     useTypes: null,
     length: null,
     generatedNames: [],
-    favorites: JSON.parse(localStorage.getItem('nickname-favorites') || '[]'),
+    favorites: JSON.parse(localStorage.getItem(STORAGE_KEYS.NICKNAME_FAVORITES) || '[]'),
     isLoading: false,
     error: null
   };
@@ -295,7 +294,7 @@ function toggleStyle(style: NicknameStyle): void {
   if (index !== -1) {
     // Style is already selected - remove it
     state.styles.splice(index, 1);
-  } else if (state.styles.length < MAX_STYLES) {
+  } else if (state.styles.length < NICKNAME_CONFIG.MAX_STYLES) {
     // Add style if under the limit
     state.styles.push(style);
   } else {
@@ -308,7 +307,7 @@ function toggleStyle(style: NicknameStyle): void {
 }
 
 function updateStyleButtons(): void {
-  const atMaxStyles = state.styles.length >= MAX_STYLES;
+  const atMaxStyles = state.styles.length >= NICKNAME_CONFIG.MAX_STYLES;
 
   document.querySelectorAll('[data-style]').forEach(btn => {
     const style = btn.getAttribute('data-style') as NicknameStyle;
@@ -334,7 +333,7 @@ function updateStyleButtons(): void {
 function updateStyleCountIndicator(): void {
   const indicator = document.getElementById('style-count-indicator');
   if (indicator) {
-    indicator.textContent = `${state.styles.length}/${MAX_STYLES} selected`;
+    indicator.textContent = `${state.styles.length}/${NICKNAME_CONFIG.MAX_STYLES} selected`;
     indicator.classList.toggle('text-blue-500', state.styles.length > 0);
     indicator.classList.toggle('dark:text-blue-400', state.styles.length > 0);
   }
@@ -408,7 +407,6 @@ function updateLengthButtons(): void {
 }
 
 // Gemini API handling
-const GEMINI_MODELS = ['gemini-2.0-flash', 'gemini-2.5-flash-lite', 'gemini-2.5-flash'];
 
 async function callGeminiAPI(
   apiKey: string,
@@ -417,7 +415,7 @@ async function callGeminiAPI(
   retryCount = 0
 ): Promise<string[]> {
   const maxRetries = 2;
-  const model = GEMINI_MODELS[modelIndex];
+  const model = NICKNAME_CONFIG.GEMINI_MODELS[modelIndex];
 
   if (!model) {
     throw new Error('All models are currently unavailable. Please try again later.');
@@ -437,7 +435,7 @@ async function callGeminiAPI(
     );
 
     if (response.status === 503) {
-      if (modelIndex < GEMINI_MODELS.length - 1) {
+      if (modelIndex < NICKNAME_CONFIG.GEMINI_MODELS.length - 1) {
         return callGeminiAPI(apiKey, prompt, modelIndex + 1, retryCount);
       }
       if (retryCount < maxRetries) {
@@ -456,11 +454,11 @@ async function callGeminiAPI(
       } catch { /* ignore */ }
 
       if (response.status === 400 && errorMessage.includes('API key')) {
-        localStorage.removeItem('gemini-api-key');
+        localStorage.removeItem(STORAGE_KEYS.GEMINI_API_KEY);
         throw new Error('Invalid API key. Please try again.');
       }
 
-      if (modelIndex < GEMINI_MODELS.length - 1) {
+      if (modelIndex < NICKNAME_CONFIG.GEMINI_MODELS.length - 1) {
         return callGeminiAPI(apiKey, prompt, modelIndex + 1, retryCount);
       }
       throw new Error(errorMessage || 'Failed to generate nicknames');
@@ -525,7 +523,7 @@ async function generateNicknames(): Promise<void> {
     return;
   }
 
-  let apiKey = localStorage.getItem('gemini-api-key');
+  let apiKey = localStorage.getItem(STORAGE_KEYS.GEMINI_API_KEY);
   if (!apiKey) {
     apiKey = prompt('Enter your Gemini API key:');
     if (!apiKey) {
@@ -533,7 +531,7 @@ async function generateNicknames(): Promise<void> {
       renderResults();
       return;
     }
-    localStorage.setItem('gemini-api-key', apiKey);
+    localStorage.setItem(STORAGE_KEYS.GEMINI_API_KEY, apiKey);
   }
 
   state.isLoading = true;
@@ -705,7 +703,7 @@ function toggleFavorite(name: string): void {
   } else {
     state.favorites.splice(index, 1);
   }
-  localStorage.setItem('nickname-favorites', JSON.stringify(state.favorites));
+  localStorage.setItem(STORAGE_KEYS.NICKNAME_FAVORITES, JSON.stringify(state.favorites));
   renderResults();
   renderFavorites();
 }
@@ -799,7 +797,7 @@ function renderGenerator(): void {
             2. Vibe & Style
           </label>
           <span id="style-count-indicator" class="text-xs font-medium text-gray-400 dark:text-gray-500">
-            0/${MAX_STYLES} selected
+            0/${NICKNAME_CONFIG.MAX_STYLES} selected
           </span>
         </div>
         <p class="text-xs text-gray-400 dark:text-gray-500 mb-3">Pick up to 2 styles to combine</p>

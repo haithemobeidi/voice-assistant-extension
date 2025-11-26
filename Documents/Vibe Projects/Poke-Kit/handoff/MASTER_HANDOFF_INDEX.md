@@ -4,6 +4,8 @@ This file catalogs all development session handoffs for continuity across Claude
 
 ## Session Handoffs
 
+**Handoff 11-26-2025_12-01-21_EST** - Config.ts refactoring: Created centralized config.ts with STORAGE_KEYS, POKEDEX_CONFIG, NICKNAME_CONFIG. Updated theme.ts, pokedex.ts, nickname-generator.ts to use shared constants. 4 refactoring tasks remain. Build: ✅ working, user confirmed: yes
+
 **Handoff 11-26-2025_01-09-15_EST** - Codebase audit & refactoring (partial): Conducted comprehensive audit identifying 10 refactoring opportunities. Completed TypeBadge consolidation (added TypeBadgeSimple/TypeBadgeTiny to shared, removed duplicates from calculator/pokedex/nickname-generator), removed dead code (TYPE_COLORS, expandedPokemon). 5 refactoring tasks remain. Build: ✅ working, user confirmed: yes
 
 **Handoff 11-26-2025_00-16-58_EST** - Nickname Generator multi-style & Pet Name Mode: Implemented multi-style selection (pick up to 2 of 6 styles: Cool, Cute, Funny, Mythic, Fierce, Elegant), added Pet Name Mode toggle for real pet-friendly names, fixed Poison type icon (complete Paldea-style), replaced header Pokeball logo, removed Wolfe Glick attribution from tier rankings. Build: ✅ working, user confirmed: yes

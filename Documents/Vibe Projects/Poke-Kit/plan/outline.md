@@ -36,6 +36,7 @@
 **Blockers**: None
 
 ## Recent Changes
+- 2025-11-26: **Refactoring** - Created config.ts with centralized constants (STORAGE_KEYS, POKEDEX_CONFIG, NICKNAME_CONFIG), updated theme.ts, pokedex.ts, nickname-generator.ts to use shared config
 - 2025-11-26: **Nickname Generator** - Multi-style selection (6 styles, pick up to 2), Pet Name Mode toggle, AI prompt improvements (no Pokemon/Digimon names)
 - 2025-11-26: **UI Fixes** - Fixed Poison type icon (complete Paldea-style), replaced header Pokeball logo, removed Wolfe Glick attribution
 - 2025-11-25: **Nickname Generator** - Fixed Gemini API "overloaded" errors with model fallback chain and retry logic, robust response parsing added

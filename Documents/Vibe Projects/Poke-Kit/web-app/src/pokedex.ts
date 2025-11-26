@@ -19,6 +19,7 @@ import {
 } from './types/pokemon';
 import { getTypeConfig } from './shared/typeConfig';
 import { TypeBadgeSimple, TypeBadgeTiny } from './shared/components';
+import { POKEDEX_CONFIG } from './shared/config';
 import pokemonData from './data/pokemon.json';
 
 // Declare lucide global (loaded via CDN)
@@ -38,8 +39,7 @@ let state: PokedexState = {
 };
 
 // Display limit tracking for infinite scroll
-let currentDisplayLimit = 20;
-const LOAD_INCREMENT = 20;
+let currentDisplayLimit = POKEDEX_CONFIG.INITIAL_DISPLAY_LIMIT;
 
 // Intersection Observer for infinite scroll
 let infiniteScrollObserver: IntersectionObserver | null = null;
@@ -181,7 +181,7 @@ function setupEventListeners(): void {
  * Apply search, filter, and sort to Pokémon groups
  */
 function applyFiltersAndSort(): void {
-  currentDisplayLimit = 20;
+  currentDisplayLimit = POKEDEX_CONFIG.INITIAL_DISPLAY_LIMIT;
   let filtered = [...state.pokemonGroups];
 
   // Apply search filter (name or number)
@@ -306,7 +306,7 @@ function renderPokemonGrid(): void {
  * Load more Pokémon into the grid
  */
 function loadMorePokemon(): void {
-  currentDisplayLimit += LOAD_INCREMENT;
+  currentDisplayLimit += POKEDEX_CONFIG.LOAD_INCREMENT;
   renderPokemonGrid();
 }
 
@@ -552,11 +552,8 @@ function createStatBars(pokemon: PokemonCreature, _accentColor: string): string 
     { label: 'SPE', value: pokemon.speed, color: '#ec4899' }
   ];
 
-  // Max stat for scaling (150 for Megas)
-  const maxStat = 150;
-
   return stats.map(stat => {
-    const percentage = Math.min((stat.value / maxStat) * 100, 100);
+    const percentage = Math.min((stat.value / POKEDEX_CONFIG.MAX_STAT_VALUE) * 100, 100);
     return `
       <div class="flex items-center gap-2 text-xs">
         <span class="w-8 text-gray-500 dark:text-gray-400 font-bold">${stat.label}</span>
