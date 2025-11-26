@@ -393,7 +393,7 @@ function cycleForm(pokemonNumber: number): void {
   }
   if (statsContainer) {
     // Rebuild stat bars and total
-    statsContainer.innerHTML = createStatBars(newForm, config.color) + `
+    statsContainer.innerHTML = createStatBars(newForm) + `
       <div class="border-t border-gray-200 dark:border-gray-700 pt-2 flex justify-between">
         <span class="text-xs font-bold text-gray-400 uppercase">Total</span>
         <span class="text-sm font-black pokemon-bst-back" style="color: ${config.color};">${newTotal}</span>
@@ -445,7 +445,7 @@ function createPokemonCard(group: PokemonGroup): string {
   ` : '';
 
   // Build stat bars for back of card
-  const statBars = createStatBars(pokemon, config.color);
+  const statBars = createStatBars(pokemon);
 
   // Build card HTML with flip structure
   let cardHtml = `
@@ -507,6 +507,16 @@ function createPokemonCard(group: PokemonGroup): string {
               style="background-color: ${config.color};"
             ></div>
 
+            ${hasVariants ? `
+            <button
+              class="absolute top-3 right-3 z-20 px-2 py-1 rounded-lg text-xs font-bold transition-colors flex items-center gap-1 bg-purple-600 text-white hover:bg-purple-500"
+              data-cycle-form="${pokemon.number}"
+            >
+              <i data-lucide="repeat" class="w-3 h-3"></i>
+              <span>${totalForms}</span>
+            </button>
+            ` : ''}
+
             <!-- Header with mini sprite - compact -->
             <div class="flex items-center gap-2 mb-2 relative z-10">
               <img
@@ -542,7 +552,7 @@ function createPokemonCard(group: PokemonGroup): string {
 /**
  * Create stat bars HTML for a Pokémon
  */
-function createStatBars(pokemon: PokemonCreature, _accentColor: string): string {
+function createStatBars(pokemon: PokemonCreature): string {
   const stats = [
     { label: 'HP', value: pokemon.hp, color: '#ef4444' },
     { label: 'ATK', value: pokemon.attack, color: '#f97316' },

@@ -50,7 +50,3 @@ export function getTypeConfig(typeName: string): TypeConfig {
   return TYPE_CONFIG[key] || TYPE_CONFIG.normal;
 }
 
-/**
- * Get all type keys in order
- */
-export const TYPE_KEYS = Object.keys(TYPE_CONFIG) as Lowercase<PokemonType>[];
