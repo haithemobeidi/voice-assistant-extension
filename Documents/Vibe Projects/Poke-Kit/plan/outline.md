@@ -9,14 +9,17 @@
 - [ ] Phase 6: Trading Resources - Not Started
 
 ## Current Focus
-**Active Phase**: Phase 3 - Team Builder & PWA (Team Builder Complete, PWA Pending)
+**Active Phase**: Phase 3 - Team Builder & PWA (Team Builder Data Verified, UI Refinement Needed)
 **Next Steps**:
 1. ✅ Design Team Builder data schema (games, gyms, progression)
 2. ✅ Compile Gen 1 gym leader data manually from Bulbapedia
 3. ✅ Build Team Builder UI with game/boss selection
 4. ✅ Implement recommended Pokémon display
-5. Verify data accuracy (gym teams, availability)
-6. Add PWA manifest and service worker for offline support
+5. ✅ Verify data accuracy (fixed Pikachu errors, added special indicators)
+6. ✅ Add trainer sprites to boss selection (game-accurate Gen1/Gen3)
+7. Fix Team Builder UI issues (user-reported weirdness)
+8. Implement code splitting for pokemon.json (reduce 673KB bundle)
+9. Add PWA manifest and service worker for offline support
 
 **Note**: Trading Resources (originally Phase 3) moved to Phase 6 as it's the simplest feature. Prioritizing Team Builder and PWA features first for more value to users.
 
@@ -38,6 +41,7 @@
 **Blockers**: None
 
 ## Recent Changes
+- 2025-11-26: **Team Builder Data Audit & Sprites** - Fixed incorrect recommendations (removed Pikachu from Brock/Erika/Giovanni in Yellow), added special indicator (*) for move-based recommendations, added trainer sprites to boss list (game-accurate Gen1/Gen3)
 - 2025-11-26: **Team Builder MVP Complete** - Full UI with game selection (Red/Blue/Yellow/FireRed/LeafGreen), all 13 bosses (8 gyms + 4 E4 + Champion), boss teams with sprites/levels/types, difficulty ratings, tips, and recommended counters
 - 2025-11-26: **Team Builder Data** - Created games.json, bosses.json, progression.json with full Gen 1 data compiled from Bulbapedia
 - 2025-11-26: **Team Builder Research** - Completed data source research, created implementation plan in docs/team-builder-research.md, identified PokéAPI for encounters + manual Bulbapedia compilation for gym data

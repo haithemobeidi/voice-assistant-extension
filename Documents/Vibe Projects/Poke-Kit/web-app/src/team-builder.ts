@@ -47,6 +47,7 @@ interface ProgressionEntry {
   locations: string[];
   pokemon: Record<string, { starter?: string[]; wild?: string[]; new?: string[]; gift?: string[] }>;
   recommended: Record<string, string[]>;
+  special?: Record<string, string>;
 }
 
 // Cast imported data
@@ -165,6 +166,43 @@ function getGameEmoji(gameId: string): string {
 }
 
 /**
+ * Get trainer sprite URL based on game version
+ * Uses Pokémon Showdown sprites which have good quality trainer images
+ */
+function getTrainerSpriteUrl(bossId: string, gameId: string): string {
+  // Showdown trainer sprite base URL
+  const showdownBase = 'https://play.pokemonshowdown.com/sprites/trainers';
+
+  // FireRed/LeafGreen use FRLG sprites, others use classic sprites
+  const isFRLG = gameId === 'firered' || gameId === 'leafgreen';
+
+  // Map boss IDs to Showdown trainer sprite names
+  const trainerMap: Record<string, { classic: string; frlg: string }> = {
+    'brock': { classic: 'brock-gen1', frlg: 'brock-gen3' },
+    'misty': { classic: 'misty-gen1', frlg: 'misty-gen3' },
+    'surge': { classic: 'surge-gen1', frlg: 'surge-gen3' },
+    'erika': { classic: 'erika-gen1', frlg: 'erika-gen3' },
+    'koga': { classic: 'koga-gen1', frlg: 'koga-gen3' },
+    'sabrina': { classic: 'sabrina-gen1', frlg: 'sabrina-gen3' },
+    'blaine': { classic: 'blaine-gen1', frlg: 'blaine-gen3' },
+    'giovanni': { classic: 'giovanni-gen1', frlg: 'giovanni-gen3' },
+    'lorelei': { classic: 'lorelei-gen1', frlg: 'lorelei-gen3' },
+    'bruno': { classic: 'bruno-gen1', frlg: 'bruno-gen3' },
+    'agatha': { classic: 'agatha-gen1', frlg: 'agatha-gen3' },
+    'lance': { classic: 'lance-gen1', frlg: 'lance-gen3' },
+    'blue-champion': { classic: 'blue-gen1champion', frlg: 'blue-gen3' }
+  };
+
+  const trainer = trainerMap[bossId];
+  if (!trainer) {
+    return `${showdownBase}/unknown.png`;
+  }
+
+  const spriteName = isFRLG ? trainer.frlg : trainer.classic;
+  return `${showdownBase}/${spriteName}.png`;
+}
+
+/**
  * Render boss selection list
  */
 function renderBossSelector(): string {
@@ -177,7 +215,8 @@ function renderBossSelector(): string {
     `;
   }
 
-  const game = games[selectedGame];
+  const gameId = selectedGame; // TypeScript narrowing
+  const game = games[gameId];
   const allBosses = [...game.gyms, ...game.eliteFour, game.champion];
 
   const bossButtons = allBosses.map(bossId => {
@@ -186,6 +225,7 @@ function renderBossSelector(): string {
 
     const typeColor = boss.specialty[0] ? getTypeColor(boss.specialty[0]) : 'bg-gray-500';
     const isSelected = selectedBoss === bossId;
+    const spriteUrl = getTrainerSpriteUrl(bossId, gameId);
 
     return `
       <button
@@ -196,8 +236,13 @@ function renderBossSelector(): string {
             : 'border-gray-200 dark:border-gray-700 hover:border-red-300 dark:hover:border-red-700'
         }"
       >
-        <div class="w-10 h-10 rounded-full ${typeColor} flex items-center justify-center text-white font-bold text-sm">
-          ${boss.order}
+        <div class="w-12 h-12 rounded-lg ${typeColor} flex items-center justify-center overflow-hidden">
+          <img
+            src="${spriteUrl}"
+            alt="${boss.name}"
+            class="w-10 h-10 object-contain pixelated"
+            onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\\'text-white font-bold\\'>${boss.order}</span>'"
+          />
         </div>
         <div class="flex-1 min-w-0">
           <div class="font-bold text-gray-900 dark:text-white truncate">${boss.name}</div>
@@ -344,19 +389,26 @@ function renderRecommendedTeam(): string {
     `;
   }
 
+  // Get special notes for this boss
+  const specialNotes = prog.special || {};
+
   const recommendedCards = recommended.slice(0, 6).map(pokemonName => {
     const pokemon = getPokemonByName(pokemonName);
     const types = pokemon?.types || [];
+    const hasSpecialNote = specialNotes[pokemonName];
 
     return `
-      <div class="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl p-4 text-center border border-green-200 dark:border-green-800">
+      <div class="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl p-4 text-center border border-green-200 dark:border-green-800 relative group">
+        ${hasSpecialNote ? `
+          <span class="absolute top-2 right-2 text-amber-500 font-bold text-lg cursor-help" title="${hasSpecialNote}">*</span>
+        ` : ''}
         <img
           src="${getSpriteUrl(pokemonName)}"
           alt="${pokemonName}"
           class="w-20 h-20 mx-auto object-contain mb-2"
           onerror="this.src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png'"
         />
-        <div class="font-bold text-gray-900 dark:text-white text-sm">${formatPokemonName(pokemonName)}</div>
+        <div class="font-bold text-gray-900 dark:text-white text-sm">${formatPokemonName(pokemonName)}${hasSpecialNote ? '<span class="text-amber-500">*</span>' : ''}</div>
         <div class="flex justify-center gap-1 mt-1">
           ${types.map(type => `
             <span class="px-1.5 py-0.5 rounded text-[10px] font-bold text-white ${getTypeColor(type)}">
@@ -364,9 +416,17 @@ function renderRecommendedTeam(): string {
             </span>
           `).join('')}
         </div>
+        ${hasSpecialNote ? `
+          <div class="mt-2 text-[10px] text-amber-700 dark:text-amber-400 leading-tight">
+            ${hasSpecialNote}
+          </div>
+        ` : ''}
       </div>
     `;
   }).join('');
+
+  // Check if any recommendations have special notes
+  const hasAnySpecialNotes = recommended.some(name => specialNotes[name]);
 
   return `
     <div class="card">
@@ -375,7 +435,7 @@ function renderRecommendedTeam(): string {
         Recommended Pokémon
       </h3>
       <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
-        These Pokémon are available before this battle and have type advantages:
+        These Pokémon are available before this battle and counter the boss${hasAnySpecialNotes ? ' (<span class="text-amber-500 font-bold">*</span> = via specific move)' : ''}:
       </p>
       <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
         ${recommendedCards}

@@ -26,11 +26,16 @@
         }
       },
       "recommended": {
-        "red": ["bulbasaur", "squirtle", "butterfree", "mankey", "nidoran-m", "nidoran-f"],
-        "blue": ["bulbasaur", "squirtle", "butterfree", "mankey", "nidoran-m", "nidoran-f"],
-        "yellow": ["butterfree", "mankey", "nidoran-m", "nidoran-f", "pikachu"],
-        "firered": ["bulbasaur", "squirtle", "butterfree", "mankey", "nidoran-m", "nidoran-f"],
-        "leafgreen": ["bulbasaur", "squirtle", "butterfree", "mankey", "nidoran-m", "nidoran-f"]
+        "red": ["bulbasaur", "squirtle", "mankey", "butterfree", "nidoran-m", "nidoran-f"],
+        "blue": ["bulbasaur", "squirtle", "mankey", "butterfree", "nidoran-m", "nidoran-f"],
+        "yellow": ["mankey", "butterfree", "nidoran-m", "nidoran-f"],
+        "firered": ["bulbasaur", "squirtle", "mankey", "butterfree", "nidoran-m", "nidoran-f"],
+        "leafgreen": ["bulbasaur", "squirtle", "mankey", "butterfree", "nidoran-m", "nidoran-f"]
+      },
+      "special": {
+        "butterfree": "Confusion bypasses Rock's high Defense",
+        "nidoran-m": "Double Kick at Lv12 (Fighting = SE)",
+        "nidoran-f": "Double Kick at Lv12 (Fighting = SE)"
       }
     },
     "misty": {
@@ -112,7 +117,7 @@
       "recommended": {
         "red": ["charmander", "charmeleon", "growlithe", "vulpix", "pidgey", "pidgeotto", "spearow", "fearow"],
         "blue": ["charmander", "charmeleon", "growlithe", "vulpix", "pidgey", "pidgeotto", "spearow", "fearow"],
-        "yellow": ["pikachu", "growlithe", "vulpix", "pidgey", "pidgeotto", "spearow", "fearow"],
+        "yellow": ["growlithe", "vulpix", "pidgey", "pidgeotto", "spearow", "fearow"],
         "firered": ["charmander", "charmeleon", "growlithe", "pidgey", "pidgeotto", "spearow", "fearow"],
         "leafgreen": ["charmander", "charmeleon", "vulpix", "pidgey", "pidgeotto", "spearow", "fearow"]
       }
@@ -171,11 +176,16 @@
         }
       },
       "recommended": {
-        "red": ["haunter", "gengar", "jolteon", "alakazam"],
-        "blue": ["haunter", "gengar", "jolteon", "alakazam"],
-        "yellow": ["haunter", "gengar", "jolteon", "alakazam"],
-        "firered": ["haunter", "gengar", "jolteon", "alakazam", "snorlax"],
-        "leafgreen": ["haunter", "gengar", "jolteon", "alakazam", "snorlax"]
+        "red": ["haunter", "gengar", "beedrill", "parasect", "venomoth", "snorlax"],
+        "blue": ["haunter", "gengar", "beedrill", "parasect", "venomoth", "snorlax"],
+        "yellow": ["haunter", "gengar", "beedrill", "parasect", "venomoth", "snorlax"],
+        "firered": ["haunter", "gengar", "beedrill", "parasect", "snorlax", "pinsir"],
+        "leafgreen": ["haunter", "gengar", "beedrill", "parasect", "snorlax", "scyther"]
+      },
+      "special": {
+        "haunter": "Ghost bugged in Gen 1, but good stats",
+        "gengar": "Ghost bugged in Gen 1, but excellent stats",
+        "snorlax": "High HP & Sp.Def tanks Psychic hits"
       }
     },
     "blaine": {
@@ -229,7 +239,7 @@
       "recommended": {
         "red": ["blastoise", "lapras", "gyarados", "vaporeon", "venusaur", "vileplume", "victreebel", "articuno", "dewgong"],
         "blue": ["blastoise", "lapras", "gyarados", "vaporeon", "venusaur", "vileplume", "victreebel", "articuno", "dewgong"],
-        "yellow": ["lapras", "gyarados", "vaporeon", "venusaur", "vileplume", "victreebel", "articuno", "dewgong", "pikachu"],
+        "yellow": ["lapras", "gyarados", "vaporeon", "venusaur", "vileplume", "victreebel", "articuno", "dewgong"],
         "firered": ["blastoise", "lapras", "gyarados", "vaporeon", "venusaur", "vileplume", "victreebel", "articuno", "dewgong"],
         "leafgreen": ["blastoise", "lapras", "gyarados", "vaporeon", "venusaur", "vileplume", "victreebel", "articuno", "dewgong"]
       }

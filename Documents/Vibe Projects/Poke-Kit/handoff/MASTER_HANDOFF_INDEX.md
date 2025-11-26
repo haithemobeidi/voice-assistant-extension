@@ -4,6 +4,8 @@ This file catalogs all development session handoffs for continuity across Claude
 
 ## Session Handoffs
 
+**Handoff 11-26-2025_18-30-00_EST** - Team Builder data audit & trainer sprites: Full type matchup audit fixed incorrect recommendations (removed Pikachu from Brock/Erika/Giovanni in Yellow). Added special indicator (*) for move-based recommendations (Butterfree Confusion, Nidoran Double Kick). Added trainer sprites to boss list (game-accurate Gen1/Gen3). Bundle size warning noted - code splitting needed. Build: ✅ working, user confirmed: partial (UI needs refinement)
+
 **Handoff 11-26-2025_16-30-00_EST** - Team Builder MVP complete: Built full UI with game selection (5 versions), 13 bosses (gyms/E4/champion), boss teams with sprites/levels/types, recommended counters. Data from Bulbapedia. User confirmed working, wants to verify data accuracy. Build: ✅ working, user confirmed: yes
 
 **Handoff 11-26-2025_16-15-00_EST** - Team Builder research complete: Created docs/team-builder-research.md with full implementation plan. Identified PokéAPI for encounters, manual Bulbapedia for gym data. Fixed regional form names (Alolan Rattata not Alolan Form). Ready to start implementation. Build: ✅ working, user confirmed: yes
