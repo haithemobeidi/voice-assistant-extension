@@ -74,9 +74,7 @@ export function NavBar(currentPage: string): string {
       <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
         <!-- Logo -->
         <a href="#home" class="flex items-center gap-3 group" data-nav="home">
-          <div class="w-10 h-10 bg-gradient-to-tr from-red-500 to-red-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-red-500/30 group-hover:scale-105 transition-transform">
-            <i data-lucide="circle" class="w-6 h-6"></i>
-          </div>
+          <img src="/pokeball.svg" alt="Pokeball" class="w-10 h-10 group-hover:scale-105 transition-transform drop-shadow-lg" />
           <span class="text-xl font-black tracking-tight group-hover:text-red-500 transition-colors dark:text-white">
             Poke<span class="text-red-500">ToolKit</span>
           </span>

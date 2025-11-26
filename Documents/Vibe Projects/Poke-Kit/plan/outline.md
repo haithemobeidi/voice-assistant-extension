@@ -23,18 +23,21 @@
 - Will integrate with Pokédex feature (later phase)
 - Display on type matchup results page
 
-**Nickname Generator - IN PROGRESS**:
+**Nickname Generator - COMPLETE**:
 - ✅ Wizard UI implemented with Pokemon search, style selection, type toggle, length selection
 - ✅ Gemini API integration with model fallback (gemini-2.0-flash → gemini-2.5-flash-lite → gemini-2.5-flash)
 - ✅ Retry logic with exponential backoff for API resilience
 - ✅ Copy to clipboard and favorites functionality
 - ✅ Robust response parsing (handles JSON, numbered lists, bullets, quotes)
-- 🔄 NEXT: Multi-style selection (pick 2 of 6 styles) - mockups pending user approval
-- Planned styles: Cool, Cute, Funny, Mythical, Fierce, Elegant (6 total, select up to 2)
+- ✅ Multi-style selection: 6 styles (Cool, Cute, Funny, Mythic, Fierce, Elegant), select up to 2 to combine
+- ✅ Pet Name Mode toggle: Generates real pet-friendly names (easy to pronounce, warm, personal)
+- ✅ AI prompt prevents Pokemon/Digimon name suggestions
 
 **Blockers**: None
 
 ## Recent Changes
+- 2025-11-26: **Nickname Generator** - Multi-style selection (6 styles, pick up to 2), Pet Name Mode toggle, AI prompt improvements (no Pokemon/Digimon names)
+- 2025-11-26: **UI Fixes** - Fixed Poison type icon (complete Paldea-style), replaced header Pokeball logo, removed Wolfe Glick attribution
 - 2025-11-25: **Nickname Generator** - Fixed Gemini API "overloaded" errors with model fallback chain and retry logic, robust response parsing added
 - 2025-11-23: **Nickname Generator** - Implemented AI-powered nickname generation with Gemini API, wizard UI, favorites system
 - 2025-11-14: **Phase 2 COMPLETED** - Button-based type selector UI implemented, all 18 type colors working, full calculator functionality verified

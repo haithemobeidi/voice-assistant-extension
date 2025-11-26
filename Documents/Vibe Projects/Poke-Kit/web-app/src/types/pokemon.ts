@@ -76,7 +76,7 @@ export interface OffensiveProfile {
 }
 
 /**
- * Tier ranking for type combinations (Wolfe Glick's ratings)
+ * Tier ranking for type combinations
  */
 export type TierRank = "S" | "A" | "B" | "C" | "D" | "F";
 

@@ -30,12 +30,16 @@ function getSpriteUrl(pokemon: PokemonCreature): string {
 }
 
 // Types for nickname generation
-export type NicknameStyle = 'cool' | 'cute' | 'funny' | 'mythical' | null;
+export type NicknameStyle = 'cool' | 'cute' | 'funny' | 'mythical' | 'fierce' | 'elegant';
 export type NameLength = 'short' | 'medium' | 'long' | null;
+
+// Maximum number of styles that can be selected
+const MAX_STYLES = 2;
 
 interface NicknameState {
   selectedPokemon: PokemonCreature | null;
-  style: NicknameStyle;
+  styles: NicknameStyle[];  // Changed from single style to array (max 2)
+  petNameMode: boolean;     // Toggle for real pet name style
   useTypes: boolean | null;
   length: NameLength;
   generatedNames: string[];
@@ -48,7 +52,8 @@ interface NicknameState {
 function createDefaultState(): NicknameState {
   return {
     selectedPokemon: null,
-    style: null,
+    styles: [],  // Empty array - no styles selected by default
+    petNameMode: false,  // Off by default
     useTypes: null,
     length: null,
     generatedNames: [],
@@ -115,8 +120,12 @@ function setupElementListeners(): void {
 
   document.querySelectorAll('[data-style]').forEach(btn => {
     btn.addEventListener('click', () => {
-      setStyle(btn.getAttribute('data-style') as NicknameStyle);
+      toggleStyle(btn.getAttribute('data-style') as NicknameStyle);
     });
+  });
+
+  document.getElementById('pet-name-toggle')?.addEventListener('click', () => {
+    togglePetNameMode();
   });
 
   document.querySelectorAll('[data-use-types]').forEach(btn => {
@@ -283,15 +292,35 @@ function renderSelectedPokemon(): void {
   });
 }
 
-function setStyle(style: NicknameStyle): void {
-  state.style = style;
+/**
+ * Toggle a style on/off (max 2 styles allowed)
+ */
+function toggleStyle(style: NicknameStyle): void {
+  const index = state.styles.indexOf(style);
+
+  if (index !== -1) {
+    // Style is already selected - remove it
+    state.styles.splice(index, 1);
+  } else if (state.styles.length < MAX_STYLES) {
+    // Add style if under the limit
+    state.styles.push(style);
+  } else {
+    // At max - remove first style and add new one (replace oldest)
+    state.styles.shift();
+    state.styles.push(style);
+  }
+
   updateStyleButtons();
 }
 
 function updateStyleButtons(): void {
+  const atMaxStyles = state.styles.length >= MAX_STYLES;
+
   document.querySelectorAll('[data-style]').forEach(btn => {
     const style = btn.getAttribute('data-style') as NicknameStyle;
-    const isActive = style === state.style;
+    const isActive = state.styles.includes(style);
+    const isDisabled = atMaxStyles && !isActive;
+
     btn.classList.toggle('border-blue-500', isActive);
     btn.classList.toggle('bg-blue-50', isActive);
     btn.classList.toggle('dark:bg-blue-500/20', isActive);
@@ -299,9 +328,51 @@ function updateStyleButtons(): void {
     btn.classList.toggle('dark:text-blue-400', isActive);
     btn.classList.toggle('border-gray-200', !isActive);
     btn.classList.toggle('dark:border-gray-700', !isActive);
-    btn.classList.toggle('text-gray-600', !isActive);
-    btn.classList.toggle('dark:text-gray-400', !isActive);
+    btn.classList.toggle('text-gray-600', !isActive && !isDisabled);
+    btn.classList.toggle('dark:text-gray-400', !isActive && !isDisabled);
+    btn.classList.toggle('opacity-50', isDisabled);
   });
+
+  // Update the style count indicator
+  updateStyleCountIndicator();
+}
+
+function updateStyleCountIndicator(): void {
+  const indicator = document.getElementById('style-count-indicator');
+  if (indicator) {
+    indicator.textContent = `${state.styles.length}/${MAX_STYLES} selected`;
+    indicator.classList.toggle('text-blue-500', state.styles.length > 0);
+    indicator.classList.toggle('dark:text-blue-400', state.styles.length > 0);
+  }
+}
+
+/**
+ * Toggle pet name mode on/off
+ */
+function togglePetNameMode(): void {
+  state.petNameMode = !state.petNameMode;
+  updatePetNameToggle();
+}
+
+function updatePetNameToggle(): void {
+  const toggle = document.getElementById('pet-name-toggle');
+  if (toggle) {
+    const isActive = state.petNameMode;
+    toggle.classList.toggle('border-blue-500', isActive);
+    toggle.classList.toggle('bg-blue-50', isActive);
+    toggle.classList.toggle('dark:bg-blue-500/20', isActive);
+    toggle.classList.toggle('border-gray-200', !isActive);
+    toggle.classList.toggle('dark:border-gray-700', !isActive);
+
+    // Update the toggle indicator
+    const indicator = toggle.querySelector('.toggle-indicator');
+    if (indicator) {
+      indicator.classList.toggle('bg-blue-500', isActive);
+      indicator.classList.toggle('translate-x-5', isActive);
+      indicator.classList.toggle('bg-gray-300', !isActive);
+      indicator.classList.toggle('dark:bg-gray-600', !isActive);
+    }
+  }
 }
 
 function setUseTypes(useTypes: boolean): void {
@@ -444,8 +515,8 @@ async function generateNicknames(): Promise<void> {
     renderResults();
     return;
   }
-  if (!state.style) {
-    state.error = 'Please select a nickname style';
+  if (state.styles.length === 0) {
+    state.error = 'Please select at least one nickname style';
     renderResults();
     return;
   }
@@ -485,25 +556,45 @@ async function generateNicknames(): Promise<void> {
     long: '9-12 characters - USE VARIED FORMATS: single longer words, mythological names, creative spellings, or nature-inspired names.'
   };
 
-  const styleGuide: Record<string, string> = {
+  const styleGuide: Record<NicknameStyle, string> = {
     cool: 'badass, intimidating, powerful',
     cute: 'adorable, sweet, endearing',
     funny: 'punny, humorous, silly wordplay',
-    mythical: 'legendary, epic, divine'
+    mythical: 'legendary, epic, divine',
+    fierce: 'aggressive, fearsome, warrior-like',
+    elegant: 'graceful, refined, sophisticated'
   };
+
+  // Build style description from selected styles
+  const styleDescriptions = state.styles.map(s => styleGuide[s]);
+  const styleText = state.styles.length === 1
+    ? styleDescriptions[0]
+    : `a blend of ${styleDescriptions.join(' AND ')}`;
 
   const typeContext = state.useTypes
     ? `The names should reference or be inspired by the Pokémon's ${types} typing.`
     : `The names should be type-neutral and not reference specific elements.`;
 
+  // Pet name mode adds constraints for real-world pet naming
+  const petNameContext = state.petNameMode
+    ? `
+IMPORTANT - PET NAME MODE: These must be names you'd actually call a real pet out loud.
+- Easy to pronounce and call out (no complex fantasy names)
+- Sound like real pet names (like Buddy, Mochi, Pickles, Ginger, Shadow, etc.)
+- Avoid intimidating/epic names like "Infernal", "Shadowbane", "Destroyer"
+- Should feel warm, personal, and endearing`
+    : '';
+
   const aiPrompt = `Generate 5 creative nicknames for a Pokémon named ${name} (${types} type).
 
 Requirements:
-- Style: ${styleGuide[state.style!]}
+- Style: ${styleText}
 - Length: ${lengthGuide[state.length!]}
 - ${typeContext}
 - Must be game-appropriate (no profanity)
 - Each nickname should be unique and creative
+- NEVER use existing Pokémon names (like Pikachu, Flareon, Charizard, etc.)
+- NEVER use Digimon names or other monster franchise names${petNameContext}
 
 Return ONLY a JSON array of 5 nickname strings, no explanation. Example: ["Nick1", "Nick2", "Nick3", "Nick4", "Nick5"]`;
 
@@ -707,12 +798,18 @@ function renderGenerator(): void {
         </div>
       </div>
 
-      <!-- Step 2: Vibe & Style -->
+      <!-- Step 2: Vibe & Style (pick up to 2) -->
       <div>
-        <label class="block text-sm font-bold mb-3 uppercase tracking-wide text-gray-500 dark:text-gray-400">
-          2. Vibe & Style
-        </label>
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div class="flex items-center justify-between mb-3">
+          <label class="block text-sm font-bold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+            2. Vibe & Style
+          </label>
+          <span id="style-count-indicator" class="text-xs font-medium text-gray-400 dark:text-gray-500">
+            0/${MAX_STYLES} selected
+          </span>
+        </div>
+        <p class="text-xs text-gray-400 dark:text-gray-500 mb-3">Pick up to 2 styles to combine</p>
+        <div class="grid grid-cols-3 sm:grid-cols-6 gap-3">
           <button data-style="cool" class="selection-tile">
             <span class="icon"><i data-lucide="zap" class="w-6 h-6"></i></span>
             <span class="label">Cool</span>
@@ -733,7 +830,33 @@ function renderGenerator(): void {
             <span class="label">Mythic</span>
             <span class="desc">Epic</span>
           </button>
+          <button data-style="fierce" class="selection-tile">
+            <span class="icon"><i data-lucide="flame" class="w-6 h-6"></i></span>
+            <span class="label">Fierce</span>
+            <span class="desc">Strong</span>
+          </button>
+          <button data-style="elegant" class="selection-tile">
+            <span class="icon"><i data-lucide="gem" class="w-6 h-6"></i></span>
+            <span class="label">Elegant</span>
+            <span class="desc">Classy</span>
+          </button>
         </div>
+      </div>
+
+      <!-- Pet Name Mode Toggle -->
+      <div>
+        <button id="pet-name-toggle" class="w-full flex items-center justify-between p-4 rounded-xl border-2 border-gray-200 dark:border-gray-700 transition-all hover:border-gray-300 dark:hover:border-gray-600">
+          <div class="flex items-center gap-3">
+            <span class="text-2xl"><i data-lucide="paw-print" class="w-6 h-6"></i></span>
+            <div class="text-left">
+              <p class="font-bold text-gray-900 dark:text-white">Pet Name Mode</p>
+              <p class="text-xs text-gray-500 dark:text-gray-400">Names you'd actually call a real pet</p>
+            </div>
+          </div>
+          <div class="w-11 h-6 rounded-full bg-gray-200 dark:bg-gray-700 relative transition-colors">
+            <div class="toggle-indicator absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-gray-300 dark:bg-gray-600 transition-all"></div>
+          </div>
+        </button>
       </div>
 
       <!-- Step 3: Type Reference -->

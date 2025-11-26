@@ -1,5 +1,5 @@
 // typeCombos.ts
-// Wolfe Glick's competitive tier rankings for all dual-type combinations
+// Competitive tier rankings for all dual-type combinations
 // Rank 1 (best) → 153 (worst) based on defensive/offensive balance
 
 import type { TierRank, TypeCombo, TierDescription, PokemonType } from '../types/pokemon';
@@ -16,7 +16,7 @@ export const TIER_ORDER: readonly TierRank[] = ["S", "A", "B", "C", "D", "F"] as
 export const TIER_DESCRIPTIONS: readonly TierDescription[] = [
   {
     tier: "S",
-    description: "Ridiculously strong combinations. Top of the meta in Wolfe's view."
+    description: "Ridiculously strong combinations. Top of the meta."
   },
   {
     tier: "A",
@@ -50,7 +50,6 @@ export function getTierDescription(tier: TierRank): string {
 
 /**
  * All 153 dual-type combinations ranked by competitive viability
- * Rankings based on Wolfe Glick's analysis (VGC World Champion)
  *
  * Note: Single-type Pokémon are not included in this ranking system
  * as they have different strategic considerations
