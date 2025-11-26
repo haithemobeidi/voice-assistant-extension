@@ -203,6 +203,41 @@
   }
 }
 
+/* Pokédex Card Flip Animation */
+.pokemon-card-container {
+  perspective: 1000px;
+}
+
+.pokemon-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s ease-out;
+  transform-style: preserve-3d;
+}
+
+.pokemon-card-container.flipped .pokemon-card-inner {
+  transform: rotateY(180deg);
+}
+
+.pokemon-card-front,
+.pokemon-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.pokemon-card-back {
+  transform: rotateY(180deg);
+}
+
+/* Stat bar animation */
+.stat-bar-fill {
+  transition: width 0.4s ease-out 0.2s;
+}
+
 /* Legacy type color classes - kept for backward compatibility
  * These use the old color scheme, prefer TYPE_CONFIG colors for new code
  */
