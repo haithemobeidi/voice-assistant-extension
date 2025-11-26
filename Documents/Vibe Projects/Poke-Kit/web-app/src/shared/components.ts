@@ -2,8 +2,7 @@
 // Reusable UI component generators for the redesigned app
 // These functions return HTML strings that can be inserted into the DOM
 
-import { getTypeConfig, TYPE_CONFIG } from './typeConfig';
-import type { PokemonType } from '../types/pokemon';
+import { getTypeConfig } from './typeConfig';
 
 /**
  * Generate a TypeBadge component (pill-shaped type indicator)
@@ -203,92 +202,6 @@ export function QuickActionCard(
         <p class="text-white/80 text-sm">${desc}</p>
       </div>
     </a>
-  `;
-}
-
-/**
- * Generate the Type Dropdown component for the calculator
- * Transforms to show selected type color when active
- *
- * @param label - Label text above the dropdown
- * @param dropdownId - Unique ID for the dropdown
- * @param selectedType - Currently selected type (or null)
- * @returns HTML string for the type dropdown
- */
-export function TypeDropdown(
-  label: string,
-  dropdownId: string,
-  selectedType: PokemonType | null
-): string {
-  const config = selectedType ? getTypeConfig(selectedType) : null;
-
-  const buttonStyle = config
-    ? `background-color: ${config.color};`
-    : '';
-
-  const buttonClasses = config
-    ? 'border-transparent text-white shadow-lg shadow-black/10'
-    : 'bg-gray-50 dark:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:hover:border-gray-500';
-
-  const iconContent = config
-    ? `<i data-lucide="${config.icon}" class="w-5 h-5"></i>`
-    : '<div class="w-5 h-5 rounded-full border-2 border-dashed border-gray-400 dark:border-gray-500"></div>';
-
-  const labelText = config ? config.label : 'Select Type';
-
-  // Generate dropdown options
-  const typeOptions = Object.entries(TYPE_CONFIG).map(([_key, typeConfig]) => `
-    <button
-      class="type-option flex items-center gap-2 px-3 py-2 rounded-lg transition-colors hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 w-full text-left"
-      data-type="${typeConfig.label}"
-      data-dropdown="${dropdownId}"
-    >
-      <div
-        class="w-6 h-6 rounded-full flex items-center justify-center text-white"
-        style="background-color: ${typeConfig.color};"
-      >
-        <i data-lucide="${typeConfig.icon}" class="w-3 h-3"></i>
-      </div>
-      <span class="font-bold text-sm">${typeConfig.label}</span>
-    </button>
-  `).join('');
-
-  return `
-    <div class="relative w-full" data-dropdown-container="${dropdownId}">
-      <label class="block text-sm font-bold mb-2 uppercase tracking-wide text-gray-500 dark:text-gray-400">
-        ${label}
-      </label>
-      <button
-        class="type-dropdown-trigger w-full flex items-center justify-between px-4 py-4 rounded-xl transition-all duration-200 ${buttonClasses}"
-        style="${buttonStyle}"
-        data-dropdown-trigger="${dropdownId}"
-      >
-        <div class="flex items-center gap-3">
-          ${iconContent}
-          <span class="font-bold text-lg">${labelText}</span>
-        </div>
-        <i data-lucide="chevron-down" class="w-5 h-5 transition-transform duration-200"></i>
-      </button>
-
-      <div
-        class="type-dropdown-menu hidden absolute z-50 mt-2 w-full rounded-2xl shadow-xl border bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-2 max-h-80 overflow-y-auto"
-        data-dropdown-menu="${dropdownId}"
-      >
-        <!-- None option -->
-        <button
-          class="type-option flex items-center gap-2 px-3 py-2 rounded-lg transition-colors hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 dark:text-gray-400 w-full text-left"
-          data-type=""
-          data-dropdown="${dropdownId}"
-        >
-          <div class="w-6 h-6 rounded-full border border-gray-400 dark:border-gray-500"></div>
-          <span class="font-medium">None</span>
-        </button>
-
-        <div class="grid grid-cols-2 sm:grid-cols-3 gap-1 mt-2">
-          ${typeOptions}
-        </div>
-      </div>
-    </div>
   `;
 }
 
