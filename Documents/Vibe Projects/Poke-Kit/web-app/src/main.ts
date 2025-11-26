@@ -6,6 +6,7 @@ import './style.css';
 import { initCalculator } from './calculator';
 import { initPokedex } from './pokedex';
 import { initNicknameGenerator, cleanupNicknameGenerator } from './nickname-generator';
+import { initTeamBuilder, cleanupTeamBuilder } from './team-builder';
 import { initTheme, toggleTheme } from './shared/theme';
 import { NavBar, QuickActionCard } from './shared/components';
 
@@ -39,6 +40,9 @@ function navigateTo(pageId: PageId, updateHash = true): void {
   if (currentPage === 'nickname') {
     cleanupNicknameGenerator();
   }
+  if (currentPage === 'teams') {
+    cleanupTeamBuilder();
+  }
 
   // Hide all pages
   document.querySelectorAll('.page').forEach(page => {
@@ -57,6 +61,9 @@ function navigateTo(pageId: PageId, updateHash = true): void {
   // Initialize page-specific modules
   if (pageId === 'nickname') {
     initNicknameGenerator();
+  }
+  if (pageId === 'teams') {
+    initTeamBuilder();
   }
 
   // Update current page tracker
@@ -146,7 +153,7 @@ function renderHomePage(): string {
     QuickActionCard('calculator', 'Calculator', 'Analyze matchups', 'calculator', 'bg-blue-600', 'shadow-blue-500/20'),
     QuickActionCard('pokedex', 'Pokédex', 'Stats & Moves', 'book-open', 'bg-green-600', 'shadow-green-500/20'),
     QuickActionCard('nickname', 'Nicknames', 'Get creative', 'sparkles', 'bg-purple-600', 'shadow-purple-500/20'),
-    QuickActionCard('teams', 'Team Builder', 'Coming soon', 'users', 'bg-yellow-500', 'shadow-yellow-500/20'),
+    QuickActionCard('teams', 'Team Builder', 'Beat the gyms', 'users', 'bg-yellow-500', 'shadow-yellow-500/20'),
   ].join('');
 
   return `
@@ -293,22 +300,18 @@ function renderPokedexPage(): string {
 }
 
 /**
- * Generate the Team Builder page content (placeholder)
+ * Generate the Team Builder page content
  */
 function renderTeamsPage(): string {
   return `
-    <div class="max-w-4xl mx-auto">
-      <div class="text-center mb-10">
-        <h1 class="text-4xl font-extrabold mb-4 text-gray-900 dark:text-white">Team Builder</h1>
-        <p class="text-lg text-gray-500 dark:text-gray-400">Get team recommendations for campaign, competitive, or raid battles.</p>
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-8">
+        <h1 class="text-4xl font-extrabold mb-4 text-gray-900 dark:text-white">Campaign Team Builder</h1>
+        <p class="text-lg text-gray-500 dark:text-gray-400">Get optimal team suggestions for gym leaders using only available Pokémon.</p>
       </div>
 
-      <div class="card text-center py-16">
-        <i data-lucide="users" class="w-20 h-20 text-gray-300 dark:text-gray-600 mx-auto mb-6"></i>
-        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Coming Soon</h3>
-        <p class="text-gray-500 dark:text-gray-400 max-w-md mx-auto">
-          The Team Builder feature is under development. Check back soon for team composition recommendations!
-        </p>
+      <div id="team-builder-content">
+        <!-- Content will be injected by team-builder.ts -->
       </div>
     </div>
   `;

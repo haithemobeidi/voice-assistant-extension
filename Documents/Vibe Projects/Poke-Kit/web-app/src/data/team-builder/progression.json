@@ -1,0 +1,338 @@
+{
+  "kanto": {
+    "brock": {
+      "description": "Before Gym 1 - Pewter City",
+      "locations": ["pallet-town", "route-1", "route-2", "route-22", "viridian-city", "viridian-forest"],
+      "pokemon": {
+        "red": {
+          "starter": ["bulbasaur", "charmander", "squirtle"],
+          "wild": ["pidgey", "rattata", "spearow", "nidoran-f", "nidoran-m", "pikachu", "caterpie", "metapod", "butterfree", "weedle", "kakuna", "beedrill", "mankey"]
+        },
+        "blue": {
+          "starter": ["bulbasaur", "charmander", "squirtle"],
+          "wild": ["pidgey", "rattata", "spearow", "nidoran-f", "nidoran-m", "pikachu", "caterpie", "metapod", "butterfree", "weedle", "kakuna", "beedrill", "mankey"]
+        },
+        "yellow": {
+          "starter": ["pikachu"],
+          "wild": ["pidgey", "rattata", "spearow", "nidoran-f", "nidoran-m", "caterpie", "metapod", "butterfree", "weedle", "kakuna", "beedrill", "mankey"]
+        },
+        "firered": {
+          "starter": ["bulbasaur", "charmander", "squirtle"],
+          "wild": ["pidgey", "rattata", "spearow", "nidoran-f", "nidoran-m", "pikachu", "caterpie", "metapod", "butterfree", "weedle", "kakuna", "beedrill", "mankey"]
+        },
+        "leafgreen": {
+          "starter": ["bulbasaur", "charmander", "squirtle"],
+          "wild": ["pidgey", "rattata", "spearow", "nidoran-f", "nidoran-m", "pikachu", "caterpie", "metapod", "butterfree", "weedle", "kakuna", "beedrill", "mankey"]
+        }
+      },
+      "recommended": {
+        "red": ["bulbasaur", "squirtle", "butterfree", "mankey", "nidoran-m", "nidoran-f"],
+        "blue": ["bulbasaur", "squirtle", "butterfree", "mankey", "nidoran-m", "nidoran-f"],
+        "yellow": ["butterfree", "mankey", "nidoran-m", "nidoran-f", "pikachu"],
+        "firered": ["bulbasaur", "squirtle", "butterfree", "mankey", "nidoran-m", "nidoran-f"],
+        "leafgreen": ["bulbasaur", "squirtle", "butterfree", "mankey", "nidoran-m", "nidoran-f"]
+      }
+    },
+    "misty": {
+      "description": "Before Gym 2 - Cerulean City",
+      "locations": ["route-3", "route-4", "mt-moon", "route-24", "route-25"],
+      "pokemon": {
+        "red": {
+          "new": ["jigglypuff", "clefairy", "zubat", "geodude", "paras", "sandshrew", "ekans", "oddish", "bellsprout", "abra"]
+        },
+        "blue": {
+          "new": ["jigglypuff", "clefairy", "zubat", "geodude", "paras", "sandshrew", "vulpix", "oddish", "bellsprout", "abra"]
+        },
+        "yellow": {
+          "new": ["jigglypuff", "clefairy", "zubat", "geodude", "paras", "sandshrew", "ekans", "oddish", "bellsprout", "abra"]
+        },
+        "firered": {
+          "new": ["jigglypuff", "clefairy", "zubat", "geodude", "paras", "sandshrew", "ekans", "oddish", "abra"]
+        },
+        "leafgreen": {
+          "new": ["jigglypuff", "clefairy", "zubat", "geodude", "paras", "sandshrew", "vulpix", "bellsprout", "abra"]
+        }
+      },
+      "recommended": {
+        "red": ["bulbasaur", "ivysaur", "oddish", "bellsprout", "pikachu"],
+        "blue": ["bulbasaur", "ivysaur", "oddish", "bellsprout", "pikachu"],
+        "yellow": ["pikachu", "oddish", "bellsprout", "bulbasaur"],
+        "firered": ["bulbasaur", "ivysaur", "oddish", "pikachu"],
+        "leafgreen": ["bulbasaur", "ivysaur", "bellsprout", "pikachu"]
+      }
+    },
+    "surge": {
+      "description": "Before Gym 3 - Vermilion City",
+      "locations": ["route-5", "route-6", "route-11", "digletts-cave", "ss-anne"],
+      "pokemon": {
+        "red": {
+          "new": ["diglett", "dugtrio", "meowth", "drowzee"]
+        },
+        "blue": {
+          "new": ["diglett", "dugtrio", "meowth", "drowzee"]
+        },
+        "yellow": {
+          "new": ["diglett", "dugtrio", "meowth", "drowzee"]
+        },
+        "firered": {
+          "new": ["diglett", "dugtrio", "meowth", "drowzee"]
+        },
+        "leafgreen": {
+          "new": ["diglett", "dugtrio", "meowth", "drowzee"]
+        }
+      },
+      "recommended": {
+        "red": ["diglett", "dugtrio", "geodude", "sandshrew"],
+        "blue": ["diglett", "dugtrio", "geodude", "sandshrew"],
+        "yellow": ["diglett", "dugtrio", "geodude", "sandshrew"],
+        "firered": ["diglett", "dugtrio", "geodude", "sandshrew"],
+        "leafgreen": ["diglett", "dugtrio", "geodude", "sandshrew"]
+      }
+    },
+    "erika": {
+      "description": "Before Gym 4 - Celadon City",
+      "locations": ["route-7", "route-8", "route-9", "route-10", "rock-tunnel", "pokemon-tower", "celadon-city"],
+      "pokemon": {
+        "red": {
+          "new": ["machop", "magnemite", "voltorb", "gastly", "haunter", "cubone", "growlithe", "vulpix"]
+        },
+        "blue": {
+          "new": ["machop", "magnemite", "voltorb", "gastly", "haunter", "cubone", "growlithe", "vulpix"]
+        },
+        "yellow": {
+          "new": ["machop", "magnemite", "voltorb", "gastly", "haunter", "cubone", "growlithe", "vulpix"]
+        },
+        "firered": {
+          "new": ["machop", "magnemite", "voltorb", "gastly", "haunter", "cubone", "growlithe"]
+        },
+        "leafgreen": {
+          "new": ["machop", "magnemite", "voltorb", "gastly", "haunter", "cubone", "vulpix"]
+        }
+      },
+      "recommended": {
+        "red": ["charmander", "charmeleon", "growlithe", "vulpix", "pidgey", "pidgeotto", "spearow", "fearow"],
+        "blue": ["charmander", "charmeleon", "growlithe", "vulpix", "pidgey", "pidgeotto", "spearow", "fearow"],
+        "yellow": ["pikachu", "growlithe", "vulpix", "pidgey", "pidgeotto", "spearow", "fearow"],
+        "firered": ["charmander", "charmeleon", "growlithe", "pidgey", "pidgeotto", "spearow", "fearow"],
+        "leafgreen": ["charmander", "charmeleon", "vulpix", "pidgey", "pidgeotto", "spearow", "fearow"]
+      }
+    },
+    "koga": {
+      "description": "Before Gym 5 - Fuchsia City",
+      "locations": ["route-12", "route-13", "route-14", "route-15", "safari-zone", "route-16", "route-17", "route-18"],
+      "pokemon": {
+        "red": {
+          "new": ["snorlax", "venonat", "venomoth", "exeggcute", "chansey", "kangaskhan", "tauros", "scyther", "pinsir", "dratini", "rhyhorn", "doduo", "farfetchd", "mr-mime"]
+        },
+        "blue": {
+          "new": ["snorlax", "venonat", "venomoth", "exeggcute", "chansey", "kangaskhan", "tauros", "scyther", "pinsir", "dratini", "rhyhorn", "doduo", "farfetchd", "mr-mime"]
+        },
+        "yellow": {
+          "new": ["snorlax", "venonat", "venomoth", "exeggcute", "chansey", "kangaskhan", "tauros", "scyther", "pinsir", "dratini", "rhyhorn", "doduo", "farfetchd", "mr-mime"]
+        },
+        "firered": {
+          "new": ["snorlax", "venonat", "venomoth", "exeggcute", "chansey", "kangaskhan", "tauros", "scyther", "dratini", "rhyhorn", "doduo", "farfetchd", "mr-mime"]
+        },
+        "leafgreen": {
+          "new": ["snorlax", "venonat", "venomoth", "exeggcute", "chansey", "kangaskhan", "tauros", "pinsir", "dratini", "rhyhorn", "doduo", "farfetchd", "mr-mime"]
+        }
+      },
+      "recommended": {
+        "red": ["alakazam", "kadabra", "abra", "drowzee", "hypno", "dugtrio", "diglett"],
+        "blue": ["alakazam", "kadabra", "abra", "drowzee", "hypno", "dugtrio", "diglett"],
+        "yellow": ["alakazam", "kadabra", "abra", "drowzee", "hypno", "dugtrio", "diglett"],
+        "firered": ["alakazam", "kadabra", "abra", "drowzee", "hypno", "dugtrio", "diglett"],
+        "leafgreen": ["alakazam", "kadabra", "abra", "drowzee", "hypno", "dugtrio", "diglett"]
+      }
+    },
+    "sabrina": {
+      "description": "Before Gym 6 - Saffron City",
+      "locations": ["saffron-city", "fighting-dojo"],
+      "pokemon": {
+        "red": {
+          "new": ["hitmonlee", "hitmonchan"],
+          "gift": ["lapras"]
+        },
+        "blue": {
+          "new": ["hitmonlee", "hitmonchan"],
+          "gift": ["lapras"]
+        },
+        "yellow": {
+          "new": ["hitmonlee", "hitmonchan"],
+          "gift": ["lapras"]
+        },
+        "firered": {
+          "new": ["hitmonlee", "hitmonchan"],
+          "gift": ["lapras"]
+        },
+        "leafgreen": {
+          "new": ["hitmonlee", "hitmonchan"],
+          "gift": ["lapras"]
+        }
+      },
+      "recommended": {
+        "red": ["haunter", "gengar", "jolteon", "alakazam"],
+        "blue": ["haunter", "gengar", "jolteon", "alakazam"],
+        "yellow": ["haunter", "gengar", "jolteon", "alakazam"],
+        "firered": ["haunter", "gengar", "jolteon", "alakazam", "snorlax"],
+        "leafgreen": ["haunter", "gengar", "jolteon", "alakazam", "snorlax"]
+      }
+    },
+    "blaine": {
+      "description": "Before Gym 7 - Cinnabar Island",
+      "locations": ["route-19", "route-20", "route-21", "seafoam-islands", "pokemon-mansion", "cinnabar-island"],
+      "pokemon": {
+        "red": {
+          "new": ["tentacool", "tentacruel", "horsea", "seadra", "goldeen", "seaking", "staryu", "shellder", "krabby", "kingler", "seel", "dewgong", "slowpoke", "slowbro", "psyduck", "golduck", "magmar", "grimer", "muk", "koffing", "weezing", "ponyta", "rapidash", "ditto", "articuno"]
+        },
+        "blue": {
+          "new": ["tentacool", "tentacruel", "horsea", "seadra", "goldeen", "seaking", "staryu", "shellder", "krabby", "kingler", "seel", "dewgong", "slowpoke", "slowbro", "psyduck", "golduck", "magmar", "grimer", "muk", "koffing", "weezing", "ponyta", "rapidash", "ditto", "articuno"]
+        },
+        "yellow": {
+          "new": ["tentacool", "tentacruel", "horsea", "seadra", "goldeen", "seaking", "staryu", "shellder", "krabby", "kingler", "seel", "dewgong", "slowpoke", "slowbro", "psyduck", "golduck", "magmar", "grimer", "muk", "koffing", "weezing", "ponyta", "rapidash", "ditto", "articuno"]
+        },
+        "firered": {
+          "new": ["tentacool", "tentacruel", "horsea", "seadra", "goldeen", "seaking", "staryu", "shellder", "krabby", "kingler", "seel", "dewgong", "slowpoke", "slowbro", "psyduck", "golduck", "magmar", "grimer", "muk", "koffing", "weezing", "ponyta", "rapidash", "ditto", "articuno"]
+        },
+        "leafgreen": {
+          "new": ["tentacool", "tentacruel", "horsea", "seadra", "goldeen", "seaking", "staryu", "shellder", "krabby", "kingler", "seel", "dewgong", "slowpoke", "slowbro", "psyduck", "golduck", "magmar", "grimer", "muk", "koffing", "weezing", "ponyta", "rapidash", "ditto", "articuno"]
+        }
+      },
+      "recommended": {
+        "red": ["blastoise", "lapras", "gyarados", "vaporeon", "starmie", "golduck", "dewgong", "dugtrio", "golem", "rhydon"],
+        "blue": ["blastoise", "lapras", "gyarados", "vaporeon", "starmie", "golduck", "dewgong", "dugtrio", "golem", "rhydon"],
+        "yellow": ["lapras", "gyarados", "vaporeon", "starmie", "golduck", "dewgong", "dugtrio", "golem", "rhydon"],
+        "firered": ["blastoise", "lapras", "gyarados", "vaporeon", "starmie", "golduck", "dewgong", "dugtrio", "golem", "rhydon"],
+        "leafgreen": ["blastoise", "lapras", "gyarados", "vaporeon", "starmie", "golduck", "dewgong", "dugtrio", "golem", "rhydon"]
+      }
+    },
+    "giovanni": {
+      "description": "Before Gym 8 - Viridian City",
+      "locations": ["viridian-city-gym"],
+      "pokemon": {
+        "red": {
+          "new": []
+        },
+        "blue": {
+          "new": []
+        },
+        "yellow": {
+          "new": []
+        },
+        "firered": {
+          "new": []
+        },
+        "leafgreen": {
+          "new": []
+        }
+      },
+      "recommended": {
+        "red": ["blastoise", "lapras", "gyarados", "vaporeon", "venusaur", "vileplume", "victreebel", "articuno", "dewgong"],
+        "blue": ["blastoise", "lapras", "gyarados", "vaporeon", "venusaur", "vileplume", "victreebel", "articuno", "dewgong"],
+        "yellow": ["lapras", "gyarados", "vaporeon", "venusaur", "vileplume", "victreebel", "articuno", "dewgong", "pikachu"],
+        "firered": ["blastoise", "lapras", "gyarados", "vaporeon", "venusaur", "vileplume", "victreebel", "articuno", "dewgong"],
+        "leafgreen": ["blastoise", "lapras", "gyarados", "vaporeon", "venusaur", "vileplume", "victreebel", "articuno", "dewgong"]
+      }
+    },
+    "lorelei": {
+      "description": "Before Elite Four 1",
+      "locations": ["victory-road"],
+      "pokemon": {
+        "red": {
+          "new": ["machoke", "machamp", "marowak", "onix", "golbat", "geodude", "graveler", "moltres", "zapdos", "mewtwo"]
+        },
+        "blue": {
+          "new": ["machoke", "machamp", "marowak", "onix", "golbat", "geodude", "graveler", "moltres", "zapdos", "mewtwo"]
+        },
+        "yellow": {
+          "new": ["machoke", "machamp", "marowak", "onix", "golbat", "geodude", "graveler", "moltres", "zapdos", "mewtwo"]
+        },
+        "firered": {
+          "new": ["machoke", "machamp", "marowak", "onix", "golbat", "geodude", "graveler", "moltres", "zapdos", "mewtwo"]
+        },
+        "leafgreen": {
+          "new": ["machoke", "machamp", "marowak", "onix", "golbat", "geodude", "graveler", "moltres", "zapdos", "mewtwo"]
+        }
+      },
+      "recommended": {
+        "red": ["jolteon", "raichu", "pikachu", "electabuzz", "magneton", "zapdos", "machamp", "hitmonlee", "hitmonchan"],
+        "blue": ["jolteon", "raichu", "pikachu", "electabuzz", "magneton", "zapdos", "machamp", "hitmonlee", "hitmonchan"],
+        "yellow": ["pikachu", "jolteon", "raichu", "electabuzz", "magneton", "zapdos", "machamp", "hitmonlee", "hitmonchan"],
+        "firered": ["jolteon", "raichu", "pikachu", "magneton", "zapdos", "machamp", "hitmonlee", "hitmonchan"],
+        "leafgreen": ["jolteon", "raichu", "pikachu", "magneton", "zapdos", "machamp", "hitmonlee", "hitmonchan"]
+      }
+    },
+    "bruno": {
+      "description": "Before Elite Four 2",
+      "locations": [],
+      "pokemon": {
+        "red": { "new": [] },
+        "blue": { "new": [] },
+        "yellow": { "new": [] },
+        "firered": { "new": [] },
+        "leafgreen": { "new": [] }
+      },
+      "recommended": {
+        "red": ["alakazam", "hypno", "starmie", "slowbro", "exeggutor", "pidgeot", "fearow", "gyarados", "lapras"],
+        "blue": ["alakazam", "hypno", "starmie", "slowbro", "exeggutor", "pidgeot", "fearow", "gyarados", "lapras"],
+        "yellow": ["alakazam", "hypno", "starmie", "slowbro", "exeggutor", "pidgeot", "fearow", "gyarados", "lapras"],
+        "firered": ["alakazam", "hypno", "starmie", "slowbro", "exeggutor", "pidgeot", "fearow", "gyarados", "lapras"],
+        "leafgreen": ["alakazam", "hypno", "starmie", "slowbro", "exeggutor", "pidgeot", "fearow", "gyarados", "lapras"]
+      }
+    },
+    "agatha": {
+      "description": "Before Elite Four 3",
+      "locations": [],
+      "pokemon": {
+        "red": { "new": [] },
+        "blue": { "new": [] },
+        "yellow": { "new": [] },
+        "firered": { "new": [] },
+        "leafgreen": { "new": [] }
+      },
+      "recommended": {
+        "red": ["dugtrio", "sandslash", "golem", "rhydon", "alakazam", "hypno"],
+        "blue": ["dugtrio", "sandslash", "golem", "rhydon", "alakazam", "hypno"],
+        "yellow": ["dugtrio", "sandslash", "golem", "rhydon", "alakazam", "hypno"],
+        "firered": ["dugtrio", "sandslash", "golem", "rhydon", "alakazam", "hypno"],
+        "leafgreen": ["dugtrio", "sandslash", "golem", "rhydon", "alakazam", "hypno"]
+      }
+    },
+    "lance": {
+      "description": "Before Elite Four 4",
+      "locations": [],
+      "pokemon": {
+        "red": { "new": [] },
+        "blue": { "new": [] },
+        "yellow": { "new": [] },
+        "firered": { "new": [] },
+        "leafgreen": { "new": [] }
+      },
+      "recommended": {
+        "red": ["lapras", "dewgong", "cloyster", "articuno", "jynx", "jolteon", "raichu", "zapdos"],
+        "blue": ["lapras", "dewgong", "cloyster", "articuno", "jynx", "jolteon", "raichu", "zapdos"],
+        "yellow": ["lapras", "dewgong", "cloyster", "articuno", "jynx", "jolteon", "raichu", "zapdos", "pikachu"],
+        "firered": ["lapras", "dewgong", "cloyster", "articuno", "jynx", "jolteon", "raichu", "zapdos"],
+        "leafgreen": ["lapras", "dewgong", "cloyster", "articuno", "jynx", "jolteon", "raichu", "zapdos"]
+      }
+    },
+    "blue-champion": {
+      "description": "Before Champion",
+      "locations": [],
+      "pokemon": {
+        "red": { "new": [] },
+        "blue": { "new": [] },
+        "yellow": { "new": [] },
+        "firered": { "new": [] },
+        "leafgreen": { "new": [] }
+      },
+      "recommended": {
+        "red": ["lapras", "alakazam", "jolteon", "arcanine", "venusaur", "golem"],
+        "blue": ["lapras", "alakazam", "jolteon", "arcanine", "venusaur", "golem"],
+        "yellow": ["lapras", "alakazam", "jolteon", "arcanine", "venusaur", "golem", "pikachu"],
+        "firered": ["lapras", "alakazam", "jolteon", "arcanine", "venusaur", "golem"],
+        "leafgreen": ["lapras", "alakazam", "jolteon", "arcanine", "venusaur", "golem"]
+      }
+    }
+  }
+}

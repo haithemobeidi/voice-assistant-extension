@@ -1,0 +1,72 @@
+{
+  "red": {
+    "id": "red",
+    "name": "Pokémon Red",
+    "shortName": "Red",
+    "generation": 1,
+    "region": "kanto",
+    "releaseYear": 1996,
+    "versionGroup": "red-blue",
+    "pokemonAvailable": 151,
+    "gyms": ["brock", "misty", "surge", "erika", "koga", "sabrina", "blaine", "giovanni"],
+    "eliteFour": ["lorelei", "bruno", "agatha", "lance"],
+    "champion": "blue-champion",
+    "otherBosses": ["rival-1", "rival-2", "rival-3", "rival-4", "rival-5"]
+  },
+  "blue": {
+    "id": "blue",
+    "name": "Pokémon Blue",
+    "shortName": "Blue",
+    "generation": 1,
+    "region": "kanto",
+    "releaseYear": 1996,
+    "versionGroup": "red-blue",
+    "pokemonAvailable": 151,
+    "gyms": ["brock", "misty", "surge", "erika", "koga", "sabrina", "blaine", "giovanni"],
+    "eliteFour": ["lorelei", "bruno", "agatha", "lance"],
+    "champion": "blue-champion",
+    "otherBosses": ["rival-1", "rival-2", "rival-3", "rival-4", "rival-5"]
+  },
+  "yellow": {
+    "id": "yellow",
+    "name": "Pokémon Yellow",
+    "shortName": "Yellow",
+    "generation": 1,
+    "region": "kanto",
+    "releaseYear": 1998,
+    "versionGroup": "yellow",
+    "pokemonAvailable": 151,
+    "gyms": ["brock", "misty", "surge", "erika", "koga", "sabrina", "blaine", "giovanni"],
+    "eliteFour": ["lorelei", "bruno", "agatha", "lance"],
+    "champion": "blue-champion",
+    "otherBosses": ["rival-1", "rival-2", "rival-3", "rival-4", "rival-5"]
+  },
+  "firered": {
+    "id": "firered",
+    "name": "Pokémon FireRed",
+    "shortName": "FireRed",
+    "generation": 3,
+    "region": "kanto",
+    "releaseYear": 2004,
+    "versionGroup": "firered-leafgreen",
+    "pokemonAvailable": 386,
+    "gyms": ["brock", "misty", "surge", "erika", "koga", "sabrina", "blaine", "giovanni"],
+    "eliteFour": ["lorelei", "bruno", "agatha", "lance"],
+    "champion": "blue-champion",
+    "otherBosses": ["rival-1", "rival-2", "rival-3", "rival-4", "rival-5"]
+  },
+  "leafgreen": {
+    "id": "leafgreen",
+    "name": "Pokémon LeafGreen",
+    "shortName": "LeafGreen",
+    "generation": 3,
+    "region": "kanto",
+    "releaseYear": 2004,
+    "versionGroup": "firered-leafgreen",
+    "pokemonAvailable": 386,
+    "gyms": ["brock", "misty", "surge", "erika", "koga", "sabrina", "blaine", "giovanni"],
+    "eliteFour": ["lorelei", "bruno", "agatha", "lance"],
+    "champion": "blue-champion",
+    "otherBosses": ["rival-1", "rival-2", "rival-3", "rival-4", "rival-5"]
+  }
+}

@@ -1,0 +1,615 @@
+{
+  "brock": {
+    "id": "brock",
+    "name": "Brock",
+    "title": "Pewter City Gym Leader",
+    "type": "gym",
+    "specialty": ["rock"],
+    "badge": "Boulder Badge",
+    "location": "Pewter City",
+    "order": 1,
+    "teams": {
+      "red": [
+        { "pokemon": "geodude", "level": 12, "moves": ["tackle", "defense-curl"] },
+        { "pokemon": "onix", "level": 14, "moves": ["tackle", "screech", "bide"] }
+      ],
+      "blue": [
+        { "pokemon": "geodude", "level": 12, "moves": ["tackle", "defense-curl"] },
+        { "pokemon": "onix", "level": 14, "moves": ["tackle", "screech", "bide"] }
+      ],
+      "yellow": [
+        { "pokemon": "geodude", "level": 10, "moves": ["tackle"] },
+        { "pokemon": "onix", "level": 12, "moves": ["tackle", "screech", "bind", "bide"] }
+      ],
+      "firered": [
+        { "pokemon": "geodude", "level": 12, "moves": ["tackle", "defense-curl"] },
+        { "pokemon": "onix", "level": 14, "moves": ["tackle", "screech", "bide", "rock-tomb"] }
+      ],
+      "leafgreen": [
+        { "pokemon": "geodude", "level": 12, "moves": ["tackle", "defense-curl"] },
+        { "pokemon": "onix", "level": 14, "moves": ["tackle", "screech", "bide", "rock-tomb"] }
+      ]
+    },
+    "weaknesses": ["water", "grass", "fighting", "ground", "steel"],
+    "difficulty": "easy",
+    "tips": "Water and Grass types are super effective. If you chose Charmander, catch a Mankey on Route 22 or Butterfree with Confusion."
+  },
+  "misty": {
+    "id": "misty",
+    "name": "Misty",
+    "title": "Cerulean City Gym Leader",
+    "type": "gym",
+    "specialty": ["water"],
+    "badge": "Cascade Badge",
+    "location": "Cerulean City",
+    "order": 2,
+    "teams": {
+      "red": [
+        { "pokemon": "staryu", "level": 18, "moves": ["tackle", "water-gun"] },
+        { "pokemon": "starmie", "level": 21, "moves": ["tackle", "water-gun", "bubblebeam"] }
+      ],
+      "blue": [
+        { "pokemon": "staryu", "level": 18, "moves": ["tackle", "water-gun"] },
+        { "pokemon": "starmie", "level": 21, "moves": ["tackle", "water-gun", "bubblebeam"] }
+      ],
+      "yellow": [
+        { "pokemon": "staryu", "level": 18, "moves": ["tackle", "water-gun"] },
+        { "pokemon": "starmie", "level": 21, "moves": ["tackle", "water-gun", "harden", "bubblebeam"] }
+      ],
+      "firered": [
+        { "pokemon": "staryu", "level": 18, "moves": ["tackle", "harden", "water-pulse", "recover"] },
+        { "pokemon": "starmie", "level": 21, "moves": ["rapid-spin", "water-pulse", "recover", "swift"] }
+      ],
+      "leafgreen": [
+        { "pokemon": "staryu", "level": 18, "moves": ["tackle", "harden", "water-pulse", "recover"] },
+        { "pokemon": "starmie", "level": 21, "moves": ["rapid-spin", "water-pulse", "recover", "swift"] }
+      ]
+    },
+    "weaknesses": ["grass", "electric"],
+    "difficulty": "medium",
+    "tips": "Electric types like Pikachu are great. Grass types like Oddish or Bellsprout work well too. Watch out for Starmie's high Special stat."
+  },
+  "surge": {
+    "id": "surge",
+    "name": "Lt. Surge",
+    "title": "Vermilion City Gym Leader",
+    "type": "gym",
+    "specialty": ["electric"],
+    "badge": "Thunder Badge",
+    "location": "Vermilion City",
+    "order": 3,
+    "teams": {
+      "red": [
+        { "pokemon": "voltorb", "level": 21, "moves": ["tackle", "screech", "sonic-boom"] },
+        { "pokemon": "pikachu", "level": 18, "moves": ["thunder-shock", "growl", "thunder-wave", "quick-attack"] },
+        { "pokemon": "raichu", "level": 24, "moves": ["thunder-shock", "growl", "thunderbolt"] }
+      ],
+      "blue": [
+        { "pokemon": "voltorb", "level": 21, "moves": ["tackle", "screech", "sonic-boom"] },
+        { "pokemon": "pikachu", "level": 18, "moves": ["thunder-shock", "growl", "thunder-wave", "quick-attack"] },
+        { "pokemon": "raichu", "level": 24, "moves": ["thunder-shock", "growl", "thunderbolt"] }
+      ],
+      "yellow": [
+        { "pokemon": "raichu", "level": 28, "moves": ["thunderbolt", "mega-punch", "mega-kick", "growl"] }
+      ],
+      "firered": [
+        { "pokemon": "voltorb", "level": 21, "moves": ["sonic-boom", "tackle", "screech", "shock-wave"] },
+        { "pokemon": "pikachu", "level": 18, "moves": ["quick-attack", "thunder-wave", "shock-wave", "double-team"] },
+        { "pokemon": "raichu", "level": 24, "moves": ["shock-wave", "quick-attack", "thunder-wave", "double-team"] }
+      ],
+      "leafgreen": [
+        { "pokemon": "voltorb", "level": 21, "moves": ["sonic-boom", "tackle", "screech", "shock-wave"] },
+        { "pokemon": "pikachu", "level": 18, "moves": ["quick-attack", "thunder-wave", "shock-wave", "double-team"] },
+        { "pokemon": "raichu", "level": 24, "moves": ["shock-wave", "quick-attack", "thunder-wave", "double-team"] }
+      ]
+    },
+    "weaknesses": ["ground"],
+    "difficulty": "medium",
+    "tips": "Ground types are immune to Electric moves. Diglett from Diglett's Cave is perfect for this battle."
+  },
+  "erika": {
+    "id": "erika",
+    "name": "Erika",
+    "title": "Celadon City Gym Leader",
+    "type": "gym",
+    "specialty": ["grass"],
+    "badge": "Rainbow Badge",
+    "location": "Celadon City",
+    "order": 4,
+    "teams": {
+      "red": [
+        { "pokemon": "victreebel", "level": 29, "moves": ["razor-leaf", "wrap", "poison-powder", "sleep-powder"] },
+        { "pokemon": "tangela", "level": 24, "moves": ["constrict", "bind"] },
+        { "pokemon": "vileplume", "level": 29, "moves": ["petal-dance", "poison-powder", "mega-drain", "sleep-powder"] }
+      ],
+      "blue": [
+        { "pokemon": "victreebel", "level": 29, "moves": ["razor-leaf", "wrap", "poison-powder", "sleep-powder"] },
+        { "pokemon": "tangela", "level": 24, "moves": ["constrict", "bind"] },
+        { "pokemon": "vileplume", "level": 29, "moves": ["petal-dance", "poison-powder", "mega-drain", "sleep-powder"] }
+      ],
+      "yellow": [
+        { "pokemon": "tangela", "level": 30, "moves": ["constrict", "bind", "mega-drain", "vine-whip"] },
+        { "pokemon": "weepinbell", "level": 32, "moves": ["razor-leaf", "sleep-powder", "stun-spore", "acid"] },
+        { "pokemon": "gloom", "level": 32, "moves": ["petal-dance", "stun-spore", "sleep-powder", "acid"] }
+      ],
+      "firered": [
+        { "pokemon": "victreebel", "level": 29, "moves": ["stun-spore", "acid", "poison-powder", "giga-drain"] },
+        { "pokemon": "tangela", "level": 24, "moves": ["ingrain", "constrict", "poison-powder", "giga-drain"] },
+        { "pokemon": "vileplume", "level": 29, "moves": ["sleep-powder", "acid", "stun-spore", "giga-drain"] }
+      ],
+      "leafgreen": [
+        { "pokemon": "victreebel", "level": 29, "moves": ["stun-spore", "acid", "poison-powder", "giga-drain"] },
+        { "pokemon": "tangela", "level": 24, "moves": ["ingrain", "constrict", "poison-powder", "giga-drain"] },
+        { "pokemon": "vileplume", "level": 29, "moves": ["sleep-powder", "acid", "stun-spore", "giga-drain"] }
+      ]
+    },
+    "weaknesses": ["fire", "ice", "flying", "poison"],
+    "difficulty": "easy",
+    "tips": "Fire and Flying types excel here. Watch out for Sleep Powder and status moves. Poison types resist Grass."
+  },
+  "koga": {
+    "id": "koga",
+    "name": "Koga",
+    "title": "Fuchsia City Gym Leader",
+    "type": "gym",
+    "specialty": ["poison"],
+    "badge": "Soul Badge",
+    "location": "Fuchsia City",
+    "order": 5,
+    "teams": {
+      "red": [
+        { "pokemon": "koffing", "level": 37, "moves": ["tackle", "smog", "sludge", "smokescreen"] },
+        { "pokemon": "muk", "level": 39, "moves": ["disable", "poison-gas", "minimize", "sludge"] },
+        { "pokemon": "koffing", "level": 37, "moves": ["tackle", "smog", "sludge", "smokescreen"] },
+        { "pokemon": "weezing", "level": 43, "moves": ["smog", "sludge", "toxic", "self-destruct"] }
+      ],
+      "blue": [
+        { "pokemon": "koffing", "level": 37, "moves": ["tackle", "smog", "sludge", "smokescreen"] },
+        { "pokemon": "muk", "level": 39, "moves": ["disable", "poison-gas", "minimize", "sludge"] },
+        { "pokemon": "koffing", "level": 37, "moves": ["tackle", "smog", "sludge", "smokescreen"] },
+        { "pokemon": "weezing", "level": 43, "moves": ["smog", "sludge", "toxic", "self-destruct"] }
+      ],
+      "yellow": [
+        { "pokemon": "venonat", "level": 44, "moves": ["toxic", "tackle", "sleep-powder", "psychic"] },
+        { "pokemon": "venonat", "level": 46, "moves": ["toxic", "psybeam", "supersonic", "psychic"] },
+        { "pokemon": "venonat", "level": 48, "moves": ["toxic", "double-edge", "sleep-powder", "psychic"] },
+        { "pokemon": "venomoth", "level": 50, "moves": ["leech-life", "double-team", "psychic", "toxic"] }
+      ],
+      "firered": [
+        { "pokemon": "koffing", "level": 37, "moves": ["self-destruct", "sludge", "smokescreen", "tackle"] },
+        { "pokemon": "muk", "level": 39, "moves": ["minimize", "sludge", "acid-armor", "toxic"] },
+        { "pokemon": "koffing", "level": 37, "moves": ["self-destruct", "sludge", "smokescreen", "tackle"] },
+        { "pokemon": "weezing", "level": 43, "moves": ["self-destruct", "sludge", "smokescreen", "tackle"] }
+      ],
+      "leafgreen": [
+        { "pokemon": "koffing", "level": 37, "moves": ["self-destruct", "sludge", "smokescreen", "tackle"] },
+        { "pokemon": "muk", "level": 39, "moves": ["minimize", "sludge", "acid-armor", "toxic"] },
+        { "pokemon": "koffing", "level": 37, "moves": ["self-destruct", "sludge", "smokescreen", "tackle"] },
+        { "pokemon": "weezing", "level": 43, "moves": ["self-destruct", "sludge", "smokescreen", "tackle"] }
+      ]
+    },
+    "weaknesses": ["ground", "psychic"],
+    "difficulty": "medium",
+    "tips": "Psychic types dominate this gym. Ground types also work well. Watch out for Self-Destruct on Weezing!"
+  },
+  "sabrina": {
+    "id": "sabrina",
+    "name": "Sabrina",
+    "title": "Saffron City Gym Leader",
+    "type": "gym",
+    "specialty": ["psychic"],
+    "badge": "Marsh Badge",
+    "location": "Saffron City",
+    "order": 6,
+    "teams": {
+      "red": [
+        { "pokemon": "kadabra", "level": 38, "moves": ["disable", "psybeam", "recover", "psychic"] },
+        { "pokemon": "mr-mime", "level": 37, "moves": ["confusion", "barrier", "light-screen", "double-slap"] },
+        { "pokemon": "venomoth", "level": 38, "moves": ["poison-powder", "leech-life", "stun-spore", "psybeam"] },
+        { "pokemon": "alakazam", "level": 43, "moves": ["psybeam", "recover", "psywave", "reflect"] }
+      ],
+      "blue": [
+        { "pokemon": "kadabra", "level": 38, "moves": ["disable", "psybeam", "recover", "psychic"] },
+        { "pokemon": "mr-mime", "level": 37, "moves": ["confusion", "barrier", "light-screen", "double-slap"] },
+        { "pokemon": "venomoth", "level": 38, "moves": ["poison-powder", "leech-life", "stun-spore", "psybeam"] },
+        { "pokemon": "alakazam", "level": 43, "moves": ["psybeam", "recover", "psywave", "reflect"] }
+      ],
+      "yellow": [
+        { "pokemon": "abra", "level": 50, "moves": ["teleport", "flash"] },
+        { "pokemon": "kadabra", "level": 50, "moves": ["kinesis", "psybeam", "recover", "psychic"] },
+        { "pokemon": "alakazam", "level": 50, "moves": ["kinesis", "psybeam", "recover", "psychic"] }
+      ],
+      "firered": [
+        { "pokemon": "kadabra", "level": 38, "moves": ["psybeam", "future-sight", "reflect", "calm-mind"] },
+        { "pokemon": "mr-mime", "level": 37, "moves": ["barrier", "psybeam", "baton-pass", "calm-mind"] },
+        { "pokemon": "venomoth", "level": 38, "moves": ["supersonic", "psybeam", "leech-life", "gust"] },
+        { "pokemon": "alakazam", "level": 43, "moves": ["psychic", "future-sight", "recover", "calm-mind"] }
+      ],
+      "leafgreen": [
+        { "pokemon": "kadabra", "level": 38, "moves": ["psybeam", "future-sight", "reflect", "calm-mind"] },
+        { "pokemon": "mr-mime", "level": 37, "moves": ["barrier", "psybeam", "baton-pass", "calm-mind"] },
+        { "pokemon": "venomoth", "level": 38, "moves": ["supersonic", "psybeam", "leech-life", "gust"] },
+        { "pokemon": "alakazam", "level": 43, "moves": ["psychic", "future-sight", "recover", "calm-mind"] }
+      ]
+    },
+    "weaknesses": ["bug", "ghost", "dark"],
+    "difficulty": "hard",
+    "tips": "In Gen 1, Ghost moves don't affect Psychic (bugged). Bug types are your best bet. Dark types don't exist yet."
+  },
+  "blaine": {
+    "id": "blaine",
+    "name": "Blaine",
+    "title": "Cinnabar Island Gym Leader",
+    "type": "gym",
+    "specialty": ["fire"],
+    "badge": "Volcano Badge",
+    "location": "Cinnabar Island",
+    "order": 7,
+    "teams": {
+      "red": [
+        { "pokemon": "growlithe", "level": 42, "moves": ["ember", "leer", "take-down", "agility"] },
+        { "pokemon": "ponyta", "level": 40, "moves": ["tail-whip", "stomp", "growl", "fire-spin"] },
+        { "pokemon": "rapidash", "level": 42, "moves": ["tail-whip", "stomp", "growl", "fire-spin"] },
+        { "pokemon": "arcanine", "level": 47, "moves": ["roar", "ember", "fire-blast", "take-down"] }
+      ],
+      "blue": [
+        { "pokemon": "growlithe", "level": 42, "moves": ["ember", "leer", "take-down", "agility"] },
+        { "pokemon": "ponyta", "level": 40, "moves": ["tail-whip", "stomp", "growl", "fire-spin"] },
+        { "pokemon": "rapidash", "level": 42, "moves": ["tail-whip", "stomp", "growl", "fire-spin"] },
+        { "pokemon": "arcanine", "level": 47, "moves": ["roar", "ember", "fire-blast", "take-down"] }
+      ],
+      "yellow": [
+        { "pokemon": "ninetales", "level": 48, "moves": ["flamethrower", "tail-whip", "quick-attack", "confuse-ray"] },
+        { "pokemon": "rapidash", "level": 50, "moves": ["stomp", "growl", "fire-spin", "take-down"] },
+        { "pokemon": "arcanine", "level": 54, "moves": ["flamethrower", "fire-blast", "reflect", "take-down"] }
+      ],
+      "firered": [
+        { "pokemon": "growlithe", "level": 42, "moves": ["fire-blast", "take-down", "leer", "ember"] },
+        { "pokemon": "ponyta", "level": 40, "moves": ["fire-blast", "stomp", "bounce", "fire-spin"] },
+        { "pokemon": "rapidash", "level": 42, "moves": ["fire-blast", "stomp", "bounce", "fire-spin"] },
+        { "pokemon": "arcanine", "level": 47, "moves": ["fire-blast", "take-down", "extreme-speed", "roar"] }
+      ],
+      "leafgreen": [
+        { "pokemon": "growlithe", "level": 42, "moves": ["fire-blast", "take-down", "leer", "ember"] },
+        { "pokemon": "ponyta", "level": 40, "moves": ["fire-blast", "stomp", "bounce", "fire-spin"] },
+        { "pokemon": "rapidash", "level": 42, "moves": ["fire-blast", "stomp", "bounce", "fire-spin"] },
+        { "pokemon": "arcanine", "level": 47, "moves": ["fire-blast", "take-down", "extreme-speed", "roar"] }
+      ]
+    },
+    "weaknesses": ["water", "ground", "rock"],
+    "difficulty": "medium",
+    "tips": "Water types are ideal. Ground and Rock types work well too. Surf is available by this point."
+  },
+  "giovanni": {
+    "id": "giovanni",
+    "name": "Giovanni",
+    "title": "Viridian City Gym Leader",
+    "type": "gym",
+    "specialty": ["ground"],
+    "badge": "Earth Badge",
+    "location": "Viridian City",
+    "order": 8,
+    "teams": {
+      "red": [
+        { "pokemon": "rhyhorn", "level": 45, "moves": ["stomp", "tail-whip", "fury-attack", "horn-drill"] },
+        { "pokemon": "dugtrio", "level": 42, "moves": ["growl", "dig", "sand-attack", "slash"] },
+        { "pokemon": "nidoqueen", "level": 44, "moves": ["scratch", "tail-whip", "body-slam", "poison-sting"] },
+        { "pokemon": "nidoking", "level": 45, "moves": ["tackle", "horn-attack", "poison-sting", "thrash"] },
+        { "pokemon": "rhydon", "level": 50, "moves": ["stomp", "tail-whip", "fissure", "horn-drill"] }
+      ],
+      "blue": [
+        { "pokemon": "rhyhorn", "level": 45, "moves": ["stomp", "tail-whip", "fury-attack", "horn-drill"] },
+        { "pokemon": "dugtrio", "level": 42, "moves": ["growl", "dig", "sand-attack", "slash"] },
+        { "pokemon": "nidoqueen", "level": 44, "moves": ["scratch", "tail-whip", "body-slam", "poison-sting"] },
+        { "pokemon": "nidoking", "level": 45, "moves": ["tackle", "horn-attack", "poison-sting", "thrash"] },
+        { "pokemon": "rhydon", "level": 50, "moves": ["stomp", "tail-whip", "fissure", "horn-drill"] }
+      ],
+      "yellow": [
+        { "pokemon": "dugtrio", "level": 50, "moves": ["dig", "sand-attack", "fissure", "earthquake"] },
+        { "pokemon": "persian", "level": 53, "moves": ["screech", "double-team", "fury-swipes", "slash"] },
+        { "pokemon": "nidoqueen", "level": 53, "moves": ["earthquake", "tail-whip", "thunder", "double-kick"] },
+        { "pokemon": "nidoking", "level": 55, "moves": ["earthquake", "leer", "thunder", "double-kick"] },
+        { "pokemon": "rhydon", "level": 55, "moves": ["rock-slide", "fury-attack", "horn-drill", "earthquake"] }
+      ],
+      "firered": [
+        { "pokemon": "rhyhorn", "level": 45, "moves": ["take-down", "rock-blast", "scary-face", "earthquake"] },
+        { "pokemon": "dugtrio", "level": 42, "moves": ["slash", "sand-tomb", "mud-slap", "earthquake"] },
+        { "pokemon": "nidoqueen", "level": 44, "moves": ["body-slam", "double-kick", "poison-sting", "earthquake"] },
+        { "pokemon": "nidoking", "level": 45, "moves": ["thrash", "double-kick", "poison-sting", "earthquake"] },
+        { "pokemon": "rhydon", "level": 50, "moves": ["take-down", "rock-blast", "scary-face", "earthquake"] }
+      ],
+      "leafgreen": [
+        { "pokemon": "rhyhorn", "level": 45, "moves": ["take-down", "rock-blast", "scary-face", "earthquake"] },
+        { "pokemon": "dugtrio", "level": 42, "moves": ["slash", "sand-tomb", "mud-slap", "earthquake"] },
+        { "pokemon": "nidoqueen", "level": 44, "moves": ["body-slam", "double-kick", "poison-sting", "earthquake"] },
+        { "pokemon": "nidoking", "level": 45, "moves": ["thrash", "double-kick", "poison-sting", "earthquake"] },
+        { "pokemon": "rhydon", "level": 50, "moves": ["take-down", "rock-blast", "scary-face", "earthquake"] }
+      ]
+    },
+    "weaknesses": ["water", "grass", "ice"],
+    "difficulty": "hard",
+    "tips": "Water and Ice types are devastating. Watch out for Rhydon's high Attack. Grass types work but beware of Poison moves on Nidos."
+  },
+  "lorelei": {
+    "id": "lorelei",
+    "name": "Lorelei",
+    "title": "Elite Four",
+    "type": "elite-four",
+    "specialty": ["ice"],
+    "location": "Indigo Plateau",
+    "order": 9,
+    "teams": {
+      "red": [
+        { "pokemon": "dewgong", "level": 54, "moves": ["growl", "aurora-beam", "rest", "take-down"] },
+        { "pokemon": "cloyster", "level": 53, "moves": ["supersonic", "clamp", "aurora-beam", "spike-cannon"] },
+        { "pokemon": "slowbro", "level": 54, "moves": ["growl", "water-gun", "withdraw", "amnesia"] },
+        { "pokemon": "jynx", "level": 56, "moves": ["double-slap", "ice-punch", "body-slam", "thrash"] },
+        { "pokemon": "lapras", "level": 56, "moves": ["body-slam", "confuse-ray", "blizzard", "hydro-pump"] }
+      ],
+      "blue": [
+        { "pokemon": "dewgong", "level": 54, "moves": ["growl", "aurora-beam", "rest", "take-down"] },
+        { "pokemon": "cloyster", "level": 53, "moves": ["supersonic", "clamp", "aurora-beam", "spike-cannon"] },
+        { "pokemon": "slowbro", "level": 54, "moves": ["growl", "water-gun", "withdraw", "amnesia"] },
+        { "pokemon": "jynx", "level": 56, "moves": ["double-slap", "ice-punch", "body-slam", "thrash"] },
+        { "pokemon": "lapras", "level": 56, "moves": ["body-slam", "confuse-ray", "blizzard", "hydro-pump"] }
+      ],
+      "yellow": [
+        { "pokemon": "dewgong", "level": 54, "moves": ["bubblebeam", "aurora-beam", "rest", "take-down"] },
+        { "pokemon": "cloyster", "level": 53, "moves": ["supersonic", "clamp", "ice-beam", "spike-cannon"] },
+        { "pokemon": "slowbro", "level": 54, "moves": ["psychic", "surf", "withdraw", "amnesia"] },
+        { "pokemon": "jynx", "level": 56, "moves": ["double-slap", "ice-punch", "lovely-kiss", "thrash"] },
+        { "pokemon": "lapras", "level": 56, "moves": ["body-slam", "confuse-ray", "blizzard", "hydro-pump"] }
+      ],
+      "firered": [
+        { "pokemon": "dewgong", "level": 52, "moves": ["surf", "ice-beam", "hail", "safeguard"] },
+        { "pokemon": "cloyster", "level": 51, "moves": ["protect", "ice-beam", "hail", "rain-dance"] },
+        { "pokemon": "slowbro", "level": 52, "moves": ["surf", "ice-beam", "yawn", "psychic"] },
+        { "pokemon": "jynx", "level": 54, "moves": ["ice-punch", "lovely-kiss", "attract", "double-slap"] },
+        { "pokemon": "lapras", "level": 54, "moves": ["surf", "ice-beam", "confuse-ray", "body-slam"] }
+      ],
+      "leafgreen": [
+        { "pokemon": "dewgong", "level": 52, "moves": ["surf", "ice-beam", "hail", "safeguard"] },
+        { "pokemon": "cloyster", "level": 51, "moves": ["protect", "ice-beam", "hail", "rain-dance"] },
+        { "pokemon": "slowbro", "level": 52, "moves": ["surf", "ice-beam", "yawn", "psychic"] },
+        { "pokemon": "jynx", "level": 54, "moves": ["ice-punch", "lovely-kiss", "attract", "double-slap"] },
+        { "pokemon": "lapras", "level": 54, "moves": ["surf", "ice-beam", "confuse-ray", "body-slam"] }
+      ]
+    },
+    "weaknesses": ["electric", "fighting", "rock", "grass"],
+    "difficulty": "hard",
+    "tips": "Electric types handle most of her team. Fighting types work on Lapras and Cloyster. Watch out for Lapras."
+  },
+  "bruno": {
+    "id": "bruno",
+    "name": "Bruno",
+    "title": "Elite Four",
+    "type": "elite-four",
+    "specialty": ["fighting"],
+    "location": "Indigo Plateau",
+    "order": 10,
+    "teams": {
+      "red": [
+        { "pokemon": "onix", "level": 53, "moves": ["rock-throw", "rage", "slam", "harden"] },
+        { "pokemon": "hitmonchan", "level": 55, "moves": ["ice-punch", "thunder-punch", "mega-punch", "counter"] },
+        { "pokemon": "hitmonlee", "level": 55, "moves": ["jump-kick", "focus-energy", "hi-jump-kick", "mega-kick"] },
+        { "pokemon": "onix", "level": 56, "moves": ["rock-throw", "rage", "slam", "harden"] },
+        { "pokemon": "machamp", "level": 58, "moves": ["leer", "focus-energy", "fissure", "submission"] }
+      ],
+      "blue": [
+        { "pokemon": "onix", "level": 53, "moves": ["rock-throw", "rage", "slam", "harden"] },
+        { "pokemon": "hitmonchan", "level": 55, "moves": ["ice-punch", "thunder-punch", "mega-punch", "counter"] },
+        { "pokemon": "hitmonlee", "level": 55, "moves": ["jump-kick", "focus-energy", "hi-jump-kick", "mega-kick"] },
+        { "pokemon": "onix", "level": 56, "moves": ["rock-throw", "rage", "slam", "harden"] },
+        { "pokemon": "machamp", "level": 58, "moves": ["leer", "focus-energy", "fissure", "submission"] }
+      ],
+      "yellow": [
+        { "pokemon": "onix", "level": 53, "moves": ["rock-slide", "screech", "slam", "dig"] },
+        { "pokemon": "hitmonchan", "level": 55, "moves": ["ice-punch", "thunder-punch", "fire-punch", "double-team"] },
+        { "pokemon": "hitmonlee", "level": 55, "moves": ["double-kick", "mega-kick", "hi-jump-kick", "double-team"] },
+        { "pokemon": "onix", "level": 56, "moves": ["rock-slide", "screech", "slam", "earthquake"] },
+        { "pokemon": "machamp", "level": 58, "moves": ["leer", "karate-chop", "strength", "submission"] }
+      ],
+      "firered": [
+        { "pokemon": "onix", "level": 51, "moves": ["earthquake", "rock-tomb", "iron-tail", "roar"] },
+        { "pokemon": "hitmonchan", "level": 53, "moves": ["sky-uppercut", "mach-punch", "counter", "rock-tomb"] },
+        { "pokemon": "hitmonlee", "level": 53, "moves": ["mega-kick", "foresight", "brick-break", "facade"] },
+        { "pokemon": "onix", "level": 54, "moves": ["earthquake", "rock-tomb", "iron-tail", "double-edge"] },
+        { "pokemon": "machamp", "level": 56, "moves": ["cross-chop", "bulk-up", "scary-face", "rock-tomb"] }
+      ],
+      "leafgreen": [
+        { "pokemon": "onix", "level": 51, "moves": ["earthquake", "rock-tomb", "iron-tail", "roar"] },
+        { "pokemon": "hitmonchan", "level": 53, "moves": ["sky-uppercut", "mach-punch", "counter", "rock-tomb"] },
+        { "pokemon": "hitmonlee", "level": 53, "moves": ["mega-kick", "foresight", "brick-break", "facade"] },
+        { "pokemon": "onix", "level": 54, "moves": ["earthquake", "rock-tomb", "iron-tail", "double-edge"] },
+        { "pokemon": "machamp", "level": 56, "moves": ["cross-chop", "bulk-up", "scary-face", "rock-tomb"] }
+      ]
+    },
+    "weaknesses": ["psychic", "flying", "water", "grass"],
+    "difficulty": "medium",
+    "tips": "Psychic types destroy Fighting types. Water and Grass handle Onix easily. Flying types are also effective."
+  },
+  "agatha": {
+    "id": "agatha",
+    "name": "Agatha",
+    "title": "Elite Four",
+    "type": "elite-four",
+    "specialty": ["ghost", "poison"],
+    "location": "Indigo Plateau",
+    "order": 11,
+    "teams": {
+      "red": [
+        { "pokemon": "gengar", "level": 56, "moves": ["confuse-ray", "night-shade", "hypnosis", "dream-eater"] },
+        { "pokemon": "golbat", "level": 56, "moves": ["supersonic", "confuse-ray", "wing-attack", "haze"] },
+        { "pokemon": "haunter", "level": 55, "moves": ["confuse-ray", "night-shade", "hypnosis", "dream-eater"] },
+        { "pokemon": "arbok", "level": 58, "moves": ["bite", "glare", "screech", "acid"] },
+        { "pokemon": "gengar", "level": 60, "moves": ["confuse-ray", "night-shade", "toxic", "dream-eater"] }
+      ],
+      "blue": [
+        { "pokemon": "gengar", "level": 56, "moves": ["confuse-ray", "night-shade", "hypnosis", "dream-eater"] },
+        { "pokemon": "golbat", "level": 56, "moves": ["supersonic", "confuse-ray", "wing-attack", "haze"] },
+        { "pokemon": "haunter", "level": 55, "moves": ["confuse-ray", "night-shade", "hypnosis", "dream-eater"] },
+        { "pokemon": "arbok", "level": 58, "moves": ["bite", "glare", "screech", "acid"] },
+        { "pokemon": "gengar", "level": 60, "moves": ["confuse-ray", "night-shade", "toxic", "dream-eater"] }
+      ],
+      "yellow": [
+        { "pokemon": "gengar", "level": 56, "moves": ["confuse-ray", "substitute", "lick", "mega-drain"] },
+        { "pokemon": "golbat", "level": 56, "moves": ["supersonic", "toxic", "wing-attack", "leech-life"] },
+        { "pokemon": "haunter", "level": 55, "moves": ["confuse-ray", "lick", "hypnosis", "dream-eater"] },
+        { "pokemon": "arbok", "level": 58, "moves": ["wrap", "glare", "screech", "acid"] },
+        { "pokemon": "gengar", "level": 60, "moves": ["confuse-ray", "psychic", "hypnosis", "dream-eater"] }
+      ],
+      "firered": [
+        { "pokemon": "gengar", "level": 54, "moves": ["shadow-punch", "confuse-ray", "toxic", "hypnosis"] },
+        { "pokemon": "golbat", "level": 54, "moves": ["air-cutter", "bite", "confuse-ray", "poison-fang"] },
+        { "pokemon": "haunter", "level": 53, "moves": ["shadow-ball", "hypnosis", "mean-look", "curse"] },
+        { "pokemon": "arbok", "level": 56, "moves": ["sludge-bomb", "screech", "iron-tail", "bite"] },
+        { "pokemon": "gengar", "level": 58, "moves": ["shadow-ball", "sludge-bomb", "hypnosis", "nightmare"] }
+      ],
+      "leafgreen": [
+        { "pokemon": "gengar", "level": 54, "moves": ["shadow-punch", "confuse-ray", "toxic", "hypnosis"] },
+        { "pokemon": "golbat", "level": 54, "moves": ["air-cutter", "bite", "confuse-ray", "poison-fang"] },
+        { "pokemon": "haunter", "level": 53, "moves": ["shadow-ball", "hypnosis", "mean-look", "curse"] },
+        { "pokemon": "arbok", "level": 56, "moves": ["sludge-bomb", "screech", "iron-tail", "bite"] },
+        { "pokemon": "gengar", "level": 58, "moves": ["shadow-ball", "sludge-bomb", "hypnosis", "nightmare"] }
+      ]
+    },
+    "weaknesses": ["ground", "psychic"],
+    "difficulty": "hard",
+    "tips": "In Gen 1, Ghost doesn't affect Psychic (bug). Ground types hit Gengar family hard (they're part Poison). Bring Awakening items."
+  },
+  "lance": {
+    "id": "lance",
+    "name": "Lance",
+    "title": "Elite Four",
+    "type": "elite-four",
+    "specialty": ["dragon"],
+    "location": "Indigo Plateau",
+    "order": 12,
+    "teams": {
+      "red": [
+        { "pokemon": "gyarados", "level": 58, "moves": ["dragon-rage", "leer", "hydro-pump", "hyper-beam"] },
+        { "pokemon": "dragonair", "level": 56, "moves": ["agility", "slam", "dragon-rage", "hyper-beam"] },
+        { "pokemon": "dragonair", "level": 56, "moves": ["agility", "slam", "dragon-rage", "hyper-beam"] },
+        { "pokemon": "aerodactyl", "level": 60, "moves": ["supersonic", "bite", "take-down", "hyper-beam"] },
+        { "pokemon": "dragonite", "level": 62, "moves": ["agility", "slam", "barrier", "hyper-beam"] }
+      ],
+      "blue": [
+        { "pokemon": "gyarados", "level": 58, "moves": ["dragon-rage", "leer", "hydro-pump", "hyper-beam"] },
+        { "pokemon": "dragonair", "level": 56, "moves": ["agility", "slam", "dragon-rage", "hyper-beam"] },
+        { "pokemon": "dragonair", "level": 56, "moves": ["agility", "slam", "dragon-rage", "hyper-beam"] },
+        { "pokemon": "aerodactyl", "level": 60, "moves": ["supersonic", "bite", "take-down", "hyper-beam"] },
+        { "pokemon": "dragonite", "level": 62, "moves": ["agility", "slam", "barrier", "hyper-beam"] }
+      ],
+      "yellow": [
+        { "pokemon": "gyarados", "level": 58, "moves": ["dragon-rage", "leer", "hydro-pump", "hyper-beam"] },
+        { "pokemon": "dragonair", "level": 56, "moves": ["thunder-wave", "slam", "dragon-rage", "hyper-beam"] },
+        { "pokemon": "dragonair", "level": 56, "moves": ["bubblebeam", "slam", "ice-beam", "hyper-beam"] },
+        { "pokemon": "aerodactyl", "level": 60, "moves": ["supersonic", "bite", "take-down", "hyper-beam"] },
+        { "pokemon": "dragonite", "level": 62, "moves": ["fire-blast", "blizzard", "thunder", "hyper-beam"] }
+      ],
+      "firered": [
+        { "pokemon": "gyarados", "level": 56, "moves": ["hyper-beam", "dragon-rage", "twister", "bite"] },
+        { "pokemon": "dragonair", "level": 54, "moves": ["outrage", "hyper-beam", "safeguard", "dragon-rage"] },
+        { "pokemon": "dragonair", "level": 54, "moves": ["outrage", "hyper-beam", "safeguard", "dragon-rage"] },
+        { "pokemon": "aerodactyl", "level": 58, "moves": ["hyper-beam", "ancient-power", "wing-attack", "scary-face"] },
+        { "pokemon": "dragonite", "level": 60, "moves": ["outrage", "hyper-beam", "wing-attack", "safeguard"] }
+      ],
+      "leafgreen": [
+        { "pokemon": "gyarados", "level": 56, "moves": ["hyper-beam", "dragon-rage", "twister", "bite"] },
+        { "pokemon": "dragonair", "level": 54, "moves": ["outrage", "hyper-beam", "safeguard", "dragon-rage"] },
+        { "pokemon": "dragonair", "level": 54, "moves": ["outrage", "hyper-beam", "safeguard", "dragon-rage"] },
+        { "pokemon": "aerodactyl", "level": 58, "moves": ["hyper-beam", "ancient-power", "wing-attack", "scary-face"] },
+        { "pokemon": "dragonite", "level": 60, "moves": ["outrage", "hyper-beam", "wing-attack", "safeguard"] }
+      ]
+    },
+    "weaknesses": ["ice", "dragon", "rock", "electric"],
+    "difficulty": "very-hard",
+    "tips": "Ice types are your best friend here. Ice Beam destroys his entire team. Electric handles Gyarados. Watch out for Hyper Beam."
+  },
+  "blue-champion": {
+    "id": "blue-champion",
+    "name": "Blue",
+    "title": "Pokémon League Champion",
+    "type": "champion",
+    "specialty": ["mixed"],
+    "location": "Indigo Plateau",
+    "order": 13,
+    "teams": {
+      "red-bulbasaur": [
+        { "pokemon": "pidgeot", "level": 61, "moves": ["wing-attack", "mirror-move", "sky-attack", "whirlwind"] },
+        { "pokemon": "alakazam", "level": 59, "moves": ["psybeam", "psychic", "reflect", "recover"] },
+        { "pokemon": "rhydon", "level": 61, "moves": ["leer", "tail-whip", "fury-attack", "horn-drill"] },
+        { "pokemon": "exeggutor", "level": 61, "moves": ["hypnosis", "barrage", "stomp"] },
+        { "pokemon": "gyarados", "level": 63, "moves": ["dragon-rage", "hydro-pump", "hyper-beam", "leer"] },
+        { "pokemon": "charizard", "level": 65, "moves": ["fire-blast", "rage", "slash", "fire-spin"] }
+      ],
+      "red-charmander": [
+        { "pokemon": "pidgeot", "level": 61, "moves": ["wing-attack", "mirror-move", "sky-attack", "whirlwind"] },
+        { "pokemon": "alakazam", "level": 59, "moves": ["psybeam", "psychic", "reflect", "recover"] },
+        { "pokemon": "rhydon", "level": 61, "moves": ["leer", "tail-whip", "fury-attack", "horn-drill"] },
+        { "pokemon": "arcanine", "level": 61, "moves": ["roar", "leer", "ember", "take-down"] },
+        { "pokemon": "exeggutor", "level": 63, "moves": ["hypnosis", "barrage", "stomp"] },
+        { "pokemon": "blastoise", "level": 65, "moves": ["hydro-pump", "blizzard", "bite", "withdraw"] }
+      ],
+      "red-squirtle": [
+        { "pokemon": "pidgeot", "level": 61, "moves": ["wing-attack", "mirror-move", "sky-attack", "whirlwind"] },
+        { "pokemon": "alakazam", "level": 59, "moves": ["psybeam", "psychic", "reflect", "recover"] },
+        { "pokemon": "rhydon", "level": 61, "moves": ["leer", "tail-whip", "fury-attack", "horn-drill"] },
+        { "pokemon": "gyarados", "level": 61, "moves": ["dragon-rage", "hydro-pump", "hyper-beam", "leer"] },
+        { "pokemon": "arcanine", "level": 63, "moves": ["roar", "leer", "ember", "take-down"] },
+        { "pokemon": "venusaur", "level": 65, "moves": ["growth", "mega-drain", "razor-leaf", "solar-beam"] }
+      ],
+      "blue-bulbasaur": [
+        { "pokemon": "pidgeot", "level": 61, "moves": ["wing-attack", "mirror-move", "sky-attack", "whirlwind"] },
+        { "pokemon": "alakazam", "level": 59, "moves": ["psybeam", "psychic", "reflect", "recover"] },
+        { "pokemon": "rhydon", "level": 61, "moves": ["leer", "tail-whip", "fury-attack", "horn-drill"] },
+        { "pokemon": "exeggutor", "level": 61, "moves": ["hypnosis", "barrage", "stomp"] },
+        { "pokemon": "gyarados", "level": 63, "moves": ["dragon-rage", "hydro-pump", "hyper-beam", "leer"] },
+        { "pokemon": "charizard", "level": 65, "moves": ["fire-blast", "rage", "slash", "fire-spin"] }
+      ],
+      "blue-charmander": [
+        { "pokemon": "pidgeot", "level": 61, "moves": ["wing-attack", "mirror-move", "sky-attack", "whirlwind"] },
+        { "pokemon": "alakazam", "level": 59, "moves": ["psybeam", "psychic", "reflect", "recover"] },
+        { "pokemon": "rhydon", "level": 61, "moves": ["leer", "tail-whip", "fury-attack", "horn-drill"] },
+        { "pokemon": "arcanine", "level": 61, "moves": ["roar", "leer", "ember", "take-down"] },
+        { "pokemon": "exeggutor", "level": 63, "moves": ["hypnosis", "barrage", "stomp"] },
+        { "pokemon": "blastoise", "level": 65, "moves": ["hydro-pump", "blizzard", "bite", "withdraw"] }
+      ],
+      "blue-squirtle": [
+        { "pokemon": "pidgeot", "level": 61, "moves": ["wing-attack", "mirror-move", "sky-attack", "whirlwind"] },
+        { "pokemon": "alakazam", "level": 59, "moves": ["psybeam", "psychic", "reflect", "recover"] },
+        { "pokemon": "rhydon", "level": 61, "moves": ["leer", "tail-whip", "fury-attack", "horn-drill"] },
+        { "pokemon": "gyarados", "level": 61, "moves": ["dragon-rage", "hydro-pump", "hyper-beam", "leer"] },
+        { "pokemon": "arcanine", "level": 63, "moves": ["roar", "leer", "ember", "take-down"] },
+        { "pokemon": "venusaur", "level": 65, "moves": ["growth", "mega-drain", "razor-leaf", "solar-beam"] }
+      ],
+      "yellow": [
+        { "pokemon": "sandslash", "level": 61, "moves": ["slash", "swift", "fury-swipes", "earthquake"] },
+        { "pokemon": "alakazam", "level": 59, "moves": ["psybeam", "psychic", "reflect", "recover"] },
+        { "pokemon": "exeggutor", "level": 61, "moves": ["hypnosis", "stomp", "mega-drain", "egg-bomb"] },
+        { "pokemon": "cloyster", "level": 61, "moves": ["clamp", "aurora-beam", "spike-cannon", "supersonic"] },
+        { "pokemon": "ninetales", "level": 63, "moves": ["tail-whip", "confuse-ray", "fire-spin", "flamethrower"] },
+        { "pokemon": "jolteon", "level": 65, "moves": ["quick-attack", "thunder-wave", "pin-missile", "thunder"] }
+      ],
+      "firered": [
+        { "pokemon": "pidgeot", "level": 59, "moves": ["aerial-ace", "featherdance", "sand-attack", "whirlwind"] },
+        { "pokemon": "alakazam", "level": 57, "moves": ["psychic", "future-sight", "recover", "reflect"] },
+        { "pokemon": "rhydon", "level": 59, "moves": ["earthquake", "take-down", "rock-tomb", "scary-face"] },
+        { "pokemon": "arcanine", "level": 59, "moves": ["flamethrower", "extreme-speed", "roar", "bite"] },
+        { "pokemon": "exeggutor", "level": 59, "moves": ["egg-bomb", "sleep-powder", "giga-drain", "light-screen"] },
+        { "pokemon": "blastoise", "level": 63, "moves": ["hydro-pump", "rain-dance", "skull-bash", "bite"] }
+      ],
+      "leafgreen": [
+        { "pokemon": "pidgeot", "level": 59, "moves": ["aerial-ace", "featherdance", "sand-attack", "whirlwind"] },
+        { "pokemon": "alakazam", "level": 57, "moves": ["psychic", "future-sight", "recover", "reflect"] },
+        { "pokemon": "rhydon", "level": 59, "moves": ["earthquake", "take-down", "rock-tomb", "scary-face"] },
+        { "pokemon": "arcanine", "level": 59, "moves": ["flamethrower", "extreme-speed", "roar", "bite"] },
+        { "pokemon": "exeggutor", "level": 59, "moves": ["egg-bomb", "sleep-powder", "giga-drain", "light-screen"] },
+        { "pokemon": "blastoise", "level": 63, "moves": ["hydro-pump", "rain-dance", "skull-bash", "bite"] }
+      ]
+    },
+    "weaknesses": ["varies"],
+    "difficulty": "very-hard",
+    "tips": "Team varies based on your starter choice. Ice types handle many threats. Bring a diverse team with good type coverage."
+  }
+}
