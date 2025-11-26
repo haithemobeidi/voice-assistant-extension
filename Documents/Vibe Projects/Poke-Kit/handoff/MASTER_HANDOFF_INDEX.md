@@ -4,6 +4,8 @@ This file catalogs all development session handoffs for continuity across Claude
 
 ## Session Handoffs
 
+**Handoff 11-26-2025_19-30-00_EST** - Team Builder UI refinements & game mascots: Fixed Lt. Surge sprite (ltsurge naming), removed trainer sprite backgrounds, increased sprite size. Added Teams to nav menu. Implemented scroll fade gradient (theme-aware) for boss list. Started game mascot icons - Red uses classic Ken Sugimori Charizard artwork. Need to add artwork for remaining games. User noted: check Mega forms for Legends Z-A additions. Build: ✅ working, user confirmed: yes
+
 **Handoff 11-26-2025_18-30-00_EST** - Team Builder data audit & trainer sprites: Full type matchup audit fixed incorrect recommendations (removed Pikachu from Brock/Erika/Giovanni in Yellow). Added special indicator (*) for move-based recommendations (Butterfree Confusion, Nidoran Double Kick). Added trainer sprites to boss list (game-accurate Gen1/Gen3). Bundle size warning noted - code splitting needed. Build: ✅ working, user confirmed: partial (UI needs refinement)
 
 **Handoff 11-26-2025_16-30-00_EST** - Team Builder MVP complete: Built full UI with game selection (5 versions), 13 bosses (gyms/E4/champion), boss teams with sprites/levels/types, recommended counters. Data from Bulbapedia. User confirmed working, wants to verify data accuracy. Build: ✅ working, user confirmed: yes
