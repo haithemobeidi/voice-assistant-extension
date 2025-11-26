@@ -204,9 +204,14 @@ export function getTotalStats(pokemon: PokemonCreature): number {
 
 /**
  * Get display name for a Pokémon (English by default)
- * Falls back to internal name if English not available
+ * Uses formNames.en for variants (Mega, Alolan, Galarian, etc.)
+ * Falls back to speciesNames.en, then internal name
  */
 export function getDisplayName(pokemon: PokemonCreature): string {
+  // Prefer form name for variants (e.g., "Mega Charizard X", "Alolan Raichu")
+  if (pokemon.formNames?.en) {
+    return pokemon.formNames.en;
+  }
   return pokemon.speciesNames.en || pokemon.name;
 }
 
