@@ -20,7 +20,7 @@ import {
 import { getTypeConfig } from './shared/typeConfig';
 import { TypeBadgeSimple, TypeBadgeTiny } from './shared/components';
 import { POKEDEX_CONFIG } from './shared/config';
-import { loadPokemonData } from './shared/pokemonLoader';
+import { loadPokemonData, getSpriteUrl } from './shared/pokemonLoader';
 
 // Declare lucide global (loaded via CDN)
 declare const lucide: {
@@ -381,7 +381,7 @@ function cycleForm(pokemonNumber: number): void {
   const newTotal = getTotalStats(newForm);
   const mainType = newForm.types[0] || 'normal';
   const config = getTypeConfig(mainType);
-  const spriteUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${newForm.id}.png`;
+  const spriteUrl = getSpriteUrl(newForm);
 
   // Update front of card
   const sprite = container.querySelector('.pokemon-sprite') as HTMLImageElement;
@@ -442,8 +442,8 @@ function createPokemonCard(group: PokemonGroup): string {
   const mainType = pokemon.types[0] || 'normal';
   const config = getTypeConfig(mainType);
 
-  // Use HD official artwork
-  const spriteUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`;
+  // Use HD official artwork (with fallback for new Legends Z-A Megas)
+  const spriteUrl = getSpriteUrl(pokemon);
 
   // Create type badges using shared components
   const typeBadges = pokemon.types.map(t => TypeBadgeSimple(t)).join('');

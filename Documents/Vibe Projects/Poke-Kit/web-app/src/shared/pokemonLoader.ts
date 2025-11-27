@@ -66,3 +66,51 @@ export function getPokemonDataSync(): PokemonCreature[] | null {
 export function preloadPokemonData(): void {
   loadPokemonData().catch(console.error);
 }
+
+// New Mega Evolutions from Legends Z-A (IDs 10278+) that don't have sprites yet
+// Map from Pokemon name to their base form's national dex number for sprite fallback
+const LEGENDS_ZA_MEGA_FALLBACKS: Record<string, number> = {
+  'clefable-mega': 36,
+  'victreebel-mega': 71,
+  'starmie-mega': 121,
+  'dragonite-mega': 149,
+  'meganium-mega': 154,
+  'feraligatr-mega': 160,
+  'skarmory-mega': 227,
+  'froslass-mega': 478,
+  'emboar-mega': 500,
+  'excadrill-mega': 530,
+  'scolipede-mega': 545,
+  'scrafty-mega': 560,
+  'eelektross-mega': 604,
+  'chandelure-mega': 609,
+  'chesnaught-mega': 652,
+  'delphox-mega': 655,
+  'greninja-mega': 658,
+  'pyroar-mega': 668,
+  'floette-mega': 670,
+  'malamar-mega': 687,
+  'barbaracle-mega': 689,
+  'dragalge-mega': 691,
+  'hawlucha-mega': 701,
+  'zygarde-mega': 718,
+  'drampa-mega': 780,
+  'falinks-mega': 870,
+};
+
+/**
+ * Get the official artwork sprite URL for a Pokemon
+ * For new Legends Z-A Megas that don't have sprites, falls back to base form
+ */
+export function getSpriteUrl(pokemon: { name: string; id: string; number: number }): string {
+  const baseUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork';
+
+  // Check if this is a new Z-A Mega that needs fallback
+  const fallbackNumber = LEGENDS_ZA_MEGA_FALLBACKS[pokemon.name];
+  if (fallbackNumber) {
+    return `${baseUrl}/${fallbackNumber}.png`;
+  }
+
+  // Use the Pokemon's ID for the sprite
+  return `${baseUrl}/${pokemon.id}.png`;
+}
