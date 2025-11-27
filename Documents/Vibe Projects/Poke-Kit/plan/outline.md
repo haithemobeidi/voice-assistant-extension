@@ -47,6 +47,9 @@
 **Blockers**: None
 
 ## Recent Changes
+- 2025-11-27: **Pokedex Refactor + Code Audit** - Extracted modals and card renderer into modules (pokedex.ts 1441→556 lines, 61% smaller). Created pokedex/movesetModal.ts, pokedex/matchupModal.ts, pokedex/cardRenderer.ts. Fixed modal vertical positioning. Full codebase audit completed - see docs/CODE_AUDIT_11-27-2025.md for ~550 lines of consolidation opportunities.
+- 2025-11-27: **Pokedex Modals** - Double-click card opens moveset modal (moves by generation from PokeAPI), calculator button shows defensive type matchups. Card flip UX with press feedback and ripple animation.
+- 2025-11-27: **Gen 3 Hoenn Complete** - Added all 16 Hoenn bosses (8 gyms + 4 E4 + 2 champions) with teams for RS/E/ORAS
 - 2025-11-27: **Gen 2 Johto Complete** - Added all 13 Johto bosses (Falkner, Bugsy, Whitney, Morty, Chuck, Jasmine, Pryce, Clair, Will, Koga E4, Bruno E4, Karen, Lance Champion), trainer sprites for Gen 2 classic + HGSS, progression/recommended Pokemon data, UI fixes (scroll preservation, gradient fade at bottom, compact Pokemon cards)
 - 2025-11-26: **Generation Tabs & Game Expansion** - Added two-row pill tab UI for Gen 1-9, added all 17 mainline games from Gen 2-9 with mascot artwork, boss data still Gen 1 only (expand incrementally)
 - 2025-11-26: **UI Polish & Code Splitting** - Fixed gradient bar, Pokemon red buttons, frosted glass form switcher, 81% bundle reduction via lazy loading pokemon.json

@@ -100,7 +100,7 @@ function handleMatchupModalKeydown(e: KeyboardEvent): void {
 function createMatchupModal(): HTMLElement {
   const modal = document.createElement('div');
   modal.id = 'matchup-modal';
-  modal.className = 'fixed inset-0 z-50 hidden items-center justify-center p-4 moveset-modal-backdrop';
+  modal.className = 'fixed inset-0 z-50 hidden items-start justify-center p-4 pt-12 md:pt-16 moveset-modal-backdrop';
 
   modal.innerHTML = `
     <div class="moveset-modal-content rounded-3xl shadow-2xl max-w-lg w-full max-h-[85vh] flex flex-col modal-animate overflow-hidden" onclick="event.stopPropagation()">

@@ -143,7 +143,7 @@ function createMovesetModal(): HTMLElement {
   modal.className = 'fixed inset-0 z-50 hidden';
   modal.innerHTML = `
     <div class="moveset-modal-backdrop absolute inset-0" onclick="window.closeMovesetModal?.()"></div>
-    <div class="absolute inset-4 md:inset-8 lg:inset-16 flex items-center justify-center pointer-events-none">
+    <div class="absolute inset-4 md:inset-8 lg:inset-16 flex items-start justify-center pointer-events-none pt-8 md:pt-12">
       <div class="moveset-modal-content modal-animate rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-700 w-full max-w-2xl max-h-full overflow-hidden pointer-events-auto flex flex-col">
 
         <!-- Modal Header -->
