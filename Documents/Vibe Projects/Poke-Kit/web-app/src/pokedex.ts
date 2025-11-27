@@ -453,14 +453,14 @@ function createPokemonCard(group: PokemonGroup): string {
   const hasVariants = group.variants.length > 0;
   const totalForms = 1 + group.variants.length;
 
-  // Form cycling button (only if has variants)
+  // Form cycling button (only if has variants) - Frosted glass style
   const formButton = hasVariants ? `
     <button
-      class="absolute top-3 right-3 z-20 px-2 py-1 rounded-lg text-xs font-bold transition-colors flex items-center gap-1 bg-purple-600 text-white hover:bg-purple-500"
+      class="absolute top-3 right-3 z-20 flex items-center gap-1.5 px-2 py-1.5 rounded-full bg-white/10 dark:bg-white/10 backdrop-blur-md text-gray-600 dark:text-white/80 hover:bg-black/10 dark:hover:bg-white/20 hover:text-gray-900 dark:hover:text-white border border-black/10 dark:border-white/20 transition-all"
       data-cycle-form="${pokemon.number}"
     >
-      <i data-lucide="repeat" class="w-3 h-3"></i>
-      <span>${totalForms}</span>
+      <i data-lucide="layers" class="w-3.5 h-3.5"></i>
+      <span class="text-xs font-bold">${totalForms}</span>
     </button>
   ` : '';
 
@@ -520,7 +520,7 @@ function createPokemonCard(group: PokemonGroup): string {
 
         <!-- BACK OF CARD (Stats) -->
         <div class="pokemon-card-back">
-          <div class="relative bg-white dark:bg-gray-800 rounded-3xl p-3 shadow-lg border-2 border-purple-500 dark:border-purple-400 h-full">
+          <div class="relative bg-white dark:bg-gray-800 rounded-3xl p-3 shadow-lg border-2 border-gray-400 dark:border-gray-500 h-full">
             <!-- Background type splash -->
             <div
               class="absolute inset-0 rounded-3xl opacity-5 dark:opacity-10"
@@ -529,11 +529,11 @@ function createPokemonCard(group: PokemonGroup): string {
 
             ${hasVariants ? `
             <button
-              class="absolute top-3 right-3 z-20 px-2 py-1 rounded-lg text-xs font-bold transition-colors flex items-center gap-1 bg-purple-600 text-white hover:bg-purple-500"
+              class="absolute top-3 right-3 z-20 flex items-center gap-1.5 px-2 py-1.5 rounded-full bg-white/10 dark:bg-white/10 backdrop-blur-md text-gray-600 dark:text-white/80 hover:bg-black/10 dark:hover:bg-white/20 hover:text-gray-900 dark:hover:text-white border border-black/10 dark:border-white/20 transition-all"
               data-cycle-form="${pokemon.number}"
             >
-              <i data-lucide="repeat" class="w-3 h-3"></i>
-              <span>${totalForms}</span>
+              <i data-lucide="layers" class="w-3.5 h-3.5"></i>
+              <span class="text-xs font-bold">${totalForms}</span>
             </button>
             ` : ''}
 

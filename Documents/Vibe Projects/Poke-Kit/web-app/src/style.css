@@ -95,9 +95,9 @@
     @apply bg-white dark:bg-gray-800 rounded-3xl p-6 sm:p-8 shadow-xl border border-gray-100 dark:border-gray-700 transition-colors;
   }
 
-  /* Button styles */
+  /* Button styles - Pokemon Red theme */
   .btn-primary {
-    @apply px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-bold text-lg shadow-lg shadow-blue-500/30 hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2;
+    @apply px-8 py-3 bg-gradient-to-r from-red-600 to-red-500 text-white rounded-xl font-bold text-lg shadow-lg shadow-red-500/30 hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2;
   }
 
   .btn-primary:active {
@@ -169,7 +169,7 @@
 
   /* Gradient bar decoration (used on calculator card) */
   .gradient-bar {
-    @apply absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-red-500 via-blue-500 to-green-500;
+    @apply w-full h-2 bg-gradient-to-r from-red-500 via-blue-500 to-green-500 rounded-t-3xl;
   }
 
   /* Mobile menu animation */
