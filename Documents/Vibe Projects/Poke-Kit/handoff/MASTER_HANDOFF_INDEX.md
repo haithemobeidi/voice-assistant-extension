@@ -4,6 +4,10 @@ This file catalogs all development session handoffs for continuity across Claude
 
 ## Session Handoffs
 
+**Handoff 11-27-2025_03-29-31_EST** - Pokedex moveset modal + type matchup calculator: Double-click card opens move list by generation (PokeAPI), calculator button shows defensive matchups with watermark icons. Card flip UX: press feedback, pointer-events fix for flipped cards, white ripple animation. Light theme fixes for X button visibility. File bloat noted - pokedex.ts now ~1440 lines, needs refactoring. Build: ✅ working, user confirmed: yes
+
+**Handoff 11-27-2025_02-15-00_EST** - Gen 3 Hoenn complete: Added all 16 Hoenn bosses (8 gym leaders, 4 E4, 2 champions) with teams for RS/E/ORAS. Created two Pokedex mockups (moveset modal, calculator quick-link). Build: ✅ working, user confirmed: yes
+
 **Handoff 11-26-2025_23-30-00_EST** - Legends Z-A Megas: Added all 26 new Mega Evolutions from Pokémon Legends Z-A (Mega Dragonite, Mega Greninja, Mega Feraligatr Water/Dragon, etc.). Created sprite fallback system in pokemonLoader.ts - uses base form artwork until official sprites available. Dataset now 1,224 Pokemon. Build: ✅ working, user confirmed: yes
 
 **Handoff 11-26-2025_21-15-00_EST** - Gen 2 Johto complete: Added all 13 Johto bosses with teams for G/S/C and HG/SS. Added trainer sprites, progression data with recommended Pokemon. Fixed region-aware progression lookup (was hardcoded to kanto). Added placeholder regions for Gen 3-9. UI fixes: scroll preservation, gradient fade, compact cards. Build: ✅ working, user confirmed: yes
