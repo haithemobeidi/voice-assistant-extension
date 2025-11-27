@@ -472,9 +472,9 @@
         "soulsilver": ["umbreon", "murkrow", "sneasel", "raticate", "furret"]
       },
       "special": {
-        "umbreon": "Dark type immune to Ghost, SE damage",
         "normal": "Normal types immune to Ghost but can't hit back in Gen 2"
-      }
+      },
+      "tips": "Dark types resist Ghost (0.5x) and deal super effective damage - great counters"
     },
     "chuck": {
       "description": "Before Gym 5 - Cianwood City",
@@ -556,14 +556,14 @@
         }
       },
       "recommended": {
-        "gold": ["typhlosion", "arcanine", "magmar", "machamp", "heracross", "red-gyarados"],
-        "silver": ["typhlosion", "arcanine", "magmar", "machamp", "heracross", "red-gyarados"],
-        "crystal": ["typhlosion", "arcanine", "magmar", "machamp", "heracross", "red-gyarados"],
-        "heartgold": ["typhlosion", "arcanine", "magmar", "machamp", "heracross", "red-gyarados"],
-        "soulsilver": ["typhlosion", "arcanine", "magmar", "machamp", "heracross", "red-gyarados"]
+        "gold": ["typhlosion", "arcanine", "magmar", "machamp", "heracross", "gyarados"],
+        "silver": ["typhlosion", "arcanine", "magmar", "machamp", "heracross", "gyarados"],
+        "crystal": ["typhlosion", "arcanine", "magmar", "machamp", "heracross", "gyarados"],
+        "heartgold": ["typhlosion", "arcanine", "magmar", "machamp", "heracross", "gyarados"],
+        "soulsilver": ["typhlosion", "arcanine", "magmar", "machamp", "heracross", "gyarados"]
       },
       "special": {
-        "red-gyarados": "Free shiny Gyarados at Lake of Rage!"
+        "gyarados": "Free shiny Gyarados at Lake of Rage, or fish for Magikarp"
       }
     },
     "clair": {
