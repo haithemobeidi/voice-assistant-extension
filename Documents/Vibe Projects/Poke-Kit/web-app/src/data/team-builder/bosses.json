@@ -1178,5 +1178,612 @@
     "weaknesses": ["ice", "rock", "electric"],
     "difficulty": "very-hard",
     "tips": "Ice types destroy most of his team! Rock handles Charizard and Aerodactyl. Electric for Gyarados. His Dragonites are underleveled (should evolve at 55)."
+  },
+  "roxanne": {
+    "id": "roxanne",
+    "name": "Roxanne",
+    "title": "Rustboro City Gym Leader",
+    "type": "gym",
+    "specialty": ["rock"],
+    "badge": "Stone Badge",
+    "location": "Rustboro City",
+    "order": 1,
+    "teams": {
+      "ruby": [
+        { "pokemon": "geodude", "level": 14, "moves": ["tackle", "defense-curl", "rock-throw", "rock-tomb"] },
+        { "pokemon": "nosepass", "level": 15, "moves": ["tackle", "harden", "rock-throw", "rock-tomb"] }
+      ],
+      "sapphire": [
+        { "pokemon": "geodude", "level": 14, "moves": ["tackle", "defense-curl", "rock-throw", "rock-tomb"] },
+        { "pokemon": "nosepass", "level": 15, "moves": ["tackle", "harden", "rock-throw", "rock-tomb"] }
+      ],
+      "emerald": [
+        { "pokemon": "geodude", "level": 12, "moves": ["tackle", "defense-curl", "rock-throw", "rock-tomb"] },
+        { "pokemon": "geodude", "level": 12, "moves": ["tackle", "defense-curl", "rock-throw", "rock-tomb"] },
+        { "pokemon": "nosepass", "level": 15, "moves": ["block", "harden", "tackle", "rock-tomb"] }
+      ],
+      "omegaruby": [
+        { "pokemon": "geodude", "level": 12, "moves": ["tackle", "defense-curl", "rock-tomb"] },
+        { "pokemon": "nosepass", "level": 14, "moves": ["tackle", "harden", "rock-tomb"] }
+      ],
+      "alphasapphire": [
+        { "pokemon": "geodude", "level": 12, "moves": ["tackle", "defense-curl", "rock-tomb"] },
+        { "pokemon": "nosepass", "level": 14, "moves": ["tackle", "harden", "rock-tomb"] }
+      ]
+    },
+    "weaknesses": ["water", "grass", "fighting", "ground", "steel"],
+    "difficulty": "easy",
+    "tips": "Water and Grass starters dominate. If you chose Torchic, catch a Shroomish or Lotad early. Nosepass's Sturdy in ORAS can survive one strong hit."
+  },
+  "brawly": {
+    "id": "brawly",
+    "name": "Brawly",
+    "title": "Dewford Town Gym Leader",
+    "type": "gym",
+    "specialty": ["fighting"],
+    "badge": "Knuckle Badge",
+    "location": "Dewford Town",
+    "order": 2,
+    "teams": {
+      "ruby": [
+        { "pokemon": "machop", "level": 17, "moves": ["bulk-up", "leer", "karate-chop", "seismic-toss"] },
+        { "pokemon": "makuhita", "level": 18, "moves": ["bulk-up", "knock-off", "arm-thrust", "sand-attack"] }
+      ],
+      "sapphire": [
+        { "pokemon": "machop", "level": 17, "moves": ["bulk-up", "leer", "karate-chop", "seismic-toss"] },
+        { "pokemon": "makuhita", "level": 18, "moves": ["bulk-up", "knock-off", "arm-thrust", "sand-attack"] }
+      ],
+      "emerald": [
+        { "pokemon": "machop", "level": 16, "moves": ["karate-chop", "low-kick", "seismic-toss", "bulk-up"] },
+        { "pokemon": "meditite", "level": 16, "moves": ["focus-punch", "light-screen", "reflect", "bulk-up"] },
+        { "pokemon": "makuhita", "level": 19, "moves": ["arm-thrust", "vital-throw", "reversal", "bulk-up"] }
+      ],
+      "omegaruby": [
+        { "pokemon": "machop", "level": 14, "moves": ["leer", "karate-chop", "seismic-toss", "bulk-up"] },
+        { "pokemon": "makuhita", "level": 16, "moves": ["arm-thrust", "knock-off", "sand-attack", "bulk-up"] }
+      ],
+      "alphasapphire": [
+        { "pokemon": "machop", "level": 14, "moves": ["leer", "karate-chop", "seismic-toss", "bulk-up"] },
+        { "pokemon": "makuhita", "level": 16, "moves": ["arm-thrust", "knock-off", "sand-attack", "bulk-up"] }
+      ]
+    },
+    "weaknesses": ["flying", "psychic", "fairy"],
+    "difficulty": "medium",
+    "tips": "Flying types like Taillow and Wingull excel. Psychic moves from Ralts work well. Watch out for Bulk Up boosting their stats. Take down Makuhita fast!"
+  },
+  "wattson": {
+    "id": "wattson",
+    "name": "Wattson",
+    "title": "Mauville City Gym Leader",
+    "type": "gym",
+    "specialty": ["electric"],
+    "badge": "Dynamo Badge",
+    "location": "Mauville City",
+    "order": 3,
+    "teams": {
+      "ruby": [
+        { "pokemon": "magnemite", "level": 22, "moves": ["thundershock", "supersonic", "sonicboom", "thunder-wave"] },
+        { "pokemon": "voltorb", "level": 20, "moves": ["rollout", "spark", "sonicboom", "self-destruct"] },
+        { "pokemon": "magneton", "level": 23, "moves": ["shock-wave", "supersonic", "sonicboom", "thunder-wave"] }
+      ],
+      "sapphire": [
+        { "pokemon": "magnemite", "level": 22, "moves": ["thundershock", "supersonic", "sonicboom", "thunder-wave"] },
+        { "pokemon": "voltorb", "level": 20, "moves": ["rollout", "spark", "sonicboom", "self-destruct"] },
+        { "pokemon": "magneton", "level": 23, "moves": ["shock-wave", "supersonic", "sonicboom", "thunder-wave"] }
+      ],
+      "emerald": [
+        { "pokemon": "voltorb", "level": 20, "moves": ["rollout", "spark", "self-destruct", "shock-wave"] },
+        { "pokemon": "electrike", "level": 20, "moves": ["shock-wave", "leer", "quick-attack", "howl"] },
+        { "pokemon": "magneton", "level": 22, "moves": ["supersonic", "shock-wave", "thunder-wave", "sonicboom"] },
+        { "pokemon": "manectric", "level": 24, "moves": ["quick-attack", "thunder-wave", "shock-wave", "howl"] }
+      ],
+      "omegaruby": [
+        { "pokemon": "magnemite", "level": 19, "moves": ["thunder-wave", "tackle", "volt-switch"] },
+        { "pokemon": "voltorb", "level": 19, "moves": ["rollout", "charge", "volt-switch"] },
+        { "pokemon": "magneton", "level": 21, "moves": ["supersonic", "magnet-bomb", "volt-switch"] }
+      ],
+      "alphasapphire": [
+        { "pokemon": "magnemite", "level": 19, "moves": ["thunder-wave", "tackle", "volt-switch"] },
+        { "pokemon": "voltorb", "level": 19, "moves": ["rollout", "charge", "volt-switch"] },
+        { "pokemon": "magneton", "level": 21, "moves": ["supersonic", "magnet-bomb", "volt-switch"] }
+      ]
+    },
+    "weaknesses": ["ground"],
+    "difficulty": "medium",
+    "tips": "Ground types are immune and super effective! Marshtomp is perfect. Watch out for Self-Destruct from Voltorb. Magneton/Magnemite are also Steel type."
+  },
+  "flannery": {
+    "id": "flannery",
+    "name": "Flannery",
+    "title": "Lavaridge Town Gym Leader",
+    "type": "gym",
+    "specialty": ["fire"],
+    "badge": "Heat Badge",
+    "location": "Lavaridge Town",
+    "order": 4,
+    "teams": {
+      "ruby": [
+        { "pokemon": "slugma", "level": 26, "moves": ["overheat", "smog", "light-screen", "sunny-day"] },
+        { "pokemon": "slugma", "level": 26, "moves": ["flamethrower", "rock-slide", "light-screen", "sunny-day"] },
+        { "pokemon": "torkoal", "level": 28, "moves": ["overheat", "body-slam", "flail", "attract"] }
+      ],
+      "sapphire": [
+        { "pokemon": "slugma", "level": 26, "moves": ["overheat", "smog", "light-screen", "sunny-day"] },
+        { "pokemon": "slugma", "level": 26, "moves": ["flamethrower", "rock-slide", "light-screen", "sunny-day"] },
+        { "pokemon": "torkoal", "level": 28, "moves": ["overheat", "body-slam", "flail", "attract"] }
+      ],
+      "emerald": [
+        { "pokemon": "numel", "level": 24, "moves": ["overheat", "take-down", "magnitude", "sunny-day"] },
+        { "pokemon": "slugma", "level": 24, "moves": ["overheat", "smog", "light-screen", "sunny-day"] },
+        { "pokemon": "camerupt", "level": 26, "moves": ["overheat", "tackle", "sunny-day", "attract"] },
+        { "pokemon": "torkoal", "level": 29, "moves": ["overheat", "sunny-day", "body-slam", "attract"] }
+      ],
+      "omegaruby": [
+        { "pokemon": "slugma", "level": 26, "moves": ["overheat", "rock-throw", "light-screen", "sunny-day"] },
+        { "pokemon": "numel", "level": 26, "moves": ["earth-power", "lava-plume", "amnesia", "sunny-day"] },
+        { "pokemon": "torkoal", "level": 28, "moves": ["overheat", "body-slam", "curse", "sunny-day"] }
+      ],
+      "alphasapphire": [
+        { "pokemon": "slugma", "level": 26, "moves": ["overheat", "rock-throw", "light-screen", "sunny-day"] },
+        { "pokemon": "numel", "level": 26, "moves": ["earth-power", "lava-plume", "amnesia", "sunny-day"] },
+        { "pokemon": "torkoal", "level": 28, "moves": ["overheat", "body-slam", "curse", "sunny-day"] }
+      ]
+    },
+    "weaknesses": ["water", "ground", "rock"],
+    "difficulty": "medium",
+    "tips": "Water types dominate. Ground types work but watch for Sunny Day boosting Fire moves. Torkoal's White Herb in Emerald lets it use full-power Overheat twice!"
+  },
+  "norman": {
+    "id": "norman",
+    "name": "Norman",
+    "title": "Petalburg City Gym Leader",
+    "type": "gym",
+    "specialty": ["normal"],
+    "badge": "Balance Badge",
+    "location": "Petalburg City",
+    "order": 5,
+    "teams": {
+      "ruby": [
+        { "pokemon": "slaking", "level": 28, "moves": ["encore", "facade", "yawn", "faint-attack"] },
+        { "pokemon": "vigoroth", "level": 30, "moves": ["slash", "faint-attack", "facade", "encore"] },
+        { "pokemon": "slaking", "level": 31, "moves": ["focus-punch", "slack-off", "facade", "faint-attack"] }
+      ],
+      "sapphire": [
+        { "pokemon": "slaking", "level": 28, "moves": ["encore", "facade", "yawn", "faint-attack"] },
+        { "pokemon": "vigoroth", "level": 30, "moves": ["slash", "faint-attack", "facade", "encore"] },
+        { "pokemon": "slaking", "level": 31, "moves": ["focus-punch", "slack-off", "facade", "faint-attack"] }
+      ],
+      "emerald": [
+        { "pokemon": "spinda", "level": 27, "moves": ["teeter-dance", "psybeam", "facade", "encore"] },
+        { "pokemon": "vigoroth", "level": 27, "moves": ["slash", "facade", "encore", "faint-attack"] },
+        { "pokemon": "linoone", "level": 29, "moves": ["slash", "belly-drum", "facade", "headbutt"] },
+        { "pokemon": "slaking", "level": 31, "moves": ["counter", "yawn", "facade", "faint-attack"] }
+      ],
+      "omegaruby": [
+        { "pokemon": "slaking", "level": 28, "moves": ["encore", "retaliate", "yawn", "feint-attack"] },
+        { "pokemon": "vigoroth", "level": 28, "moves": ["slash", "feint-attack", "retaliate", "encore"] },
+        { "pokemon": "slaking", "level": 30, "moves": ["retaliate", "slack-off", "feint-attack", "yawn"] }
+      ],
+      "alphasapphire": [
+        { "pokemon": "slaking", "level": 28, "moves": ["encore", "retaliate", "yawn", "feint-attack"] },
+        { "pokemon": "vigoroth", "level": 28, "moves": ["slash", "feint-attack", "retaliate", "encore"] },
+        { "pokemon": "slaking", "level": 30, "moves": ["retaliate", "slack-off", "feint-attack", "yawn"] }
+      ]
+    },
+    "weaknesses": ["fighting"],
+    "difficulty": "hard",
+    "tips": "Slaking's Truant ability makes it skip every other turn - use Protect! Fighting types crush this gym. Don't use status moves - Facade deals double damage when statused!"
+  },
+  "winona": {
+    "id": "winona",
+    "name": "Winona",
+    "title": "Fortree City Gym Leader",
+    "type": "gym",
+    "specialty": ["flying"],
+    "badge": "Feather Badge",
+    "location": "Fortree City",
+    "order": 6,
+    "teams": {
+      "ruby": [
+        { "pokemon": "swellow", "level": 31, "moves": ["quick-attack", "aerial-ace", "double-team", "endeavor"] },
+        { "pokemon": "pelipper", "level": 30, "moves": ["water-gun", "supersonic", "protect", "aerial-ace"] },
+        { "pokemon": "skarmory", "level": 32, "moves": ["sand-attack", "fury-attack", "steel-wing", "aerial-ace"] },
+        { "pokemon": "altaria", "level": 33, "moves": ["earthquake", "dragon-breath", "dragon-dance", "aerial-ace"] }
+      ],
+      "sapphire": [
+        { "pokemon": "swellow", "level": 31, "moves": ["quick-attack", "aerial-ace", "double-team", "endeavor"] },
+        { "pokemon": "pelipper", "level": 30, "moves": ["water-gun", "supersonic", "protect", "aerial-ace"] },
+        { "pokemon": "skarmory", "level": 32, "moves": ["sand-attack", "fury-attack", "steel-wing", "aerial-ace"] },
+        { "pokemon": "altaria", "level": 33, "moves": ["earthquake", "dragon-breath", "dragon-dance", "aerial-ace"] }
+      ],
+      "emerald": [
+        { "pokemon": "swablu", "level": 29, "moves": ["perish-song", "mirror-move", "safeguard", "aerial-ace"] },
+        { "pokemon": "tropius", "level": 29, "moves": ["sunny-day", "aerial-ace", "solar-beam", "synthesis"] },
+        { "pokemon": "pelipper", "level": 30, "moves": ["water-gun", "supersonic", "protect", "aerial-ace"] },
+        { "pokemon": "skarmory", "level": 31, "moves": ["sand-attack", "fury-attack", "steel-wing", "aerial-ace"] },
+        { "pokemon": "altaria", "level": 33, "moves": ["earthquake", "dragon-breath", "dragon-dance", "aerial-ace"] }
+      ],
+      "omegaruby": [
+        { "pokemon": "swellow", "level": 33, "moves": ["quick-attack", "aerial-ace", "double-team", "endeavor"] },
+        { "pokemon": "pelipper", "level": 33, "moves": ["water-pulse", "roost", "protect", "aerial-ace"] },
+        { "pokemon": "skarmory", "level": 33, "moves": ["sand-attack", "steel-wing", "aerial-ace", "spikes"] },
+        { "pokemon": "altaria", "level": 35, "moves": ["earthquake", "dragon-pulse", "cotton-guard", "aerial-ace"] }
+      ],
+      "alphasapphire": [
+        { "pokemon": "swellow", "level": 33, "moves": ["quick-attack", "aerial-ace", "double-team", "endeavor"] },
+        { "pokemon": "pelipper", "level": 33, "moves": ["water-pulse", "roost", "protect", "aerial-ace"] },
+        { "pokemon": "skarmory", "level": 33, "moves": ["sand-attack", "steel-wing", "aerial-ace", "spikes"] },
+        { "pokemon": "altaria", "level": 35, "moves": ["earthquake", "dragon-pulse", "cotton-guard", "aerial-ace"] }
+      ]
+    },
+    "weaknesses": ["electric", "ice", "rock"],
+    "difficulty": "hard",
+    "tips": "Electric types handle most of her team. Ice moves crush Altaria. Watch out for Altaria's Dragon Dance setup - take it down quickly! Skarmory resists Electric."
+  },
+  "tate-liza": {
+    "id": "tate-liza",
+    "name": "Tate & Liza",
+    "title": "Mossdeep City Gym Leaders",
+    "type": "gym",
+    "specialty": ["psychic"],
+    "badge": "Mind Badge",
+    "location": "Mossdeep City",
+    "order": 7,
+    "teams": {
+      "ruby": [
+        { "pokemon": "lunatone", "level": 42, "moves": ["light-screen", "psychic", "hypnosis", "calm-mind"] },
+        { "pokemon": "solrock", "level": 42, "moves": ["sunny-day", "solar-beam", "psychic", "flamethrower"] }
+      ],
+      "sapphire": [
+        { "pokemon": "lunatone", "level": 42, "moves": ["light-screen", "psychic", "hypnosis", "calm-mind"] },
+        { "pokemon": "solrock", "level": 42, "moves": ["sunny-day", "solar-beam", "psychic", "flamethrower"] }
+      ],
+      "emerald": [
+        { "pokemon": "claydol", "level": 41, "moves": ["earthquake", "ancient-power", "psychic", "light-screen"] },
+        { "pokemon": "xatu", "level": 41, "moves": ["psychic", "sunny-day", "confuse-ray", "calm-mind"] },
+        { "pokemon": "lunatone", "level": 42, "moves": ["light-screen", "psychic", "hypnosis", "calm-mind"] },
+        { "pokemon": "solrock", "level": 42, "moves": ["sunny-day", "solar-beam", "psychic", "flamethrower"] }
+      ],
+      "omegaruby": [
+        { "pokemon": "lunatone", "level": 45, "moves": ["light-screen", "psychic", "hypnosis", "calm-mind"] },
+        { "pokemon": "solrock", "level": 45, "moves": ["sunny-day", "solar-beam", "psychic", "flamethrower"] }
+      ],
+      "alphasapphire": [
+        { "pokemon": "lunatone", "level": 45, "moves": ["light-screen", "psychic", "hypnosis", "calm-mind"] },
+        { "pokemon": "solrock", "level": 45, "moves": ["sunny-day", "solar-beam", "psychic", "flamethrower"] }
+      ]
+    },
+    "weaknesses": ["bug", "ghost", "dark", "water"],
+    "difficulty": "hard",
+    "tips": "Double Battle! Dark types resist Psychic and deal super effective damage. Note: Earthquake won't work - all have Levitate! Water counters Solrock's Fire/Rock typing."
+  },
+  "wallace-gym": {
+    "id": "wallace-gym",
+    "name": "Wallace",
+    "title": "Sootopolis City Gym Leader",
+    "type": "gym",
+    "specialty": ["water"],
+    "badge": "Rain Badge",
+    "location": "Sootopolis City",
+    "order": 8,
+    "teams": {
+      "ruby": [
+        { "pokemon": "luvdisc", "level": 40, "moves": ["flail", "attract", "sweet-kiss", "water-pulse"] },
+        { "pokemon": "sealeo", "level": 40, "moves": ["encore", "body-slam", "aurora-beam", "water-pulse"] },
+        { "pokemon": "seaking", "level": 42, "moves": ["horn-drill", "fury-attack", "rain-dance", "water-pulse"] },
+        { "pokemon": "whiscash", "level": 42, "moves": ["amnesia", "rain-dance", "earthquake", "water-pulse"] },
+        { "pokemon": "milotic", "level": 43, "moves": ["recover", "twister", "ice-beam", "water-pulse"] }
+      ],
+      "sapphire": [
+        { "pokemon": "luvdisc", "level": 40, "moves": ["flail", "attract", "sweet-kiss", "water-pulse"] },
+        { "pokemon": "sealeo", "level": 40, "moves": ["encore", "body-slam", "aurora-beam", "water-pulse"] },
+        { "pokemon": "seaking", "level": 42, "moves": ["horn-drill", "fury-attack", "rain-dance", "water-pulse"] },
+        { "pokemon": "whiscash", "level": 42, "moves": ["amnesia", "rain-dance", "earthquake", "water-pulse"] },
+        { "pokemon": "milotic", "level": 43, "moves": ["recover", "twister", "ice-beam", "water-pulse"] }
+      ],
+      "omegaruby": [
+        { "pokemon": "luvdisc", "level": 44, "moves": ["draining-kiss", "attract", "sweet-kiss", "water-pulse"] },
+        { "pokemon": "whiscash", "level": 44, "moves": ["earthquake", "zen-headbutt", "waterfall", "mud-sport"] },
+        { "pokemon": "sealeo", "level": 44, "moves": ["encore", "waterfall", "aurora-beam", "body-slam"] },
+        { "pokemon": "seaking", "level": 44, "moves": ["waterfall", "rain-dance", "aqua-ring", "horn-drill"] },
+        { "pokemon": "milotic", "level": 46, "moves": ["hydro-pump", "recover", "ice-beam", "disarming-voice"] }
+      ],
+      "alphasapphire": [
+        { "pokemon": "luvdisc", "level": 44, "moves": ["draining-kiss", "attract", "sweet-kiss", "water-pulse"] },
+        { "pokemon": "whiscash", "level": 44, "moves": ["earthquake", "zen-headbutt", "waterfall", "mud-sport"] },
+        { "pokemon": "sealeo", "level": 44, "moves": ["encore", "waterfall", "aurora-beam", "body-slam"] },
+        { "pokemon": "seaking", "level": 44, "moves": ["waterfall", "rain-dance", "aqua-ring", "horn-drill"] },
+        { "pokemon": "milotic", "level": 46, "moves": ["hydro-pump", "recover", "ice-beam", "disarming-voice"] }
+      ]
+    },
+    "weaknesses": ["grass", "electric"],
+    "difficulty": "hard",
+    "tips": "Grass and Electric types dominate. Watch out for Milotic's bulk and Recover! Whiscash is Ground type, so Electric won't work on it. Seaking has Horn Drill OHKO move."
+  },
+  "juan": {
+    "id": "juan",
+    "name": "Juan",
+    "title": "Sootopolis City Gym Leader",
+    "type": "gym",
+    "specialty": ["water"],
+    "badge": "Rain Badge",
+    "location": "Sootopolis City",
+    "order": 8,
+    "teams": {
+      "emerald": [
+        { "pokemon": "luvdisc", "level": 41, "moves": ["water-pulse", "attract", "sweet-kiss", "flail"] },
+        { "pokemon": "whiscash", "level": 41, "moves": ["rain-dance", "water-pulse", "amnesia", "earthquake"] },
+        { "pokemon": "sealeo", "level": 43, "moves": ["encore", "body-slam", "aurora-beam", "water-pulse"] },
+        { "pokemon": "crawdaunt", "level": 43, "moves": ["water-pulse", "crabhammer", "taunt", "leer"] },
+        { "pokemon": "kingdra", "level": 46, "moves": ["water-pulse", "double-team", "ice-beam", "rest"] }
+      ]
+    },
+    "weaknesses": ["grass", "electric"],
+    "difficulty": "hard",
+    "tips": "Juan replaced Wallace as Gym Leader in Emerald. Kingdra (Water/Dragon) is only weak to Dragon! It has Rest + Chesto Berry combo. Electric handles most, Grass handles Whiscash."
+  },
+  "sidney": {
+    "id": "sidney",
+    "name": "Sidney",
+    "title": "Elite Four",
+    "type": "elite4",
+    "specialty": ["dark"],
+    "location": "Ever Grande City",
+    "order": 1,
+    "teams": {
+      "ruby": [
+        { "pokemon": "mightyena", "level": 46, "moves": ["crunch", "take-down", "sand-attack", "roar"] },
+        { "pokemon": "cacturne", "level": 46, "moves": ["faint-attack", "needle-arm", "cotton-spore", "leech-seed"] },
+        { "pokemon": "shiftry", "level": 48, "moves": ["fake-out", "extrasensory", "double-team", "swagger"] },
+        { "pokemon": "sharpedo", "level": 48, "moves": ["surf", "crunch", "slash", "swagger"] },
+        { "pokemon": "absol", "level": 49, "moves": ["swords-dance", "slash", "aerial-ace", "snatch"] }
+      ],
+      "sapphire": [
+        { "pokemon": "mightyena", "level": 46, "moves": ["crunch", "take-down", "sand-attack", "roar"] },
+        { "pokemon": "cacturne", "level": 46, "moves": ["faint-attack", "needle-arm", "cotton-spore", "leech-seed"] },
+        { "pokemon": "shiftry", "level": 48, "moves": ["fake-out", "extrasensory", "double-team", "swagger"] },
+        { "pokemon": "sharpedo", "level": 48, "moves": ["surf", "crunch", "slash", "swagger"] },
+        { "pokemon": "absol", "level": 49, "moves": ["swords-dance", "slash", "aerial-ace", "snatch"] }
+      ],
+      "emerald": [
+        { "pokemon": "mightyena", "level": 46, "moves": ["roar", "double-edge", "sand-attack", "crunch"] },
+        { "pokemon": "cacturne", "level": 46, "moves": ["leech-seed", "faint-attack", "needle-arm", "cotton-spore"] },
+        { "pokemon": "shiftry", "level": 48, "moves": ["torment", "double-team", "swagger", "extrasensory"] },
+        { "pokemon": "crawdaunt", "level": 48, "moves": ["surf", "swords-dance", "strength", "facade"] },
+        { "pokemon": "absol", "level": 49, "moves": ["aerial-ace", "rock-slide", "swords-dance", "slash"] }
+      ],
+      "omegaruby": [
+        { "pokemon": "mightyena", "level": 50, "moves": ["swagger", "take-down", "sucker-punch", "crunch"] },
+        { "pokemon": "shiftry", "level": 50, "moves": ["fake-out", "feint-attack", "extrasensory", "leaf-blade"] },
+        { "pokemon": "cacturne", "level": 50, "moves": ["leech-seed", "payback", "needle-arm", "spiky-shield"] },
+        { "pokemon": "sharpedo", "level": 50, "moves": ["crunch", "poison-fang", "aqua-jet", "slash"] },
+        { "pokemon": "absol", "level": 52, "moves": ["aerial-ace", "night-slash", "psycho-cut", "slash"] }
+      ],
+      "alphasapphire": [
+        { "pokemon": "mightyena", "level": 50, "moves": ["swagger", "take-down", "sucker-punch", "crunch"] },
+        { "pokemon": "shiftry", "level": 50, "moves": ["fake-out", "feint-attack", "extrasensory", "leaf-blade"] },
+        { "pokemon": "cacturne", "level": 50, "moves": ["leech-seed", "payback", "needle-arm", "spiky-shield"] },
+        { "pokemon": "sharpedo", "level": 50, "moves": ["crunch", "poison-fang", "aqua-jet", "slash"] },
+        { "pokemon": "absol", "level": 52, "moves": ["aerial-ace", "night-slash", "psycho-cut", "slash"] }
+      ]
+    },
+    "weaknesses": ["fighting", "bug", "fairy"],
+    "difficulty": "medium",
+    "tips": "Fighting types destroy Dark! Heracross is perfect. Bug types like Armaldo work well. Watch out for Sharpedo's speed and Absol's Swords Dance setup."
+  },
+  "phoebe": {
+    "id": "phoebe",
+    "name": "Phoebe",
+    "title": "Elite Four",
+    "type": "elite4",
+    "specialty": ["ghost"],
+    "location": "Ever Grande City",
+    "order": 2,
+    "teams": {
+      "ruby": [
+        { "pokemon": "dusclops", "level": 48, "moves": ["curse", "confuse-ray", "future-sight", "shadow-punch"] },
+        { "pokemon": "banette", "level": 49, "moves": ["spite", "will-o-wisp", "shadow-ball", "faint-attack"] },
+        { "pokemon": "sableye", "level": 50, "moves": ["faint-attack", "shadow-ball", "psychic", "attract"] },
+        { "pokemon": "banette", "level": 49, "moves": ["toxic", "skill-swap", "shadow-ball", "psychic"] },
+        { "pokemon": "dusclops", "level": 51, "moves": ["confuse-ray", "shadow-ball", "ice-beam", "earthquake"] }
+      ],
+      "sapphire": [
+        { "pokemon": "dusclops", "level": 48, "moves": ["curse", "confuse-ray", "future-sight", "shadow-punch"] },
+        { "pokemon": "banette", "level": 49, "moves": ["spite", "will-o-wisp", "shadow-ball", "faint-attack"] },
+        { "pokemon": "sableye", "level": 50, "moves": ["faint-attack", "shadow-ball", "psychic", "attract"] },
+        { "pokemon": "banette", "level": 49, "moves": ["toxic", "skill-swap", "shadow-ball", "psychic"] },
+        { "pokemon": "dusclops", "level": 51, "moves": ["confuse-ray", "shadow-ball", "ice-beam", "earthquake"] }
+      ],
+      "emerald": [
+        { "pokemon": "dusclops", "level": 48, "moves": ["shadow-punch", "confuse-ray", "curse", "protect"] },
+        { "pokemon": "banette", "level": 49, "moves": ["shadow-ball", "grudge", "will-o-wisp", "faint-attack"] },
+        { "pokemon": "sableye", "level": 50, "moves": ["shadow-ball", "double-team", "night-shade", "faint-attack"] },
+        { "pokemon": "banette", "level": 49, "moves": ["shadow-ball", "psychic", "thunderbolt", "facade"] },
+        { "pokemon": "dusclops", "level": 51, "moves": ["shadow-ball", "ice-beam", "rock-slide", "earthquake"] }
+      ],
+      "omegaruby": [
+        { "pokemon": "dusclops", "level": 51, "moves": ["shadow-punch", "confuse-ray", "curse", "future-sight"] },
+        { "pokemon": "banette", "level": 51, "moves": ["shadow-ball", "spite", "will-o-wisp", "feint-attack"] },
+        { "pokemon": "sableye", "level": 51, "moves": ["shadow-claw", "foul-play", "power-gem", "fake-out"] },
+        { "pokemon": "banette", "level": 51, "moves": ["shadow-ball", "grudge", "toxic", "psychic"] },
+        { "pokemon": "dusknoir", "level": 53, "moves": ["hex", "fire-punch", "ice-punch", "thunder-punch"] }
+      ],
+      "alphasapphire": [
+        { "pokemon": "dusclops", "level": 51, "moves": ["shadow-punch", "confuse-ray", "curse", "future-sight"] },
+        { "pokemon": "banette", "level": 51, "moves": ["shadow-ball", "spite", "will-o-wisp", "feint-attack"] },
+        { "pokemon": "sableye", "level": 51, "moves": ["shadow-claw", "foul-play", "power-gem", "fake-out"] },
+        { "pokemon": "banette", "level": 51, "moves": ["shadow-ball", "grudge", "toxic", "psychic"] },
+        { "pokemon": "dusknoir", "level": 53, "moves": ["hex", "fire-punch", "ice-punch", "thunder-punch"] }
+      ]
+    },
+    "weaknesses": ["ghost", "dark"],
+    "difficulty": "medium",
+    "tips": "Dark types resist and hit Ghost super effectively! Sableye (Dark/Ghost) has no weaknesses in Gen 3. Dusclops has high defenses - use strong special attacks."
+  },
+  "glacia": {
+    "id": "glacia",
+    "name": "Glacia",
+    "title": "Elite Four",
+    "type": "elite4",
+    "specialty": ["ice"],
+    "location": "Ever Grande City",
+    "order": 3,
+    "teams": {
+      "ruby": [
+        { "pokemon": "glalie", "level": 50, "moves": ["hail", "light-screen", "ice-beam", "crunch"] },
+        { "pokemon": "sealeo", "level": 50, "moves": ["surf", "ice-ball", "hail", "body-slam"] },
+        { "pokemon": "sealeo", "level": 52, "moves": ["hail", "blizzard", "dive", "attract"] },
+        { "pokemon": "glalie", "level": 52, "moves": ["hail", "ice-beam", "shadow-ball", "crunch"] },
+        { "pokemon": "walrein", "level": 53, "moves": ["blizzard", "surf", "body-slam", "sheer-cold"] }
+      ],
+      "sapphire": [
+        { "pokemon": "glalie", "level": 50, "moves": ["hail", "light-screen", "ice-beam", "crunch"] },
+        { "pokemon": "sealeo", "level": 50, "moves": ["surf", "ice-ball", "hail", "body-slam"] },
+        { "pokemon": "sealeo", "level": 52, "moves": ["hail", "blizzard", "dive", "attract"] },
+        { "pokemon": "glalie", "level": 52, "moves": ["hail", "ice-beam", "shadow-ball", "crunch"] },
+        { "pokemon": "walrein", "level": 53, "moves": ["blizzard", "surf", "body-slam", "sheer-cold"] }
+      ],
+      "emerald": [
+        { "pokemon": "sealeo", "level": 50, "moves": ["encore", "body-slam", "hail", "ice-ball"] },
+        { "pokemon": "glalie", "level": 50, "moves": ["light-screen", "crunch", "icy-wind", "ice-beam"] },
+        { "pokemon": "sealeo", "level": 52, "moves": ["attract", "double-edge", "hail", "blizzard"] },
+        { "pokemon": "glalie", "level": 52, "moves": ["shadow-ball", "explosion", "hail", "ice-beam"] },
+        { "pokemon": "walrein", "level": 53, "moves": ["surf", "body-slam", "ice-beam", "sheer-cold"] }
+      ],
+      "omegaruby": [
+        { "pokemon": "glalie", "level": 52, "moves": ["light-screen", "ice-shard", "hail", "crunch"] },
+        { "pokemon": "froslass", "level": 52, "moves": ["confuse-ray", "blizzard", "hail", "ominous-wind"] },
+        { "pokemon": "glalie", "level": 52, "moves": ["protect", "ice-shard", "hail", "freeze-dry"] },
+        { "pokemon": "froslass", "level": 52, "moves": ["draining-kiss", "blizzard", "hail", "shadow-ball"] },
+        { "pokemon": "walrein", "level": 54, "moves": ["surf", "body-slam", "blizzard", "sheer-cold"] }
+      ],
+      "alphasapphire": [
+        { "pokemon": "glalie", "level": 52, "moves": ["light-screen", "ice-shard", "hail", "crunch"] },
+        { "pokemon": "froslass", "level": 52, "moves": ["confuse-ray", "blizzard", "hail", "ominous-wind"] },
+        { "pokemon": "glalie", "level": 52, "moves": ["protect", "ice-shard", "hail", "freeze-dry"] },
+        { "pokemon": "froslass", "level": 52, "moves": ["draining-kiss", "blizzard", "hail", "shadow-ball"] },
+        { "pokemon": "walrein", "level": 54, "moves": ["surf", "body-slam", "blizzard", "sheer-cold"] }
+      ]
+    },
+    "weaknesses": ["fire", "fighting", "rock", "steel"],
+    "difficulty": "medium",
+    "tips": "Fire and Fighting types excel! Watch out for Walrein's Sheer Cold OHKO move. Glalie can use Explosion in Emerald. Sealeo/Walrein are also Water type."
+  },
+  "drake-hoenn": {
+    "id": "drake-hoenn",
+    "name": "Drake",
+    "title": "Elite Four",
+    "type": "elite4",
+    "specialty": ["dragon"],
+    "location": "Ever Grande City",
+    "order": 4,
+    "teams": {
+      "ruby": [
+        { "pokemon": "shelgon", "level": 52, "moves": ["dragon-claw", "rock-tomb", "protect", "crunch"] },
+        { "pokemon": "flygon", "level": 53, "moves": ["fly", "dig", "dragon-breath", "sandstorm"] },
+        { "pokemon": "flygon", "level": 53, "moves": ["flamethrower", "crunch", "dragon-breath", "sand-attack"] },
+        { "pokemon": "altaria", "level": 54, "moves": ["take-down", "dragon-breath", "dragon-dance", "refresh"] },
+        { "pokemon": "salamence", "level": 55, "moves": ["flamethrower", "dragon-claw", "crunch", "fly"] }
+      ],
+      "sapphire": [
+        { "pokemon": "shelgon", "level": 52, "moves": ["dragon-claw", "rock-tomb", "protect", "crunch"] },
+        { "pokemon": "flygon", "level": 53, "moves": ["fly", "dig", "dragon-breath", "sandstorm"] },
+        { "pokemon": "flygon", "level": 53, "moves": ["flamethrower", "crunch", "dragon-breath", "sand-attack"] },
+        { "pokemon": "altaria", "level": 54, "moves": ["take-down", "dragon-breath", "dragon-dance", "refresh"] },
+        { "pokemon": "salamence", "level": 55, "moves": ["flamethrower", "dragon-claw", "crunch", "fly"] }
+      ],
+      "emerald": [
+        { "pokemon": "shelgon", "level": 52, "moves": ["rock-tomb", "dragon-claw", "protect", "double-edge"] },
+        { "pokemon": "altaria", "level": 54, "moves": ["double-edge", "dragon-breath", "dragon-dance", "aerial-ace"] },
+        { "pokemon": "kingdra", "level": 53, "moves": ["smokescreen", "dragon-dance", "surf", "body-slam"] },
+        { "pokemon": "flygon", "level": 53, "moves": ["flamethrower", "crunch", "dragon-breath", "earthquake"] },
+        { "pokemon": "salamence", "level": 55, "moves": ["flamethrower", "dragon-claw", "rock-slide", "crunch"] }
+      ],
+      "omegaruby": [
+        { "pokemon": "altaria", "level": 53, "moves": ["aerial-ace", "cotton-guard", "dragon-pulse", "moonblast"] },
+        { "pokemon": "flygon", "level": 53, "moves": ["earthquake", "dragon-claw", "rock-slide", "supersonic"] },
+        { "pokemon": "kingdra", "level": 53, "moves": ["dragon-pulse", "surf", "yawn", "ice-beam"] },
+        { "pokemon": "flygon", "level": 53, "moves": ["flamethrower", "boomburst", "dragon-pulse", "screech"] },
+        { "pokemon": "salamence", "level": 55, "moves": ["dragon-rush", "zen-headbutt", "crunch", "thunder-fang"] }
+      ],
+      "alphasapphire": [
+        { "pokemon": "altaria", "level": 53, "moves": ["aerial-ace", "cotton-guard", "dragon-pulse", "moonblast"] },
+        { "pokemon": "flygon", "level": 53, "moves": ["earthquake", "dragon-claw", "rock-slide", "supersonic"] },
+        { "pokemon": "kingdra", "level": 53, "moves": ["dragon-pulse", "surf", "yawn", "ice-beam"] },
+        { "pokemon": "flygon", "level": 53, "moves": ["flamethrower", "boomburst", "dragon-pulse", "screech"] },
+        { "pokemon": "salamence", "level": 55, "moves": ["dragon-rush", "zen-headbutt", "crunch", "thunder-fang"] }
+      ]
+    },
+    "weaknesses": ["ice", "dragon", "fairy"],
+    "difficulty": "hard",
+    "tips": "Ice types crush Dragons! Walrein, Glalie, or any Ice Beam user works. Flygon is also Ground type. Kingdra in Emerald/ORAS is Water/Dragon - only weak to Dragon!"
+  },
+  "steven": {
+    "id": "steven",
+    "name": "Steven",
+    "title": "Pokémon League Champion",
+    "type": "champion",
+    "specialty": ["steel"],
+    "location": "Ever Grande City",
+    "order": 5,
+    "teams": {
+      "ruby": [
+        { "pokemon": "skarmory", "level": 57, "moves": ["steel-wing", "toxic", "aerial-ace", "spikes"] },
+        { "pokemon": "claydol", "level": 55, "moves": ["earthquake", "ancient-power", "light-screen", "reflect"] },
+        { "pokemon": "aggron", "level": 56, "moves": ["earthquake", "dragon-claw", "thunder", "solar-beam"] },
+        { "pokemon": "cradily", "level": 56, "moves": ["ancient-power", "confuse-ray", "sludge-bomb", "giga-drain"] },
+        { "pokemon": "armaldo", "level": 56, "moves": ["ancient-power", "slash", "aerial-ace", "water-pulse"] },
+        { "pokemon": "metagross", "level": 58, "moves": ["meteor-mash", "earthquake", "psychic", "hyper-beam"] }
+      ],
+      "sapphire": [
+        { "pokemon": "skarmory", "level": 57, "moves": ["steel-wing", "toxic", "aerial-ace", "spikes"] },
+        { "pokemon": "claydol", "level": 55, "moves": ["earthquake", "ancient-power", "light-screen", "reflect"] },
+        { "pokemon": "aggron", "level": 56, "moves": ["earthquake", "dragon-claw", "thunder", "solar-beam"] },
+        { "pokemon": "cradily", "level": 56, "moves": ["ancient-power", "confuse-ray", "sludge-bomb", "giga-drain"] },
+        { "pokemon": "armaldo", "level": 56, "moves": ["ancient-power", "slash", "aerial-ace", "water-pulse"] },
+        { "pokemon": "metagross", "level": 58, "moves": ["meteor-mash", "earthquake", "psychic", "hyper-beam"] }
+      ],
+      "omegaruby": [
+        { "pokemon": "skarmory", "level": 57, "moves": ["toxic", "aerial-ace", "spikes", "steel-wing"] },
+        { "pokemon": "claydol", "level": 57, "moves": ["reflect", "light-screen", "extrasensory", "earth-power"] },
+        { "pokemon": "aggron", "level": 57, "moves": ["stone-edge", "earthquake", "iron-tail", "dragon-claw"] },
+        { "pokemon": "cradily", "level": 57, "moves": ["giga-drain", "ancient-power", "sludge-bomb", "confuse-ray"] },
+        { "pokemon": "armaldo", "level": 57, "moves": ["x-scissor", "rock-blast", "metal-claw", "crush-claw"] },
+        { "pokemon": "metagross", "level": 59, "moves": ["meteor-mash", "zen-headbutt", "bullet-punch", "giga-impact"] }
+      ],
+      "alphasapphire": [
+        { "pokemon": "skarmory", "level": 57, "moves": ["toxic", "aerial-ace", "spikes", "steel-wing"] },
+        { "pokemon": "claydol", "level": 57, "moves": ["reflect", "light-screen", "extrasensory", "earth-power"] },
+        { "pokemon": "aggron", "level": 57, "moves": ["stone-edge", "earthquake", "iron-tail", "dragon-claw"] },
+        { "pokemon": "cradily", "level": 57, "moves": ["giga-drain", "ancient-power", "sludge-bomb", "confuse-ray"] },
+        { "pokemon": "armaldo", "level": 57, "moves": ["x-scissor", "rock-blast", "metal-claw", "crush-claw"] },
+        { "pokemon": "metagross", "level": 59, "moves": ["meteor-mash", "zen-headbutt", "bullet-punch", "giga-impact"] }
+      ]
+    },
+    "weaknesses": ["fire", "water", "ground", "fighting"],
+    "difficulty": "hard",
+    "tips": "Fire handles Steel types. Ground is great but Skarmory and Armaldo fly/float. Metagross is Steel/Psychic - Fire or Ground work. In ORAS, Metagross Mega Evolves!"
+  },
+  "wallace-champion": {
+    "id": "wallace-champion",
+    "name": "Wallace",
+    "title": "Pokémon League Champion",
+    "type": "champion",
+    "specialty": ["water"],
+    "location": "Ever Grande City",
+    "order": 5,
+    "teams": {
+      "emerald": [
+        { "pokemon": "wailord", "level": 57, "moves": ["rain-dance", "water-spout", "double-edge", "blizzard"] },
+        { "pokemon": "tentacruel", "level": 55, "moves": ["toxic", "hydro-pump", "sludge-bomb", "ice-beam"] },
+        { "pokemon": "ludicolo", "level": 56, "moves": ["giga-drain", "surf", "leech-seed", "double-team"] },
+        { "pokemon": "whiscash", "level": 56, "moves": ["earthquake", "surf", "amnesia", "hyper-beam"] },
+        { "pokemon": "gyarados", "level": 56, "moves": ["dragon-dance", "earthquake", "hyper-beam", "surf"] },
+        { "pokemon": "milotic", "level": 58, "moves": ["recover", "surf", "ice-beam", "toxic"] }
+      ]
+    },
+    "weaknesses": ["grass", "electric"],
+    "difficulty": "hard",
+    "tips": "Wallace is Champion in Emerald only (Steven is in RS/ORAS). Grass types work but watch for Ice moves! Whiscash is immune to Electric. Milotic has incredible bulk and Recover."
   }
 }

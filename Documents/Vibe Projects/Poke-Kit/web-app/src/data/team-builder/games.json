@@ -92,7 +92,7 @@
     "releaseYear": 2002,
     "versionGroup": "ruby-sapphire",
     "pokemonAvailable": 386,
-    "gyms": ["roxanne", "brawly", "wattson", "flannery", "norman", "winona", "tate-liza", "juan"],
+    "gyms": ["roxanne", "brawly", "wattson", "flannery", "norman", "winona", "tate-liza", "wallace-gym"],
     "eliteFour": ["sidney", "phoebe", "glacia", "drake-hoenn"],
     "champion": "steven",
     "otherBosses": []
@@ -106,7 +106,7 @@
     "releaseYear": 2002,
     "versionGroup": "ruby-sapphire",
     "pokemonAvailable": 386,
-    "gyms": ["roxanne", "brawly", "wattson", "flannery", "norman", "winona", "tate-liza", "juan"],
+    "gyms": ["roxanne", "brawly", "wattson", "flannery", "norman", "winona", "tate-liza", "wallace-gym"],
     "eliteFour": ["sidney", "phoebe", "glacia", "drake-hoenn"],
     "champion": "steven",
     "otherBosses": []
@@ -316,7 +316,7 @@
     "releaseYear": 2014,
     "versionGroup": "omegaruby-alphasapphire",
     "pokemonAvailable": 721,
-    "gyms": ["roxanne", "brawly", "wattson", "flannery", "norman", "winona", "tate-liza", "juan"],
+    "gyms": ["roxanne", "brawly", "wattson", "flannery", "norman", "winona", "tate-liza", "wallace-gym"],
     "eliteFour": ["sidney", "phoebe", "glacia", "drake-hoenn"],
     "champion": "steven",
     "otherBosses": []
@@ -330,7 +330,7 @@
     "releaseYear": 2014,
     "versionGroup": "omegaruby-alphasapphire",
     "pokemonAvailable": 721,
-    "gyms": ["roxanne", "brawly", "wattson", "flannery", "norman", "winona", "tate-liza", "juan"],
+    "gyms": ["roxanne", "brawly", "wattson", "flannery", "norman", "winona", "tate-liza", "wallace-gym"],
     "eliteFour": ["sidney", "phoebe", "glacia", "drake-hoenn"],
     "champion": "steven",
     "otherBosses": []

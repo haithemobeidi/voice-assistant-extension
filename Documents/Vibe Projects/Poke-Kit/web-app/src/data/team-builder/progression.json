@@ -709,7 +709,394 @@
       }
     }
   },
-  "hoenn": {},
+  "hoenn": {
+    "roxanne": {
+      "description": "Before Gym 1 - Rustboro City",
+      "locations": ["littleroot-town", "route-101", "oldale-town", "route-102", "petalburg-city", "route-104", "petalburg-woods", "rustboro-city"],
+      "pokemon": {
+        "ruby": {
+          "starter": ["treecko", "torchic", "mudkip"],
+          "wild": ["poochyena", "zigzagoon", "wurmple", "silcoon", "beautifly", "lotad", "seedot", "ralts", "shroomish", "slakoth", "taillow", "wingull"]
+        },
+        "sapphire": {
+          "starter": ["treecko", "torchic", "mudkip"],
+          "wild": ["poochyena", "zigzagoon", "wurmple", "cascoon", "dustox", "lotad", "seedot", "ralts", "shroomish", "slakoth", "taillow", "wingull"]
+        },
+        "emerald": {
+          "starter": ["treecko", "torchic", "mudkip"],
+          "wild": ["poochyena", "zigzagoon", "wurmple", "silcoon", "cascoon", "lotad", "seedot", "ralts", "shroomish", "slakoth", "taillow", "wingull"]
+        },
+        "omegaruby": {
+          "starter": ["treecko", "torchic", "mudkip"],
+          "wild": ["poochyena", "zigzagoon", "wurmple", "silcoon", "beautifly", "lotad", "seedot", "ralts", "shroomish", "slakoth", "taillow", "wingull"]
+        },
+        "alphasapphire": {
+          "starter": ["treecko", "torchic", "mudkip"],
+          "wild": ["poochyena", "zigzagoon", "wurmple", "cascoon", "dustox", "lotad", "seedot", "ralts", "shroomish", "slakoth", "taillow", "wingull"]
+        }
+      },
+      "recommended": {
+        "ruby": ["mudkip", "treecko", "lotad", "shroomish"],
+        "sapphire": ["mudkip", "treecko", "lotad", "shroomish"],
+        "emerald": ["mudkip", "treecko", "lotad", "shroomish"],
+        "omegaruby": ["mudkip", "treecko", "lotad", "shroomish"],
+        "alphasapphire": ["mudkip", "treecko", "lotad", "shroomish"]
+      },
+      "special": {
+        "shroomish": "Absorb is super effective vs Rock",
+        "lotad": "Absorb is super effective vs Rock"
+      }
+    },
+    "brawly": {
+      "description": "Before Gym 2 - Dewford Town",
+      "locations": ["route-116", "rusturf-tunnel", "dewford-town", "granite-cave"],
+      "pokemon": {
+        "ruby": {
+          "new": ["nincada", "whismur", "makuhita", "abra", "zubat", "geodude", "aron", "sableye"]
+        },
+        "sapphire": {
+          "new": ["nincada", "whismur", "makuhita", "abra", "zubat", "geodude", "aron", "mawile"]
+        },
+        "emerald": {
+          "new": ["nincada", "whismur", "makuhita", "abra", "zubat", "geodude", "aron", "sableye", "mawile"]
+        },
+        "omegaruby": {
+          "new": ["nincada", "whismur", "makuhita", "abra", "zubat", "geodude", "aron", "sableye"]
+        },
+        "alphasapphire": {
+          "new": ["nincada", "whismur", "makuhita", "abra", "zubat", "geodude", "aron", "mawile"]
+        }
+      },
+      "recommended": {
+        "ruby": ["taillow", "wingull", "beautifly", "dustox", "ralts", "abra", "zubat"],
+        "sapphire": ["taillow", "wingull", "beautifly", "dustox", "ralts", "abra", "zubat"],
+        "emerald": ["taillow", "wingull", "beautifly", "dustox", "ralts", "abra", "zubat"],
+        "omegaruby": ["taillow", "wingull", "beautifly", "dustox", "ralts", "abra", "zubat"],
+        "alphasapphire": ["taillow", "wingull", "beautifly", "dustox", "ralts", "abra", "zubat"]
+      },
+      "special": {
+        "wingull": "Flying is super effective vs Fighting",
+        "ralts": "Confusion is super effective vs Fighting"
+      }
+    },
+    "wattson": {
+      "description": "Before Gym 3 - Mauville City",
+      "locations": ["route-106", "route-107", "route-108", "route-109", "slateport-city", "route-110", "mauville-city"],
+      "pokemon": {
+        "ruby": {
+          "new": ["tentacool", "wingull", "pelipper", "magikarp", "electrike", "plusle", "minun", "gulpin", "oddish", "marill"]
+        },
+        "sapphire": {
+          "new": ["tentacool", "wingull", "pelipper", "magikarp", "electrike", "plusle", "minun", "gulpin", "oddish", "marill"]
+        },
+        "emerald": {
+          "new": ["tentacool", "wingull", "pelipper", "magikarp", "electrike", "plusle", "minun", "gulpin", "oddish", "marill", "voltorb"]
+        },
+        "omegaruby": {
+          "new": ["tentacool", "wingull", "pelipper", "magikarp", "electrike", "plusle", "minun", "gulpin", "oddish", "marill"]
+        },
+        "alphasapphire": {
+          "new": ["tentacool", "wingull", "pelipper", "magikarp", "electrike", "plusle", "minun", "gulpin", "oddish", "marill"]
+        }
+      },
+      "recommended": {
+        "ruby": ["marshtomp", "geodude", "makuhita", "nincada", "numel"],
+        "sapphire": ["marshtomp", "geodude", "makuhita", "nincada", "numel"],
+        "emerald": ["marshtomp", "geodude", "makuhita", "nincada", "numel"],
+        "omegaruby": ["marshtomp", "geodude", "makuhita", "nincada", "numel"],
+        "alphasapphire": ["marshtomp", "geodude", "makuhita", "nincada", "numel"]
+      },
+      "special": {
+        "marshtomp": "Ground type immune to Electric!",
+        "geodude": "Ground type immune to Electric!"
+      }
+    },
+    "flannery": {
+      "description": "Before Gym 4 - Lavaridge Town",
+      "locations": ["route-111", "route-112", "fiery-path", "route-113", "fallarbor-town", "route-114", "meteor-falls", "jagged-pass", "lavaridge-town"],
+      "pokemon": {
+        "ruby": {
+          "new": ["sandshrew", "trapinch", "numel", "machop", "torkoal", "spoink", "spinda", "swablu", "solrock"]
+        },
+        "sapphire": {
+          "new": ["sandshrew", "trapinch", "numel", "machop", "torkoal", "spoink", "spinda", "swablu", "lunatone"]
+        },
+        "emerald": {
+          "new": ["sandshrew", "trapinch", "numel", "machop", "torkoal", "spoink", "spinda", "swablu", "solrock", "lunatone"]
+        },
+        "omegaruby": {
+          "new": ["sandshrew", "trapinch", "numel", "machop", "torkoal", "spoink", "spinda", "swablu", "solrock"]
+        },
+        "alphasapphire": {
+          "new": ["sandshrew", "trapinch", "numel", "machop", "torkoal", "spoink", "spinda", "swablu", "lunatone"]
+        }
+      },
+      "recommended": {
+        "ruby": ["marshtomp", "tentacool", "tentacruel", "pelipper", "gyarados", "marill", "azumarill"],
+        "sapphire": ["marshtomp", "tentacool", "tentacruel", "pelipper", "gyarados", "marill", "azumarill"],
+        "emerald": ["marshtomp", "tentacool", "tentacruel", "pelipper", "gyarados", "marill", "azumarill"],
+        "omegaruby": ["marshtomp", "tentacool", "tentacruel", "pelipper", "gyarados", "marill", "azumarill"],
+        "alphasapphire": ["marshtomp", "tentacool", "tentacruel", "pelipper", "gyarados", "marill", "azumarill"]
+      }
+    },
+    "norman": {
+      "description": "Before Gym 5 - Petalburg City",
+      "locations": ["route-117", "route-118", "mauville-city"],
+      "pokemon": {
+        "ruby": {
+          "new": ["volbeat", "illumise", "roselia", "electrike", "manectric", "kecleon"]
+        },
+        "sapphire": {
+          "new": ["volbeat", "illumise", "roselia", "electrike", "manectric", "kecleon"]
+        },
+        "emerald": {
+          "new": ["volbeat", "illumise", "roselia", "electrike", "manectric", "kecleon"]
+        },
+        "omegaruby": {
+          "new": ["volbeat", "illumise", "roselia", "electrike", "manectric", "kecleon"]
+        },
+        "alphasapphire": {
+          "new": ["volbeat", "illumise", "roselia", "electrike", "manectric", "kecleon"]
+        }
+      },
+      "recommended": {
+        "ruby": ["makuhita", "hariyama", "machop", "machoke", "breloom"],
+        "sapphire": ["makuhita", "hariyama", "machop", "machoke", "breloom"],
+        "emerald": ["makuhita", "hariyama", "machop", "machoke", "breloom"],
+        "omegaruby": ["makuhita", "hariyama", "machop", "machoke", "breloom"],
+        "alphasapphire": ["makuhita", "hariyama", "machop", "machoke", "breloom"]
+      },
+      "special": {
+        "slaking": "Slaking's Truant lets it only attack every other turn - use Protect!",
+        "facade": "Don't use status moves - Facade doubles in power!"
+      }
+    },
+    "winona": {
+      "description": "Before Gym 6 - Fortree City",
+      "locations": ["route-119", "weather-institute", "route-120", "fortree-city"],
+      "pokemon": {
+        "ruby": {
+          "new": ["tropius", "absol", "kecleon", "linoone"]
+        },
+        "sapphire": {
+          "new": ["tropius", "absol", "kecleon", "linoone"]
+        },
+        "emerald": {
+          "new": ["tropius", "absol", "kecleon", "linoone"]
+        },
+        "omegaruby": {
+          "new": ["tropius", "absol", "kecleon", "linoone"]
+        },
+        "alphasapphire": {
+          "new": ["tropius", "absol", "kecleon", "linoone"]
+        }
+      },
+      "recommended": {
+        "ruby": ["manectric", "magneton", "electrode", "pikachu", "raichu", "graveler", "golem"],
+        "sapphire": ["manectric", "magneton", "electrode", "pikachu", "raichu", "graveler", "golem"],
+        "emerald": ["manectric", "magneton", "electrode", "pikachu", "raichu", "graveler", "golem"],
+        "omegaruby": ["manectric", "magneton", "electrode", "pikachu", "raichu", "graveler", "golem"],
+        "alphasapphire": ["manectric", "magneton", "electrode", "pikachu", "raichu", "graveler", "golem"]
+      },
+      "special": {
+        "altaria": "Altaria with Dragon Dance is dangerous - KO it fast!",
+        "skarmory": "Skarmory resists Electric - use Fire instead"
+      }
+    },
+    "tate-liza": {
+      "description": "Before Gym 7 - Mossdeep City",
+      "locations": ["route-121", "lilycove-city", "route-122", "mt-pyre", "route-123", "route-124", "mossdeep-city"],
+      "pokemon": {
+        "ruby": {
+          "new": ["shuppet", "duskull", "chimecho", "clamperl", "chinchou", "lanturn", "relicanth", "corsola"]
+        },
+        "sapphire": {
+          "new": ["shuppet", "duskull", "chimecho", "clamperl", "chinchou", "lanturn", "relicanth", "corsola"]
+        },
+        "emerald": {
+          "new": ["shuppet", "duskull", "chimecho", "clamperl", "chinchou", "lanturn", "relicanth", "corsola"]
+        },
+        "omegaruby": {
+          "new": ["shuppet", "duskull", "chimecho", "clamperl", "chinchou", "lanturn", "relicanth", "corsola"]
+        },
+        "alphasapphire": {
+          "new": ["shuppet", "duskull", "chimecho", "clamperl", "chinchou", "lanturn", "relicanth", "corsola"]
+        }
+      },
+      "recommended": {
+        "ruby": ["sharpedo", "crawdaunt", "absol", "mightyena", "shiftry", "cacturne", "sableye"],
+        "sapphire": ["sharpedo", "crawdaunt", "absol", "mightyena", "shiftry", "cacturne", "mawile"],
+        "emerald": ["sharpedo", "crawdaunt", "absol", "mightyena", "shiftry", "cacturne", "sableye"],
+        "omegaruby": ["sharpedo", "crawdaunt", "absol", "mightyena", "shiftry", "cacturne", "sableye"],
+        "alphasapphire": ["sharpedo", "crawdaunt", "absol", "mightyena", "shiftry", "cacturne", "mawile"]
+      },
+      "special": {
+        "levitate": "All their Pokemon have Levitate - Earthquake won't work!",
+        "double": "This is a Double Battle!"
+      }
+    },
+    "wallace-gym": {
+      "description": "Before Gym 8 - Sootopolis City",
+      "locations": ["route-125", "shoal-cave", "route-126", "route-127", "route-128", "seafloor-cavern", "sootopolis-city"],
+      "pokemon": {
+        "ruby": {
+          "new": ["spheal", "snorunt", "zubat", "golbat", "wailmer", "horsea", "seadra"]
+        },
+        "sapphire": {
+          "new": ["spheal", "snorunt", "zubat", "golbat", "wailmer", "horsea", "seadra"]
+        },
+        "emerald": {
+          "new": ["spheal", "snorunt", "zubat", "golbat", "wailmer", "horsea", "seadra"]
+        },
+        "omegaruby": {
+          "new": ["spheal", "snorunt", "zubat", "golbat", "wailmer", "horsea", "seadra"]
+        },
+        "alphasapphire": {
+          "new": ["spheal", "snorunt", "zubat", "golbat", "wailmer", "horsea", "seadra"]
+        }
+      },
+      "recommended": {
+        "ruby": ["manectric", "magneton", "electrode", "raichu", "sceptile", "breloom", "vileplume", "ludicolo"],
+        "sapphire": ["manectric", "magneton", "electrode", "raichu", "sceptile", "breloom", "vileplume", "ludicolo"],
+        "emerald": ["manectric", "magneton", "electrode", "raichu", "sceptile", "breloom", "vileplume", "ludicolo"],
+        "omegaruby": ["manectric", "magneton", "electrode", "raichu", "sceptile", "breloom", "vileplume", "ludicolo"],
+        "alphasapphire": ["manectric", "magneton", "electrode", "raichu", "sceptile", "breloom", "vileplume", "ludicolo"]
+      },
+      "special": {
+        "milotic": "Milotic is bulky with Recover - hit hard and fast!",
+        "whiscash": "Whiscash is Ground type - Electric won't work"
+      }
+    },
+    "juan": {
+      "description": "Before Gym 8 - Sootopolis City (Emerald)",
+      "locations": ["sootopolis-city"],
+      "pokemon": {
+        "emerald": { "new": [] }
+      },
+      "recommended": {
+        "emerald": ["manectric", "magneton", "electrode", "raichu", "sceptile", "breloom", "vileplume", "ludicolo"]
+      },
+      "special": {
+        "kingdra": "Kingdra (Water/Dragon) is only weak to Dragon moves!"
+      }
+    },
+    "sidney": {
+      "description": "Before Elite Four 1",
+      "locations": ["victory-road-hoenn", "ever-grande-city"],
+      "pokemon": {
+        "ruby": { "new": ["hariyama", "medicham", "lairon", "aggron"] },
+        "sapphire": { "new": ["hariyama", "medicham", "lairon", "aggron"] },
+        "emerald": { "new": ["hariyama", "medicham", "lairon", "aggron"] },
+        "omegaruby": { "new": ["hariyama", "medicham", "lairon", "aggron"] },
+        "alphasapphire": { "new": ["hariyama", "medicham", "lairon", "aggron"] }
+      },
+      "recommended": {
+        "ruby": ["hariyama", "machamp", "breloom", "blaziken", "heracross"],
+        "sapphire": ["hariyama", "machamp", "breloom", "blaziken", "heracross"],
+        "emerald": ["hariyama", "machamp", "breloom", "blaziken", "heracross"],
+        "omegaruby": ["hariyama", "machamp", "breloom", "blaziken", "heracross"],
+        "alphasapphire": ["hariyama", "machamp", "breloom", "blaziken", "heracross"]
+      }
+    },
+    "phoebe": {
+      "description": "Before Elite Four 2",
+      "locations": [],
+      "pokemon": {
+        "ruby": { "new": [] },
+        "sapphire": { "new": [] },
+        "emerald": { "new": [] },
+        "omegaruby": { "new": [] },
+        "alphasapphire": { "new": [] }
+      },
+      "recommended": {
+        "ruby": ["absol", "mightyena", "sharpedo", "crawdaunt", "shiftry", "cacturne"],
+        "sapphire": ["absol", "mightyena", "sharpedo", "crawdaunt", "shiftry", "cacturne"],
+        "emerald": ["absol", "mightyena", "sharpedo", "crawdaunt", "shiftry", "cacturne"],
+        "omegaruby": ["absol", "mightyena", "sharpedo", "crawdaunt", "shiftry", "cacturne"],
+        "alphasapphire": ["absol", "mightyena", "sharpedo", "crawdaunt", "shiftry", "cacturne"]
+      },
+      "special": {
+        "sableye": "Sableye (Dark/Ghost) has no weaknesses in Gen 3!"
+      }
+    },
+    "glacia": {
+      "description": "Before Elite Four 3",
+      "locations": [],
+      "pokemon": {
+        "ruby": { "new": [] },
+        "sapphire": { "new": [] },
+        "emerald": { "new": [] },
+        "omegaruby": { "new": [] },
+        "alphasapphire": { "new": [] }
+      },
+      "recommended": {
+        "ruby": ["blaziken", "hariyama", "machamp", "breloom", "aggron", "metagross"],
+        "sapphire": ["blaziken", "hariyama", "machamp", "breloom", "aggron", "metagross"],
+        "emerald": ["blaziken", "hariyama", "machamp", "breloom", "aggron", "metagross"],
+        "omegaruby": ["blaziken", "hariyama", "machamp", "breloom", "aggron", "metagross"],
+        "alphasapphire": ["blaziken", "hariyama", "machamp", "breloom", "aggron", "metagross"]
+      },
+      "special": {
+        "sheer-cold": "Watch out for Walrein's Sheer Cold OHKO!"
+      }
+    },
+    "drake-hoenn": {
+      "description": "Before Elite Four 4",
+      "locations": [],
+      "pokemon": {
+        "ruby": { "new": [] },
+        "sapphire": { "new": [] },
+        "emerald": { "new": [] },
+        "omegaruby": { "new": [] },
+        "alphasapphire": { "new": [] }
+      },
+      "recommended": {
+        "ruby": ["walrein", "glalie", "regice", "sealeo", "lapras"],
+        "sapphire": ["walrein", "glalie", "regice", "sealeo", "lapras"],
+        "emerald": ["walrein", "glalie", "regice", "sealeo", "lapras"],
+        "omegaruby": ["walrein", "glalie", "regice", "sealeo", "lapras"],
+        "alphasapphire": ["walrein", "glalie", "regice", "sealeo", "lapras"]
+      },
+      "special": {
+        "ice": "Ice destroys Dragons!",
+        "kingdra": "Kingdra (Water/Dragon) is only weak to Dragon moves in Emerald/ORAS"
+      }
+    },
+    "steven": {
+      "description": "Before Champion (Ruby/Sapphire/ORAS)",
+      "locations": [],
+      "pokemon": {
+        "ruby": { "new": [] },
+        "sapphire": { "new": [] },
+        "omegaruby": { "new": [] },
+        "alphasapphire": { "new": [] }
+      },
+      "recommended": {
+        "ruby": ["blaziken", "swampert", "hariyama", "camerupt", "flygon"],
+        "sapphire": ["blaziken", "swampert", "hariyama", "camerupt", "flygon"],
+        "omegaruby": ["blaziken", "swampert", "hariyama", "camerupt", "flygon"],
+        "alphasapphire": ["blaziken", "swampert", "hariyama", "camerupt", "flygon"]
+      },
+      "special": {
+        "metagross": "Metagross (Steel/Psychic) - use Fire or Ground!",
+        "mega": "In ORAS, Metagross Mega Evolves!"
+      }
+    },
+    "wallace-champion": {
+      "description": "Before Champion (Emerald)",
+      "locations": [],
+      "pokemon": {
+        "emerald": { "new": [] }
+      },
+      "recommended": {
+        "emerald": ["sceptile", "breloom", "manectric", "magneton", "raichu", "ludicolo"]
+      },
+      "special": {
+        "milotic": "Milotic has Recover and high bulk - hit it hard!",
+        "whiscash": "Whiscash is immune to Electric"
+      }
+    }
+  },
   "sinnoh": {},
   "unova": {},
   "kalos": {},

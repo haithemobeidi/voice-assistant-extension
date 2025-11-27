@@ -311,10 +311,12 @@ function getTrainerSpriteUrl(bossId: string, gameId: string): string {
   const isGen1FRLG = ['firered', 'leafgreen'].includes(gameId);
   const isGen2Classic = ['gold', 'silver', 'crystal'].includes(gameId);
   const isGen2HGSS = ['heartgold', 'soulsilver'].includes(gameId);
+  const isGen3RSE = ['ruby', 'sapphire', 'emerald'].includes(gameId);
+  const isGen3ORAS = ['omegaruby', 'alphasapphire'].includes(gameId);
 
   // Map boss IDs to Showdown trainer sprite names
-  // Format: { gen1classic, gen1frlg, gen2classic, gen2hgss }
-  type SpriteMap = { gen1?: string; frlg?: string; gen2?: string; hgss?: string };
+  // Format: { gen1classic, gen1frlg, gen2classic, gen2hgss, rse, oras }
+  type SpriteMap = { gen1?: string; frlg?: string; gen2?: string; hgss?: string; rse?: string; oras?: string };
   const trainerMap: Record<string, SpriteMap> = {
     // Gen 1 Gym Leaders
     'brock': { gen1: 'brock-gen1', frlg: 'brock-gen3' },
@@ -345,7 +347,25 @@ function getTrainerSpriteUrl(bossId: string, gameId: string): string {
     'koga-e4': { gen2: 'koga-gen2', hgss: 'koga' },
     'bruno-e4': { gen2: 'bruno-gen2', hgss: 'bruno' },
     'karen': { gen2: 'karen-gen2', hgss: 'karen' },
-    'lance-champion': { gen2: 'lance-gen2', hgss: 'lance' }
+    'lance-champion': { gen2: 'lance-gen2', hgss: 'lance' },
+    // Gen 3 Gym Leaders (Hoenn)
+    'roxanne': { rse: 'roxanne-gen3', oras: 'roxanne-gen6' },
+    'brawly': { rse: 'brawly-gen3', oras: 'brawly-gen6' },
+    'wattson': { rse: 'wattson-gen3', oras: 'wattson' },
+    'flannery': { rse: 'flannery-gen3', oras: 'flannery-gen6' },
+    'norman': { rse: 'norman-gen3', oras: 'norman-gen6' },
+    'winona': { rse: 'winona-gen3', oras: 'winona-gen6' },
+    'tate-liza': { rse: 'tateandliza-gen3', oras: 'tateandliza-gen6' },
+    'wallace-gym': { rse: 'wallace-gen3', oras: 'wallace-gen6' },
+    'juan': { rse: 'juan-gen3' },
+    // Gen 3 Elite Four (Hoenn)
+    'sidney': { rse: 'sidney-gen3', oras: 'sidney' },
+    'phoebe': { rse: 'phoebe-gen3', oras: 'phoebe-gen6' },
+    'glacia': { rse: 'glacia-gen3', oras: 'glacia' },
+    'drake-hoenn': { rse: 'drake-gen3', oras: 'drake-gen3' },
+    // Gen 3 Champions (Hoenn)
+    'steven': { rse: 'steven-gen3', oras: 'steven-gen6' },
+    'wallace-champion': { rse: 'wallace-gen3' }
   };
 
   const trainer = trainerMap[bossId];
@@ -363,11 +383,15 @@ function getTrainerSpriteUrl(bossId: string, gameId: string): string {
     spriteName = trainer.gen2;
   } else if (isGen2HGSS) {
     spriteName = trainer.hgss;
+  } else if (isGen3RSE) {
+    spriteName = trainer.rse;
+  } else if (isGen3ORAS) {
+    spriteName = trainer.oras;
   }
 
   // Fallback to any available sprite
   if (!spriteName) {
-    spriteName = trainer.hgss || trainer.gen2 || trainer.frlg || trainer.gen1 || 'unknown';
+    spriteName = trainer.oras || trainer.rse || trainer.hgss || trainer.gen2 || trainer.frlg || trainer.gen1 || 'unknown';
   }
 
   return `${showdownBase}/${spriteName}.png`;
