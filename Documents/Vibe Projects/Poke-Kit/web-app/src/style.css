@@ -168,8 +168,9 @@
   }
 
   /* Gradient bar decoration (used on calculator card) */
+  /* No border-radius needed - parent's overflow-hidden clips to rounded corners */
   .gradient-bar {
-    @apply w-full h-2 bg-gradient-to-r from-red-500 via-blue-500 to-green-500 rounded-t-3xl;
+    @apply w-full h-2 bg-gradient-to-r from-red-500 via-blue-500 to-green-500;
   }
 
   /* Mobile menu animation */

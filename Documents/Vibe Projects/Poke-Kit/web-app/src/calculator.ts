@@ -111,8 +111,7 @@ function renderTypeDropdown(
       </button>
 
       <div
-        class="type-dropdown-menu hidden absolute left-0 right-0 z-[100] mt-2 rounded-2xl shadow-2xl border bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-3 max-h-[400px] overflow-y-auto"
-        style="top: 100%;"
+        class="type-dropdown-menu hidden fixed z-[100] rounded-2xl shadow-2xl border bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-3 max-h-[400px] overflow-y-auto"
         data-dropdown-menu="${dropdownId}"
       >
         <!-- None option -->

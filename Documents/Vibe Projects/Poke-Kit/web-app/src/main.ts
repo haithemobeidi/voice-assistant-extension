@@ -209,22 +209,24 @@ function renderCalculatorPage(): string {
         <p class="text-lg text-gray-500 dark:text-gray-400">Select up to two types to see defensive matchups.</p>
       </div>
 
-      <!-- Type Selection Card -->
-      <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-xl border border-gray-100 dark:border-gray-700 mb-10 overflow-hidden">
-        <div class="gradient-bar"></div>
-        <div class="p-6 sm:p-8">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <!-- Type 1 Dropdown -->
-            <div id="type1-dropdown-container"></div>
+      <!-- Type Selection Card - outer wrapper for dropdown positioning, inner card for overflow clipping -->
+      <div class="relative mb-10">
+        <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-xl border border-gray-100 dark:border-gray-700 overflow-hidden">
+          <div class="gradient-bar"></div>
+          <div class="p-6 sm:p-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <!-- Type 1 Dropdown -->
+              <div id="type1-dropdown-container"></div>
 
-            <!-- Type 2 Dropdown -->
-            <div id="type2-dropdown-container"></div>
+              <!-- Type 2 Dropdown -->
+              <div id="type2-dropdown-container"></div>
+            </div>
+
+            <button id="calculate-btn" class="btn-primary w-full mt-8">
+              <i data-lucide="calculator" class="w-5 h-5"></i>
+              Calculate Matchups
+            </button>
           </div>
-
-          <button id="calculate-btn" class="btn-primary w-full mt-8">
-            <i data-lucide="calculator" class="w-5 h-5"></i>
-            Calculate Matchups
-          </button>
         </div>
       </div>
 
