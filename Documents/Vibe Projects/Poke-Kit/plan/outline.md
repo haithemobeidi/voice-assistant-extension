@@ -9,7 +9,7 @@
 - [ ] Phase 6: Trading Resources - Not Started
 
 ## Current Focus
-**Active Phase**: Phase 3 - Team Builder & PWA (Team Builder Data Verified, UI Refinement Needed)
+**Active Phase**: Phase 3 - Team Builder & PWA (Generation Expansion Complete)
 **Next Steps**:
 1. ✅ Design Team Builder data schema (games, gyms, progression)
 2. ✅ Compile Gen 1 gym leader data manually from Bulbapedia
@@ -17,9 +17,12 @@
 4. ✅ Implement recommended Pokémon display
 5. ✅ Verify data accuracy (fixed Pikachu errors, added special indicators)
 6. ✅ Add trainer sprites to boss selection (game-accurate Gen1/Gen3)
-7. Fix Team Builder UI issues (user-reported weirdness)
-8. Implement code splitting for pokemon.json (reduce 673KB bundle)
-9. Add PWA manifest and service worker for offline support
+7. ✅ Fix Team Builder UI (gradient bar, buttons, form switcher)
+8. ✅ Implement code splitting for pokemon.json (81% bundle reduction)
+9. ✅ Add generation tabs UI (Gen 1-9 with pill tabs, two rows)
+10. ✅ Add all mainline games data (Gen 2-9, 17 new games)
+11. Add boss data incrementally for Gen 2-9
+12. Add PWA manifest and service worker for offline support
 
 **Note**: Trading Resources (originally Phase 3) moved to Phase 6 as it's the simplest feature. Prioritizing Team Builder and PWA features first for more value to users.
 
@@ -41,6 +44,8 @@
 **Blockers**: None
 
 ## Recent Changes
+- 2025-11-26: **Generation Tabs & Game Expansion** - Added two-row pill tab UI for Gen 1-9, added all 17 mainline games from Gen 2-9 with mascot artwork, boss data still Gen 1 only (expand incrementally)
+- 2025-11-26: **UI Polish & Code Splitting** - Fixed gradient bar, Pokemon red buttons, frosted glass form switcher, 81% bundle reduction via lazy loading pokemon.json
 - 2025-11-26: **Team Builder Data Audit & Sprites** - Fixed incorrect recommendations (removed Pikachu from Brock/Erika/Giovanni in Yellow), added special indicator (*) for move-based recommendations, added trainer sprites to boss list (game-accurate Gen1/Gen3)
 - 2025-11-26: **Team Builder MVP Complete** - Full UI with game selection (Red/Blue/Yellow/FireRed/LeafGreen), all 13 bosses (8 gyms + 4 E4 + Champion), boss teams with sprites/levels/types, difficulty ratings, tips, and recommended counters
 - 2025-11-26: **Team Builder Data** - Created games.json, bosses.json, progression.json with full Gen 1 data compiled from Bulbapedia

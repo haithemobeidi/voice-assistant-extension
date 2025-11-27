@@ -58,7 +58,31 @@ const progression = (progressionData as { kanto: Record<string, ProgressionEntry
 // Pokemon data loaded asynchronously
 let allPokemon: PokemonCreature[] = [];
 
+// Generation configuration
+interface Generation {
+  id: number;
+  name: string;
+  region: string;
+}
+
+// Split into two rows for better layout
+const generationsRow1: Generation[] = [
+  { id: 1, name: 'Gen 1', region: 'Kanto' },
+  { id: 2, name: 'Gen 2', region: 'Johto' },
+  { id: 3, name: 'Gen 3', region: 'Hoenn' },
+  { id: 4, name: 'Gen 4', region: 'Sinnoh' },
+  { id: 5, name: 'Gen 5', region: 'Unova' },
+];
+
+const generationsRow2: Generation[] = [
+  { id: 6, name: 'Gen 6', region: 'Kalos' },
+  { id: 7, name: 'Gen 7', region: 'Alola' },
+  { id: 8, name: 'Gen 8', region: 'Galar' },
+  { id: 9, name: 'Gen 9', region: 'Paldea' },
+];
+
 // State
+let selectedGen: number = 1;
 let selectedGame: string | null = null;
 let selectedBoss: string | null = null;
 
@@ -122,23 +146,71 @@ function getTypeColor(type: string): string {
 }
 
 /**
+ * Render a single gen pill button
+ */
+function renderGenPill(gen: Generation): string {
+  const isSelected = selectedGen === gen.id;
+  const hasGames = Object.values(games).some(g => g.generation === gen.id);
+
+  return `
+    <button
+      data-gen="${gen.id}"
+      class="gen-tab px-4 py-2 rounded-full font-bold text-sm whitespace-nowrap transition-all ${
+        isSelected
+          ? 'bg-red-500 text-white shadow-md'
+          : hasGames
+            ? 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
+            : 'bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-500 cursor-not-allowed opacity-50'
+      }"
+      ${!hasGames ? 'disabled title="Coming soon"' : ''}
+    >
+      ${gen.name}
+    </button>
+  `;
+}
+
+/**
+ * Render generation pill tabs in two rows
+ */
+function renderGenTabs(): string {
+  const row1 = generationsRow1.map(renderGenPill).join('');
+  const row2 = generationsRow2.map(renderGenPill).join('');
+
+  return `
+    <div class="flex gap-2 mb-2">
+      ${row1}
+    </div>
+    <div class="flex gap-2">
+      ${row2}
+    </div>
+  `;
+}
+
+/**
  * Render game selection buttons
  */
 function renderGameSelector(): string {
-  const gameButtons = Object.values(games).map(game => `
+  // Filter games by selected generation
+  const filteredGames = Object.values(games).filter(g => g.generation === selectedGen);
+
+  const gameButtons = filteredGames.map(game => `
     <button
       data-game="${game.id}"
-      class="game-btn flex flex-col items-center p-4 rounded-xl border-2 transition-all hover:scale-105 ${
+      class="game-btn flex flex-col items-center p-2 rounded-lg border-2 transition-all hover:scale-105 ${
         selectedGame === game.id
           ? 'border-red-500 bg-red-50 dark:bg-red-900/20'
           : 'border-gray-200 dark:border-gray-700 hover:border-red-300 dark:hover:border-red-700'
       }"
     >
-      <img src="${getGameMascot(game.id)}" alt="${game.shortName}" class="w-12 h-12 mb-1 object-contain drop-shadow-md" />
-      <span class="font-bold text-gray-900 dark:text-white text-sm">${game.shortName}</span>
-      <span class="text-xs text-gray-500 dark:text-gray-400">Gen ${game.generation}</span>
+      <img src="${getGameMascot(game.id)}" alt="${game.shortName}" class="w-8 h-8 object-contain" />
+      <span class="font-bold text-gray-900 dark:text-white text-xs">${game.shortName}</span>
     </button>
   `).join('');
+
+  // Show message if no games for selected gen
+  const noGamesMessage = filteredGames.length === 0
+    ? `<p class="text-gray-500 dark:text-gray-400 text-sm italic">No games added yet for this generation.</p>`
+    : '';
 
   return `
     <div class="mb-8">
@@ -146,9 +218,17 @@ function renderGameSelector(): string {
         <i data-lucide="gamepad-2" class="w-5 h-5 text-red-500"></i>
         Select Your Game
       </h2>
-      <div class="grid grid-cols-3 sm:grid-cols-5 gap-3">
+
+      <!-- Gen Pill Tabs (2 rows) -->
+      <div class="mb-4">
+        ${renderGenTabs()}
+      </div>
+
+      <!-- Game Grid -->
+      <div class="grid grid-cols-5 gap-2">
         ${gameButtons}
       </div>
+      ${noGamesMessage}
     </div>
   `;
 }
@@ -159,6 +239,7 @@ function renderGameSelector(): string {
  */
 function getGameMascot(gameId: string): string {
   // Local retro box art (classic Ken Sugimori style)
+  // Add more local artwork here as we acquire them
   const localArt: Record<string, string> = {
     red: '/game-icons/charizard-red.png',
   };
@@ -167,13 +248,51 @@ function getGameMascot(gameId: string): string {
     return localArt[gameId];
   }
 
-  // Fallback to PokeAPI official artwork
+  // Fallback to PokeAPI official artwork - using box mascot Pokemon IDs
   const baseUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork';
   const mascots: Record<string, number> = {
-    blue: 9,       // Blastoise
-    yellow: 25,    // Pikachu
-    firered: 6,    // Charizard
-    leafgreen: 3   // Venusaur
+    // Gen 1
+    blue: 9,           // Blastoise
+    yellow: 25,        // Pikachu
+    // Gen 2
+    gold: 250,         // Ho-Oh
+    silver: 249,       // Lugia
+    crystal: 245,      // Suicune
+    // Gen 3
+    ruby: 383,         // Groudon
+    sapphire: 382,     // Kyogre
+    emerald: 384,      // Rayquaza
+    firered: 6,        // Charizard
+    leafgreen: 3,      // Venusaur
+    // Gen 4
+    diamond: 483,      // Dialga
+    pearl: 484,        // Palkia
+    platinum: 487,     // Giratina (Altered)
+    heartgold: 250,    // Ho-Oh
+    soulsilver: 249,   // Lugia
+    // Gen 5
+    black: 644,        // Zekrom
+    white: 643,        // Reshiram
+    black2: 646,       // Kyurem
+    white2: 646,       // Kyurem
+    // Gen 6
+    x: 716,            // Xerneas
+    y: 717,            // Yveltal
+    omegaruby: 383,    // Groudon (Primal form not in basic artwork)
+    alphasapphire: 382,// Kyogre
+    // Gen 7
+    sun: 791,          // Solgaleo
+    moon: 792,         // Lunala
+    ultrasun: 800,     // Necrozma
+    ultramoon: 800,    // Necrozma
+    // Gen 8
+    sword: 888,        // Zacian
+    shield: 889,       // Zamazenta
+    brilliantdiamond: 483, // Dialga
+    shiningpearl: 484, // Palkia
+    // Gen 9
+    scarlet: 1007,     // Koraidon
+    violet: 1008       // Miraidon
   };
   const pokemonId = mascots[gameId] || 25;
   return `${baseUrl}/${pokemonId}.png`;
@@ -492,9 +611,22 @@ function render(): void {
 }
 
 /**
- * Attach event listeners for game and boss selection
+ * Attach event listeners for gen tabs, game and boss selection
  */
 function attachEventListeners(): void {
+  // Generation tab buttons
+  document.querySelectorAll('.gen-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const gen = parseInt(btn.getAttribute('data-gen') || '1', 10);
+      if (gen !== selectedGen) {
+        selectedGen = gen;
+        selectedGame = null; // Reset game selection when gen changes
+        selectedBoss = null; // Reset boss selection too
+        render();
+      }
+    });
+  });
+
   // Game selection buttons
   document.querySelectorAll('.game-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -511,7 +643,6 @@ function attachEventListeners(): void {
       render();
     });
   });
-
 }
 
 // Declare lucide global
