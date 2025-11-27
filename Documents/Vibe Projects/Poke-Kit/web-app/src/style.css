@@ -224,13 +224,20 @@
 /* Pokédex Card Flip Animation */
 .pokemon-card-container {
   perspective: 1000px;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Quick press feedback before flip */
+.pokemon-card-container.pressed .pokemon-card-inner {
+  transform: scale(0.97);
 }
 
 .pokemon-card-inner {
   position: relative;
   width: 100%;
   height: 100%;
-  transition: transform 0.5s ease-out;
+  transition: transform 0.15s ease-out;
   transform-style: preserve-3d;
 }
 
@@ -278,7 +285,7 @@
   width: 0;
   height: 0;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(168, 85, 247, 0.5) 0%, rgba(168, 85, 247, 0.2) 40%, transparent 70%);
+  background: radial-gradient(circle, rgba(156, 163, 175, 0.6) 0%, rgba(156, 163, 175, 0.3) 40%, transparent 70%);
   transform: translate(-50%, -50%);
   pointer-events: none;
 }
@@ -306,13 +313,13 @@
 /* Inner glow pulse effect on card */
 @keyframes inner-glow {
   0% {
-    box-shadow: inset 0 0 0 0 rgba(168, 85, 247, 0);
+    box-shadow: inset 0 0 0 0 rgba(156, 163, 175, 0);
   }
   30% {
-    box-shadow: inset 0 0 40px 15px rgba(168, 85, 247, 0.35);
+    box-shadow: inset 0 0 40px 15px rgba(156, 163, 175, 0.4);
   }
   100% {
-    box-shadow: inset 0 0 0 0 rgba(168, 85, 247, 0);
+    box-shadow: inset 0 0 0 0 rgba(156, 163, 175, 0);
   }
 }
 
@@ -354,6 +361,24 @@
 
 .modal-animate {
   animation: modal-slide-up 0.3s ease-out;
+}
+
+/* Generation tab transitions */
+.gen-tab {
+  transition: all 0.15s ease-out;
+}
+
+.gen-tab:active {
+  transform: scale(0.95);
+}
+
+/* Move list content fade transition */
+#moveset-move-list {
+  transition: opacity 0.15s ease-out;
+}
+
+#moveset-move-list.switching {
+  opacity: 0.5;
 }
 
 /* Legacy type color classes - kept for backward compatibility

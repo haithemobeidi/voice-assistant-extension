@@ -28,7 +28,7 @@ let currentMovesetPokemon: PokemonCreature | null = null;
 // Double-click tracking
 let lastClickTime = 0;
 let lastClickedCard: HTMLElement | null = null;
-const DOUBLE_CLICK_DELAY = 300;
+const DOUBLE_CLICK_DELAY = 400;
 
 // Declare lucide global (loaded via CDN)
 declare const lucide: {
@@ -342,8 +342,11 @@ function loadMorePokemon(): void {
  * Attach click listeners for card flip, form cycling, and double-click moveset modal
  */
 function attachCardListeners(): void {
-  // Card click handling: single-click = flip, double-click = moveset modal
+  // Card click handling: single-click = flip (with short delay), double-click = moveset modal
+  // Strategy: Wait briefly before flipping to catch double-clicks, but keep delay short (200ms)
   document.querySelectorAll('.pokemon-card-container').forEach(container => {
+    let flipTimeout: ReturnType<typeof setTimeout> | null = null;
+
     container.addEventListener('click', (e) => {
       // Don't trigger if clicking the form cycle button
       const target = e.target as HTMLElement;
@@ -356,7 +359,12 @@ function attachCardListeners(): void {
       const isDoubleClick = (now - lastClickTime < DOUBLE_CLICK_DELAY) && lastClickedCard === card;
 
       if (isDoubleClick) {
-        // Double-click: Open moveset modal with ripple animation
+        // Double-click: Cancel pending flip and open moveset modal
+        if (flipTimeout) {
+          clearTimeout(flipTimeout);
+          flipTimeout = null;
+        }
+
         e.preventDefault();
         e.stopPropagation();
 
@@ -380,15 +388,18 @@ function attachCardListeners(): void {
         lastClickTime = 0;
         lastClickedCard = null;
       } else {
-        // Single click: Flip card (after delay to check for double-click)
+        // Single click: Show press feedback immediately, flip after short delay
         lastClickTime = now;
         lastClickedCard = card;
 
-        setTimeout(() => {
-          if (lastClickedCard === card && Date.now() - lastClickTime >= DOUBLE_CLICK_DELAY) {
-            card.classList.toggle('flipped');
-          }
-        }, DOUBLE_CLICK_DELAY);
+        // Instant visual feedback - card "presses" in
+        card.classList.add('pressed');
+        setTimeout(() => card.classList.remove('pressed'), 150);
+
+        flipTimeout = setTimeout(() => {
+          card.classList.toggle('flipped');
+          flipTimeout = null;
+        }, 200); // Short delay - feels responsive but catches most double-clicks
       }
     });
   });
@@ -815,7 +826,7 @@ function createMovesetModal(): HTMLElement {
 
         <!-- Generation Tabs -->
         <div class="flex gap-2 p-4 border-b border-gray-100 dark:border-gray-700 overflow-x-auto flex-shrink-0" id="moveset-gen-tabs">
-          <button class="gen-tab active px-4 py-2 rounded-lg text-sm font-bold bg-purple-600 text-white" data-gen="gen1">Gen 1</button>
+          <button class="gen-tab active px-4 py-2 rounded-lg text-sm font-bold bg-red-600 text-white" data-gen="gen1">Gen 1</button>
           <button class="gen-tab px-4 py-2 rounded-lg text-sm font-bold bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600" data-gen="gen2">Gen 2</button>
           <button class="gen-tab px-4 py-2 rounded-lg text-sm font-bold bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600" data-gen="gen3">Gen 3</button>
           <button class="gen-tab px-4 py-2 rounded-lg text-sm font-bold bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600" data-gen="gen4">Gen 4</button>
@@ -854,20 +865,30 @@ function switchGenTab(gen: string): void {
   document.querySelectorAll('#moveset-gen-tabs .gen-tab').forEach(tab => {
     const tabGen = tab.getAttribute('data-gen');
     if (tabGen === gen) {
-      tab.classList.add('active', 'bg-purple-600', 'text-white');
+      tab.classList.add('active', 'bg-red-600', 'text-white');
       tab.classList.remove('bg-gray-100', 'dark:bg-gray-700', 'text-gray-500', 'dark:text-gray-300');
     } else {
-      tab.classList.remove('active', 'bg-purple-600', 'text-white');
+      tab.classList.remove('active', 'bg-red-600', 'text-white');
       tab.classList.add('bg-gray-100', 'dark:bg-gray-700', 'text-gray-500', 'dark:text-gray-300');
     }
   });
 
-  // Re-render moves for this gen
+  // Re-render moves for this gen with fade transition
   if (currentMovesetPokemon) {
     const cacheKey = getCacheKey(currentMovesetPokemon);
     const cachedMoves = moveCache.get(cacheKey);
     if (cachedMoves) {
-      renderMoves(cachedMoves, gen);
+      const moveList = document.getElementById('moveset-move-list');
+      if (moveList) {
+        // Fade out, switch content, fade in
+        moveList.classList.add('switching');
+        setTimeout(() => {
+          renderMoves(cachedMoves, gen);
+          moveList.classList.remove('switching');
+        }, 150);
+      } else {
+        renderMoves(cachedMoves, gen);
+      }
     }
   }
 }
