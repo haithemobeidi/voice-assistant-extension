@@ -53,7 +53,7 @@ interface ProgressionEntry {
 // Cast imported data
 const games = gamesData as Record<string, Game>;
 const bosses = bossesData as Record<string, Boss>;
-const progression = (progressionData as { kanto: Record<string, ProgressionEntry> }).kanto;
+const progressionByRegion = progressionData as Record<string, Record<string, ProgressionEntry>>;
 
 // Pokemon data loaded asynchronously
 let allPokemon: PokemonCreature[] = [];
@@ -544,12 +544,25 @@ function renderRecommendedTeam(): string {
     return '';
   }
 
-  const bossKey = selectedBoss as keyof typeof progression;
-  const prog = progression[bossKey];
+  // Get the region for the selected game
+  const game = games[selectedGame];
+  if (!game) return '';
+
+  const region = game.region; // 'kanto', 'johto', etc.
+  const progression = progressionByRegion[region];
+  if (!progression) {
+    return `
+      <div class="card text-center py-8 text-gray-500 dark:text-gray-400">
+        <i data-lucide="help-circle" class="w-8 h-8 mx-auto mb-2 opacity-50"></i>
+        <p>Recommended team data coming soon for this region!</p>
+      </div>
+    `;
+  }
+
+  const prog = progression[selectedBoss];
   if (!prog) return '';
 
-  const gameKey = selectedGame as keyof typeof prog.recommended;
-  const recommended = prog.recommended[gameKey] || [];
+  const recommended = prog.recommended[selectedGame] || [];
   if (recommended.length === 0) {
     return `
       <div class="card text-center py-8 text-gray-500 dark:text-gray-400">

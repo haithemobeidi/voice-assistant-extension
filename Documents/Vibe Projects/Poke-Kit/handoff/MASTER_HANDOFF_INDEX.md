@@ -4,7 +4,7 @@ This file catalogs all development session handoffs for continuity across Claude
 
 ## Session Handoffs
 
-**Handoff 11-26-2025_21-15-00_EST** - Gen 2 Johto complete: Added all 13 Johto bosses (Falkner, Bugsy, Whitney, Morty, Chuck, Jasmine, Pryce, Clair, Will, Koga E4, Bruno E4, Karen, Lance Champion) with teams for G/S/C and HG/SS. Added trainer sprites, progression data with recommended Pokemon. UI fixes: scroll preservation on boss click, gradient fade at bottom, compact Pokemon cards for dual-types. Build: ✅ working, user confirmed: yes
+**Handoff 11-26-2025_21-15-00_EST** - Gen 2 Johto complete: Added all 13 Johto bosses with teams for G/S/C and HG/SS. Added trainer sprites, progression data with recommended Pokemon. Fixed region-aware progression lookup (was hardcoded to kanto). Added placeholder regions for Gen 3-9. UI fixes: scroll preservation, gradient fade, compact cards. Build: ✅ working, user confirmed: yes
 
 **Handoff 11-26-2025_22-30-00_EST** - Generation tabs: Implemented two-row pill tab UI for Gen 1-9 selection, added all mainline games (17 new games from Gen 2-9), mascot artwork for all versions. Boss data still Gen 1 only - expand incrementally. Build: ✅ working, user confirmed: yes
 
