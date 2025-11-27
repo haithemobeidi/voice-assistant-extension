@@ -4,6 +4,8 @@ This file catalogs all development session handoffs for continuity across Claude
 
 ## Session Handoffs
 
+**Handoff 11-26-2025_21-00-00_EST** - UI polish: Fixed gradient bar gap on calculator card, changed btn-primary to Pokemon red, redesigned form switcher with frosted glass pill style (layers icon + built-in badge). User confirmed: "thats perfect". Build: ✅ working (126 KB)
+
 **Handoff 11-26-2025_20-15-00_EST** - Code splitting (81% bundle reduction): Moved pokemon.json to public folder, created shared pokemonLoader.ts for lazy loading with caching. Updated pokedex.ts, team-builder.ts, nickname-generator.ts to use async initialization. Bundle reduced from 675KB to 126KB. Eliminates >500KB chunk warning. Build: ✅ working, user confirmed: pending testing
 
 **Handoff 11-26-2025_19-30-00_EST** - Team Builder UI refinements & game mascots: Fixed Lt. Surge sprite (ltsurge naming), removed trainer sprite backgrounds, increased sprite size. Added Teams to nav menu. Implemented scroll fade gradient (theme-aware) for boss list. Started game mascot icons - Red uses classic Ken Sugimori Charizard artwork. Need to add artwork for remaining games. User noted: check Mega forms for Legends Z-A additions. Build: ✅ working, user confirmed: yes
