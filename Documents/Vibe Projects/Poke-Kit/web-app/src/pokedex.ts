@@ -1,6 +1,6 @@
 // pokedex.ts
 // Pokédex browser with redesigned floating card UI and HD artwork
-// Features: search, filter, sort, infinite scroll, variant expansion
+// Features: search, filter, sort, infinite scroll, variant expansion, moveset modal
 
 import type {
   PokemonCreature,
@@ -21,6 +21,14 @@ import { getTypeConfig } from './shared/typeConfig';
 import { TypeBadgeSimple, TypeBadgeTiny } from './shared/components';
 import { POKEDEX_CONFIG } from './shared/config';
 import { loadPokemonData, getSpriteUrl } from './shared/pokemonLoader';
+
+// Moveset modal state
+let currentMovesetPokemon: PokemonCreature | null = null;
+
+// Double-click tracking
+let lastClickTime = 0;
+let lastClickedCard: HTMLElement | null = null;
+const DOUBLE_CLICK_DELAY = 300;
 
 // Declare lucide global (loaded via CDN)
 declare const lucide: {
@@ -331,18 +339,57 @@ function loadMorePokemon(): void {
 }
 
 /**
- * Attach click listeners for card flip and form cycling
+ * Attach click listeners for card flip, form cycling, and double-click moveset modal
  */
 function attachCardListeners(): void {
-  // Card flip on click (anywhere on card except form button)
+  // Card click handling: single-click = flip, double-click = moveset modal
   document.querySelectorAll('.pokemon-card-container').forEach(container => {
     container.addEventListener('click', (e) => {
-      // Don't flip if clicking the form cycle button
+      // Don't trigger if clicking the form cycle button
       const target = e.target as HTMLElement;
       if (target.closest('[data-cycle-form]')) {
         return;
       }
-      container.classList.toggle('flipped');
+
+      const card = container as HTMLElement;
+      const now = Date.now();
+      const isDoubleClick = (now - lastClickTime < DOUBLE_CLICK_DELAY) && lastClickedCard === card;
+
+      if (isDoubleClick) {
+        // Double-click: Open moveset modal with ripple animation
+        e.preventDefault();
+        e.stopPropagation();
+
+        // Trigger ripple animation
+        triggerRippleAnimation(card);
+
+        // Get Pokémon data and open modal after animation
+        const pokemonNumber = parseInt(card.getAttribute('data-pokemon-number') || '0');
+        const formIndex = parseInt(card.getAttribute('data-form-index') || '0');
+        const group = state.pokemonGroups.find(g => g.basePokemon.number === pokemonNumber);
+
+        if (group) {
+          const allForms = [group.basePokemon, ...group.variants];
+          const pokemon = allForms[formIndex] || group.basePokemon;
+
+          setTimeout(() => {
+            openMovesetModal(pokemon);
+          }, 300);
+        }
+
+        lastClickTime = 0;
+        lastClickedCard = null;
+      } else {
+        // Single click: Flip card (after delay to check for double-click)
+        lastClickTime = now;
+        lastClickedCard = card;
+
+        setTimeout(() => {
+          if (lastClickedCard === card && Date.now() - lastClickTime >= DOUBLE_CLICK_DELAY) {
+            card.classList.toggle('flipped');
+          }
+        }, DOUBLE_CLICK_DELAY);
+      }
     });
   });
 
@@ -354,6 +401,39 @@ function attachCardListeners(): void {
       cycleForm(pokemonNumber);
     });
   });
+}
+
+/**
+ * Trigger ripple animation inside a card
+ */
+function triggerRippleAnimation(card: HTMLElement): void {
+  // Add ripple container if not exists
+  const cardFront = card.querySelector('.pokemon-card-front > div') as HTMLElement;
+  if (!cardFront) return;
+
+  // Create ripple container and wave
+  let rippleContainer = cardFront.querySelector('.ripple-container') as HTMLElement;
+  if (!rippleContainer) {
+    rippleContainer = document.createElement('div');
+    rippleContainer.className = 'ripple-container';
+    const rippleWave = document.createElement('div');
+    rippleWave.className = 'ripple-wave';
+    rippleContainer.appendChild(rippleWave);
+    cardFront.appendChild(rippleContainer);
+  }
+
+  const rippleWave = rippleContainer.querySelector('.ripple-wave') as HTMLElement;
+  if (rippleWave) {
+    // Reset and trigger animation
+    rippleWave.classList.remove('active');
+    void rippleWave.offsetWidth; // Force reflow
+    rippleWave.classList.add('active');
+    setTimeout(() => rippleWave.classList.remove('active'), 600);
+  }
+
+  // Add inner glow effect to card
+  card.classList.add('pulse-effect');
+  setTimeout(() => card.classList.remove('pulse-effect'), 600);
 }
 
 /**
@@ -597,3 +677,440 @@ function createStatBars(pokemon: PokemonCreature): string {
 }
 
 // Old createVariantCard removed - form cycling now used instead
+
+// ============================================================================
+// MOVESET MODAL FUNCTIONALITY
+// ============================================================================
+
+interface MoveData {
+  name: string;
+  type: string;
+  learnMethod: string;
+  level?: number;
+  machine?: string;
+}
+
+interface MovesByGen {
+  [gen: string]: MoveData[];
+}
+
+// Cache for fetched move data
+const moveCache = new Map<string, MovesByGen>();
+
+/**
+ * Open the moveset modal for a Pokémon
+ */
+async function openMovesetModal(pokemon: PokemonCreature): Promise<void> {
+  currentMovesetPokemon = pokemon;
+
+  // Create modal if doesn't exist
+  let modal = document.getElementById('moveset-modal');
+  if (!modal) {
+    modal = createMovesetModal();
+    document.body.appendChild(modal);
+  }
+
+  // Update modal header
+  const name = getDisplayName(pokemon);
+  const spriteUrl = getSpriteUrl(pokemon);
+  const mainType = pokemon.types[0] || 'normal';
+  const config = getTypeConfig(mainType);
+
+  const modalSprite = document.getElementById('moveset-modal-sprite') as HTMLImageElement;
+  const modalName = document.getElementById('moveset-modal-name');
+  const modalTypes = document.getElementById('moveset-modal-types');
+  const modalBgColor = document.getElementById('moveset-modal-bg-color');
+
+  if (modalSprite) modalSprite.src = spriteUrl;
+  if (modalName) modalName.textContent = name;
+  if (modalTypes) modalTypes.innerHTML = pokemon.types.map(t => TypeBadgeSimple(t)).join('');
+  if (modalBgColor) modalBgColor.style.backgroundColor = config.color;
+
+  // Show modal
+  modal.classList.remove('hidden');
+
+  // Show loading state
+  const moveList = document.getElementById('moveset-move-list');
+  if (moveList) {
+    moveList.innerHTML = `
+      <div class="flex flex-col items-center justify-center py-12">
+        <div class="spinner mb-4"></div>
+        <p class="text-gray-500 dark:text-gray-400">Loading moves...</p>
+      </div>
+    `;
+  }
+
+  // Fetch and display moves
+  try {
+    const moves = await fetchPokemonMoves(pokemon);
+    renderMoves(moves, 'gen1');
+  } catch (error) {
+    console.error('Failed to fetch moves:', error);
+    if (moveList) {
+      moveList.innerHTML = `
+        <div class="text-center py-12">
+          <p class="text-red-500 font-bold">Failed to load moves</p>
+          <p class="text-gray-500 text-sm mt-2">Please try again later</p>
+        </div>
+      `;
+    }
+  }
+
+  // Add escape key listener
+  document.addEventListener('keydown', handleModalKeydown);
+  lucide.createIcons();
+}
+
+/**
+ * Close the moveset modal
+ */
+function closeMovesetModal(): void {
+  const modal = document.getElementById('moveset-modal');
+  if (modal) {
+    modal.classList.add('hidden');
+  }
+  currentMovesetPokemon = null;
+  document.removeEventListener('keydown', handleModalKeydown);
+}
+
+/**
+ * Handle keydown events for modal
+ */
+function handleModalKeydown(e: KeyboardEvent): void {
+  if (e.key === 'Escape') {
+    closeMovesetModal();
+  }
+}
+
+/**
+ * Create the moveset modal HTML structure
+ */
+function createMovesetModal(): HTMLElement {
+  const modal = document.createElement('div');
+  modal.id = 'moveset-modal';
+  modal.className = 'fixed inset-0 z-50 hidden';
+  modal.innerHTML = `
+    <div class="moveset-modal-backdrop absolute inset-0" onclick="window.closeMovesetModal?.()"></div>
+    <div class="absolute inset-4 md:inset-8 lg:inset-16 flex items-center justify-center pointer-events-none">
+      <div class="moveset-modal-content modal-animate rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-700 w-full max-w-2xl max-h-full overflow-hidden pointer-events-auto flex flex-col">
+
+        <!-- Modal Header -->
+        <div class="relative p-4 border-b border-gray-100 dark:border-gray-700 flex-shrink-0">
+          <div class="absolute inset-0 opacity-5 dark:opacity-10" id="moveset-modal-bg-color" style="background-color: #EE8130;"></div>
+          <div class="relative flex items-center gap-4">
+            <img id="moveset-modal-sprite" src="" alt="" class="w-20 h-20 object-contain" />
+            <div>
+              <h2 id="moveset-modal-name" class="text-2xl font-black text-gray-900 dark:text-white">Pokémon</h2>
+              <div id="moveset-modal-types" class="flex gap-2 mt-1"></div>
+            </div>
+            <button onclick="window.closeMovesetModal?.()" class="absolute top-0 right-0 p-2 rounded-lg text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+              <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Generation Tabs -->
+        <div class="flex gap-2 p-4 border-b border-gray-100 dark:border-gray-700 overflow-x-auto flex-shrink-0" id="moveset-gen-tabs">
+          <button class="gen-tab active px-4 py-2 rounded-lg text-sm font-bold bg-purple-600 text-white" data-gen="gen1">Gen 1</button>
+          <button class="gen-tab px-4 py-2 rounded-lg text-sm font-bold bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600" data-gen="gen2">Gen 2</button>
+          <button class="gen-tab px-4 py-2 rounded-lg text-sm font-bold bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600" data-gen="gen3">Gen 3</button>
+          <button class="gen-tab px-4 py-2 rounded-lg text-sm font-bold bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600" data-gen="gen4">Gen 4</button>
+          <button class="gen-tab px-4 py-2 rounded-lg text-sm font-bold bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600" data-gen="gen5plus">Gen 5+</button>
+        </div>
+
+        <!-- Move List -->
+        <div class="flex-1 overflow-y-auto p-4" id="moveset-move-list">
+          <!-- Moves will be loaded here -->
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Attach tab click listeners
+  setTimeout(() => {
+    document.querySelectorAll('#moveset-gen-tabs .gen-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const gen = tab.getAttribute('data-gen') || 'gen1';
+        switchGenTab(gen);
+      });
+    });
+  }, 0);
+
+  // Expose close function globally for onclick
+  (window as { closeMovesetModal?: () => void }).closeMovesetModal = closeMovesetModal;
+
+  return modal;
+}
+
+/**
+ * Switch active generation tab
+ */
+function switchGenTab(gen: string): void {
+  // Update tab styling
+  document.querySelectorAll('#moveset-gen-tabs .gen-tab').forEach(tab => {
+    const tabGen = tab.getAttribute('data-gen');
+    if (tabGen === gen) {
+      tab.classList.add('active', 'bg-purple-600', 'text-white');
+      tab.classList.remove('bg-gray-100', 'dark:bg-gray-700', 'text-gray-500', 'dark:text-gray-300');
+    } else {
+      tab.classList.remove('active', 'bg-purple-600', 'text-white');
+      tab.classList.add('bg-gray-100', 'dark:bg-gray-700', 'text-gray-500', 'dark:text-gray-300');
+    }
+  });
+
+  // Re-render moves for this gen
+  if (currentMovesetPokemon) {
+    const cacheKey = getCacheKey(currentMovesetPokemon);
+    const cachedMoves = moveCache.get(cacheKey);
+    if (cachedMoves) {
+      renderMoves(cachedMoves, gen);
+    }
+  }
+}
+
+/**
+ * Get cache key for a Pokémon
+ */
+function getCacheKey(pokemon: PokemonCreature): string {
+  return pokemon.name.toLowerCase().replace(/[^a-z0-9-]/g, '-');
+}
+
+/**
+ * Fetch moves for a Pokémon from PokéAPI
+ */
+async function fetchPokemonMoves(pokemon: PokemonCreature): Promise<MovesByGen> {
+  const cacheKey = getCacheKey(pokemon);
+
+  // Check cache first
+  if (moveCache.has(cacheKey)) {
+    return moveCache.get(cacheKey)!;
+  }
+
+  // Fetch from PokéAPI
+  const apiName = pokemon.name.toLowerCase().replace(/[^a-z0-9-]/g, '-');
+  const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${apiName}`);
+
+  if (!response.ok) {
+    // Try with just the number for variants
+    const numResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.number}`);
+    if (!numResponse.ok) {
+      throw new Error('Failed to fetch Pokémon data');
+    }
+    return processPokeApiResponse(await numResponse.json());
+  }
+
+  const data = await response.json();
+  const moves = processPokeApiResponse(data);
+
+  // Cache the result
+  moveCache.set(cacheKey, moves);
+  return moves;
+}
+
+/**
+ * Process PokéAPI response into organized moves by generation
+ */
+function processPokeApiResponse(data: {
+  moves: Array<{
+    move: { name: string; url: string };
+    version_group_details: Array<{
+      level_learned_at: number;
+      move_learn_method: { name: string };
+      version_group: { name: string };
+    }>;
+  }>;
+}): MovesByGen {
+  const movesByGen: MovesByGen = {
+    gen1: [],
+    gen2: [],
+    gen3: [],
+    gen4: [],
+    gen5plus: []
+  };
+
+  // Map version groups to generations
+  const genMap: Record<string, string> = {
+    'red-blue': 'gen1',
+    'yellow': 'gen1',
+    'gold-silver': 'gen2',
+    'crystal': 'gen2',
+    'ruby-sapphire': 'gen3',
+    'emerald': 'gen3',
+    'firered-leafgreen': 'gen3',
+    'diamond-pearl': 'gen4',
+    'platinum': 'gen4',
+    'heartgold-soulsilver': 'gen4',
+    'black-white': 'gen5plus',
+    'black-2-white-2': 'gen5plus',
+    'x-y': 'gen5plus',
+    'omega-ruby-alpha-sapphire': 'gen5plus',
+    'sun-moon': 'gen5plus',
+    'ultra-sun-ultra-moon': 'gen5plus',
+    'lets-go-pikachu-lets-go-eevee': 'gen5plus',
+    'sword-shield': 'gen5plus',
+    'brilliant-diamond-and-shining-pearl': 'gen5plus',
+    'legends-arceus': 'gen5plus',
+    'scarlet-violet': 'gen5plus'
+  };
+
+  // Track which moves we've added to each gen to avoid duplicates
+  const addedMoves: Record<string, Set<string>> = {
+    gen1: new Set(),
+    gen2: new Set(),
+    gen3: new Set(),
+    gen4: new Set(),
+    gen5plus: new Set()
+  };
+
+  data.moves.forEach(moveEntry => {
+    const moveName = moveEntry.move.name.replace(/-/g, ' ');
+
+    moveEntry.version_group_details.forEach(detail => {
+      const gen = genMap[detail.version_group.name];
+      if (!gen) return;
+
+      const moveKey = `${moveName}-${detail.move_learn_method.name}-${detail.level_learned_at}`;
+      if (addedMoves[gen].has(moveKey)) return;
+      addedMoves[gen].add(moveKey);
+
+      const moveData: MoveData = {
+        name: moveName,
+        type: 'normal', // We'll update this later if needed
+        learnMethod: detail.move_learn_method.name
+      };
+
+      if (detail.move_learn_method.name === 'level-up') {
+        moveData.level = detail.level_learned_at;
+      } else if (detail.move_learn_method.name === 'machine') {
+        moveData.machine = 'TM';
+      }
+
+      movesByGen[gen].push(moveData);
+    });
+  });
+
+  // Sort moves within each gen
+  Object.keys(movesByGen).forEach(gen => {
+    movesByGen[gen].sort((a, b) => {
+      // Level-up moves first, sorted by level
+      if (a.learnMethod === 'level-up' && b.learnMethod !== 'level-up') return -1;
+      if (b.learnMethod === 'level-up' && a.learnMethod !== 'level-up') return 1;
+      if (a.learnMethod === 'level-up' && b.learnMethod === 'level-up') {
+        return (a.level || 0) - (b.level || 0);
+      }
+      // Then machines
+      if (a.learnMethod === 'machine' && b.learnMethod !== 'machine') return -1;
+      if (b.learnMethod === 'machine' && a.learnMethod !== 'machine') return 1;
+      // Then alphabetically
+      return a.name.localeCompare(b.name);
+    });
+  });
+
+  return movesByGen;
+}
+
+/**
+ * Render moves for a specific generation
+ */
+function renderMoves(movesByGen: MovesByGen, gen: string): void {
+  const moveList = document.getElementById('moveset-move-list');
+  if (!moveList) return;
+
+  const moves = movesByGen[gen] || [];
+
+  if (moves.length === 0) {
+    moveList.innerHTML = `
+      <div class="text-center py-12">
+        <i data-lucide="file-x" class="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-4"></i>
+        <p class="text-gray-500 dark:text-gray-400">No moves available for this generation.</p>
+      </div>
+    `;
+    lucide.createIcons();
+    return;
+  }
+
+  // Group moves by learn method
+  const levelUpMoves = moves.filter(m => m.learnMethod === 'level-up');
+  const machineMoves = moves.filter(m => m.learnMethod === 'machine');
+  const otherMoves = moves.filter(m => m.learnMethod !== 'level-up' && m.learnMethod !== 'machine');
+
+  let html = '';
+
+  // Level Up Moves
+  if (levelUpMoves.length > 0) {
+    html += `
+      <div class="mb-6">
+        <h3 class="text-sm font-bold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+          <i data-lucide="trending-up" class="w-4 h-4"></i>
+          Level Up (${levelUpMoves.length})
+        </h3>
+        <div class="space-y-2">
+          ${levelUpMoves.map(move => renderMoveItem(move, 'level')).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  // TM/HM Moves
+  if (machineMoves.length > 0) {
+    html += `
+      <div class="mb-6">
+        <h3 class="text-sm font-bold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+          <i data-lucide="disc" class="w-4 h-4"></i>
+          TM / HM (${machineMoves.length})
+        </h3>
+        <div class="space-y-2">
+          ${machineMoves.map(move => renderMoveItem(move, 'machine')).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  // Other Moves (tutor, egg, etc.)
+  if (otherMoves.length > 0) {
+    html += `
+      <div class="mb-6">
+        <h3 class="text-sm font-bold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+          <i data-lucide="sparkles" class="w-4 h-4"></i>
+          Other (${otherMoves.length})
+        </h3>
+        <div class="space-y-2">
+          ${otherMoves.map(move => renderMoveItem(move, 'other')).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  moveList.innerHTML = html;
+  lucide.createIcons();
+}
+
+/**
+ * Render a single move item
+ */
+function renderMoveItem(move: MoveData, type: 'level' | 'machine' | 'other'): string {
+  let badge = '';
+  let badgeClass = '';
+
+  if (type === 'level' && move.level !== undefined) {
+    badge = `Lv ${move.level}`;
+    badgeClass = 'bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400';
+  } else if (type === 'machine') {
+    badge = 'TM';
+    badgeClass = 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400';
+  } else {
+    // Capitalize the learn method
+    badge = move.learnMethod.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+    badgeClass = 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400';
+  }
+
+  // Capitalize move name
+  const displayName = move.name.replace(/\b\w/g, c => c.toUpperCase());
+
+  return `
+    <div class="flex items-center gap-3 bg-gray-50 dark:bg-gray-900 rounded-xl p-3 border border-gray-100 dark:border-gray-700">
+      <span class="${badgeClass} px-2 py-1 rounded text-xs font-bold min-w-[60px] text-center">${badge}</span>
+      <span class="flex-1 font-bold text-gray-900 dark:text-white">${displayName}</span>
+    </div>
+  `;
+}
