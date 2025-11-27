@@ -611,5 +611,572 @@
     "weaknesses": ["varies"],
     "difficulty": "very-hard",
     "tips": "Team varies based on your starter choice. Ice types handle many threats. Bring a diverse team with good type coverage."
+  },
+  "falkner": {
+    "id": "falkner",
+    "name": "Falkner",
+    "title": "Violet City Gym Leader",
+    "type": "gym",
+    "specialty": ["flying"],
+    "badge": "Zephyr Badge",
+    "location": "Violet City",
+    "order": 1,
+    "teams": {
+      "gold": [
+        { "pokemon": "pidgey", "level": 7, "moves": ["tackle", "mud-slap"] },
+        { "pokemon": "pidgeotto", "level": 9, "moves": ["tackle", "mud-slap", "gust"] }
+      ],
+      "silver": [
+        { "pokemon": "pidgey", "level": 7, "moves": ["tackle", "mud-slap"] },
+        { "pokemon": "pidgeotto", "level": 9, "moves": ["tackle", "mud-slap", "gust"] }
+      ],
+      "crystal": [
+        { "pokemon": "pidgey", "level": 7, "moves": ["tackle", "mud-slap"] },
+        { "pokemon": "pidgeotto", "level": 9, "moves": ["tackle", "mud-slap", "gust"] }
+      ],
+      "heartgold": [
+        { "pokemon": "pidgey", "level": 9, "moves": ["tackle", "sand-attack", "gust"] },
+        { "pokemon": "pidgeotto", "level": 13, "moves": ["tackle", "gust", "roost"] }
+      ],
+      "soulsilver": [
+        { "pokemon": "pidgey", "level": 9, "moves": ["tackle", "sand-attack", "gust"] },
+        { "pokemon": "pidgeotto", "level": 13, "moves": ["tackle", "gust", "roost"] }
+      ]
+    },
+    "weaknesses": ["electric", "ice", "rock"],
+    "difficulty": "easy",
+    "tips": "Rock types are ideal. Electric types work great. Geodude from Dark Cave is perfect for this battle."
+  },
+  "bugsy": {
+    "id": "bugsy",
+    "name": "Bugsy",
+    "title": "Azalea Town Gym Leader",
+    "type": "gym",
+    "specialty": ["bug"],
+    "badge": "Hive Badge",
+    "location": "Azalea Town",
+    "order": 2,
+    "teams": {
+      "gold": [
+        { "pokemon": "metapod", "level": 14, "moves": ["tackle", "harden"] },
+        { "pokemon": "kakuna", "level": 14, "moves": ["poison-sting", "harden"] },
+        { "pokemon": "scyther", "level": 16, "moves": ["quick-attack", "leer", "fury-cutter"] }
+      ],
+      "silver": [
+        { "pokemon": "metapod", "level": 14, "moves": ["tackle", "harden"] },
+        { "pokemon": "kakuna", "level": 14, "moves": ["poison-sting", "harden"] },
+        { "pokemon": "scyther", "level": 16, "moves": ["quick-attack", "leer", "fury-cutter"] }
+      ],
+      "crystal": [
+        { "pokemon": "metapod", "level": 14, "moves": ["tackle", "harden"] },
+        { "pokemon": "kakuna", "level": 14, "moves": ["poison-sting", "harden"] },
+        { "pokemon": "scyther", "level": 16, "moves": ["quick-attack", "leer", "fury-cutter"] }
+      ],
+      "heartgold": [
+        { "pokemon": "scyther", "level": 15, "moves": ["u-turn", "quick-attack", "leer"] },
+        { "pokemon": "metapod", "level": 15, "moves": ["tackle", "harden", "bug-bite"] },
+        { "pokemon": "kakuna", "level": 15, "moves": ["poison-sting", "harden", "bug-bite"] },
+        { "pokemon": "scyther", "level": 17, "moves": ["u-turn", "quick-attack", "leer", "focus-energy"] }
+      ],
+      "soulsilver": [
+        { "pokemon": "scyther", "level": 15, "moves": ["u-turn", "quick-attack", "leer"] },
+        { "pokemon": "metapod", "level": 15, "moves": ["tackle", "harden", "bug-bite"] },
+        { "pokemon": "kakuna", "level": 15, "moves": ["poison-sting", "harden", "bug-bite"] },
+        { "pokemon": "scyther", "level": 17, "moves": ["u-turn", "quick-attack", "leer", "focus-energy"] }
+      ]
+    },
+    "weaknesses": ["fire", "flying", "rock"],
+    "difficulty": "medium",
+    "tips": "Scyther's Fury Cutter gets stronger each turn - don't let it build up! Fire and Flying types are super effective."
+  },
+  "whitney": {
+    "id": "whitney",
+    "name": "Whitney",
+    "title": "Goldenrod City Gym Leader",
+    "type": "gym",
+    "specialty": ["normal"],
+    "badge": "Plain Badge",
+    "location": "Goldenrod City",
+    "order": 3,
+    "teams": {
+      "gold": [
+        { "pokemon": "clefairy", "level": 18, "moves": ["doubleslap", "mimic", "encore", "metronome"] },
+        { "pokemon": "miltank", "level": 20, "moves": ["rollout", "attract", "stomp", "milk-drink"] }
+      ],
+      "silver": [
+        { "pokemon": "clefairy", "level": 18, "moves": ["doubleslap", "mimic", "encore", "metronome"] },
+        { "pokemon": "miltank", "level": 20, "moves": ["rollout", "attract", "stomp", "milk-drink"] }
+      ],
+      "crystal": [
+        { "pokemon": "clefairy", "level": 18, "moves": ["doubleslap", "mimic", "encore", "metronome"] },
+        { "pokemon": "miltank", "level": 20, "moves": ["rollout", "attract", "stomp", "milk-drink"] }
+      ],
+      "heartgold": [
+        { "pokemon": "clefairy", "level": 17, "moves": ["doubleslap", "mimic", "encore", "metronome"] },
+        { "pokemon": "miltank", "level": 19, "moves": ["rollout", "attract", "stomp", "milk-drink"] }
+      ],
+      "soulsilver": [
+        { "pokemon": "clefairy", "level": 17, "moves": ["doubleslap", "mimic", "encore", "metronome"] },
+        { "pokemon": "miltank", "level": 19, "moves": ["rollout", "attract", "stomp", "milk-drink"] }
+      ]
+    },
+    "weaknesses": ["fighting"],
+    "difficulty": "hard",
+    "tips": "Whitney's Miltank is notorious! Use Fighting types like Machop (from Goldenrod Dept Store trade). Female Pokemon avoid Attract. Rock/Steel resists Rollout."
+  },
+  "morty": {
+    "id": "morty",
+    "name": "Morty",
+    "title": "Ecruteak City Gym Leader",
+    "type": "gym",
+    "specialty": ["ghost"],
+    "badge": "Fog Badge",
+    "location": "Ecruteak City",
+    "order": 4,
+    "teams": {
+      "gold": [
+        { "pokemon": "gastly", "level": 21, "moves": ["lick", "spite", "mean-look", "curse"] },
+        { "pokemon": "haunter", "level": 21, "moves": ["hypnosis", "mimic", "curse", "night-shade"] },
+        { "pokemon": "gengar", "level": 25, "moves": ["hypnosis", "shadow-ball", "mean-look", "dream-eater"] },
+        { "pokemon": "haunter", "level": 23, "moves": ["spite", "mimic", "curse", "shadow-ball"] }
+      ],
+      "silver": [
+        { "pokemon": "gastly", "level": 21, "moves": ["lick", "spite", "mean-look", "curse"] },
+        { "pokemon": "haunter", "level": 21, "moves": ["hypnosis", "mimic", "curse", "night-shade"] },
+        { "pokemon": "gengar", "level": 25, "moves": ["hypnosis", "shadow-ball", "mean-look", "dream-eater"] },
+        { "pokemon": "haunter", "level": 23, "moves": ["spite", "mimic", "curse", "shadow-ball"] }
+      ],
+      "crystal": [
+        { "pokemon": "gastly", "level": 21, "moves": ["lick", "spite", "mean-look", "curse"] },
+        { "pokemon": "haunter", "level": 21, "moves": ["hypnosis", "mimic", "curse", "night-shade"] },
+        { "pokemon": "gengar", "level": 25, "moves": ["hypnosis", "shadow-ball", "mean-look", "dream-eater"] },
+        { "pokemon": "haunter", "level": 23, "moves": ["spite", "mimic", "curse", "shadow-ball"] }
+      ],
+      "heartgold": [
+        { "pokemon": "gastly", "level": 21, "moves": ["lick", "spite", "mean-look", "curse"] },
+        { "pokemon": "haunter", "level": 21, "moves": ["hypnosis", "shadow-ball", "curse", "sucker-punch"] },
+        { "pokemon": "haunter", "level": 23, "moves": ["hypnosis", "shadow-ball", "curse", "sucker-punch"] },
+        { "pokemon": "gengar", "level": 25, "moves": ["hypnosis", "shadow-ball", "mean-look", "sucker-punch"] }
+      ],
+      "soulsilver": [
+        { "pokemon": "gastly", "level": 21, "moves": ["lick", "spite", "mean-look", "curse"] },
+        { "pokemon": "haunter", "level": 21, "moves": ["hypnosis", "shadow-ball", "curse", "sucker-punch"] },
+        { "pokemon": "haunter", "level": 23, "moves": ["hypnosis", "shadow-ball", "curse", "sucker-punch"] },
+        { "pokemon": "gengar", "level": 25, "moves": ["hypnosis", "shadow-ball", "mean-look", "sucker-punch"] }
+      ]
+    },
+    "weaknesses": ["dark", "ghost"],
+    "difficulty": "hard",
+    "tips": "Normal types are immune to Ghost but can't hit back in Gen 2. Dark types like Umbreon work great. Bring Awakening items for Hypnosis."
+  },
+  "chuck": {
+    "id": "chuck",
+    "name": "Chuck",
+    "title": "Cianwood City Gym Leader",
+    "type": "gym",
+    "specialty": ["fighting"],
+    "badge": "Storm Badge",
+    "location": "Cianwood City",
+    "order": 5,
+    "teams": {
+      "gold": [
+        { "pokemon": "primeape", "level": 27, "moves": ["leer", "rage", "karate-chop", "fury-swipes"] },
+        { "pokemon": "poliwrath", "level": 30, "moves": ["hypnosis", "mind-reader", "surf", "dynamicpunch"] }
+      ],
+      "silver": [
+        { "pokemon": "primeape", "level": 27, "moves": ["leer", "rage", "karate-chop", "fury-swipes"] },
+        { "pokemon": "poliwrath", "level": 30, "moves": ["hypnosis", "mind-reader", "surf", "dynamicpunch"] }
+      ],
+      "crystal": [
+        { "pokemon": "primeape", "level": 27, "moves": ["leer", "rage", "karate-chop", "fury-swipes"] },
+        { "pokemon": "poliwrath", "level": 30, "moves": ["hypnosis", "mind-reader", "surf", "dynamicpunch"] }
+      ],
+      "heartgold": [
+        { "pokemon": "primeape", "level": 29, "moves": ["rock-slide", "leer", "double-team", "focus-punch"] },
+        { "pokemon": "poliwrath", "level": 31, "moves": ["hypnosis", "focus-punch", "surf", "body-slam"] }
+      ],
+      "soulsilver": [
+        { "pokemon": "primeape", "level": 29, "moves": ["rock-slide", "leer", "double-team", "focus-punch"] },
+        { "pokemon": "poliwrath", "level": 31, "moves": ["hypnosis", "focus-punch", "surf", "body-slam"] }
+      ]
+    },
+    "weaknesses": ["flying", "psychic", "fairy"],
+    "difficulty": "medium",
+    "tips": "Psychic and Flying types dominate. Watch out for Poliwrath's DynamicPunch confusion. Grass resists Surf but is neutral to Fighting."
+  },
+  "jasmine": {
+    "id": "jasmine",
+    "name": "Jasmine",
+    "title": "Olivine City Gym Leader",
+    "type": "gym",
+    "specialty": ["steel"],
+    "badge": "Mineral Badge",
+    "location": "Olivine City",
+    "order": 6,
+    "teams": {
+      "gold": [
+        { "pokemon": "magnemite", "level": 30, "moves": ["thunderbolt", "supersonic", "sonicboom", "thunder-wave"] },
+        { "pokemon": "magnemite", "level": 30, "moves": ["thunderbolt", "supersonic", "sonicboom", "thunder-wave"] },
+        { "pokemon": "steelix", "level": 35, "moves": ["screech", "sunny-day", "rock-throw", "iron-tail"] }
+      ],
+      "silver": [
+        { "pokemon": "magnemite", "level": 30, "moves": ["thunderbolt", "supersonic", "sonicboom", "thunder-wave"] },
+        { "pokemon": "magnemite", "level": 30, "moves": ["thunderbolt", "supersonic", "sonicboom", "thunder-wave"] },
+        { "pokemon": "steelix", "level": 35, "moves": ["screech", "sunny-day", "rock-throw", "iron-tail"] }
+      ],
+      "crystal": [
+        { "pokemon": "magnemite", "level": 30, "moves": ["thunderbolt", "supersonic", "sonicboom", "thunder-wave"] },
+        { "pokemon": "magnemite", "level": 30, "moves": ["thunderbolt", "supersonic", "sonicboom", "thunder-wave"] },
+        { "pokemon": "steelix", "level": 35, "moves": ["screech", "sunny-day", "rock-throw", "iron-tail"] }
+      ],
+      "heartgold": [
+        { "pokemon": "magnemite", "level": 30, "moves": ["thunderbolt", "supersonic", "thunder-wave", "magnet-bomb"] },
+        { "pokemon": "magnemite", "level": 30, "moves": ["thunderbolt", "supersonic", "thunder-wave", "magnet-bomb"] },
+        { "pokemon": "steelix", "level": 33, "moves": ["screech", "rock-throw", "iron-tail", "sandstorm"] }
+      ],
+      "soulsilver": [
+        { "pokemon": "magnemite", "level": 30, "moves": ["thunderbolt", "supersonic", "thunder-wave", "magnet-bomb"] },
+        { "pokemon": "magnemite", "level": 30, "moves": ["thunderbolt", "supersonic", "thunder-wave", "magnet-bomb"] },
+        { "pokemon": "steelix", "level": 33, "moves": ["screech", "rock-throw", "iron-tail", "sandstorm"] }
+      ]
+    },
+    "weaknesses": ["fire", "fighting", "ground"],
+    "difficulty": "medium",
+    "tips": "Fire and Ground types are super effective. Fighting works too. Steelix has high defense but low Special Defense."
+  },
+  "pryce": {
+    "id": "pryce",
+    "name": "Pryce",
+    "title": "Mahogany Town Gym Leader",
+    "type": "gym",
+    "specialty": ["ice"],
+    "badge": "Glacier Badge",
+    "location": "Mahogany Town",
+    "order": 7,
+    "teams": {
+      "gold": [
+        { "pokemon": "seel", "level": 27, "moves": ["headbutt", "icy-wind", "aurora-beam", "rest"] },
+        { "pokemon": "dewgong", "level": 29, "moves": ["headbutt", "icy-wind", "aurora-beam", "rest"] },
+        { "pokemon": "piloswine", "level": 31, "moves": ["icy-wind", "fury-attack", "mist", "blizzard"] }
+      ],
+      "silver": [
+        { "pokemon": "seel", "level": 27, "moves": ["headbutt", "icy-wind", "aurora-beam", "rest"] },
+        { "pokemon": "dewgong", "level": 29, "moves": ["headbutt", "icy-wind", "aurora-beam", "rest"] },
+        { "pokemon": "piloswine", "level": 31, "moves": ["icy-wind", "fury-attack", "mist", "blizzard"] }
+      ],
+      "crystal": [
+        { "pokemon": "seel", "level": 27, "moves": ["headbutt", "icy-wind", "aurora-beam", "rest"] },
+        { "pokemon": "dewgong", "level": 29, "moves": ["headbutt", "icy-wind", "aurora-beam", "rest"] },
+        { "pokemon": "piloswine", "level": 31, "moves": ["icy-wind", "fury-attack", "mist", "blizzard"] }
+      ],
+      "heartgold": [
+        { "pokemon": "seel", "level": 30, "moves": ["hail", "icy-wind", "aurora-beam", "rest"] },
+        { "pokemon": "dewgong", "level": 32, "moves": ["hail", "ice-shard", "aurora-beam", "rest"] },
+        { "pokemon": "piloswine", "level": 34, "moves": ["hail", "ice-fang", "mud-bomb", "blizzard"] }
+      ],
+      "soulsilver": [
+        { "pokemon": "seel", "level": 30, "moves": ["hail", "icy-wind", "aurora-beam", "rest"] },
+        { "pokemon": "dewgong", "level": 32, "moves": ["hail", "ice-shard", "aurora-beam", "rest"] },
+        { "pokemon": "piloswine", "level": 34, "moves": ["hail", "ice-fang", "mud-bomb", "blizzard"] }
+      ]
+    },
+    "weaknesses": ["fire", "fighting", "rock", "steel"],
+    "difficulty": "medium",
+    "tips": "Fire and Fighting types excel here. Piloswine is also Ground type, so Electric won't work on it."
+  },
+  "clair": {
+    "id": "clair",
+    "name": "Clair",
+    "title": "Blackthorn City Gym Leader",
+    "type": "gym",
+    "specialty": ["dragon"],
+    "badge": "Rising Badge",
+    "location": "Blackthorn City",
+    "order": 8,
+    "teams": {
+      "gold": [
+        { "pokemon": "dragonair", "level": 37, "moves": ["thunder-wave", "surf", "slam", "dragonbreath"] },
+        { "pokemon": "dragonair", "level": 37, "moves": ["thunder-wave", "fire-blast", "slam", "dragonbreath"] },
+        { "pokemon": "dragonair", "level": 37, "moves": ["thunder-wave", "ice-beam", "slam", "dragonbreath"] },
+        { "pokemon": "kingdra", "level": 40, "moves": ["smokescreen", "surf", "dragonbreath", "hyper-beam"] }
+      ],
+      "silver": [
+        { "pokemon": "dragonair", "level": 37, "moves": ["thunder-wave", "surf", "slam", "dragonbreath"] },
+        { "pokemon": "dragonair", "level": 37, "moves": ["thunder-wave", "fire-blast", "slam", "dragonbreath"] },
+        { "pokemon": "dragonair", "level": 37, "moves": ["thunder-wave", "ice-beam", "slam", "dragonbreath"] },
+        { "pokemon": "kingdra", "level": 40, "moves": ["smokescreen", "surf", "dragonbreath", "hyper-beam"] }
+      ],
+      "crystal": [
+        { "pokemon": "dragonair", "level": 37, "moves": ["thunder-wave", "surf", "slam", "dragonbreath"] },
+        { "pokemon": "dragonair", "level": 37, "moves": ["thunder-wave", "fire-blast", "slam", "dragonbreath"] },
+        { "pokemon": "dragonair", "level": 37, "moves": ["thunder-wave", "ice-beam", "slam", "dragonbreath"] },
+        { "pokemon": "kingdra", "level": 40, "moves": ["smokescreen", "surf", "dragonbreath", "hyper-beam"] }
+      ],
+      "heartgold": [
+        { "pokemon": "gyarados", "level": 38, "moves": ["dragon-rage", "twister", "dragon-pulse", "bite"] },
+        { "pokemon": "dragonair", "level": 38, "moves": ["thunder-wave", "fire-blast", "slam", "dragon-pulse"] },
+        { "pokemon": "dragonair", "level": 38, "moves": ["thunder-wave", "aqua-tail", "slam", "dragon-pulse"] },
+        { "pokemon": "kingdra", "level": 41, "moves": ["smokescreen", "hydro-pump", "dragon-pulse", "hyper-beam"] }
+      ],
+      "soulsilver": [
+        { "pokemon": "gyarados", "level": 38, "moves": ["dragon-rage", "twister", "dragon-pulse", "bite"] },
+        { "pokemon": "dragonair", "level": 38, "moves": ["thunder-wave", "fire-blast", "slam", "dragon-pulse"] },
+        { "pokemon": "dragonair", "level": 38, "moves": ["thunder-wave", "aqua-tail", "slam", "dragon-pulse"] },
+        { "pokemon": "kingdra", "level": 41, "moves": ["smokescreen", "hydro-pump", "dragon-pulse", "hyper-beam"] }
+      ]
+    },
+    "weaknesses": ["dragon", "ice"],
+    "difficulty": "very-hard",
+    "tips": "Kingdra's Water/Dragon typing means only Dragon is super effective! Ice Beam still hits hard. Bring Paralyz Heals for Thunder Wave."
+  },
+  "will": {
+    "id": "will",
+    "name": "Will",
+    "title": "Elite Four",
+    "type": "elite-four",
+    "specialty": ["psychic"],
+    "location": "Indigo Plateau",
+    "order": 9,
+    "teams": {
+      "gold": [
+        { "pokemon": "xatu", "level": 40, "moves": ["quick-attack", "future-sight", "confuse-ray", "psychic"] },
+        { "pokemon": "jynx", "level": 41, "moves": ["doubleslap", "lovely-kiss", "ice-punch", "psychic"] },
+        { "pokemon": "exeggutor", "level": 41, "moves": ["egg-bomb", "reflect", "leech-seed", "psychic"] },
+        { "pokemon": "slowbro", "level": 41, "moves": ["curse", "amnesia", "body-slam", "psychic"] },
+        { "pokemon": "xatu", "level": 42, "moves": ["quick-attack", "future-sight", "confuse-ray", "psychic"] }
+      ],
+      "silver": [
+        { "pokemon": "xatu", "level": 40, "moves": ["quick-attack", "future-sight", "confuse-ray", "psychic"] },
+        { "pokemon": "jynx", "level": 41, "moves": ["doubleslap", "lovely-kiss", "ice-punch", "psychic"] },
+        { "pokemon": "exeggutor", "level": 41, "moves": ["egg-bomb", "reflect", "leech-seed", "psychic"] },
+        { "pokemon": "slowbro", "level": 41, "moves": ["curse", "amnesia", "body-slam", "psychic"] },
+        { "pokemon": "xatu", "level": 42, "moves": ["quick-attack", "future-sight", "confuse-ray", "psychic"] }
+      ],
+      "crystal": [
+        { "pokemon": "xatu", "level": 40, "moves": ["quick-attack", "future-sight", "confuse-ray", "psychic"] },
+        { "pokemon": "jynx", "level": 41, "moves": ["doubleslap", "lovely-kiss", "ice-punch", "psychic"] },
+        { "pokemon": "exeggutor", "level": 41, "moves": ["egg-bomb", "reflect", "leech-seed", "psychic"] },
+        { "pokemon": "slowbro", "level": 41, "moves": ["curse", "amnesia", "body-slam", "psychic"] },
+        { "pokemon": "xatu", "level": 42, "moves": ["quick-attack", "future-sight", "confuse-ray", "psychic"] }
+      ],
+      "heartgold": [
+        { "pokemon": "xatu", "level": 40, "moves": ["psychic", "confuse-ray", "u-turn", "me-first"] },
+        { "pokemon": "jynx", "level": 41, "moves": ["psychic", "lovely-kiss", "ice-punch", "doubleslap"] },
+        { "pokemon": "exeggutor", "level": 41, "moves": ["psychic", "hypnosis", "egg-bomb", "reflect"] },
+        { "pokemon": "slowbro", "level": 41, "moves": ["psychic", "amnesia", "water-pulse", "curse"] },
+        { "pokemon": "xatu", "level": 42, "moves": ["psychic", "confuse-ray", "ominous-wind", "me-first"] }
+      ],
+      "soulsilver": [
+        { "pokemon": "xatu", "level": 40, "moves": ["psychic", "confuse-ray", "u-turn", "me-first"] },
+        { "pokemon": "jynx", "level": 41, "moves": ["psychic", "lovely-kiss", "ice-punch", "doubleslap"] },
+        { "pokemon": "exeggutor", "level": 41, "moves": ["psychic", "hypnosis", "egg-bomb", "reflect"] },
+        { "pokemon": "slowbro", "level": 41, "moves": ["psychic", "amnesia", "water-pulse", "curse"] },
+        { "pokemon": "xatu", "level": 42, "moves": ["psychic", "confuse-ray", "ominous-wind", "me-first"] }
+      ]
+    },
+    "weaknesses": ["bug", "ghost", "dark"],
+    "difficulty": "medium",
+    "tips": "Dark types are immune to Psychic and super effective. Bug and Ghost also work well."
+  },
+  "koga-e4": {
+    "id": "koga-e4",
+    "name": "Koga",
+    "title": "Elite Four",
+    "type": "elite-four",
+    "specialty": ["poison"],
+    "location": "Indigo Plateau",
+    "order": 10,
+    "teams": {
+      "gold": [
+        { "pokemon": "ariados", "level": 40, "moves": ["double-team", "spider-web", "baton-pass", "giga-drain"] },
+        { "pokemon": "venomoth", "level": 41, "moves": ["double-team", "supersonic", "gust", "psychic"] },
+        { "pokemon": "forretress", "level": 43, "moves": ["protect", "spikes", "swift", "explosion"] },
+        { "pokemon": "muk", "level": 42, "moves": ["minimize", "toxic", "sludge-bomb", "acid-armor"] },
+        { "pokemon": "crobat", "level": 44, "moves": ["double-team", "wing-attack", "quick-attack", "toxic"] }
+      ],
+      "silver": [
+        { "pokemon": "ariados", "level": 40, "moves": ["double-team", "spider-web", "baton-pass", "giga-drain"] },
+        { "pokemon": "venomoth", "level": 41, "moves": ["double-team", "supersonic", "gust", "psychic"] },
+        { "pokemon": "forretress", "level": 43, "moves": ["protect", "spikes", "swift", "explosion"] },
+        { "pokemon": "muk", "level": 42, "moves": ["minimize", "toxic", "sludge-bomb", "acid-armor"] },
+        { "pokemon": "crobat", "level": 44, "moves": ["double-team", "wing-attack", "quick-attack", "toxic"] }
+      ],
+      "crystal": [
+        { "pokemon": "ariados", "level": 40, "moves": ["double-team", "spider-web", "baton-pass", "giga-drain"] },
+        { "pokemon": "venomoth", "level": 41, "moves": ["double-team", "supersonic", "gust", "psychic"] },
+        { "pokemon": "forretress", "level": 43, "moves": ["protect", "spikes", "swift", "explosion"] },
+        { "pokemon": "muk", "level": 42, "moves": ["minimize", "toxic", "sludge-bomb", "acid-armor"] },
+        { "pokemon": "crobat", "level": 44, "moves": ["double-team", "wing-attack", "quick-attack", "toxic"] }
+      ],
+      "heartgold": [
+        { "pokemon": "ariados", "level": 40, "moves": ["poison-jab", "bug-bite", "baton-pass", "giga-drain"] },
+        { "pokemon": "venomoth", "level": 41, "moves": ["psychic", "signal-beam", "double-team", "toxic"] },
+        { "pokemon": "forretress", "level": 43, "moves": ["toxic-spikes", "bug-bite", "protect", "explosion"] },
+        { "pokemon": "muk", "level": 42, "moves": ["gunk-shot", "minimize", "screech", "toxic"] },
+        { "pokemon": "crobat", "level": 44, "moves": ["cross-poison", "air-slash", "double-team", "quick-attack"] }
+      ],
+      "soulsilver": [
+        { "pokemon": "ariados", "level": 40, "moves": ["poison-jab", "bug-bite", "baton-pass", "giga-drain"] },
+        { "pokemon": "venomoth", "level": 41, "moves": ["psychic", "signal-beam", "double-team", "toxic"] },
+        { "pokemon": "forretress", "level": 43, "moves": ["toxic-spikes", "bug-bite", "protect", "explosion"] },
+        { "pokemon": "muk", "level": 42, "moves": ["gunk-shot", "minimize", "screech", "toxic"] },
+        { "pokemon": "crobat", "level": 44, "moves": ["cross-poison", "air-slash", "double-team", "quick-attack"] }
+      ]
+    },
+    "weaknesses": ["ground", "psychic"],
+    "difficulty": "hard",
+    "tips": "Psychic types dominate. Ground handles Muk and Crobat (if grounded). Watch out for Forretress Explosion!"
+  },
+  "bruno-e4": {
+    "id": "bruno-e4",
+    "name": "Bruno",
+    "title": "Elite Four",
+    "type": "elite-four",
+    "specialty": ["fighting"],
+    "location": "Indigo Plateau",
+    "order": 11,
+    "teams": {
+      "gold": [
+        { "pokemon": "hitmontop", "level": 42, "moves": ["quick-attack", "pursuit", "counter", "dig"] },
+        { "pokemon": "hitmonlee", "level": 42, "moves": ["double-kick", "hi-jump-kick", "foresight", "swagger"] },
+        { "pokemon": "hitmonchan", "level": 42, "moves": ["thunder-punch", "ice-punch", "fire-punch", "mach-punch"] },
+        { "pokemon": "onix", "level": 43, "moves": ["bind", "rock-slide", "earthquake", "sandstorm"] },
+        { "pokemon": "machamp", "level": 46, "moves": ["rock-slide", "foresight", "vital-throw", "cross-chop"] }
+      ],
+      "silver": [
+        { "pokemon": "hitmontop", "level": 42, "moves": ["quick-attack", "pursuit", "counter", "dig"] },
+        { "pokemon": "hitmonlee", "level": 42, "moves": ["double-kick", "hi-jump-kick", "foresight", "swagger"] },
+        { "pokemon": "hitmonchan", "level": 42, "moves": ["thunder-punch", "ice-punch", "fire-punch", "mach-punch"] },
+        { "pokemon": "onix", "level": 43, "moves": ["bind", "rock-slide", "earthquake", "sandstorm"] },
+        { "pokemon": "machamp", "level": 46, "moves": ["rock-slide", "foresight", "vital-throw", "cross-chop"] }
+      ],
+      "crystal": [
+        { "pokemon": "hitmontop", "level": 42, "moves": ["quick-attack", "pursuit", "counter", "dig"] },
+        { "pokemon": "hitmonlee", "level": 42, "moves": ["double-kick", "hi-jump-kick", "foresight", "swagger"] },
+        { "pokemon": "hitmonchan", "level": 42, "moves": ["thunder-punch", "ice-punch", "fire-punch", "mach-punch"] },
+        { "pokemon": "onix", "level": 43, "moves": ["bind", "rock-slide", "earthquake", "sandstorm"] },
+        { "pokemon": "machamp", "level": 46, "moves": ["rock-slide", "foresight", "vital-throw", "cross-chop"] }
+      ],
+      "heartgold": [
+        { "pokemon": "hitmontop", "level": 42, "moves": ["dig", "counter", "triple-kick", "quick-attack"] },
+        { "pokemon": "hitmonlee", "level": 42, "moves": ["blaze-kick", "focus-energy", "hi-jump-kick", "swagger"] },
+        { "pokemon": "hitmonchan", "level": 42, "moves": ["thunder-punch", "ice-punch", "fire-punch", "bullet-punch"] },
+        { "pokemon": "onix", "level": 43, "moves": ["rock-slide", "earthquake", "screech", "sandstorm"] },
+        { "pokemon": "machamp", "level": 46, "moves": ["rock-slide", "revenge", "foresight", "cross-chop"] }
+      ],
+      "soulsilver": [
+        { "pokemon": "hitmontop", "level": 42, "moves": ["dig", "counter", "triple-kick", "quick-attack"] },
+        { "pokemon": "hitmonlee", "level": 42, "moves": ["blaze-kick", "focus-energy", "hi-jump-kick", "swagger"] },
+        { "pokemon": "hitmonchan", "level": 42, "moves": ["thunder-punch", "ice-punch", "fire-punch", "bullet-punch"] },
+        { "pokemon": "onix", "level": 43, "moves": ["rock-slide", "earthquake", "screech", "sandstorm"] },
+        { "pokemon": "machamp", "level": 46, "moves": ["rock-slide", "revenge", "foresight", "cross-chop"] }
+      ]
+    },
+    "weaknesses": ["flying", "psychic", "fairy"],
+    "difficulty": "medium",
+    "tips": "Psychic and Flying types dominate Fighting. Water/Grass handles Onix. Machamp's No Guard makes moves always hit!"
+  },
+  "karen": {
+    "id": "karen",
+    "name": "Karen",
+    "title": "Elite Four",
+    "type": "elite-four",
+    "specialty": ["dark"],
+    "location": "Indigo Plateau",
+    "order": 12,
+    "teams": {
+      "gold": [
+        { "pokemon": "umbreon", "level": 42, "moves": ["sand-attack", "confuse-ray", "faint-attack", "mean-look"] },
+        { "pokemon": "vileplume", "level": 42, "moves": ["stun-spore", "acid", "moonlight", "petal-dance"] },
+        { "pokemon": "gengar", "level": 45, "moves": ["lick", "spite", "curse", "destiny-bond"] },
+        { "pokemon": "murkrow", "level": 44, "moves": ["quick-attack", "pursuit", "faint-attack", "whirlwind"] },
+        { "pokemon": "houndoom", "level": 47, "moves": ["roar", "pursuit", "flamethrower", "crunch"] }
+      ],
+      "silver": [
+        { "pokemon": "umbreon", "level": 42, "moves": ["sand-attack", "confuse-ray", "faint-attack", "mean-look"] },
+        { "pokemon": "vileplume", "level": 42, "moves": ["stun-spore", "acid", "moonlight", "petal-dance"] },
+        { "pokemon": "gengar", "level": 45, "moves": ["lick", "spite", "curse", "destiny-bond"] },
+        { "pokemon": "murkrow", "level": 44, "moves": ["quick-attack", "pursuit", "faint-attack", "whirlwind"] },
+        { "pokemon": "houndoom", "level": 47, "moves": ["roar", "pursuit", "flamethrower", "crunch"] }
+      ],
+      "crystal": [
+        { "pokemon": "umbreon", "level": 42, "moves": ["sand-attack", "confuse-ray", "faint-attack", "mean-look"] },
+        { "pokemon": "vileplume", "level": 42, "moves": ["stun-spore", "acid", "moonlight", "petal-dance"] },
+        { "pokemon": "gengar", "level": 45, "moves": ["lick", "spite", "curse", "destiny-bond"] },
+        { "pokemon": "murkrow", "level": 44, "moves": ["quick-attack", "pursuit", "faint-attack", "whirlwind"] },
+        { "pokemon": "houndoom", "level": 47, "moves": ["roar", "pursuit", "flamethrower", "crunch"] }
+      ],
+      "heartgold": [
+        { "pokemon": "umbreon", "level": 42, "moves": ["confuse-ray", "payback", "double-team", "dark-pulse"] },
+        { "pokemon": "vileplume", "level": 42, "moves": ["stun-spore", "petal-dance", "moonlight", "acid"] },
+        { "pokemon": "gengar", "level": 45, "moves": ["shadow-ball", "focus-blast", "spite", "destiny-bond"] },
+        { "pokemon": "murkrow", "level": 44, "moves": ["sucker-punch", "night-slash", "faint-attack", "whirlwind"] },
+        { "pokemon": "houndoom", "level": 47, "moves": ["dark-pulse", "flamethrower", "nasty-plot", "crunch"] }
+      ],
+      "soulsilver": [
+        { "pokemon": "umbreon", "level": 42, "moves": ["confuse-ray", "payback", "double-team", "dark-pulse"] },
+        { "pokemon": "vileplume", "level": 42, "moves": ["stun-spore", "petal-dance", "moonlight", "acid"] },
+        { "pokemon": "gengar", "level": 45, "moves": ["shadow-ball", "focus-blast", "spite", "destiny-bond"] },
+        { "pokemon": "murkrow", "level": 44, "moves": ["sucker-punch", "night-slash", "faint-attack", "whirlwind"] },
+        { "pokemon": "houndoom", "level": 47, "moves": ["dark-pulse", "flamethrower", "nasty-plot", "crunch"] }
+      ]
+    },
+    "weaknesses": ["fighting", "bug", "fairy"],
+    "difficulty": "hard",
+    "tips": "Fighting types handle Dark. Bug works on Umbreon. Watch out for Gengar's Ghost/Poison typing and Destiny Bond."
+  },
+  "lance-champion": {
+    "id": "lance-champion",
+    "name": "Lance",
+    "title": "Pokémon League Champion",
+    "type": "champion",
+    "specialty": ["dragon", "flying"],
+    "location": "Indigo Plateau",
+    "order": 13,
+    "teams": {
+      "gold": [
+        { "pokemon": "gyarados", "level": 44, "moves": ["flail", "rain-dance", "surf", "hyper-beam"] },
+        { "pokemon": "dragonite", "level": 47, "moves": ["thunder-wave", "twister", "thunder", "hyper-beam"] },
+        { "pokemon": "dragonite", "level": 47, "moves": ["thunder-wave", "twister", "blizzard", "hyper-beam"] },
+        { "pokemon": "aerodactyl", "level": 46, "moves": ["wing-attack", "ancientpower", "rock-slide", "hyper-beam"] },
+        { "pokemon": "charizard", "level": 46, "moves": ["flamethrower", "wing-attack", "slash", "hyper-beam"] },
+        { "pokemon": "dragonite", "level": 50, "moves": ["fire-blast", "safeguard", "outrage", "hyper-beam"] }
+      ],
+      "silver": [
+        { "pokemon": "gyarados", "level": 44, "moves": ["flail", "rain-dance", "surf", "hyper-beam"] },
+        { "pokemon": "dragonite", "level": 47, "moves": ["thunder-wave", "twister", "thunder", "hyper-beam"] },
+        { "pokemon": "dragonite", "level": 47, "moves": ["thunder-wave", "twister", "blizzard", "hyper-beam"] },
+        { "pokemon": "aerodactyl", "level": 46, "moves": ["wing-attack", "ancientpower", "rock-slide", "hyper-beam"] },
+        { "pokemon": "charizard", "level": 46, "moves": ["flamethrower", "wing-attack", "slash", "hyper-beam"] },
+        { "pokemon": "dragonite", "level": 50, "moves": ["fire-blast", "safeguard", "outrage", "hyper-beam"] }
+      ],
+      "crystal": [
+        { "pokemon": "gyarados", "level": 44, "moves": ["flail", "rain-dance", "surf", "hyper-beam"] },
+        { "pokemon": "dragonite", "level": 47, "moves": ["thunder-wave", "twister", "thunder", "hyper-beam"] },
+        { "pokemon": "dragonite", "level": 47, "moves": ["thunder-wave", "twister", "blizzard", "hyper-beam"] },
+        { "pokemon": "aerodactyl", "level": 46, "moves": ["wing-attack", "ancientpower", "rock-slide", "hyper-beam"] },
+        { "pokemon": "charizard", "level": 46, "moves": ["flamethrower", "wing-attack", "slash", "hyper-beam"] },
+        { "pokemon": "dragonite", "level": 50, "moves": ["fire-blast", "safeguard", "outrage", "hyper-beam"] }
+      ],
+      "heartgold": [
+        { "pokemon": "gyarados", "level": 46, "moves": ["dragon-dance", "waterfall", "ice-fang", "flail"] },
+        { "pokemon": "dragonite", "level": 49, "moves": ["thunder-wave", "thunder", "safeguard", "hyper-beam"] },
+        { "pokemon": "dragonite", "level": 49, "moves": ["thunder-wave", "blizzard", "safeguard", "hyper-beam"] },
+        { "pokemon": "charizard", "level": 48, "moves": ["air-slash", "flamethrower", "dragon-claw", "shadow-claw"] },
+        { "pokemon": "aerodactyl", "level": 48, "moves": ["rock-slide", "aerial-ace", "crunch", "thunder-fang"] },
+        { "pokemon": "dragonite", "level": 50, "moves": ["fire-blast", "draco-meteor", "safeguard", "hyper-beam"] }
+      ],
+      "soulsilver": [
+        { "pokemon": "gyarados", "level": 46, "moves": ["dragon-dance", "waterfall", "ice-fang", "flail"] },
+        { "pokemon": "dragonite", "level": 49, "moves": ["thunder-wave", "thunder", "safeguard", "hyper-beam"] },
+        { "pokemon": "dragonite", "level": 49, "moves": ["thunder-wave", "blizzard", "safeguard", "hyper-beam"] },
+        { "pokemon": "charizard", "level": 48, "moves": ["air-slash", "flamethrower", "dragon-claw", "shadow-claw"] },
+        { "pokemon": "aerodactyl", "level": 48, "moves": ["rock-slide", "aerial-ace", "crunch", "thunder-fang"] },
+        { "pokemon": "dragonite", "level": 50, "moves": ["fire-blast", "draco-meteor", "safeguard", "hyper-beam"] }
+      ]
+    },
+    "weaknesses": ["ice", "rock", "electric"],
+    "difficulty": "very-hard",
+    "tips": "Ice types destroy most of his team! Rock handles Charizard and Aerodactyl. Electric for Gyarados. His Dragonites are underleveled (should evolve at 55)."
   }
 }

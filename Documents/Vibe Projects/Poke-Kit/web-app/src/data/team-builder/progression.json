@@ -344,5 +344,369 @@
         "leafgreen": ["lapras", "alakazam", "jolteon", "arcanine", "venusaur", "golem"]
       }
     }
+  },
+  "johto": {
+    "falkner": {
+      "description": "Before Gym 1 - Violet City",
+      "locations": ["new-bark-town", "route-29", "cherrygrove-city", "route-30", "route-31", "dark-cave", "sprout-tower"],
+      "pokemon": {
+        "gold": {
+          "starter": ["chikorita", "cyndaquil", "totodile"],
+          "wild": ["pidgey", "sentret", "rattata", "hoothoot", "geodude", "zubat", "bellsprout", "gastly"]
+        },
+        "silver": {
+          "starter": ["chikorita", "cyndaquil", "totodile"],
+          "wild": ["pidgey", "sentret", "rattata", "hoothoot", "geodude", "zubat", "bellsprout", "gastly"]
+        },
+        "crystal": {
+          "starter": ["chikorita", "cyndaquil", "totodile"],
+          "wild": ["pidgey", "sentret", "rattata", "hoothoot", "geodude", "zubat", "bellsprout", "gastly"]
+        },
+        "heartgold": {
+          "starter": ["chikorita", "cyndaquil", "totodile"],
+          "wild": ["pidgey", "sentret", "rattata", "hoothoot", "geodude", "zubat", "bellsprout", "gastly", "mareep"]
+        },
+        "soulsilver": {
+          "starter": ["chikorita", "cyndaquil", "totodile"],
+          "wild": ["pidgey", "sentret", "rattata", "hoothoot", "geodude", "zubat", "bellsprout", "gastly", "mareep"]
+        }
+      },
+      "recommended": {
+        "gold": ["geodude", "mareep"],
+        "silver": ["geodude", "mareep"],
+        "crystal": ["geodude", "mareep"],
+        "heartgold": ["geodude", "mareep"],
+        "soulsilver": ["geodude", "mareep"]
+      }
+    },
+    "bugsy": {
+      "description": "Before Gym 2 - Azalea Town",
+      "locations": ["route-32", "ruins-of-alph", "union-cave", "route-33", "slowpoke-well"],
+      "pokemon": {
+        "gold": {
+          "new": ["wooper", "quagsire", "onix", "sandshrew", "slowpoke", "unown"]
+        },
+        "silver": {
+          "new": ["wooper", "quagsire", "onix", "sandshrew", "slowpoke", "unown"]
+        },
+        "crystal": {
+          "new": ["wooper", "quagsire", "onix", "sandshrew", "slowpoke", "unown"]
+        },
+        "heartgold": {
+          "new": ["wooper", "quagsire", "onix", "sandshrew", "slowpoke", "unown"]
+        },
+        "soulsilver": {
+          "new": ["wooper", "quagsire", "onix", "sandshrew", "slowpoke", "unown"]
+        }
+      },
+      "recommended": {
+        "gold": ["cyndaquil", "quilava", "geodude", "pidgey", "pidgeotto", "hoothoot", "noctowl"],
+        "silver": ["cyndaquil", "quilava", "geodude", "pidgey", "pidgeotto", "hoothoot", "noctowl"],
+        "crystal": ["cyndaquil", "quilava", "geodude", "pidgey", "pidgeotto", "hoothoot", "noctowl"],
+        "heartgold": ["cyndaquil", "quilava", "geodude", "pidgey", "pidgeotto", "hoothoot", "noctowl"],
+        "soulsilver": ["cyndaquil", "quilava", "geodude", "pidgey", "pidgeotto", "hoothoot", "noctowl"]
+      },
+      "special": {
+        "scyther": "Scyther's Fury Cutter gets stronger each turn - KO it fast!"
+      }
+    },
+    "whitney": {
+      "description": "Before Gym 3 - Goldenrod City",
+      "locations": ["ilex-forest", "route-34", "goldenrod-city"],
+      "pokemon": {
+        "gold": {
+          "new": ["oddish", "psyduck", "drowzee", "abra", "ditto", "machop"]
+        },
+        "silver": {
+          "new": ["oddish", "psyduck", "drowzee", "abra", "ditto", "machop"]
+        },
+        "crystal": {
+          "new": ["oddish", "psyduck", "drowzee", "abra", "ditto", "machop"]
+        },
+        "heartgold": {
+          "new": ["oddish", "psyduck", "drowzee", "abra", "ditto", "machop"]
+        },
+        "soulsilver": {
+          "new": ["oddish", "psyduck", "drowzee", "abra", "ditto", "machop"]
+        }
+      },
+      "recommended": {
+        "gold": ["machop", "geodude", "gastly", "heracross"],
+        "silver": ["machop", "geodude", "gastly", "heracross"],
+        "crystal": ["machop", "geodude", "gastly", "heracross"],
+        "heartgold": ["machop", "geodude", "gastly", "heracross"],
+        "soulsilver": ["machop", "geodude", "gastly", "heracross"]
+      },
+      "special": {
+        "machop": "Trade for Machop at Goldenrod Dept Store",
+        "heracross": "Headbutt trees for Heracross",
+        "gastly": "Gastly is immune to Normal moves",
+        "female": "Use female Pokemon to avoid Attract!"
+      }
+    },
+    "morty": {
+      "description": "Before Gym 4 - Ecruteak City",
+      "locations": ["route-35", "national-park", "route-36", "route-37", "burned-tower"],
+      "pokemon": {
+        "gold": {
+          "new": ["nidoran-f", "nidoran-m", "growlithe", "vulpix", "stantler", "magmar", "koffing", "rattata"]
+        },
+        "silver": {
+          "new": ["nidoran-f", "nidoran-m", "growlithe", "vulpix", "stantler", "magmar", "koffing", "rattata"]
+        },
+        "crystal": {
+          "new": ["nidoran-f", "nidoran-m", "growlithe", "vulpix", "stantler", "magmar", "koffing", "rattata", "yanma"]
+        },
+        "heartgold": {
+          "new": ["nidoran-f", "nidoran-m", "growlithe", "stantler", "magmar", "koffing"]
+        },
+        "soulsilver": {
+          "new": ["nidoran-f", "nidoran-m", "vulpix", "stantler", "magmar", "koffing"]
+        }
+      },
+      "recommended": {
+        "gold": ["umbreon", "murkrow", "sneasel", "raticate", "furret"],
+        "silver": ["umbreon", "murkrow", "sneasel", "raticate", "furret"],
+        "crystal": ["umbreon", "murkrow", "sneasel", "raticate", "furret"],
+        "heartgold": ["umbreon", "murkrow", "sneasel", "raticate", "furret"],
+        "soulsilver": ["umbreon", "murkrow", "sneasel", "raticate", "furret"]
+      },
+      "special": {
+        "umbreon": "Dark type immune to Ghost, SE damage",
+        "normal": "Normal types immune to Ghost but can't hit back in Gen 2"
+      }
+    },
+    "chuck": {
+      "description": "Before Gym 5 - Cianwood City",
+      "locations": ["route-38", "route-39", "olivine-city", "route-40", "route-41", "whirl-islands", "cianwood-city"],
+      "pokemon": {
+        "gold": {
+          "new": ["miltank", "tauros", "meowth", "magnemite", "voltorb", "tentacool", "tentacruel", "chinchou", "lanturn", "krabby", "kingler", "horsea", "seadra"]
+        },
+        "silver": {
+          "new": ["miltank", "tauros", "meowth", "magnemite", "voltorb", "tentacool", "tentacruel", "chinchou", "lanturn", "krabby", "kingler", "horsea", "seadra"]
+        },
+        "crystal": {
+          "new": ["miltank", "tauros", "meowth", "magnemite", "voltorb", "tentacool", "tentacruel", "chinchou", "lanturn", "krabby", "kingler", "horsea", "seadra"]
+        },
+        "heartgold": {
+          "new": ["miltank", "tauros", "meowth", "magnemite", "voltorb", "tentacool", "tentacruel", "chinchou", "lanturn", "krabby", "kingler", "horsea", "seadra"]
+        },
+        "soulsilver": {
+          "new": ["miltank", "tauros", "meowth", "magnemite", "voltorb", "tentacool", "tentacruel", "chinchou", "lanturn", "krabby", "kingler", "horsea", "seadra"]
+        }
+      },
+      "recommended": {
+        "gold": ["noctowl", "pidgeotto", "pidgeot", "alakazam", "kadabra", "espeon", "togetic"],
+        "silver": ["noctowl", "pidgeotto", "pidgeot", "alakazam", "kadabra", "espeon", "togetic"],
+        "crystal": ["noctowl", "pidgeotto", "pidgeot", "alakazam", "kadabra", "espeon", "togetic"],
+        "heartgold": ["noctowl", "pidgeotto", "pidgeot", "alakazam", "kadabra", "espeon", "togetic"],
+        "soulsilver": ["noctowl", "pidgeotto", "pidgeot", "alakazam", "kadabra", "espeon", "togetic"]
+      },
+      "special": {
+        "dynamicpunch": "Poliwrath's DynamicPunch always confuses on hit"
+      }
+    },
+    "jasmine": {
+      "description": "Before Gym 6 - Olivine City",
+      "locations": ["olivine-lighthouse"],
+      "pokemon": {
+        "gold": {
+          "new": []
+        },
+        "silver": {
+          "new": []
+        },
+        "crystal": {
+          "new": []
+        },
+        "heartgold": {
+          "new": []
+        },
+        "soulsilver": {
+          "new": []
+        }
+      },
+      "recommended": {
+        "gold": ["quilava", "typhlosion", "magmar", "arcanine", "ninetales", "quagsire", "sandslash", "dugtrio", "machoke", "machamp"],
+        "silver": ["quilava", "typhlosion", "magmar", "arcanine", "ninetales", "quagsire", "sandslash", "dugtrio", "machoke", "machamp"],
+        "crystal": ["quilava", "typhlosion", "magmar", "arcanine", "ninetales", "quagsire", "sandslash", "dugtrio", "machoke", "machamp"],
+        "heartgold": ["quilava", "typhlosion", "magmar", "arcanine", "quagsire", "sandslash", "dugtrio", "machoke", "machamp"],
+        "soulsilver": ["quilava", "typhlosion", "magmar", "ninetales", "quagsire", "sandslash", "dugtrio", "machoke", "machamp"]
+      }
+    },
+    "pryce": {
+      "description": "Before Gym 7 - Mahogany Town",
+      "locations": ["route-42", "mt-mortar", "mahogany-town", "lake-of-rage", "team-rocket-hq"],
+      "pokemon": {
+        "gold": {
+          "new": ["gyarados", "red-gyarados", "raticate", "goldeen", "seaking", "magikarp"]
+        },
+        "silver": {
+          "new": ["gyarados", "red-gyarados", "raticate", "goldeen", "seaking", "magikarp"]
+        },
+        "crystal": {
+          "new": ["gyarados", "red-gyarados", "raticate", "goldeen", "seaking", "magikarp"]
+        },
+        "heartgold": {
+          "new": ["gyarados", "red-gyarados", "raticate", "goldeen", "seaking", "magikarp"]
+        },
+        "soulsilver": {
+          "new": ["gyarados", "red-gyarados", "raticate", "goldeen", "seaking", "magikarp"]
+        }
+      },
+      "recommended": {
+        "gold": ["typhlosion", "arcanine", "magmar", "machamp", "heracross", "red-gyarados"],
+        "silver": ["typhlosion", "arcanine", "magmar", "machamp", "heracross", "red-gyarados"],
+        "crystal": ["typhlosion", "arcanine", "magmar", "machamp", "heracross", "red-gyarados"],
+        "heartgold": ["typhlosion", "arcanine", "magmar", "machamp", "heracross", "red-gyarados"],
+        "soulsilver": ["typhlosion", "arcanine", "magmar", "machamp", "heracross", "red-gyarados"]
+      },
+      "special": {
+        "red-gyarados": "Free shiny Gyarados at Lake of Rage!"
+      }
+    },
+    "clair": {
+      "description": "Before Gym 8 - Blackthorn City",
+      "locations": ["route-43", "route-44", "ice-path", "blackthorn-city", "dragons-den"],
+      "pokemon": {
+        "gold": {
+          "new": ["swinub", "piloswine", "jynx", "delibird", "sneasel"]
+        },
+        "silver": {
+          "new": ["swinub", "piloswine", "jynx", "delibird", "sneasel"]
+        },
+        "crystal": {
+          "new": ["swinub", "piloswine", "jynx", "delibird", "sneasel"]
+        },
+        "heartgold": {
+          "new": ["swinub", "piloswine", "jynx", "delibird", "sneasel"]
+        },
+        "soulsilver": {
+          "new": ["swinub", "piloswine", "jynx", "delibird", "sneasel"]
+        }
+      },
+      "recommended": {
+        "gold": ["piloswine", "jynx", "lapras", "dewgong", "cloyster", "dragonair"],
+        "silver": ["piloswine", "jynx", "lapras", "dewgong", "cloyster", "dragonair"],
+        "crystal": ["piloswine", "jynx", "lapras", "dewgong", "cloyster", "dragonair"],
+        "heartgold": ["piloswine", "jynx", "lapras", "dewgong", "cloyster", "dragonair"],
+        "soulsilver": ["piloswine", "jynx", "lapras", "dewgong", "cloyster", "dragonair"]
+      },
+      "special": {
+        "kingdra": "Kingdra (Water/Dragon) only weak to Dragon!",
+        "ice-beam": "Ice Beam still hits hard even without SE"
+      }
+    },
+    "will": {
+      "description": "Before Elite Four 1",
+      "locations": ["route-26", "route-27", "tohjo-falls", "victory-road-johto"],
+      "pokemon": {
+        "gold": {
+          "new": ["ponyta", "rapidash", "doduo", "dodrio", "tangela", "quagsire"]
+        },
+        "silver": {
+          "new": ["ponyta", "rapidash", "doduo", "dodrio", "tangela", "quagsire"]
+        },
+        "crystal": {
+          "new": ["ponyta", "rapidash", "doduo", "dodrio", "tangela", "quagsire"]
+        },
+        "heartgold": {
+          "new": ["ponyta", "rapidash", "doduo", "dodrio", "tangela", "quagsire"]
+        },
+        "soulsilver": {
+          "new": ["ponyta", "rapidash", "doduo", "dodrio", "tangela", "quagsire"]
+        }
+      },
+      "recommended": {
+        "gold": ["umbreon", "houndoom", "murkrow", "sneasel", "tyranitar", "scizor"],
+        "silver": ["umbreon", "houndoom", "murkrow", "sneasel", "tyranitar", "scizor"],
+        "crystal": ["umbreon", "houndoom", "murkrow", "sneasel", "tyranitar", "scizor"],
+        "heartgold": ["umbreon", "houndoom", "honchkrow", "weavile", "tyranitar", "scizor"],
+        "soulsilver": ["umbreon", "houndoom", "honchkrow", "weavile", "tyranitar", "scizor"]
+      }
+    },
+    "koga-e4": {
+      "description": "Before Elite Four 2",
+      "locations": [],
+      "pokemon": {
+        "gold": { "new": [] },
+        "silver": { "new": [] },
+        "crystal": { "new": [] },
+        "heartgold": { "new": [] },
+        "soulsilver": { "new": [] }
+      },
+      "recommended": {
+        "gold": ["alakazam", "espeon", "hypno", "starmie", "slowbro", "exeggutor", "dugtrio", "sandslash"],
+        "silver": ["alakazam", "espeon", "hypno", "starmie", "slowbro", "exeggutor", "dugtrio", "sandslash"],
+        "crystal": ["alakazam", "espeon", "hypno", "starmie", "slowbro", "exeggutor", "dugtrio", "sandslash"],
+        "heartgold": ["alakazam", "espeon", "hypno", "starmie", "slowbro", "exeggutor", "dugtrio", "sandslash"],
+        "soulsilver": ["alakazam", "espeon", "hypno", "starmie", "slowbro", "exeggutor", "dugtrio", "sandslash"]
+      },
+      "special": {
+        "forretress": "Watch out for Forretress Explosion!"
+      }
+    },
+    "bruno-e4": {
+      "description": "Before Elite Four 3",
+      "locations": [],
+      "pokemon": {
+        "gold": { "new": [] },
+        "silver": { "new": [] },
+        "crystal": { "new": [] },
+        "heartgold": { "new": [] },
+        "soulsilver": { "new": [] }
+      },
+      "recommended": {
+        "gold": ["alakazam", "espeon", "hypno", "starmie", "slowbro", "exeggutor", "pidgeot", "noctowl", "crobat"],
+        "silver": ["alakazam", "espeon", "hypno", "starmie", "slowbro", "exeggutor", "pidgeot", "noctowl", "crobat"],
+        "crystal": ["alakazam", "espeon", "hypno", "starmie", "slowbro", "exeggutor", "pidgeot", "noctowl", "crobat"],
+        "heartgold": ["alakazam", "espeon", "hypno", "starmie", "slowbro", "exeggutor", "pidgeot", "noctowl", "crobat"],
+        "soulsilver": ["alakazam", "espeon", "hypno", "starmie", "slowbro", "exeggutor", "pidgeot", "noctowl", "crobat"]
+      }
+    },
+    "karen": {
+      "description": "Before Elite Four 4",
+      "locations": [],
+      "pokemon": {
+        "gold": { "new": [] },
+        "silver": { "new": [] },
+        "crystal": { "new": [] },
+        "heartgold": { "new": [] },
+        "soulsilver": { "new": [] }
+      },
+      "recommended": {
+        "gold": ["machamp", "heracross", "primeape", "poliwrath", "scizor", "pinsir"],
+        "silver": ["machamp", "heracross", "primeape", "poliwrath", "scizor", "pinsir"],
+        "crystal": ["machamp", "heracross", "primeape", "poliwrath", "scizor", "pinsir"],
+        "heartgold": ["machamp", "heracross", "primeape", "poliwrath", "scizor", "pinsir"],
+        "soulsilver": ["machamp", "heracross", "primeape", "poliwrath", "scizor", "pinsir"]
+      },
+      "special": {
+        "gengar": "Gengar is Ghost/Poison - use Ground or Psychic"
+      }
+    },
+    "lance-champion": {
+      "description": "Before Champion",
+      "locations": [],
+      "pokemon": {
+        "gold": { "new": [] },
+        "silver": { "new": [] },
+        "crystal": { "new": [] },
+        "heartgold": { "new": [] },
+        "soulsilver": { "new": [] }
+      },
+      "recommended": {
+        "gold": ["lapras", "piloswine", "jynx", "dewgong", "cloyster", "articuno", "jolteon", "ampharos", "lanturn"],
+        "silver": ["lapras", "piloswine", "jynx", "dewgong", "cloyster", "articuno", "jolteon", "ampharos", "lanturn"],
+        "crystal": ["lapras", "piloswine", "jynx", "dewgong", "cloyster", "articuno", "jolteon", "ampharos", "lanturn"],
+        "heartgold": ["lapras", "mamoswine", "jynx", "dewgong", "cloyster", "articuno", "jolteon", "ampharos", "lanturn"],
+        "soulsilver": ["lapras", "mamoswine", "jynx", "dewgong", "cloyster", "articuno", "jolteon", "ampharos", "lanturn"]
+      },
+      "special": {
+        "ice": "Ice destroys his whole team!",
+        "dragonite": "His Dragonites are underleveled (should evolve at 55)"
+      }
+    }
   }
 }

@@ -306,24 +306,46 @@ function getTrainerSpriteUrl(bossId: string, gameId: string): string {
   // Showdown trainer sprite base URL
   const showdownBase = 'https://play.pokemonshowdown.com/sprites/trainers';
 
-  // FireRed/LeafGreen use FRLG sprites, others use classic sprites
-  const isFRLG = gameId === 'firered' || gameId === 'leafgreen';
+  // Determine sprite generation based on game
+  const isGen1Classic = ['red', 'blue', 'yellow'].includes(gameId);
+  const isGen1FRLG = ['firered', 'leafgreen'].includes(gameId);
+  const isGen2Classic = ['gold', 'silver', 'crystal'].includes(gameId);
+  const isGen2HGSS = ['heartgold', 'soulsilver'].includes(gameId);
 
   // Map boss IDs to Showdown trainer sprite names
-  const trainerMap: Record<string, { classic: string; frlg: string }> = {
-    'brock': { classic: 'brock-gen1', frlg: 'brock-gen3' },
-    'misty': { classic: 'misty-gen1', frlg: 'misty-gen3' },
-    'surge': { classic: 'ltsurge-gen1', frlg: 'ltsurge-gen3' },
-    'erika': { classic: 'erika-gen1', frlg: 'erika-gen3' },
-    'koga': { classic: 'koga-gen1', frlg: 'koga-gen3' },
-    'sabrina': { classic: 'sabrina-gen1', frlg: 'sabrina-gen3' },
-    'blaine': { classic: 'blaine-gen1', frlg: 'blaine-gen3' },
-    'giovanni': { classic: 'giovanni-gen1', frlg: 'giovanni-gen3' },
-    'lorelei': { classic: 'lorelei-gen1', frlg: 'lorelei-gen3' },
-    'bruno': { classic: 'bruno-gen1', frlg: 'bruno-gen3' },
-    'agatha': { classic: 'agatha-gen1', frlg: 'agatha-gen3' },
-    'lance': { classic: 'lance-gen1', frlg: 'lance-gen3' },
-    'blue-champion': { classic: 'blue-gen1champion', frlg: 'blue-gen3' }
+  // Format: { gen1classic, gen1frlg, gen2classic, gen2hgss }
+  type SpriteMap = { gen1?: string; frlg?: string; gen2?: string; hgss?: string };
+  const trainerMap: Record<string, SpriteMap> = {
+    // Gen 1 Gym Leaders
+    'brock': { gen1: 'brock-gen1', frlg: 'brock-gen3' },
+    'misty': { gen1: 'misty-gen1', frlg: 'misty-gen3' },
+    'surge': { gen1: 'ltsurge-gen1', frlg: 'ltsurge-gen3' },
+    'erika': { gen1: 'erika-gen1', frlg: 'erika-gen3' },
+    'koga': { gen1: 'koga-gen1', frlg: 'koga-gen3' },
+    'sabrina': { gen1: 'sabrina-gen1', frlg: 'sabrina-gen3' },
+    'blaine': { gen1: 'blaine-gen1', frlg: 'blaine-gen3' },
+    'giovanni': { gen1: 'giovanni-gen1', frlg: 'giovanni-gen3' },
+    // Gen 1 Elite Four
+    'lorelei': { gen1: 'lorelei-gen1', frlg: 'lorelei-gen3' },
+    'bruno': { gen1: 'bruno-gen1', frlg: 'bruno-gen3' },
+    'agatha': { gen1: 'agatha-gen1', frlg: 'agatha-gen3' },
+    'lance': { gen1: 'lance-gen1', frlg: 'lance-gen3' },
+    'blue-champion': { gen1: 'blue-gen1champion', frlg: 'blue-gen3' },
+    // Gen 2 Gym Leaders (Johto)
+    'falkner': { gen2: 'falkner-gen2', hgss: 'falkner' },
+    'bugsy': { gen2: 'bugsy-gen2', hgss: 'bugsy' },
+    'whitney': { gen2: 'whitney-gen2', hgss: 'whitney' },
+    'morty': { gen2: 'morty-gen2', hgss: 'morty' },
+    'chuck': { gen2: 'chuck-gen2', hgss: 'chuck' },
+    'jasmine': { gen2: 'jasmine-gen2', hgss: 'jasmine' },
+    'pryce': { gen2: 'pryce-gen2', hgss: 'pryce' },
+    'clair': { gen2: 'clair-gen2', hgss: 'clair' },
+    // Gen 2 Elite Four (Johto)
+    'will': { gen2: 'will-gen2', hgss: 'will' },
+    'koga-e4': { gen2: 'koga-gen2', hgss: 'koga' },
+    'bruno-e4': { gen2: 'bruno-gen2', hgss: 'bruno' },
+    'karen': { gen2: 'karen-gen2', hgss: 'karen' },
+    'lance-champion': { gen2: 'lance-gen2', hgss: 'lance' }
   };
 
   const trainer = trainerMap[bossId];
@@ -331,7 +353,23 @@ function getTrainerSpriteUrl(bossId: string, gameId: string): string {
     return `${showdownBase}/unknown.png`;
   }
 
-  const spriteName = isFRLG ? trainer.frlg : trainer.classic;
+  // Select appropriate sprite based on game version
+  let spriteName: string | undefined;
+  if (isGen1Classic) {
+    spriteName = trainer.gen1;
+  } else if (isGen1FRLG) {
+    spriteName = trainer.frlg;
+  } else if (isGen2Classic) {
+    spriteName = trainer.gen2;
+  } else if (isGen2HGSS) {
+    spriteName = trainer.hgss;
+  }
+
+  // Fallback to any available sprite
+  if (!spriteName) {
+    spriteName = trainer.hgss || trainer.gen2 || trainer.frlg || trainer.gen1 || 'unknown';
+  }
+
   return `${showdownBase}/${spriteName}.png`;
 }
 
@@ -400,7 +438,7 @@ function renderBossSelector(): string {
         <div class="grid gap-2 max-h-[750px] overflow-y-auto scrollbar-hide px-2 py-1" id="boss-list">
           ${bossButtons}
         </div>
-        <div class="pointer-events-none absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-gray-200/95 via-gray-200/50 to-transparent dark:from-gray-900/90 dark:via-gray-900/40 dark:to-transparent rounded-b-xl"></div>
+        <div id="boss-list-gradient" class="pointer-events-none absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-gray-200/95 via-gray-200/50 to-transparent dark:from-gray-900/90 dark:via-gray-900/40 dark:to-transparent rounded-b-xl transition-opacity duration-300"></div>
       </div>
     </div>
   `;
@@ -435,23 +473,21 @@ function renderBossDetails(): string {
     const types = pokemon?.types || [];
 
     return `
-      <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-3 flex items-center gap-3">
+      <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-3 flex flex-col items-center text-center">
         <img
           src="${getSpriteUrl(mon.pokemon)}"
           alt="${mon.pokemon}"
-          class="w-16 h-16 object-contain"
+          class="w-14 h-14 object-contain"
           onerror="this.src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png'"
         />
-        <div class="flex-1 min-w-0">
-          <div class="font-bold text-gray-900 dark:text-white">${formatPokemonName(mon.pokemon)}</div>
-          <div class="text-sm text-gray-500 dark:text-gray-400">Lv. ${mon.level}</div>
-          <div class="flex gap-1 mt-1">
-            ${types.map(type => `
-              <span class="px-1.5 py-0.5 rounded text-[10px] font-bold text-white ${getTypeColor(type)}">
-                ${type.toUpperCase()}
-              </span>
-            `).join('')}
-          </div>
+        <div class="font-bold text-sm text-gray-900 dark:text-white truncate w-full">${formatPokemonName(mon.pokemon)}</div>
+        <div class="text-xs text-gray-500 dark:text-gray-400">Lv. ${mon.level}</div>
+        <div class="flex gap-1 mt-1 flex-wrap justify-center">
+          ${types.map(type => `
+            <span class="px-1.5 py-0.5 rounded text-[9px] font-bold text-white ${getTypeColor(type)}">
+              ${type.toUpperCase()}
+            </span>
+          `).join('')}
         </div>
       </div>
     `;
@@ -585,6 +621,10 @@ function render(): void {
   const container = document.getElementById('team-builder-content');
   if (!container) return;
 
+  // Preserve scroll position of boss list before re-render
+  const bossList = document.getElementById('boss-list');
+  const scrollTop = bossList?.scrollTop || 0;
+
   container.innerHTML = `
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
       <!-- Left Column: Selection -->
@@ -606,8 +646,38 @@ function render(): void {
     lucide.createIcons();
   }
 
+  // Restore scroll position of boss list
+  const newBossList = document.getElementById('boss-list');
+  if (newBossList && scrollTop > 0) {
+    newBossList.scrollTop = scrollTop;
+  }
+
+  // Setup scroll-based gradient fade
+  setupGradientFade();
+
   // Attach event listeners
   attachEventListeners();
+}
+
+/**
+ * Setup gradient fade that hides when scrolled to bottom
+ */
+function setupGradientFade(): void {
+  const bossList = document.getElementById('boss-list');
+  const gradient = document.getElementById('boss-list-gradient');
+
+  if (!bossList || !gradient) return;
+
+  const updateGradient = () => {
+    const isAtBottom = bossList.scrollHeight - bossList.scrollTop - bossList.clientHeight < 10;
+    gradient.style.opacity = isAtBottom ? '0' : '1';
+  };
+
+  // Initial check
+  updateGradient();
+
+  // Update on scroll
+  bossList.addEventListener('scroll', updateGradient);
 }
 
 /**
