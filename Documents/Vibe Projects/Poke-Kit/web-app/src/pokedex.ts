@@ -688,6 +688,7 @@ interface MoveData {
   learnMethod: string;
   level?: number;
   machine?: string;
+  url?: string; // URL to fetch move details
 }
 
 interface MovesByGen {
@@ -696,6 +697,9 @@ interface MovesByGen {
 
 // Cache for fetched move data
 const moveCache = new Map<string, MovesByGen>();
+
+// Cache for move type lookups (move name -> type)
+const moveTypeCache = new Map<string, string>();
 
 /**
  * Open the moveset modal for a Pokémon
@@ -964,6 +968,7 @@ function processPokeApiResponse(data: {
 
   data.moves.forEach(moveEntry => {
     const moveName = moveEntry.move.name.replace(/-/g, ' ');
+    const moveUrl = moveEntry.move.url;
 
     moveEntry.version_group_details.forEach(detail => {
       const gen = genMap[detail.version_group.name];
@@ -975,8 +980,9 @@ function processPokeApiResponse(data: {
 
       const moveData: MoveData = {
         name: moveName,
-        type: 'normal', // We'll update this later if needed
-        learnMethod: detail.move_learn_method.name
+        type: 'normal', // Will be fetched lazily
+        learnMethod: detail.move_learn_method.name,
+        url: moveUrl
       };
 
       if (detail.move_learn_method.name === 'level-up') {
@@ -1012,7 +1018,7 @@ function processPokeApiResponse(data: {
 /**
  * Render moves for a specific generation
  */
-function renderMoves(movesByGen: MovesByGen, gen: string): void {
+async function renderMoves(movesByGen: MovesByGen, gen: string): Promise<void> {
   const moveList = document.getElementById('moveset-move-list');
   if (!moveList) return;
 
@@ -1029,6 +1035,17 @@ function renderMoves(movesByGen: MovesByGen, gen: string): void {
     return;
   }
 
+  // Show initial render with loading indicator for types
+  renderMovesHTML(moves, moveList);
+
+  // Fetch move types in background and update
+  await fetchAndUpdateMoveTypes(moves, gen);
+}
+
+/**
+ * Render the HTML for moves (called initially and after type fetch)
+ */
+function renderMovesHTML(moves: MoveData[], moveList: HTMLElement): void {
   // Group moves by learn method
   const levelUpMoves = moves.filter(m => m.learnMethod === 'level-up');
   const machineMoves = moves.filter(m => m.learnMethod === 'machine');
@@ -1036,12 +1053,12 @@ function renderMoves(movesByGen: MovesByGen, gen: string): void {
 
   let html = '';
 
-  // Level Up Moves
+  // Level Up Moves - improved header visibility
   if (levelUpMoves.length > 0) {
     html += `
       <div class="mb-6">
-        <h3 class="text-sm font-bold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-2">
-          <i data-lucide="trending-up" class="w-4 h-4"></i>
+        <h3 class="text-sm font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-3 flex items-center gap-2">
+          <i data-lucide="trending-up" class="w-4 h-4 text-purple-500"></i>
           Level Up (${levelUpMoves.length})
         </h3>
         <div class="space-y-2">
@@ -1051,12 +1068,12 @@ function renderMoves(movesByGen: MovesByGen, gen: string): void {
     `;
   }
 
-  // TM/HM Moves
+  // TM/HM Moves - improved header visibility
   if (machineMoves.length > 0) {
     html += `
       <div class="mb-6">
-        <h3 class="text-sm font-bold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-2">
-          <i data-lucide="disc" class="w-4 h-4"></i>
+        <h3 class="text-sm font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-3 flex items-center gap-2">
+          <i data-lucide="disc" class="w-4 h-4 text-blue-500"></i>
           TM / HM (${machineMoves.length})
         </h3>
         <div class="space-y-2">
@@ -1066,12 +1083,12 @@ function renderMoves(movesByGen: MovesByGen, gen: string): void {
     `;
   }
 
-  // Other Moves (tutor, egg, etc.)
+  // Other Moves (tutor, egg, etc.) - improved header visibility
   if (otherMoves.length > 0) {
     html += `
       <div class="mb-6">
-        <h3 class="text-sm font-bold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-2">
-          <i data-lucide="sparkles" class="w-4 h-4"></i>
+        <h3 class="text-sm font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-3 flex items-center gap-2">
+          <i data-lucide="sparkles" class="w-4 h-4 text-green-500"></i>
           Other (${otherMoves.length})
         </h3>
         <div class="space-y-2">
@@ -1086,31 +1103,88 @@ function renderMoves(movesByGen: MovesByGen, gen: string): void {
 }
 
 /**
- * Render a single move item
+ * Fetch move types from PokéAPI and update the display
  */
-function renderMoveItem(move: MoveData, type: 'level' | 'machine' | 'other'): string {
-  let badge = '';
-  let badgeClass = '';
+async function fetchAndUpdateMoveTypes(moves: MoveData[], _gen: string): Promise<void> {
+  // Get unique moves that need type fetching
+  const movesToFetch = moves.filter(m => m.type === 'normal' && m.url && !moveTypeCache.has(m.name));
 
-  if (type === 'level' && move.level !== undefined) {
+  if (movesToFetch.length === 0) {
+    // All types already cached, just update from cache
+    moves.forEach(m => {
+      if (moveTypeCache.has(m.name)) {
+        m.type = moveTypeCache.get(m.name)!;
+      }
+    });
+    const moveList = document.getElementById('moveset-move-list');
+    if (moveList) renderMovesHTML(moves, moveList);
+    return;
+  }
+
+  // Fetch move types in batches (limit concurrent requests)
+  const BATCH_SIZE = 10;
+  for (let i = 0; i < movesToFetch.length; i += BATCH_SIZE) {
+    const batch = movesToFetch.slice(i, i + BATCH_SIZE);
+
+    await Promise.all(batch.map(async (move) => {
+      try {
+        if (move.url) {
+          const response = await fetch(move.url);
+          if (response.ok) {
+            const data = await response.json();
+            const moveType = data.type?.name || 'normal';
+            moveTypeCache.set(move.name, moveType);
+            move.type = moveType;
+          }
+        }
+      } catch (e) {
+        // Keep default type on error
+        console.warn(`Failed to fetch type for ${move.name}`);
+      }
+    }));
+
+    // Update UI after each batch
+    const moveList = document.getElementById('moveset-move-list');
+    if (moveList && currentMovesetPokemon) {
+      // Update all moves with cached types
+      moves.forEach(m => {
+        if (moveTypeCache.has(m.name)) {
+          m.type = moveTypeCache.get(m.name)!;
+        }
+      });
+      renderMovesHTML(moves, moveList);
+    }
+  }
+}
+
+/**
+ * Render a single move item with type-colored badge
+ */
+function renderMoveItem(move: MoveData, learnType: 'level' | 'machine' | 'other'): string {
+  let badge = '';
+
+  if (learnType === 'level' && move.level !== undefined) {
     badge = `Lv ${move.level}`;
-    badgeClass = 'bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400';
-  } else if (type === 'machine') {
+  } else if (learnType === 'machine') {
     badge = 'TM';
-    badgeClass = 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400';
   } else {
     // Capitalize the learn method
     badge = move.learnMethod.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
-    badgeClass = 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400';
   }
+
+  // Get type config for move type coloring
+  const typeConfig = getTypeConfig(move.type);
+  const typeColor = typeConfig.color;
 
   // Capitalize move name
   const displayName = move.name.replace(/\b\w/g, c => c.toUpperCase());
 
+  // Create type-colored badge with proper contrast
   return `
     <div class="flex items-center gap-3 bg-gray-50 dark:bg-gray-900 rounded-xl p-3 border border-gray-100 dark:border-gray-700">
-      <span class="${badgeClass} px-2 py-1 rounded text-xs font-bold min-w-[60px] text-center">${badge}</span>
+      <span class="px-2 py-1 rounded text-xs font-bold min-w-[60px] text-center text-white" style="background-color: ${typeColor};">${badge}</span>
       <span class="flex-1 font-bold text-gray-900 dark:text-white">${displayName}</span>
+      <span class="px-2 py-0.5 rounded text-[10px] font-bold text-white uppercase" style="background-color: ${typeColor};">${move.type}</span>
     </div>
   `;
 }
